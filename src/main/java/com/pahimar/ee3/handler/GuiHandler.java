@@ -2,14 +2,18 @@ package com.pahimar.ee3.handler;
 
 import com.pahimar.ee3.client.gui.inventory.GuiAlchemicalBag;
 import com.pahimar.ee3.client.gui.inventory.GuiAlchemicalChest;
+import com.pahimar.ee3.client.gui.inventory.GuiCalcinator;
 import com.pahimar.ee3.client.gui.inventory.GuiGlassBell;
 import com.pahimar.ee3.inventory.ContainerAlchemicalBag;
 import com.pahimar.ee3.inventory.ContainerAlchemicalChest;
+import com.pahimar.ee3.inventory.ContainerCalcinator;
 import com.pahimar.ee3.inventory.ContainerGlassBell;
 import com.pahimar.ee3.inventory.InventoryAlchemicalBag;
 import com.pahimar.ee3.reference.GuiIds;
 import com.pahimar.ee3.tileentity.TileEntityAlchemicalChest;
+import com.pahimar.ee3.tileentity.TileEntityCalcinator;
 import com.pahimar.ee3.tileentity.TileEntityGlassBell;
+
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
@@ -33,6 +37,15 @@ public class GuiHandler implements IGuiHandler
         {
             return new ContainerAlchemicalBag(player, new InventoryAlchemicalBag(player.getHeldItem()));
         }
+        else if (id == GuiIds.CALCINATOR)
+        {
+        	TileEntityCalcinator tileEntityCalcinator = (TileEntityCalcinator) world.getTileEntity(x, y, z);
+        	return new ContainerCalcinator(player.inventory, tileEntityCalcinator);
+        }
+        else if (id == GuiIds.ALUDEL)
+        {
+        	System.out.println("Attempt made to open Aludel Container");
+        }
 
         return null;
     }
@@ -53,6 +66,16 @@ public class GuiHandler implements IGuiHandler
         else if (id == GuiIds.ALCHEMICAL_BAG)
         {
             return new GuiAlchemicalBag(player, new InventoryAlchemicalBag(player.getHeldItem()));
+        }
+        else if (id == GuiIds.CALCINATOR)
+        {
+        	TileEntityCalcinator tileEntityCalcinator = (TileEntityCalcinator) world.getTileEntity(x, y, z);
+        	System.out.println("Attempt made to open Calcinator GUI");
+        	return new GuiCalcinator(player.inventory, tileEntityCalcinator);
+        }
+        else if (id == GuiIds.ALUDEL)
+        {
+        	System.out.println("Attempt made to open Aludel GUI");
         }
 
         return null;
