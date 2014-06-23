@@ -269,7 +269,7 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
      */
     private boolean canBurn()
     {
-    	if(inventory[INPUT_INVENTORY_INDEX] == null || inventory[FUEL_INVENTORY_INDEX] == null)
+    	if((inventory[INPUT_INVENTORY_INDEX] == null && itemsToOutput == null) || inventory[FUEL_INVENTORY_INDEX] == null)
     	{
     		return false;
     	}
@@ -288,7 +288,7 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
     	{
 	    	EnergyValue stackEmc = EnergyRegistry.getInstance().getEnergyValue(inventory[FUEL_INVENTORY_INDEX]);
 			float stackEmcValue = stackEmc.getValue();
-			return MathHelper.ceiling_float_int((stackEmcValue / itemStack.stackSize) * Reference.FURNACE_TICKS_PER_FUEL_EMC);
+			return MathHelper.ceiling_float_int((stackEmcValue) * Reference.FURNACE_TICKS_PER_FUEL_EMC);
     	}
     	
     	return 0;
@@ -304,7 +304,7 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
     	{
 	    	EnergyValue stackEmc = EnergyRegistry.getInstance().getEnergyValue(inventory[FUEL_INVENTORY_INDEX]);
 			float stackEmcValue = stackEmc.getValue();
-			return MathHelper.ceiling_float_int((stackEmcValue / itemStack.stackSize) * Reference.FURNACE_TICKS_PER_ITEM_EMC);
+			return MathHelper.ceiling_float_int((stackEmcValue) * Reference.FURNACE_TICKS_PER_ITEM_EMC);
     	}
     	
     	return 0;
@@ -325,7 +325,7 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
     	
     	EnergyValue stackEmc = EnergyRegistry.getInstance().getEnergyValue(inventory[INPUT_INVENTORY_INDEX]);
 		float stackEmcValue = stackEmc.getValue();
-		ItemStack[] outputs = calculateOutputItemsForEmc(MathHelper.ceiling_float_int(stackEmcValue / inventory[INPUT_INVENTORY_INDEX].stackSize));
+		ItemStack[] outputs = calculateOutputItemsForEmc(MathHelper.floor_float(stackEmcValue));
 		
 		//items won't fit in output slots = no go
 		if(!((inventory[OUTPUT_LEFT_INVENTORY_INDEX] == null || (inventory[OUTPUT_LEFT_INVENTORY_INDEX].getItemDamage() == outputs[0].getItemDamage() && inventory[OUTPUT_LEFT_INVENTORY_INDEX].getItem() == outputs[0].getItem())) &&
@@ -535,7 +535,7 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
 	
 	public int getCookTimeRemainingScaled(int par1)
 	{
-	         return MathHelper.ceiling_float_int((itemTimeLeftInTicks / (float)itemTimeTotalInTicks) * par1);
+	         return MathHelper.ceiling_float_int(((itemTimeTotalInTicks - itemTimeLeftInTicks) * par1)  / (float)itemTimeTotalInTicks);
 	}
 	
 	public int getBurnTimeRemainingScaled(int par1)

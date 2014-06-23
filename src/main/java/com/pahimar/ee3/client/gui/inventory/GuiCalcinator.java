@@ -45,10 +45,10 @@ public class GuiCalcinator extends GuiContainer
         if (tileEntityCalcinator.state == 1)
         {
                 int burn = tileEntityCalcinator.getBurnTimeRemainingScaled(14);
-                drawTexturedModalRect(xStart + 73, yStart + 59, 100, 16, 10, burn);
+                drawTexturedModalRect(xStart + 57, yStart + 46, 176, 0, 14, burn);
                 
-                int cookProgress = tileEntityCalcinator.getCookTimeRemainingScaled(14);
-                drawTexturedModalRect(xStart + 90, yStart + 39, 100, 16, cookProgress, 10);
+                int cookProgress = tileEntityCalcinator.getCookTimeRemainingScaled(22);
+                drawTexturedModalRect(xStart + 84, yStart + 35, 177, 14, cookProgress, 16);
         }
 
     }
