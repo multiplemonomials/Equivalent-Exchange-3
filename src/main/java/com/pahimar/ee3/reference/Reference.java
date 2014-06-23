@@ -14,4 +14,10 @@ public class Reference
 	
 	//maximum number of times a power item can be charged
 	public static final int MAX_ITEM_CHARGES = 4;
+	
+	//how many ticks the Calcinator will burn per EMC in the fuel
+	public static final int FURNACE_TICKS_PER_FUEL_EMC = 10;
+	
+	//how many ticks the Calcinator will have to burn to cook an item with 1 emc 
+	public static final int FURNACE_TICKS_PER_ITEM_EMC = 3;
 }

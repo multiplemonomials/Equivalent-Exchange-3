@@ -11,7 +11,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class TileEntityEE extends TileEntity
 {
     protected ForgeDirection orientation;
-    protected byte state;
+    public byte state;
     protected String customName;
     protected String owner;
 

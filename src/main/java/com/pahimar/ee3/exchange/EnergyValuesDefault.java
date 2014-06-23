@@ -44,13 +44,13 @@ public class EnergyValuesDefault
             valueMap.put(new WrappedStack(new OreStack(new ItemStack(Items.dye, 1, meta))), new EnergyValue(8));
         }
         valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.log))), new EnergyValue(32));
-        valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.diamond_ore))), new EnergyValue(8192));
-        valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.emerald_ore))), new EnergyValue(8192));
-        valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.gold_ore))), new EnergyValue(2048));
-        valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.iron_ore))), new EnergyValue(256));
-        valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.lapis_ore))), new EnergyValue(864));
-        valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.quartz_ore))), new EnergyValue(256));
-        valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.redstone_ore))), new EnergyValue(32));
+        //valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.diamond_ore))), new EnergyValue(8192));
+       // valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.emerald_ore))), new EnergyValue(8192));
+       // valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.gold_ore))), new EnergyValue(2048));
+        //valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.iron_ore))), new EnergyValue(256));
+        //valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.lapis_ore))), new EnergyValue(864));
+        //valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.quartz_ore))), new EnergyValue(256));
+        //valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.redstone_ore))), new EnergyValue(32));
 //        valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.lit_redstone_ore))), new EnergyValue(32));
         valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.planks))), new EnergyValue(8));
         valueMap.put(new WrappedStack(new OreStack(new ItemStack(Items.record_11))), new EnergyValue(2048));
@@ -74,7 +74,7 @@ public class EnergyValuesDefault
         // Bedrock (7:0)
         valueMap.put(new WrappedStack(Blocks.sand), new EnergyValue(1));
         valueMap.put(new WrappedStack(Blocks.gravel), new EnergyValue(4));
-        valueMap.put(new WrappedStack(Blocks.coal_ore), new EnergyValue(32));
+        //valueMap.put(new WrappedStack(Blocks.coal_ore), new EnergyValue(32));
         // Sponge (19:0)
         valueMap.put(new WrappedStack(Blocks.glass), new EnergyValue(1));
         valueMap.put(new WrappedStack(Blocks.sandstone), new EnergyValue(4));
@@ -98,7 +98,7 @@ public class EnergyValuesDefault
         valueMap.put(new WrappedStack(Blocks.red_flower), new EnergyValue(16));
         valueMap.put(new WrappedStack(Blocks.brown_mushroom), new EnergyValue(32));
         valueMap.put(new WrappedStack(Blocks.red_mushroom), new EnergyValue(32));
-        valueMap.put(new WrappedStack(Blocks.snow), new EnergyValue(0.5f));
+        valueMap.put(new WrappedStack(Blocks.snow), new EnergyValue(4));
         valueMap.put(new WrappedStack(Blocks.cactus), new EnergyValue(8));
         // Stone Monster Egg (97:0)
         // Cobblestone Monster Egg (97:1)
@@ -119,7 +119,7 @@ public class EnergyValuesDefault
         valueMap.put(new WrappedStack(Items.saddle), new EnergyValue(192));
 
         /* Miscellaneous */
-        valueMap.put(new WrappedStack(Items.snowball), new EnergyValue(0.25f));
+        valueMap.put(new WrappedStack(Items.snowball), new EnergyValue(1));
         valueMap.put(new WrappedStack(Items.slime_ball), new EnergyValue(24));
         valueMap.put(new WrappedStack(Items.bone), new EnergyValue(24));
         valueMap.put(new WrappedStack(Items.ender_pearl), new EnergyValue(1024));
@@ -195,5 +195,10 @@ public class EnergyValuesDefault
          *  Minium Shard
          */
         valueMap.put(new WrappedStack(new ItemStack(ModItems.shardMinium)), new EnergyValue(8192));
+        
+        //Fuels
+        valueMap.put(new WrappedStack(new ItemStack(ModItems.alchemicalFuel, 1, 0)), new EnergyValue(128));
+        valueMap.put(new WrappedStack(new ItemStack(ModItems.alchemicalFuel, 1, 1)), new EnergyValue(512));
+        valueMap.put(new WrappedStack(new ItemStack(ModItems.alchemicalFuel, 1, 2)), new EnergyValue(2048));
     }
 }
