@@ -2,6 +2,7 @@ package com.pahimar.ee3.handler;
 
 import com.pahimar.ee3.init.ModItems;
 import com.pahimar.ee3.item.crafting.RecipesAlchemicalBagDyes;
+import com.pahimar.ee3.registry.AludelRecipeRegistry;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
@@ -31,6 +32,9 @@ public class CraftingHandler
         GameRegistry.addShapedRecipe(new ItemStack(ModItems.shovelDarkMatter), new Object[] {" A ", " D ", " D ", 'A', ModItems.darkMatter, 'D', Items.diamond});
         
         GameRegistry.addShapedRecipe(new ItemStack(ModItems.hoeDarkMatter), new Object[] {"AA ", " D ", " D ", 'A', ModItems.darkMatter, 'D', Items.diamond});
+        
+        AludelRecipeRegistry.instance().registerRecipe(new ItemStack(ModItems.stoneMinium), new String[]{"i", "d", "mm", "g"},
+        		'i', new ItemStack(ModItems.stoneInert), 'd', new ItemStack(Items.diamond), 'm', new ItemStack(ModItems.alchemicalDust, 1, 3), 'g', new ItemStack(Items.glowstone_dust));
     }
 
     @SubscribeEvent

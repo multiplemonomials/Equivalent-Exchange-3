@@ -27,7 +27,6 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
     public static final int INPUT_INVENTORY_INDEX = 1;
     public static final int OUTPUT_LEFT_INVENTORY_INDEX = 2;
     public static final int OUTPUT_RIGHT_INVENTORY_INDEX = 3;
-    private static final int DEFAULT_ITEM_SUCK_COOL_DOWN = 20;
     
     public int burnTimeLeftInTicks;              // How much longer the fuel in Calcinator will cook
     public int totalBurnTimeInTicks;                // The fuel value for the currently burning fuel
@@ -334,6 +333,24 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
 			return false;
 		}
 		
+		//cap stacks to 64, overflow left to right if possible
+		if(outputs[0].stackSize > getInventoryStackLimit())
+		{
+			if(outputs[1] == null)
+			{
+				outputs[1] = outputs[0].copy();
+				
+				outputs[1].stackSize = outputs[1].stackSize - getInventoryStackLimit();
+			}
+			
+			outputs[0].stackSize = getInventoryStackLimit();
+		}
+		
+		if(outputs[1] != null && outputs[1].stackSize > getInventoryStackLimit())
+		{	
+			outputs[1].stackSize = getInventoryStackLimit();
+		}
+		
 		//TODO: Increase the number of output slots and output all four produced dusts instead of dropping the lowest two
 		itemsToOutput = Pair.<ItemStack, ItemStack>of(outputs[0], outputs[1]);
 		
@@ -348,9 +365,6 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
 		{
 			--inventory[INPUT_INVENTORY_INDEX].stackSize;
 		}
-		
-		//inventory has changed, so
-		markDirty();
 		
 		return true;
     }
@@ -434,8 +448,6 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
 	    	rightStackSize = (byte) itemsToOutput.getRight().stackSize;
 	    	rightStackMeta = (byte) itemsToOutput.getRight().getItemDamage();
     	}
-    	
-    	markDirty();
     	
     	itemsToOutput = null;
     }

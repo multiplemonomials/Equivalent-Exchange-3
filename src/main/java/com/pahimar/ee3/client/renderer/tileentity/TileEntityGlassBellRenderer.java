@@ -65,8 +65,26 @@ public class TileEntityGlassBellRenderer extends TileEntitySpecialRenderer
              * Render the ghost item inside of the Glass Bell, slowly spinning
              */
             GL11.glPushMatrix();
+            
+            //render aludel's top item if it exists
+            if(tileEntityGlassBell.outputItemStack != null)
+            {
+                // TODO Stop the ghost item rendering in the event that the client's game is paused
+                float scaleFactor = getGhostItemScaleFactor(tileEntityGlassBell.outputItemStack);
+                float rotationAngle = (float) (720.0 * (System.currentTimeMillis() & 0x3FFFL) / 0x3FFFL);
 
-            if (tileEntityGlassBell.outputItemStack != null)
+                EntityItem ghostEntityItem = new EntityItem(tileEntityGlassBell.getWorldObj());
+                ghostEntityItem.hoverStart = 0.0F;
+                ghostEntityItem.setEntityItemStack(tileEntityGlassBell.outputItemStack);
+
+                translateGhostItemByOrientation(ghostEntityItem.getEntityItem(), x, y, z, tileEntityGlassBell.getOrientation());
+                GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
+                GL11.glRotatef(rotationAngle, 0.0F, 1.0F, 0.0F);
+
+                customRenderItem.doRender(ghostEntityItem, 0, 0, 0, 0, 0);
+            
+            }
+            else if(tileEntityGlassBell.outputItemStack != null)
             {
                 // TODO Stop the ghost item rendering in the event that the client's game is paused
                 float scaleFactor = getGhostItemScaleFactor(tileEntityGlassBell.outputItemStack);
