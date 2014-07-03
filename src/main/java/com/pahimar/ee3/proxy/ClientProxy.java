@@ -8,6 +8,7 @@ import com.pahimar.ee3.client.settings.Keybindings;
 import com.pahimar.ee3.init.ModBlocks;
 import com.pahimar.ee3.reference.RenderIds;
 import com.pahimar.ee3.tileentity.*;
+
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -42,17 +43,22 @@ public class ClientProxy extends CommonProxy
         RenderIds.alchemicalChest = RenderingRegistry.getNextAvailableRenderId();
         RenderIds.glassBell = RenderingRegistry.getNextAvailableRenderId();
         RenderIds.researchStation = RenderingRegistry.getNextAvailableRenderId();
+        RenderIds.condenser = RenderingRegistry.getNextAvailableRenderId();
 
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.alchemicalChest), new ItemAlchemicalChestRenderer());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.aludel), new ItemAludelRenderer());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.calcinator), new ItemCalcinatorRenderer());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.glassBell), new ItemGlassBellRenderer());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.researchStation), new ItemResearchStationRenderer());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.condenser), new ItemCondenserRenderer());
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAlchemicalChest.class, new TileEntityAlchemicalChestRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCalcinator.class, new TileEntityCalcinatorRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAludel.class, new TileEntityAludelRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGlassBell.class, new TileEntityGlassBellRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityResearchStation.class, new TileEntityResearchStationRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCondenser.class, new TileEntityCondenserRenderer());
+
+        
     }
 }

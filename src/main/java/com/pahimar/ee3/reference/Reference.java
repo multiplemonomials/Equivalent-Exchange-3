@@ -9,6 +9,8 @@ public class Reference
     public static final String SERVER_PROXY_CLASS = "com.pahimar.ee3.proxy.ServerProxy";
     public static final String CLIENT_PROXY_CLASS = "com.pahimar.ee3.proxy.ClientProxy";
     
+    //TODO: move below settings to config file
+    
     //damage of Dark Matter sword on lowest charge level
 	public static final float DM_SWORD_BASE_DAMAGE = 8;
 	
@@ -20,4 +22,6 @@ public class Reference
 	
 	//how many ticks the Calcinator will have to burn to cook an item with 1 emc 
 	public static final float FURNACE_TICKS_PER_ITEM_EMC = .1F;
+	
+	public static final int CONDENSER_OUTPUT_ITEMS_PER_TICK = 10;
 }

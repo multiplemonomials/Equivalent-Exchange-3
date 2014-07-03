@@ -255,6 +255,13 @@ public class EnergyRegistry
         return computedStackMap;
     }
 
+    /**
+     * Determines if the ItemStack, OreStack, or Fluid has an EMC value.
+     * 
+     * @param object
+     * @param strict Controls whether the ore dictionary will be considered
+     * @return
+     */
     public boolean hasEnergyValue(Object object, boolean strict)
     {
         if (WrappedStack.canBeWrapped(object))
@@ -285,7 +292,7 @@ public class EnergyRegistry
                             }
                             else
                             {
-                                for (ItemStack itemStack : OreDictionary.getOres(OreDictionary.getOreID(wrappedItemStack)))
+                                for(ItemStack itemStack : OreDictionary.getOres(OreDictionary.getOreID(wrappedItemStack)))
                                 {
                                     if (energyRegistry.stackMappings.containsKey(new WrappedStack(itemStack)))
                                     {
@@ -336,6 +343,13 @@ public class EnergyRegistry
         return false;
     }
 
+    /**
+     * Determines if the ItemStack, OreStack, or Fluid has an EMC value.
+     * 
+     * Considers the ore dictionary.
+     * @param object
+     * @return
+     */
     public boolean hasEnergyValue(Object object)
     {
         return hasEnergyValue(object, false);

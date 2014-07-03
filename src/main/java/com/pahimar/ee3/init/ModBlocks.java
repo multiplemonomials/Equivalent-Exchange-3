@@ -5,6 +5,7 @@ import com.pahimar.ee3.item.ItemBlockAlchemicalChest;
 import com.pahimar.ee3.item.ItemBlockAlchemicalFuel;
 import com.pahimar.ee3.reference.Names;
 import com.pahimar.ee3.reference.Reference;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
@@ -17,6 +18,7 @@ public class ModBlocks
     public static final BlockEE calcinator = new BlockCalcinator();
     public static final BlockEE glassBell = new BlockGlassBell();
     public static final BlockEE researchStation = new BlockResearchStation();
+	public static final BlockEE condenser = new BlockCondenser();
 
     public static void init()
     {
@@ -27,5 +29,6 @@ public class ModBlocks
         GameRegistry.registerBlock(calcinator, Names.Blocks.CALCINATOR);
         GameRegistry.registerBlock(glassBell, Names.Blocks.GLASS_BELL);
         GameRegistry.registerBlock(researchStation, Names.Blocks.RESEARCH_STATION);
+        GameRegistry.registerBlock(condenser, Names.Blocks.CONDENSER);
     }
 }

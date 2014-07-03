@@ -1,15 +1,16 @@
 [
 {
-  "modid": "EE3",
-  "name": "Equivalent Exchange 3",
-  "description": "Transmute stuff into other stuff! Become a Minecraft God!",
+  "modid": "EER",
+  "name": "Equivalent Exchange Reborn",
+  "description": "Don't you miss EE2? Come on, even a little bit?",
   "version": "${mod_version}",
   "mcversion": "${minecraft_version}",
   "url": "http://www.minecraftforum.net/topic/1106178-",
   "updateUrl": "",
   "authorList": [
     "pahimar",
-    "x3n0ph0b3"
+    "x3n0ph0b3",
+		"MultipleMonomials"
   ],
   "credits": "pahimar and x3n0ph0b3",
   "logoFile": "assets/ee3/textures/logo/logo.png",

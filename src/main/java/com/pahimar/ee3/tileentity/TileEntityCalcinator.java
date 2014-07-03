@@ -4,6 +4,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import com.pahimar.ee3.exchange.EnergyRegistry;
 import com.pahimar.ee3.exchange.EnergyValue;
+import com.pahimar.ee3.init.ModBlocks;
 import com.pahimar.ee3.init.ModItems;
 import com.pahimar.ee3.item.ItemAlchemicalFuel;
 import com.pahimar.ee3.network.PacketHandler;
@@ -130,6 +131,8 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
         {
             itemStack.stackSize = getInventoryStackLimit();
         }
+        
+        markDirty();
     }
     
     @Override
@@ -482,8 +485,6 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
     			changeState(takeFuel() ? 1 : 0);
     		}
     		
-    		//TODO: update flames graphic based on burn percentage 
-    		
     	}
     	else if(canBurn())
     	{
@@ -505,7 +506,7 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
     {
     	if(newState != state)
     	{
-    		this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+    		worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.calcinator, 1, newState);
     		state = (byte)newState;
     	}
     }

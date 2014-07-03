@@ -35,25 +35,12 @@ public class TileEntityAlchemicalChest extends TileEntityEE implements IInventor
     /**
      * The ItemStacks that hold the items currently being used in the Alchemical Chest
      */
-    private ItemStack[] inventory;
+    protected ItemStack[] inventory;
 
     public TileEntityAlchemicalChest(int metaData)
     {
         super();
         this.state = (byte) metaData;
-
-        if (metaData == 0)
-        {
-            inventory = new ItemStack[ContainerAlchemicalChest.SMALL_INVENTORY_SIZE];
-        }
-        else if (metaData == 1)
-        {
-            inventory = new ItemStack[ContainerAlchemicalChest.MEDIUM_INVENTORY_SIZE];
-        }
-        else if (metaData == 2)
-        {
-            inventory = new ItemStack[ContainerAlchemicalChest.LARGE_INVENTORY_SIZE];
-        }
     }
 
     @Override

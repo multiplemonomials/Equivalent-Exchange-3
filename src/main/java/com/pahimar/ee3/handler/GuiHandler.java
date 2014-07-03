@@ -4,17 +4,20 @@ import com.pahimar.ee3.client.gui.inventory.GuiAlchemicalBag;
 import com.pahimar.ee3.client.gui.inventory.GuiAlchemicalChest;
 import com.pahimar.ee3.client.gui.inventory.GuiAludel;
 import com.pahimar.ee3.client.gui.inventory.GuiCalcinator;
+import com.pahimar.ee3.client.gui.inventory.GuiCondenser;
 import com.pahimar.ee3.client.gui.inventory.GuiGlassBell;
 import com.pahimar.ee3.inventory.ContainerAlchemicalBag;
 import com.pahimar.ee3.inventory.ContainerAlchemicalChest;
 import com.pahimar.ee3.inventory.ContainerAludel;
 import com.pahimar.ee3.inventory.ContainerCalcinator;
+import com.pahimar.ee3.inventory.ContainerCondenser;
 import com.pahimar.ee3.inventory.ContainerGlassBell;
 import com.pahimar.ee3.inventory.InventoryAlchemicalBag;
 import com.pahimar.ee3.reference.GuiIds;
 import com.pahimar.ee3.tileentity.TileEntityAlchemicalChest;
 import com.pahimar.ee3.tileentity.TileEntityAludel;
 import com.pahimar.ee3.tileentity.TileEntityCalcinator;
+import com.pahimar.ee3.tileentity.TileEntityCondenser;
 import com.pahimar.ee3.tileentity.TileEntityGlassBell;
 
 import cpw.mods.fml.common.network.IGuiHandler;
@@ -30,6 +33,11 @@ public class GuiHandler implements IGuiHandler
         {
             TileEntityAlchemicalChest tileEntityAlchemicalChest = (TileEntityAlchemicalChest) world.getTileEntity(x, y, z);
             return new ContainerAlchemicalChest(player.inventory, tileEntityAlchemicalChest);
+        }
+        if (id == GuiIds.CONDENSER)
+        {
+            TileEntityCondenser tileEntityCondenser = (TileEntityCondenser) world.getTileEntity(x, y, z);
+            return new ContainerCondenser(player.inventory, tileEntityCondenser);
         }
         else if (id == GuiIds.GLASS_BELL)
         {
@@ -61,6 +69,11 @@ public class GuiHandler implements IGuiHandler
         {
             TileEntityAlchemicalChest tileEntityAlchemicalChest = (TileEntityAlchemicalChest) world.getTileEntity(x, y, z);
             return new GuiAlchemicalChest(player.inventory, tileEntityAlchemicalChest);
+        }
+        if (id == GuiIds.CONDENSER)
+        {
+            TileEntityCondenser tileEntityCondenser = (TileEntityCondenser) world.getTileEntity(x, y, z);
+            return new GuiCondenser(player.inventory, tileEntityCondenser);
         }
         else if (id == GuiIds.GLASS_BELL)
         {

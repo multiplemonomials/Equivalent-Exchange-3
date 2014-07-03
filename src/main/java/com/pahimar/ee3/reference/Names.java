@@ -11,6 +11,7 @@ public class Names
         public static final String GLASS_BELL = "glassBell";
         public static final String CALCINATOR = "calcinator";
         public static final String RESEARCH_STATION = "researchStation";
+		public static final String CONDENSER = "condenser";
     }
 
     public static class Items
@@ -70,6 +71,7 @@ public class Names
         public static final String ALUDEL_NAME = "container.ee3:" + Blocks.ALUDEL;
 
         public static final String GLASS_BELL = "container.ee3:" + Blocks.GLASS_BELL;
+		public static final String CONDENSER = "container.ee3:" + Blocks.CONDENSER;
     }
 
     public static class Keys

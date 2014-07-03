@@ -122,4 +122,25 @@ public class ItemHelper
     	return first.getItem() != second.getItem() ? false : (first.getItemDamage() == second.getItemDamage()); 
     				
     }
+    
+    /**
+     * returns whether two ItemStacks are similar.  Like equals(), but ignores stack size and NBT.
+     * 
+     * Two null stacks count as similar.
+     * @return
+     */
+    public static boolean equalsIgnoreStackSize(ItemStack first, ItemStack second)
+    {
+    	if(first == null && second == null)
+    	{
+    		return true;
+    	}
+    	
+    	else if(first == null || second == null)
+    	{
+    		return false;
+    	}
+    	return first.getItem() != second.getItem() ? false : (first.getItemDamage() != second.getItemDamage() ? false : (first.getTagCompound() == second.getTagCompound())); 
+    				
+    }
 }

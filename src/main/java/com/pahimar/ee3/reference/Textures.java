@@ -19,6 +19,8 @@ public class Textures
     public static final ResourceLocation MODEL_ALCHEMICAL_CHEST_LARGE = ResourceLocationHelper.getResourceLocation(MODEL_TEXTURE_LOCATION + "alchemicalChest_large.png");
     public static final ResourceLocation MODEL_GLASS_BELL = ResourceLocationHelper.getResourceLocation(MODEL_TEXTURE_LOCATION + "aludel.png");
     public static final ResourceLocation MODEL_RESEARCH_STATION = ResourceLocationHelper.getResourceLocation(MODEL_TEXTURE_LOCATION + "researchStation.png");
+	public static final ResourceLocation MODEL_CONDENSER = ResourceLocationHelper.getResourceLocation(MODEL_TEXTURE_LOCATION + "condenser.png");
+    
     public static final String ARMOR_SHEET_LOCATION = "textures/armor/";
     public static final String GUI_SHEET_LOCATION = "textures/gui/";
     // GUI textures
@@ -30,6 +32,7 @@ public class Textures
     public static final ResourceLocation GUI_ALCHEMICAL_CHEST_SMALL = ResourceLocationHelper.getResourceLocation(GUI_SHEET_LOCATION + "alchemicalChest_small.png");
     public static final ResourceLocation GUI_ALCHEMICAL_CHEST_MEDIUM = ResourceLocationHelper.getResourceLocation(GUI_SHEET_LOCATION + "alchemicalChest_medium.png");
     public static final ResourceLocation GUI_ALCHEMICAL_CHEST_LARGE = ResourceLocationHelper.getResourceLocation(GUI_SHEET_LOCATION + "alchemicalChest_large.png");
+    public static final ResourceLocation GUI_CONDENSER = ResourceLocationHelper.getResourceLocation(GUI_SHEET_LOCATION + "condenser.png");
     public static final ResourceLocation GUI_GLASS_BELL = ResourceLocationHelper.getResourceLocation(GUI_SHEET_LOCATION + "glassBell.png");
     public static final String EFFECTS_LOCATION = "textures/effects/";
     // Effect textures
