@@ -1,18 +1,20 @@
 package com.pahimar.ee3.inventory;
 
 import com.pahimar.ee3.tileentity.TileEntityAludel;
+import com.pahimar.ee3.util.ItemHelper;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
-import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.ItemStack;
 
 public class ContainerAludel extends Container
 {
     private final int PLAYER_INVENTORY_ROWS = 3;
     private final int PLAYER_INVENTORY_COLUMNS = 9;
+    
+    TileEntityAludel tileEntityAludel;
 
     public ContainerAludel(InventoryPlayer inventoryPlayer, TileEntityAludel tileAludel)
     {
@@ -49,6 +51,8 @@ public class ContainerAludel extends Container
         {
             this.addSlotToContainer(new Slot(inventoryPlayer, actionBarSlotIndex, 8 + actionBarSlotIndex * 18, 164));
         }
+        
+        tileEntityAludel = tileAludel;
     }
 
     @Override
@@ -60,39 +64,6 @@ public class ContainerAludel extends Container
     @Override
     public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotIndex)
     {
-        ItemStack itemStack = null;
-        Slot slot = (Slot) inventorySlots.get(slotIndex);
-
-        if (slot != null && slot.getHasStack())
-        {
-            ItemStack slotItemStack = slot.getStack();
-            itemStack = slotItemStack.copy();
-
-            if (slotIndex < TileEntityAludel.INVENTORY_SIZE)
-            {
-
-                if (!this.mergeItemStack(slotItemStack, 1, inventorySlots.size(), true))
-                {
-                    return null;
-                }
-            }
-            else
-            {
-                if (!this.mergeItemStack(slotItemStack, 0, TileEntityAludel.INVENTORY_SIZE, false))
-                {
-                    return null;
-                }
-            }
-            
-            slot.onPickupFromSlot(entityPlayer, itemStack);
-
-            if (slotItemStack.stackSize == 0)
-            {
-                slot.putStack(null);
-            }
-            
-        }
-
-        return itemStack;
+        return ItemHelper.transferStackInSlot(entityPlayer, tileEntityAludel, (Slot)inventorySlots.get(slotIndex), TileEntityAludel.INVENTORY_SIZE);
     }
 }

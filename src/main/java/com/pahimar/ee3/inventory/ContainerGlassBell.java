@@ -1,6 +1,8 @@
 package com.pahimar.ee3.inventory;
 
 import com.pahimar.ee3.tileentity.TileEntityGlassBell;
+import com.pahimar.ee3.util.ItemHelper;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -11,6 +13,8 @@ public class ContainerGlassBell extends Container
 {
     private final int PLAYER_INVENTORY_ROWS = 3;
     private final int PLAYER_INVENTORY_COLUMNS = 9;
+    
+    TileEntityGlassBell tileEntityGlassBell;
 
     public ContainerGlassBell(InventoryPlayer inventoryPlayer, TileEntityGlassBell tileGlassBell)
     {
@@ -30,6 +34,8 @@ public class ContainerGlassBell extends Container
         {
             this.addSlotToContainer(new Slot(inventoryPlayer, actionBarSlotIndex, 8 + actionBarSlotIndex * 18, 116));
         }
+        
+        tileEntityGlassBell = tileGlassBell;
     }
 
     @Override
@@ -41,40 +47,6 @@ public class ContainerGlassBell extends Container
     @Override
     public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotIndex)
     {
-        ItemStack itemStack = null;
-        Slot slot = (Slot) inventorySlots.get(slotIndex);
-
-        if (slot != null && slot.getHasStack())
-        {
-            ItemStack slotItemStack = slot.getStack();
-            itemStack = slotItemStack.copy();
-
-            if (slotIndex < TileEntityGlassBell.INVENTORY_SIZE)
-            {
-
-                if (!this.mergeItemStack(slotItemStack, 1, inventorySlots.size(), true))
-                {
-                    return null;
-                }
-            }
-            else
-            {
-                if (!this.mergeItemStack(slotItemStack, 0, TileEntityGlassBell.INVENTORY_SIZE, false))
-                {
-                    return null;
-                }
-            }
-
-            if (slotItemStack.stackSize == 0)
-            {
-                slot.putStack(null);
-            }
-            else
-            {
-                slot.onSlotChanged();
-            }
-        }
-
-        return itemStack;
+        return ItemHelper.transferStackInSlot(entityPlayer, tileEntityGlassBell, (Slot)inventorySlots.get(slotIndex), TileEntityGlassBell.INVENTORY_SIZE);
     }
 }

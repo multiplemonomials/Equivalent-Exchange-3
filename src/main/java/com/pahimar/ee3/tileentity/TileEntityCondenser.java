@@ -1,6 +1,8 @@
 package com.pahimar.ee3.tileentity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -19,6 +21,9 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest
 
 	private ItemStack[] previousInventory;
 	
+	//slots which it is not OK to put condensed items into
+	static Set<Integer> _invalidSlots;
+	
 	/**
 	 * The amount of EMC currently stored in the condenser
 	 * Should always be less that the EMC value of inventory[INPUT_SLOT_INVENTORY_INDEX]
@@ -29,6 +34,13 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest
     public TileEntityCondenser()
     {
         super(3);
+        
+        //I realize this isn't very thread-safe, but if you can think of a better way let me know
+        if(_invalidSlots == null)
+        {
+        	_invalidSlots = new HashSet<Integer>();
+        	_invalidSlots.add(INPUT_SLOT_INVENTORY_INDEX);
+        }
         
         inventory = new ItemStack[ContainerCondenser.CONDENSER_INVENTORY_SIZE];
         
@@ -94,56 +106,6 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest
     	}
 
     }
-
-    /**
-     * Adds the ItemStack to the first available slot in the inventory
-     * 
-     * Splits the items if the stack is more than 64.
-     * 
-     * Assumes it is not called with a null or zero-size ItemStack.
-     * 
-     * @param itemsToProduce
-     * 
-     * @return the number of items that could not fit, if any
-     */
-    private int addItemsToInventory(ItemStack itemsToProduce)
-    {
-		for(int counter = 0; counter < inventory.length; ++counter)
-		{
-			if(itemsToProduce.stackSize == 0)
-			{
-				break;
-			}
-			
-			if(inventory[counter] == null)
-			{
-				inventory[counter] = itemsToProduce.copy();
-				
-				inventory[counter].stackSize = itemsToProduce.stackSize;
-				
-				if(inventory[counter].stackSize > inventory[counter].getItem().getItemStackLimit(inventory[counter]))
-				{
-					inventory[counter].stackSize = inventory[counter].getItem().getItemStackLimit(inventory[counter]);
-				}
-				
-				itemsToProduce.stackSize -= inventory[counter].stackSize;
-			}
-			else if(inventory[counter].stackSize < getInventoryStackLimit() && ItemHelper.equalsIgnoreStackSize(itemsToProduce, inventory[counter]))
-			{
-				int itemsToAddToStack = itemsToProduce.stackSize;
-				
-				if(itemsToAddToStack + inventory[counter].stackSize > inventory[counter].getItem().getItemStackLimit(inventory[counter]))
-				{
-					itemsToAddToStack = inventory[counter].getItem().getItemStackLimit(inventory[counter]) - inventory[counter].stackSize;
-				}
-				
-				inventory[counter].stackSize += itemsToAddToStack;
-				itemsToProduce.stackSize -= itemsToAddToStack;
-			}
-		}
-		
-		return itemsToProduce.stackSize;
-	}
     
     private int drainLeftoverEMC(int itemToProduceLimit, int itemToProduceEMCValue)
     {
@@ -218,7 +180,7 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest
     	if(numberOfTargetItemsToProduce != 0)
     	{
     		ItemStack itemsToProduce = new ItemStack(inventory[INPUT_SLOT_INVENTORY_INDEX].getItem(), numberOfTargetItemsToProduce, inventory[INPUT_SLOT_INVENTORY_INDEX].getItemDamage());
-    		int itemsToReturn = addItemsToInventory(itemsToProduce);
+    		int itemsToReturn = ItemHelper.addItemsToInventory(itemsToProduce, this, _invalidSlots);
     		
     		if(itemsToReturn != 0)
     		{

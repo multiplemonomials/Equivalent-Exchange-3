@@ -86,14 +86,4 @@ public class BlockCondenser extends BlockEE implements ITileEntityProvider
         TileEntity tileentity = world.getTileEntity(x, y, z);
         return tileentity != null ? tileentity.receiveClientEvent(eventId, eventData) : false;
     }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list)
-    {
-        for (int meta = 0; meta < 3; meta++)
-        {
-            list.add(new ItemStack(item, 1, meta));
-        }
-    }
 }

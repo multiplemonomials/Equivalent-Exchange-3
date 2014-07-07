@@ -157,7 +157,7 @@ public class EnergyValuesDefault
         valueMap.put(new WrappedStack(Items.ghast_tear), new EnergyValue(4096));
 
         /* Materials */
-        valueMap.put(new WrappedStack(new ItemStack(Items.coal, 1, 0)), new EnergyValue(32));
+        valueMap.put(new WrappedStack(new ItemStack(Items.coal, 1, 0)), new EnergyValue(64));
         valueMap.put(new WrappedStack(new ItemStack(Items.coal, 1, 1)), new EnergyValue(32));
         valueMap.put(new WrappedStack(Items.diamond), new EnergyValue(8192));
         valueMap.put(new WrappedStack(Items.iron_ingot), new EnergyValue(256));
@@ -186,19 +186,20 @@ public class EnergyValuesDefault
         /**
          *  Alchemical Dusts
          */
+        //NOTE: if you change these values, you must also change the bitmasks in TileEntityCalcinator.java
         valueMap.put(new WrappedStack(new ItemStack(ModItems.alchemicalDust, 1, 0)), new EnergyValue(1));
         valueMap.put(new WrappedStack(new ItemStack(ModItems.alchemicalDust, 1, 1)), new EnergyValue(64));
         valueMap.put(new WrappedStack(new ItemStack(ModItems.alchemicalDust, 1, 2)), new EnergyValue(2048));
         valueMap.put(new WrappedStack(new ItemStack(ModItems.alchemicalDust, 1, 3)), new EnergyValue(8192));
 
         /**
-         *  Minium Shard
+         *  Minium Stone
          */
-        valueMap.put(new WrappedStack(new ItemStack(ModItems.shardMinium)), new EnergyValue(8192));
+        valueMap.put(new WrappedStack(new ItemStack(ModItems.stoneMinium)), new EnergyValue(24960));
         
         //Fuels
-        valueMap.put(new WrappedStack(new ItemStack(ModItems.alchemicalFuel, 1, 0)), new EnergyValue(128));
-        valueMap.put(new WrappedStack(new ItemStack(ModItems.alchemicalFuel, 1, 1)), new EnergyValue(512));
-        valueMap.put(new WrappedStack(new ItemStack(ModItems.alchemicalFuel, 1, 2)), new EnergyValue(2048));
+        valueMap.put(new WrappedStack(new ItemStack(ModItems.alchemicalFuel, 1, 0)), new EnergyValue(256));
+        valueMap.put(new WrappedStack(new ItemStack(ModItems.alchemicalFuel, 1, 1)), new EnergyValue(1024));
+        valueMap.put(new WrappedStack(new ItemStack(ModItems.alchemicalFuel, 1, 2)), new EnergyValue(4096));
     }
 }

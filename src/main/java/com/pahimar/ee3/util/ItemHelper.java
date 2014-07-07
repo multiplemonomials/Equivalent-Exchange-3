@@ -1,10 +1,16 @@
 package com.pahimar.ee3.util;
 
 import com.pahimar.ee3.reference.Compare;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ItemHelper
 {
@@ -142,5 +148,136 @@ public class ItemHelper
     	}
     	return first.getItem() != second.getItem() ? false : (first.getItemDamage() != second.getItemDamage() ? false : (first.getTagCompound() == second.getTagCompound())); 
     				
+    }
+    
+    /**
+     * Adds the ItemStack to the first available slot in the inventory
+     * 
+     * Splits the items if the stack is more than 64.
+     * 
+     * Assumes it is not called with a null or zero-size ItemStack.
+     * 
+     * @param itemsToProduce
+     * @param inventory
+     * @param blacklistedSlots the set of slots to NOT put items into if they are empty.
+     * 
+     * @return the number of items that could not fit, if any
+     */
+    
+    //I can't figure out how mergeItemStack works, so I wrote this instead
+    public static int addItemsToInventory(ItemStack itemsToProduce, IInventory inventory, Set<Integer> blacklistedSlots)
+    {
+		for(int counter = 0; counter < inventory.getSizeInventory(); ++counter)
+		{
+			if(itemsToProduce.stackSize == 0)
+			{
+				break;
+			}
+			else if(blacklistedSlots.isEmpty())
+			{
+				if(blacklistedSlots.contains(counter))
+				{
+					continue;
+				}
+			}
+			
+			ItemStack currentStack = inventory.getStackInSlot(counter);
+			
+			if(currentStack == null)
+			{
+				currentStack = itemsToProduce.copy();
+				
+				currentStack.stackSize = itemsToProduce.stackSize;
+				
+				if(currentStack.stackSize > currentStack.getItem().getItemStackLimit(currentStack))
+				{
+					currentStack.stackSize = currentStack.getItem().getItemStackLimit(currentStack);
+				}
+				
+				itemsToProduce.stackSize -= currentStack.stackSize;
+				
+				inventory.setInventorySlotContents(counter, currentStack);
+			}
+			else if(currentStack.stackSize < currentStack.getItem().getItemStackLimit(currentStack) && ItemHelper.equalsIgnoreStackSize(itemsToProduce, currentStack))
+			{
+				int itemsToAddToStack = itemsToProduce.stackSize;
+				
+				if(itemsToAddToStack + currentStack.stackSize > currentStack.getItem().getItemStackLimit(currentStack))
+				{
+					itemsToAddToStack = currentStack.getItem().getItemStackLimit(currentStack) - currentStack.stackSize;
+				}
+				
+				currentStack.stackSize += itemsToAddToStack;
+				itemsToProduce.stackSize -= itemsToAddToStack;
+				
+				inventory.setInventorySlotContents(counter, currentStack);
+			}
+		}
+		
+		return itemsToProduce.stackSize;
+	}
+    
+    final static HashSet<Integer> emptyHashSet = new HashSet<Integer>();
+    
+    /**
+     * Same as addItemsToInventory(itemsToProduce, inventory, new HashSet&ltInteger&gt())
+     * @param itemsToProduce
+     * @param inventory
+     * @return
+     */
+    public static int addItemsToInventory(ItemStack itemsToProduce, IInventory inventory)
+    {
+    	return addItemsToInventory(itemsToProduce, inventory, emptyHashSet);
+    }
+    
+    /**
+     * generic transferStackInSlot method shared by most EER machines
+     * 
+     * @param entityPlayer
+     * @param slotIndex
+     * @param machineInventorySize
+     * @return
+     */
+    public static ItemStack transferStackInSlot(EntityPlayer entityPlayer, IInventory machineInventory, Slot slot, int machineInventorySize)
+    {
+        ItemStack itemStack = null;
+
+        if (slot != null && slot.getHasStack())
+        {
+            ItemStack slotItemStack = slot.getStack();
+            itemStack = slotItemStack.copy();
+            
+            int originalStackSize = itemStack.stackSize;
+
+            if (slot.getSlotIndex() < machineInventorySize)
+            {
+            	//copy from tile entity inventory to the player's
+                itemStack.stackSize = addItemsToInventory(itemStack, entityPlayer.inventory);
+            }
+            else
+            {
+                //copy from player inventory to the tile entity's
+            	 itemStack.stackSize = addItemsToInventory(itemStack, machineInventory);
+            }
+            
+            if(itemStack.stackSize == 0)
+            {
+                slot.putStack(null);
+            }
+            
+            else
+            {
+            	slot.putStack(itemStack);
+            }
+
+            if(itemStack.stackSize != originalStackSize)
+            {
+                slot.onSlotChanged();
+            }
+            
+            return itemStack.stackSize == 0 ? null : itemStack;
+        }
+        
+        return null;
     }
 }

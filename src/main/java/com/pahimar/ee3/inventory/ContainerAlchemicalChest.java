@@ -1,6 +1,8 @@
 package com.pahimar.ee3.inventory;
 
 import com.pahimar.ee3.tileentity.TileEntityAlchemicalChest;
+import com.pahimar.ee3.util.ItemHelper;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -125,37 +127,7 @@ public class ContainerAlchemicalChest extends Container
 
     @Override
     public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotIndex)
-    {
-        ItemStack newItemStack = null;
-        Slot slot = (Slot) inventorySlots.get(slotIndex);
-
-        if (slot != null && slot.getHasStack())
-        {
-            ItemStack itemStack = slot.getStack();
-            newItemStack = itemStack.copy();
-
-            if (slotIndex < chestInventoryRows * chestInventoryColumns)
-            {
-                if (!this.mergeItemStack(itemStack, chestInventoryRows * chestInventoryColumns, inventorySlots.size(), false))
-                {
-                    return null;
-                }
-            }
-            else if (!this.mergeItemStack(itemStack, 0, chestInventoryRows * chestInventoryColumns, false))
-            {
-                return null;
-            }
-
-            if (itemStack.stackSize == 0)
-            {
-                slot.putStack(null);
-            }
-            else
-            {
-                slot.onSlotChanged();
-            }
-        }
-
-        return newItemStack;
+    {  
+        return ItemHelper.transferStackInSlot(entityPlayer, tileEntityAlchemicalChest, (Slot)inventorySlots.get(slotIndex), chestInventoryColumns * chestInventoryRows);
     }
 }

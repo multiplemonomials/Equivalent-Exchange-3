@@ -1,6 +1,7 @@
 package com.pahimar.ee3.inventory;
 
 import com.pahimar.ee3.tileentity.TileEntityCalcinator;
+import com.pahimar.ee3.util.ItemHelper;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -12,9 +13,13 @@ public class ContainerCalcinator extends Container
 {
     private final int PLAYER_INVENTORY_ROWS = 3;
     private final int PLAYER_INVENTORY_COLUMNS = 9;
+    
+    TileEntityCalcinator tileEntityCalcinator;
 
     public ContainerCalcinator(InventoryPlayer inventoryPlayer, TileEntityCalcinator tileCalcinator)
     {
+    	tileEntityCalcinator = tileCalcinator;
+    	
         this.addSlotToContainer(new Slot(tileCalcinator, TileEntityCalcinator.INPUT_INVENTORY_INDEX, 56, 17));
         
         this.addSlotToContainer(new Slot(tileCalcinator, TileEntityCalcinator.FUEL_INVENTORY_INDEX, 56, 62));
@@ -48,40 +53,7 @@ public class ContainerCalcinator extends Container
     @Override
     public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotIndex)
     {
-        ItemStack itemStack = null;
-        Slot slot = (Slot) inventorySlots.get(slotIndex);
+        return ItemHelper.transferStackInSlot(entityPlayer, tileEntityCalcinator, (Slot)inventorySlots.get(slotIndex), TileEntityCalcinator.INVENTORY_SIZE);
 
-        if (slot != null && slot.getHasStack())
-        {
-            ItemStack slotItemStack = slot.getStack();
-            itemStack = slotItemStack.copy();
-
-            if (slotIndex < TileEntityCalcinator.INVENTORY_SIZE)
-            {
-
-                if (!this.mergeItemStack(slotItemStack, 1, inventorySlots.size(), true))
-                {
-                    return null;
-                }
-            }
-            else
-            {
-                if (!this.mergeItemStack(slotItemStack, 0, TileEntityCalcinator.INVENTORY_SIZE, false))
-                {
-                    return null;
-                }
-            }
-
-            if (slotItemStack.stackSize == 0)
-            {
-                slot.putStack(null);
-            }
-            else
-            {
-                slot.onSlotChanged();
-            }
-        }
-
-        return itemStack;
     }
 }
