@@ -47,6 +47,6 @@ public class ContainerGlassBell extends Container
     @Override
     public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotIndex)
     {
-        return ItemHelper.transferStackInSlot(entityPlayer, tileEntityGlassBell, (Slot)inventorySlots.get(slotIndex), TileEntityGlassBell.INVENTORY_SIZE);
+        return ItemHelper.transferStackInSlot(entityPlayer, tileEntityGlassBell, (Slot)inventorySlots.get(slotIndex), slotIndex, TileEntityGlassBell.INVENTORY_SIZE);
     }
 }

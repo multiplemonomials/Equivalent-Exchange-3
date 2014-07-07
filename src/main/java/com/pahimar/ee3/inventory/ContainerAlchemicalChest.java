@@ -128,6 +128,6 @@ public class ContainerAlchemicalChest extends Container
     @Override
     public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotIndex)
     {  
-        return ItemHelper.transferStackInSlot(entityPlayer, tileEntityAlchemicalChest, (Slot)inventorySlots.get(slotIndex), chestInventoryColumns * chestInventoryRows);
+        return ItemHelper.transferStackInSlot(entityPlayer, tileEntityAlchemicalChest, (Slot)inventorySlots.get(slotIndex), slotIndex, chestInventoryColumns * chestInventoryRows);
     }
 }

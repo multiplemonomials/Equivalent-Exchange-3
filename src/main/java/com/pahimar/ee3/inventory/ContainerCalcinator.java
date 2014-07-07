@@ -53,7 +53,7 @@ public class ContainerCalcinator extends Container
     @Override
     public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotIndex)
     {
-        return ItemHelper.transferStackInSlot(entityPlayer, tileEntityCalcinator, (Slot)inventorySlots.get(slotIndex), TileEntityCalcinator.INVENTORY_SIZE);
+        return ItemHelper.transferStackInSlot(entityPlayer, tileEntityCalcinator, (Slot)inventorySlots.get(slotIndex), slotIndex, TileEntityCalcinator.INVENTORY_SIZE);
 
     }
 }

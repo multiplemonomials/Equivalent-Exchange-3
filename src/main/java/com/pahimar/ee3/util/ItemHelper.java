@@ -238,7 +238,7 @@ public class ItemHelper
      * @param machineInventorySize
      * @return
      */
-    public static ItemStack transferStackInSlot(EntityPlayer entityPlayer, IInventory machineInventory, Slot slot, int machineInventorySize)
+    public static ItemStack transferStackInSlot(EntityPlayer entityPlayer, IInventory machineInventory, Slot slot, int slotIndex, int machineInventorySize)
     {
         ItemStack itemStack = null;
 
@@ -249,7 +249,7 @@ public class ItemHelper
             
             int originalStackSize = itemStack.stackSize;
 
-            if (slot.getSlotIndex() < machineInventorySize)
+            if (slotIndex < machineInventorySize)
             {
             	//copy from tile entity inventory to the player's
                 itemStack.stackSize = addItemsToInventory(itemStack, entityPlayer.inventory);
@@ -272,7 +272,8 @@ public class ItemHelper
 
             if(itemStack.stackSize != originalStackSize)
             {
-                slot.onSlotChanged();
+            	//not exactly sure what the second parameter is
+                slot.onPickupFromSlot(entityPlayer, slotItemStack);
             }
             
             return itemStack.stackSize == 0 ? null : itemStack;

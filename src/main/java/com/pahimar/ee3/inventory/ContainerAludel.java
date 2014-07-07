@@ -64,6 +64,6 @@ public class ContainerAludel extends Container
     @Override
     public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotIndex)
     {
-        return ItemHelper.transferStackInSlot(entityPlayer, tileEntityAludel, (Slot)inventorySlots.get(slotIndex), TileEntityAludel.INVENTORY_SIZE);
+        return ItemHelper.transferStackInSlot(entityPlayer, tileEntityAludel, (Slot)inventorySlots.get(slotIndex), slotIndex, TileEntityAludel.INVENTORY_SIZE);
     }
 }
