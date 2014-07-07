@@ -7,6 +7,8 @@ import java.util.Set;
 import org.apache.commons.lang3.ArrayUtils;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.MathHelper;
 
 import com.pahimar.ee3.exchange.EnergyRegistry;
@@ -23,6 +25,8 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest
 	
 	//slots which it is not OK to put condensed items into
 	static Set<Integer> _invalidSlots;
+	
+	int _targetItemEMC;
 	
 	/**
 	 * The amount of EMC currently stored in the condenser
@@ -46,6 +50,24 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest
         
         previousInventory = new ItemStack[ContainerCondenser.CONDENSER_INVENTORY_SIZE];
 
+    }
+    
+    @Override
+    public void readFromNBT(NBTTagCompound nbtTagCompound)
+    {
+       super.readFromNBT(nbtTagCompound);
+
+       leftoverEMC = nbtTagCompound.getLong("leftoverEMC");
+       _targetItemEMC = nbtTagCompound.getInteger("targetItemEMC");
+    }
+    
+    @Override
+    public void writeToNBT(NBTTagCompound nbtTagCompound)
+    {
+       super.writeToNBT(nbtTagCompound);
+
+       nbtTagCompound.setLong("leftoverEMC", leftoverEMC);
+       nbtTagCompound.setInteger("targetItemEMC", _targetItemEMC);
     }
     
     @Override
@@ -89,8 +111,9 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest
     {
     	super.updateEntity();
     	
-    	if(getHasChanged())
-    	{
+    	
+    	//if(getHasChanged())
+    	//{
     		ArrayList<Integer> condensableItems = getCondensableItems();
     		
     		if(!condensableItems.isEmpty())
@@ -103,6 +126,14 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest
     			condenseSomeItems(condensableItems);
     			
     		}
+    	//}
+    	
+    	if(_targetItemEMC != 0 && leftoverEMC > _targetItemEMC)
+    	{
+    		ItemStack itemsToAdd = inventory[INPUT_SLOT_INVENTORY_INDEX].copy();
+    		itemsToAdd.stackSize = drainLeftoverEMC(Reference.CONDENSER_OUTPUT_ITEMS_PER_TICK, _targetItemEMC);
+    		ItemHelper.addItemsToInventory(itemsToAdd, this, _invalidSlots);
+    		
     	}
 
     }
@@ -134,13 +165,13 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest
      */
     private void condenseSomeItems(ArrayList<Integer> condensableItems) 
     {	
-    	int targetItemEMC = MathHelper.floor_float(EnergyRegistry.getInstance().getEnergyValue(inventory[INPUT_SLOT_INVENTORY_INDEX]).getValue());
+    	_targetItemEMC = MathHelper.floor_float(EnergyRegistry.getInstance().getEnergyValue(inventory[INPUT_SLOT_INVENTORY_INDEX]).getValue());
     	
     	int numberOfTargetItemsToProduce = 0;
 		
-    	numberOfTargetItemsToProduce += drainLeftoverEMC(Reference.CONDENSER_OUTPUT_ITEMS_PER_TICK, targetItemEMC);
+    	numberOfTargetItemsToProduce += drainLeftoverEMC(Reference.CONDENSER_OUTPUT_ITEMS_PER_TICK, _targetItemEMC);
     	
-    	//TODO: don't produce more items than can fit.  Currently they're barfed back out as leftover EMC
+    	//TODO: don't take more items than can fit.  Currently they're barfed back out as leftover EMC
     	
     	if(numberOfTargetItemsToProduce <= Reference.CONDENSER_OUTPUT_ITEMS_PER_TICK)
 	    {
@@ -161,7 +192,7 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest
 	    			leftoverEMC += singleItemEmcValue;
 	    			
 	    			
-	    			numberOfTargetItemsToProduce += drainLeftoverEMC(Reference.CONDENSER_OUTPUT_ITEMS_PER_TICK - numberOfTargetItemsToProduce, targetItemEMC);
+	    			numberOfTargetItemsToProduce += drainLeftoverEMC(Reference.CONDENSER_OUTPUT_ITEMS_PER_TICK - numberOfTargetItemsToProduce, _targetItemEMC);
 	    			
 	    			
 	    			if(numberOfTargetItemsToProduce >= Reference.CONDENSER_OUTPUT_ITEMS_PER_TICK)
