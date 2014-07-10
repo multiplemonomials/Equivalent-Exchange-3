@@ -88,8 +88,10 @@ public class CraftingHandler
         GameRegistry.addShapedRecipe(new ItemStack(ModItems.alchemicalBag), new Object[] {"WGW", "ACA", "WGW", 'W', 
         	new ItemStack(Blocks.wool, 1, -1), 'G', Items.gold_ingot, 'C', new ItemStack(ModBlocks.alchemicalChest, 1, -1), 'A', new ItemStack(ModItems.alchemicalDust, 1, 2)});
         
-        
-        
+        //Talisman of Repair
+        GameRegistry.addShapedRecipe(new ItemStack(ModItems.talismanRepair), new Object[] {"VAW", "SPM", "VAW", 'W', new ItemStack(Blocks.wool, 1, -1),
+        	'V', new ItemStack(ModItems.alchemicalDust, 1, 1), 'A', new ItemStack(ModItems.alchemicalDust, 1, 2), 'M', new ItemStack(ModItems.alchemicalDust, 1, 3),
+        	'P', Items.paper, 'S', Items.string});   
         
     }
 
@@ -97,5 +99,23 @@ public class CraftingHandler
     public void onItemCraftedEvent(PlayerEvent.ItemCraftedEvent event)
     {
         // TODO Set owner on who crafted the item (make sure it's not a FakePlayer)
+    	
+    	//take durability damage from minium stone
+    	for(int counter = event.craftMatrix.getSizeInventory(); counter > 0; --counter)
+    	{
+    		ItemStack itemStack = event.craftMatrix.getStackInSlot(counter);
+    		
+    		if(itemStack.getItem() == ModItems.stoneMinium)
+    		{
+    			itemStack.damageItem(1, event.player);
+    			
+    			//and then return it
+    			if(!event.player.inventory.addItemStackToInventory(itemStack))
+    			{
+    				event.player.entityDropItem(itemStack, 0);
+    			}
+    		}
+    		
+    	}
     }
 }

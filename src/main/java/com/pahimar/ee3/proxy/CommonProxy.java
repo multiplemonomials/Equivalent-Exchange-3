@@ -4,6 +4,7 @@ import com.pahimar.ee3.handler.ItemEventHandler;
 import com.pahimar.ee3.handler.WorldEventHandler;
 import com.pahimar.ee3.reference.Names;
 import com.pahimar.ee3.tileentity.*;
+
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraftforge.common.MinecraftForge;

@@ -33,6 +33,7 @@ public class Names
         public static final String[] ALCHEMICAL_UPGRADE_SUBTYPES = {"verdant", "azure", "minium"};
         public static final String DIVINING_ROD = "diviningRod";
         public static final String DARK_MATTER = "darkMatter";
+		public static final String TALISMAN_REPAIR = "talismanRepair";
     }
     
     public static class Tools

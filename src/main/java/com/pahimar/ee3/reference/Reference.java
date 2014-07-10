@@ -24,4 +24,7 @@ public class Reference
 	public static final float FURNACE_TICKS_PER_ITEM_EMC = .1F;
 	
 	public static final int CONDENSER_OUTPUT_ITEMS_PER_TICK = 10;
+	
+	//how many ticks it will take the Talisman of Repair to repair 1 durability
+	public static final int TALISMAN_OF_REPAIR_TICKS_PER_DURABILITY = 100;
 }

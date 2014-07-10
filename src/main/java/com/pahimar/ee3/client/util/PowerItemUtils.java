@@ -1,6 +1,6 @@
 package com.pahimar.ee3.client.util;
 
-import com.pahimar.ee3.reference.IChargeable;
+import com.pahimar.ee3.interfaces.IChargeable;
 import com.pahimar.ee3.reference.Reference;
 
 import net.minecraft.item.Item;
