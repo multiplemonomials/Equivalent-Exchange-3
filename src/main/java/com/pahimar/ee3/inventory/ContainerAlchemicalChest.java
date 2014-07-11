@@ -32,7 +32,7 @@ public class ContainerAlchemicalChest extends Container
 
     public ContainerAlchemicalChest(InventoryPlayer inventoryPlayer, TileEntityAlchemicalChest tileEntityAlchemicalChest)
     {
-        this.tileEntityAlchemicalChest = tileEntityAlchemicalChest;
+    	this.tileEntityAlchemicalChest = tileEntityAlchemicalChest;
         tileEntityAlchemicalChest.openInventory();
 
         if (this.tileEntityAlchemicalChest.getState() == 0)

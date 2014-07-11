@@ -1,25 +1,18 @@
 package com.pahimar.ee3.block;
 
-import com.pahimar.ee3.EquivalentExchange3;
+import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+
+import com.pahimar.ee3.EquivalentExchangeReborn;
 import com.pahimar.ee3.reference.GuiIds;
 import com.pahimar.ee3.reference.Names;
 import com.pahimar.ee3.reference.RenderIds;
 import com.pahimar.ee3.tileentity.TileEntityAlchemicalChest;
 import com.pahimar.ee3.tileentity.TileEntityCondenser;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
-
-import java.util.List;
 
 public class BlockCondenser extends BlockEE implements ITileEntityProvider
 {
@@ -72,7 +65,7 @@ public class BlockCondenser extends BlockEE implements ITileEntityProvider
         {
             if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityAlchemicalChest)
             {
-                player.openGui(EquivalentExchange3.instance, GuiIds.CONDENSER, world, x, y, z);
+                player.openGui(EquivalentExchangeReborn.instance, GuiIds.CONDENSER, world, x, y, z);
             }
 
             return true;

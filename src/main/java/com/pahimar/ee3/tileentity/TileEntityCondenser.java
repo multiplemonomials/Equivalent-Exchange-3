@@ -28,6 +28,8 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest
 	
 	int _targetItemEMC;
 	
+	int _freeSpace;
+	
 	/**
 	 * The amount of EMC currently stored in the condenser
 	 * Should always be less that the EMC value of inventory[INPUT_SLOT_INVENTORY_INDEX]
@@ -118,6 +120,8 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest
     		
     		if(!condensableItems.isEmpty())
     		{
+    		    _freeSpace = getFreeSpace();
+
     			//commit the last update method's changes and them make our own
     			//so that the getHasChanged will return true next update
     			
@@ -128,19 +132,24 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest
     		}
     	//}
     	
-    	if(_targetItemEMC != 0 && leftoverEMC > _targetItemEMC)
+    	if(inventory[INPUT_SLOT_INVENTORY_INDEX] != null && (_targetItemEMC != 0 && leftoverEMC > _targetItemEMC))
     	{
+    		
+    	    _freeSpace = getFreeSpace();
+
     		ItemStack itemsToAdd = inventory[INPUT_SLOT_INVENTORY_INDEX].copy();
-    		itemsToAdd.stackSize = drainLeftoverEMC(Reference.CONDENSER_OUTPUT_ITEMS_PER_TICK, _targetItemEMC);
+    		itemsToAdd.stackSize = drainLeftoverEMC(_targetItemEMC);
     		ItemHelper.addItemsToInventory(itemsToAdd, this, _invalidSlots);
     		
     	}
 
     }
     
-    private int drainLeftoverEMC(int itemToProduceLimit, int itemToProduceEMCValue)
+    private int drainLeftoverEMC(int itemToProduceEMCValue)
     {
+    	int itemToProduceLimit = Math.min(Reference.CONDENSER_OUTPUT_ITEMS_PER_TICK, _freeSpace);
     	int itemsToProduce = 0;
+    	
     	while(itemsToProduce < itemToProduceLimit)
     	{
     		if(getLeftoverEMC() < itemToProduceEMCValue)
@@ -165,11 +174,12 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest
      */
     private void condenseSomeItems(ArrayList<Integer> condensableItems) 
     {	
+    	
     	_targetItemEMC = MathHelper.floor_float(EnergyRegistry.getInstance().getEnergyValue(inventory[INPUT_SLOT_INVENTORY_INDEX]).getValue());
     	
     	int numberOfTargetItemsToProduce = 0;
 		
-    	numberOfTargetItemsToProduce += drainLeftoverEMC(Reference.CONDENSER_OUTPUT_ITEMS_PER_TICK, _targetItemEMC);
+    	numberOfTargetItemsToProduce += drainLeftoverEMC(_targetItemEMC);
     	
     	//TODO: don't take more items than can fit.  Currently they're barfed back out as leftover EMC
     	
@@ -192,7 +202,7 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest
 	    			leftoverEMC += singleItemEmcValue;
 	    			
 	    			
-	    			numberOfTargetItemsToProduce += drainLeftoverEMC(Reference.CONDENSER_OUTPUT_ITEMS_PER_TICK - numberOfTargetItemsToProduce, _targetItemEMC);
+	    			numberOfTargetItemsToProduce += drainLeftoverEMC(_targetItemEMC);
 	    			
 	    			
 	    			if(numberOfTargetItemsToProduce >= Reference.CONDENSER_OUTPUT_ITEMS_PER_TICK)
@@ -220,6 +230,36 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest
     			
     	}	
 	}
+    
+    private int getFreeSpace()
+    {
+    	int freeSlots = 0;
+    	
+    	if(inventory[INPUT_SLOT_INVENTORY_INDEX] != null)
+		{
+			for(int counter = 0; counter < inventory.length - 1; ++counter)
+			{
+				ItemStack itemStack = inventory[counter];
+				if(itemStack != null)
+				{
+					if(EnergyRegistry.getInstance().hasEnergyValue(itemStack))
+					{
+						int freeSlotsInStack = inventory[INPUT_SLOT_INVENTORY_INDEX].getItem().getItemStackLimit(inventory[INPUT_SLOT_INVENTORY_INDEX]) - inventory[INPUT_SLOT_INVENTORY_INDEX].stackSize;
+						if(itemStack.getItem() == inventory[INPUT_SLOT_INVENTORY_INDEX].getItem() && freeSlotsInStack > 0)
+						{
+							freeSlots += freeSlotsInStack;
+						}
+					}
+				}
+				else
+				{
+					 freeSlots += inventory[INPUT_SLOT_INVENTORY_INDEX].getItem().getItemStackLimit(inventory[INPUT_SLOT_INVENTORY_INDEX]);
+				}
+			}
+		}
+    	
+    	return freeSlots;
+    }
 
 	/**
      * Returns an ArrayList of inventory indexes to the items in the condenser that can be condensed
@@ -230,6 +270,11 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest
 	private ArrayList<Integer> getCondensableItems() 
 	{
 		ArrayList<Integer> condensableItems = new ArrayList<Integer>();
+		
+    	if(!EnergyRegistry.getInstance().hasEnergyValue(inventory[INPUT_SLOT_INVENTORY_INDEX]))
+		{
+    		return condensableItems;
+		}
 		
 		boolean hasAnySpace = false;
 		

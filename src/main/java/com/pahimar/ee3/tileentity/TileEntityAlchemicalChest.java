@@ -1,14 +1,18 @@
 package com.pahimar.ee3.tileentity;
 
-import com.pahimar.ee3.init.ModBlocks;
-import com.pahimar.ee3.inventory.ContainerAlchemicalChest;
-import com.pahimar.ee3.reference.Names;
-import com.pahimar.ee3.reference.Sounds;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.Packet;
+
+import com.pahimar.ee3.init.ModBlocks;
+import com.pahimar.ee3.interfaces.IWantsUpdatesInAlchemicalStorage;
+import com.pahimar.ee3.network.PacketHandler;
+import com.pahimar.ee3.network.message.MessageTileAlchemicalChest;
+import com.pahimar.ee3.reference.Names;
+import com.pahimar.ee3.reference.Sounds;
 
 public class TileEntityAlchemicalChest extends TileEntityEE implements IInventory
 {
@@ -91,6 +95,12 @@ public class TileEntityAlchemicalChest extends TileEntityEE implements IInventor
         {
             return null;
         }
+    }
+    
+    //this gets overriden in subclasses
+    public boolean upgradeToNextLevel()
+    {
+    	return false;
     }
 
     @Override
@@ -212,6 +222,13 @@ public class TileEntityAlchemicalChest extends TileEntityEE implements IInventor
         }
         nbtTagCompound.setTag("Items", tagList);
     }
+    
+    @Override
+    public Packet getDescriptionPacket()
+    {
+        return PacketHandler.INSTANCE.getPacketFrom(new MessageTileAlchemicalChest(this));
+
+    }
 
     /**
      * Allows the entity to update its state. Overridden in most subclasses, e.g. the mob spawner uses this to count
@@ -221,6 +238,18 @@ public class TileEntityAlchemicalChest extends TileEntityEE implements IInventor
     public void updateEntity()
     {
         super.updateEntity();
+        
+        //this seems kinda laggy
+        //not sure if there's a better way
+        for(int index = 0; index < inventory.length; ++index)
+        {
+        	if(inventory[index] != null && inventory[index].getItem() instanceof IWantsUpdatesInAlchemicalStorage)
+        	{
+        		IWantsUpdatesInAlchemicalStorage itemToUpdate = (IWantsUpdatesInAlchemicalStorage)(inventory[index].getItem());
+        		
+        		itemToUpdate.onUpdateInAlchemyChest(inventory[index], worldObj, this, index);
+        	}
+        }
 
         if (++ticksSinceSync % 20 * 4 == 0)
         {

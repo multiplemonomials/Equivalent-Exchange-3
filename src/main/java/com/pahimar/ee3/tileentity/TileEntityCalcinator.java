@@ -1,5 +1,14 @@
 package com.pahimar.ee3.tileentity;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.Packet;
+import net.minecraft.util.MathHelper;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.pahimar.ee3.exchange.EnergyRegistry;
@@ -11,16 +20,6 @@ import com.pahimar.ee3.network.PacketHandler;
 import com.pahimar.ee3.network.message.MessageTileCalcinator;
 import com.pahimar.ee3.reference.Names;
 import com.pahimar.ee3.reference.Reference;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.Packet;
-import net.minecraft.util.MathHelper;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileEntityCalcinator extends TileEntityEE implements ISidedInventory
 {

@@ -1,6 +1,7 @@
 package com.pahimar.ee3.block;
 
-import com.pahimar.ee3.EquivalentExchange3;
+import com.pahimar.ee3.EquivalentExchangeReborn;
+import com.pahimar.ee3.init.ModItems;
 import com.pahimar.ee3.reference.GuiIds;
 import com.pahimar.ee3.reference.Names;
 import com.pahimar.ee3.reference.RenderIds;
@@ -8,6 +9,7 @@ import com.pahimar.ee3.tileentity.TileEntityAlchemicalChest;
 import com.pahimar.ee3.tileentity.TileEntityAlchemicalChestLarge;
 import com.pahimar.ee3.tileentity.TileEntityAlchemicalChestMedium;
 import com.pahimar.ee3.tileentity.TileEntityAlchemicalChestSmall;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.ITileEntityProvider;
@@ -82,11 +84,29 @@ public class BlockAlchemicalChest extends BlockEE implements ITileEntityProvider
         {
             return true;
         }
+        else if(player.getHeldItem() != null && player.getHeldItem().getItem() == ModItems.alchemicalUpgrade)
+        {
+        	if(world.getBlockMetadata(x, y, z) == player.getHeldItem().getItemDamage())
+        	{
+        		TileEntityAlchemicalChest alchemicalChest = (TileEntityAlchemicalChest)(world.getTileEntity(x, y, z));
+        		alchemicalChest.upgradeToNextLevel();
+        		
+        		if(player.capabilities.isCreativeMode)
+        		{
+        			player.getHeldItem().stackSize -= 1;
+        		}
+        		
+        		world.markBlockForUpdate(x, y, z);
+        		
+        	}
+        	
+        	return true;
+        }
         else
         {
             if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityAlchemicalChest)
             {
-                player.openGui(EquivalentExchange3.instance, GuiIds.ALCHEMICAL_CHEST, world, x, y, z);
+                player.openGui(EquivalentExchangeReborn.instance, GuiIds.ALCHEMICAL_CHEST, world, x, y, z);
             }
 
             return true;

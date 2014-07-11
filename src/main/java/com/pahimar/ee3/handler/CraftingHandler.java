@@ -63,8 +63,7 @@ public class CraftingHandler
         
         //energy condenser
         GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.condenser, 1, 0), new Object[] {"DMD", "AaA", "IMI", 'I', Items.iron_ingot, 'D', Items.diamond, 
-        	'a', new ItemStack(ModBlocks.alchemicalChest, 1, -1), 'M', ModItems.stoneMinium, 'V', new ItemStack(ModItems.alchemicalDust, 1, 2)});
-        
+        	'a', new ItemStack(ModBlocks.alchemicalChest, 1, -1), 'M', new ItemStack(ModItems.alchemicalDust, 1, 3), 'V', new ItemStack(ModItems.alchemicalDust, 1, 2), 'A', new ItemStack(ModItems.alchemicalDust, 1, 2)});
         //alchemical chest upgrades
         GameRegistry.addShapedRecipe(new ItemStack(ModItems.alchemicalUpgrade, 1, 0), new Object[] {" V ", "VMV", " V ", 'V', 
         	new ItemStack(ModItems.alchemicalDust, 1, 1), 'M', ModItems.stoneMinium});

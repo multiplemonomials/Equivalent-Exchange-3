@@ -21,10 +21,10 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import java.io.File;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, certificateFingerprint = Reference.FINGERPRINT, version = Reference.VERSION)
-public class EquivalentExchange3
+public class EquivalentExchangeReborn
 {
     @Instance(Reference.MOD_ID)
-    public static EquivalentExchange3 instance;
+    public static EquivalentExchangeReborn instance;
 
     @SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
     public static IProxy proxy;

@@ -1,6 +1,6 @@
 package com.pahimar.ee3.block;
 
-import com.pahimar.ee3.EquivalentExchange3;
+import com.pahimar.ee3.EquivalentExchangeReborn;
 import com.pahimar.ee3.reference.GuiIds;
 import com.pahimar.ee3.reference.Names;
 import com.pahimar.ee3.reference.Particles;
@@ -81,7 +81,7 @@ public class BlockCalcinator extends BlockEE implements ITileEntityProvider
             {
                 if (world.getTileEntity(x, y, z) instanceof TileEntityCalcinator)
                 {
-                    player.openGui(EquivalentExchange3.instance, GuiIds.CALCINATOR, world, x, y, z);
+                    player.openGui(EquivalentExchangeReborn.instance, GuiIds.CALCINATOR, world, x, y, z);
                 }
             }
 
