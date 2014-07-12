@@ -9,4 +9,5 @@ public class GuiIds
     public static final int ALCHEMICAL_BAG = 4;
     public static final int GLASS_BELL = 5;
 	public static final int CONDENSER = 6;
+	public static final int TRANSMUTATION_TABLET = 7;
 }

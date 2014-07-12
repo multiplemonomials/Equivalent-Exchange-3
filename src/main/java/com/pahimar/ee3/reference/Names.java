@@ -77,6 +77,7 @@ public class Names
 
         public static final String GLASS_BELL = "container.ee3:" + Blocks.GLASS_BELL;
 		public static final String CONDENSER = "container.ee3:" + Blocks.CONDENSER;
+		public static final String TRANSMUTATION_TABLET = "container.ee3:" + Blocks.TRANSMUTATION_TABLET;;
     }
 
     public static class Keys

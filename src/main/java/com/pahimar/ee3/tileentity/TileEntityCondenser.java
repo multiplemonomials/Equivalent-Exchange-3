@@ -2,13 +2,11 @@ package com.pahimar.ee3.tileentity;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang3.ArrayUtils;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.MathHelper;
 
 import com.pahimar.ee3.exchange.EnergyRegistry;
@@ -93,9 +91,9 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest
      * Compares the previous inventory with the current one and returns if it has changed.
      * @return
      */
-    public boolean getHasChanged()
+	public boolean getHasChanged()
     {
-    	return !ArrayUtils.isEquals(inventory, previousInventory);
+    	return !Objects.deepEquals(inventory, previousInventory);
     }
     
     /**

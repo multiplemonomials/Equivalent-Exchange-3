@@ -121,7 +121,8 @@ public class BlockAlchemicalChest extends BlockEE implements ITileEntityProvider
         return tileentity != null ? tileentity.receiveClientEvent(eventId, eventData) : false;
     }
 
-    @Override
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list)
     {

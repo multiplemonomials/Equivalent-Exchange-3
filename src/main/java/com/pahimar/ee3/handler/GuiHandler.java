@@ -6,12 +6,14 @@ import com.pahimar.ee3.client.gui.inventory.GuiAludel;
 import com.pahimar.ee3.client.gui.inventory.GuiCalcinator;
 import com.pahimar.ee3.client.gui.inventory.GuiCondenser;
 import com.pahimar.ee3.client.gui.inventory.GuiGlassBell;
+import com.pahimar.ee3.client.gui.inventory.GuiTransmutationTablet;
 import com.pahimar.ee3.inventory.ContainerAlchemicalBag;
 import com.pahimar.ee3.inventory.ContainerAlchemicalChest;
 import com.pahimar.ee3.inventory.ContainerAludel;
 import com.pahimar.ee3.inventory.ContainerCalcinator;
 import com.pahimar.ee3.inventory.ContainerCondenser;
 import com.pahimar.ee3.inventory.ContainerGlassBell;
+import com.pahimar.ee3.inventory.ContainerTransmutationTablet;
 import com.pahimar.ee3.inventory.InventoryAlchemicalBag;
 import com.pahimar.ee3.reference.GuiIds;
 import com.pahimar.ee3.tileentity.TileEntityAlchemicalChest;
@@ -19,6 +21,7 @@ import com.pahimar.ee3.tileentity.TileEntityAludel;
 import com.pahimar.ee3.tileentity.TileEntityCalcinator;
 import com.pahimar.ee3.tileentity.TileEntityCondenser;
 import com.pahimar.ee3.tileentity.TileEntityGlassBell;
+import com.pahimar.ee3.tileentity.TileEntityTransmutationTablet;
 
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
@@ -58,6 +61,11 @@ public class GuiHandler implements IGuiHandler
         	TileEntityAludel tileEntityAludel = (TileEntityAludel) world.getTileEntity(x, y, z);
         	return new ContainerAludel(player.inventory, tileEntityAludel);
         }
+        else if (id == GuiIds.TRANSMUTATION_TABLET)
+        {
+        	TileEntityTransmutationTablet tileEntityTransmutationTablet = (TileEntityTransmutationTablet) world.getTileEntity(x, y, z);
+        	return new ContainerTransmutationTablet(player.inventory, tileEntityTransmutationTablet);
+        }
 
         return null;
     }
@@ -93,6 +101,11 @@ public class GuiHandler implements IGuiHandler
         {
         	TileEntityAludel tileEntityAludel = (TileEntityAludel) world.getTileEntity(x, y, z);
         	return new GuiAludel(player.inventory, tileEntityAludel);
+        }
+        else if (id == GuiIds.TRANSMUTATION_TABLET)
+        {
+        	TileEntityTransmutationTablet tileEntityTransmutationTablet = (TileEntityTransmutationTablet) world.getTileEntity(x, y, z);
+        	return new GuiTransmutationTablet(player.inventory, tileEntityTransmutationTablet);
         }
 
         return null;
