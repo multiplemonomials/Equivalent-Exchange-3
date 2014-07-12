@@ -30,6 +30,8 @@ item.ee3:shovelDarkMatter.name=Dark Matter Shovel
 item.ee3:swordDarkMatter.name=Dark Matter Sword
 item.ee3:darkMatter.name=Dark Matter
 item.ee3:talismanRepair.name=Talisman Of Repair
+item.ee3:ironBandMundane.name=Mundane Iron Band
+item.ee3:ironBandImbued.name=Imbued Iron Band
 
 # Block localizations
 tile.ee3:alchemicalChest.name=Alchemical Chest

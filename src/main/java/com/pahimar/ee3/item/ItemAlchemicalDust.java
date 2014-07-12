@@ -1,18 +1,20 @@
 package com.pahimar.ee3.item;
 
-import com.pahimar.ee3.init.ModItems;
-import com.pahimar.ee3.reference.Colors;
-import com.pahimar.ee3.reference.Names;
-import com.pahimar.ee3.reference.Textures;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.pahimar.ee3.init.ModItems;
+import com.pahimar.ee3.reference.Colors;
+import com.pahimar.ee3.reference.Names;
+import com.pahimar.ee3.reference.Textures;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemAlchemicalDust extends ItemEE
 {
@@ -71,8 +73,11 @@ public class ItemAlchemicalDust extends ItemEE
     {
         return String.format("item.%s%s.%s", Textures.RESOURCE_PREFIX, Names.Items.ALCHEMICAL_DUST, Names.Items.ALCHEMICAL_DUST_SUBTYPES[MathHelper.clamp_int(itemStack.getItemDamage(), 0, Names.Items.ALCHEMICAL_DUST_SUBTYPES.length - 1)]);
     }
+    
+    
 
-    @Override
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs creativeTab, List list)
     {
@@ -81,4 +86,5 @@ public class ItemAlchemicalDust extends ItemEE
             list.add(new ItemStack(this, 1, meta));
         }
     }
+  
 }

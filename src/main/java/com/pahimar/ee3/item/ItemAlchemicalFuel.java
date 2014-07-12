@@ -2,6 +2,7 @@ package com.pahimar.ee3.item;
 
 import com.pahimar.ee3.reference.Names;
 import com.pahimar.ee3.reference.Textures;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -38,7 +39,8 @@ public class ItemAlchemicalFuel extends ItemEE
         return String.format("item.%s%s.%s", Textures.RESOURCE_PREFIX, Names.Items.ALCHEMICAL_FUEL, Names.Items.ALCHEMICAL_FUEL_SUBTYPES[MathHelper.clamp_int(itemStack.getItemDamage(), 0, Names.Items.ALCHEMICAL_FUEL_SUBTYPES.length - 1)]);
     }
 
-    @Override
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs creativeTab, List list)
     {

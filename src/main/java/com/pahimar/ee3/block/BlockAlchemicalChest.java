@@ -91,7 +91,7 @@ public class BlockAlchemicalChest extends BlockEE implements ITileEntityProvider
         		TileEntityAlchemicalChest alchemicalChest = (TileEntityAlchemicalChest)(world.getTileEntity(x, y, z));
         		alchemicalChest.upgradeToNextLevel();
         		
-        		if(player.capabilities.isCreativeMode)
+        		if(!player.capabilities.isCreativeMode)
         		{
         			player.getHeldItem().stackSize -= 1;
         		}

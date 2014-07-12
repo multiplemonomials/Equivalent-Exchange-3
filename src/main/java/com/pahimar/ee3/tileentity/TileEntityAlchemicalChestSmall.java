@@ -1,10 +1,9 @@
 package com.pahimar.ee3.tileentity;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import com.pahimar.ee3.init.ModBlocks;
 import com.pahimar.ee3.inventory.ContainerAlchemicalChest;
+import com.pahimar.ee3.reference.Flags;
 
 public class TileEntityAlchemicalChestSmall extends TileEntityAlchemicalChest
 {
@@ -23,7 +22,7 @@ public class TileEntityAlchemicalChestSmall extends TileEntityAlchemicalChest
         System.arraycopy(inventory, 0, newEntity.inventory, 0, inventory.length);
         
         worldObj.setTileEntity(xCoord, yCoord, zCoord, newEntity);
-        worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, Item.getIdFromItem(Item.getItemFromBlock(ModBlocks.alchemicalChest)), this.blockMetadata + 1);
+        worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, this.blockMetadata + 1, Flags.ALCHEMICAL_CHEST_UPGRADED_FLAG);
         
         ++state;
         

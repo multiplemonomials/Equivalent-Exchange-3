@@ -7,6 +7,7 @@ import com.pahimar.ee3.reference.Names;
 import com.pahimar.ee3.reference.Textures;
 import com.pahimar.ee3.util.ColorHelper;
 import com.pahimar.ee3.util.NBTHelper;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -74,7 +75,8 @@ public class ItemAlchemicalBag extends ItemEE implements IDyeable
         }
     }
 
-    @Override
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs creativeTab, List list)
     {
