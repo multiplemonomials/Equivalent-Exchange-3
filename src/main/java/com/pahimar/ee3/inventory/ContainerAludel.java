@@ -1,5 +1,6 @@
 package com.pahimar.ee3.inventory;
 
+import com.pahimar.ee3.inventory.slot.OutputSlot;
 import com.pahimar.ee3.tileentity.TileEntityAludel;
 import com.pahimar.ee3.util.ItemHelper;
 

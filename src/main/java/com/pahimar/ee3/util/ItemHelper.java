@@ -1,5 +1,6 @@
 package com.pahimar.ee3.util;
 
+import com.pahimar.ee3.inventory.slot.ShowcaseSlot;
 import com.pahimar.ee3.reference.Compare;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -245,38 +246,43 @@ public class ItemHelper
         if (slot != null && slot.getHasStack())
         {
             ItemStack slotItemStack = slot.getStack();
-            itemStack = slotItemStack.copy();
             
-            int originalStackSize = itemStack.stackSize;
-
-            if (slotIndex < machineInventorySize)
+            if((slot instanceof ShowcaseSlot ? ((ShowcaseSlot)slot).canTakeStackShiftClicking(entityPlayer) : slot.canTakeStack(entityPlayer)))
             {
-            	//copy from tile entity inventory to the player's
-                itemStack.stackSize = addItemsToInventory(itemStack, entityPlayer.inventory);
+	            itemStack = slotItemStack.copy();
+	            
+	            int originalStackSize = itemStack.stackSize;
+	
+	            if (slotIndex < machineInventorySize)
+	            {
+	            	//copy from tile entity inventory to the player's
+	                itemStack.stackSize = addItemsToInventory(itemStack, entityPlayer.inventory);
+	            }
+	            else
+	            {
+	                //copy from player inventory to the tile entity's
+	            	 itemStack.stackSize = addItemsToInventory(itemStack, machineInventory);
+	            }
+	            
+	            if(itemStack.stackSize == 0)
+	            {
+	                slot.putStack(null);
+	            }
+	            
+	            else
+	            {
+	            	slot.putStack(itemStack);
+	            }
+	
+	            if(itemStack.stackSize != originalStackSize)
+	            {
+	            	//not exactly sure what the second parameter is
+	                slot.onPickupFromSlot(entityPlayer, slotItemStack);
+	            }
+	            
+	            return itemStack.stackSize == 0 ? null : itemStack;
+	            
             }
-            else
-            {
-                //copy from player inventory to the tile entity's
-            	 itemStack.stackSize = addItemsToInventory(itemStack, machineInventory);
-            }
-            
-            if(itemStack.stackSize == 0)
-            {
-                slot.putStack(null);
-            }
-            
-            else
-            {
-            	slot.putStack(itemStack);
-            }
-
-            if(itemStack.stackSize != originalStackSize)
-            {
-            	//not exactly sure what the second parameter is
-                slot.onPickupFromSlot(entityPlayer, slotItemStack);
-            }
-            
-            return itemStack.stackSize == 0 ? null : itemStack;
         }
         
         return null;

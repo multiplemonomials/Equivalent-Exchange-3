@@ -4,6 +4,7 @@ import com.pahimar.ee3.inventory.ContainerTransmutationTablet;
 import com.pahimar.ee3.reference.Textures;
 import com.pahimar.ee3.tileentity.TileEntityTransmutationTablet;
 
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.StatCollector;
@@ -14,6 +15,10 @@ public class GuiTransmutationTablet extends GuiContainer
 {
     private TileEntityTransmutationTablet tileEntityTransmutationTablet;
 
+    int xStart;
+    
+    int yStart;
+    
     public GuiTransmutationTablet(InventoryPlayer inventoryPlayer, TileEntityTransmutationTablet tileEntityTransmutationTablet)
     {
         super(new ContainerTransmutationTablet(inventoryPlayer, tileEntityTransmutationTablet));
@@ -21,14 +26,23 @@ public class GuiTransmutationTablet extends GuiContainer
        
         xSize = 201;
         ySize = 223;
+        
+        xStart = (width - xSize) / 2;
+        yStart = (height - ySize) / 2;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     protected void drawGuiContainerForegroundLayer(int x, int y)
     {
-    	fontRendererObj.drawString(StatCollector.translateToLocal(tileEntityTransmutationTablet.getInventoryName()), 75, 8, 0x404040);
+    	fontRendererObj.drawString(StatCollector.translateToLocal(tileEntityTransmutationTablet.getInventoryName()), 50, 8, 0x404040);
     	
-    	fontRendererObj.drawString(String.format("EMC: %d", tileEntityTransmutationTablet.leftoverEMC), 12, 62, 0x404040);
+    	fontRendererObj.drawString(String.format("EMC: %.2f", tileEntityTransmutationTablet.leftoverEMC), 150, 20, 0x404040);
+    	
+    	buttonList.add(new GuiButton(0, xStart + 8, yStart + 115, 55, 20, "Next"));
+    	
+    	buttonList.add(new GuiButton(0, xStart + 137, yStart + 115, 55, 20, "Previous"));
+
     }
 
     @Override
@@ -38,8 +52,27 @@ public class GuiTransmutationTablet extends GuiContainer
 
         this.mc.getTextureManager().bindTexture(Textures.GUI_TRANSMUTATION_TABLET);
 
-        int xStart = (width - xSize) / 2;
-        int yStart = (height - ySize) / 2;
+        xStart = (width - xSize) / 2;
+        yStart = (height - ySize) / 2;
         this.drawTexturedModalRect(xStart, yStart, 0, 0, xSize, ySize);
     }
+
+	public void onButtonClicked(GuiButton button)
+	{
+		if(button.displayString.contentEquals("Next"))
+		{
+			if(tileEntityTransmutationTablet.getCurrentPage() < tileEntityTransmutationTablet.getNumberOfPages() - 1)
+			{
+				tileEntityTransmutationTablet.showPage(tileEntityTransmutationTablet.getCurrentPage() + 1);
+			}
+		}
+		else if(button.displayString.contentEquals("Previous"))
+		{
+			if(tileEntityTransmutationTablet.getCurrentPage() > 0)
+			{
+				tileEntityTransmutationTablet.showPage(tileEntityTransmutationTablet.getCurrentPage() - 1
+						);
+			}
+		}
+	}
 }

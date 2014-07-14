@@ -1,4 +1,4 @@
-package com.pahimar.ee3.inventory;
+package com.pahimar.ee3.inventory.slot;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
