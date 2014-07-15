@@ -247,7 +247,7 @@ public class ItemHelper
         {
             ItemStack slotItemStack = slot.getStack();
             
-            if((slot instanceof ShowcaseSlot ? ((ShowcaseSlot)slot).canTakeStackShiftClicking(entityPlayer) : slot.canTakeStack(entityPlayer)))
+            if((slot instanceof ShowcaseSlot ? ((ShowcaseSlot)slot).canTakeStack(entityPlayer) : slot.canTakeStack(entityPlayer)))
             {
 	            itemStack = slotItemStack.copy();
 	            
@@ -286,5 +286,20 @@ public class ItemHelper
         }
         
         return null;
+    }
+    
+    //GALGEJGDGJPODSGVJIGJPO WHHHYYYYY?
+    //Because Mojang couldn't be bothered to implement ItemStack.equals(ItemStack)
+    public static boolean containsItem(Set<ItemStack> set, ItemStack itemStack)
+    {
+    	for(ItemStack stackInSet : set)
+    	{
+    		if(ItemStack.areItemStacksEqual(itemStack, stackInSet))
+    		{
+    			return true;
+    		}
+    	}
+    	
+    	return false;
     }
 }

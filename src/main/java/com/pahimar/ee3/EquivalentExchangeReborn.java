@@ -1,6 +1,7 @@
 package com.pahimar.ee3;
 
 import com.pahimar.ee3.configuration.ConfigurationHandler;
+import com.pahimar.ee3.handler.ButtonHandler;
 import com.pahimar.ee3.handler.CraftingHandler;
 import com.pahimar.ee3.handler.FuelHandler;
 import com.pahimar.ee3.handler.GuiHandler;
@@ -9,6 +10,7 @@ import com.pahimar.ee3.init.ModItems;
 import com.pahimar.ee3.network.PacketHandler;
 import com.pahimar.ee3.proxy.IProxy;
 import com.pahimar.ee3.reference.Reference;
+
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -19,6 +21,8 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 import java.io.File;
+
+import net.minecraftforge.common.MinecraftForge;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, certificateFingerprint = Reference.FINGERPRINT, version = Reference.VERSION)
 public class EquivalentExchangeReborn

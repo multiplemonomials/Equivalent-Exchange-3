@@ -350,6 +350,21 @@ public class WrappedStack implements Comparable<WrappedStack>
     {
         return object instanceof WrappedStack && (this.compareTo((WrappedStack) object) == Compare.EQUALS);
     }
+    
+    /**
+     * if this is a wrapped ItemStack, returns it, otherwise null
+     * 
+     * @return
+     */
+    public ItemStack unwrapItemStack()
+    {
+    	if(wrappedStack instanceof ItemStack)
+    	{
+    		return (ItemStack) wrappedStack;
+    	}
+    	
+    	return null;
+    }
 
     /**
      * @return a string representation of the object.

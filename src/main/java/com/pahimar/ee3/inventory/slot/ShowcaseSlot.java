@@ -1,5 +1,7 @@
 package com.pahimar.ee3.inventory.slot;
 
+import org.lwjgl.input.Keyboard;
+
 import com.pahimar.ee3.interfaces.IShowcaseSlotCallback;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -56,14 +58,14 @@ public class ShowcaseSlot extends Slot
     /**
      * Return whether this slot's stack can be taken from this slot.
      */
-    public boolean canTakeStack(EntityPlayer p_82869_1_)
+    public boolean canTakeStack(EntityPlayer player)
     {
     	if(getStack() == null)
     	{
     		return false;
     	}
     	
-    	ItemStack itemToSet = _clickCallback.onSlotClick(this, getStack().copy(), false);
+    	ItemStack itemToSet = _clickCallback.onSlotClick(this, getStack().copy(), Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_LSHIFT));
     	
     	if(itemToSet == null)
     	{
@@ -76,28 +78,6 @@ public class ShowcaseSlot extends Slot
     	this.inventory.setInventorySlotContents(getSlotIndex(), itemToSet);
     	
     	return true;
-    }
-    
-    /**
-     * Return whether this slot's stack can be taken from this slot.
-     * 
-     * Called by ItemHelper.transferStackInSlot to indicate shift clicking
-     */
-    public boolean canTakeStackShiftClicking(EntityPlayer p_82869_1_)
-    {
-    	ItemStack itemToSet = _clickCallback.onSlotClick(this, getStack().copy(), true);
-    	
-    	if(itemToSet == null)
-    	{
-    		return false;
-    	}
-    	
-    	//replace the shown stack with the one provided
-    	hasOldContents = true;
-    	oldContents = getStack();
-    	this.inventory.setInventorySlotContents(getSlotIndex(), itemToSet);
-    	
-        return true;
     }
 
 }

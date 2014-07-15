@@ -1,10 +1,11 @@
 package com.pahimar.ee3.client.handler;
 
 import com.pahimar.ee3.client.settings.Keybindings;
-import com.pahimar.ee3.item.IKeyBound;
+import com.pahimar.ee3.interfaces.IKeyBound;
 import com.pahimar.ee3.network.PacketHandler;
 import com.pahimar.ee3.network.message.MessageKeyPressed;
 import com.pahimar.ee3.reference.Key;
+
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;

@@ -124,7 +124,6 @@ public class EnergyValue implements Comparable<EnergyValue>, JsonDeserializer<En
      * @return The EnergyValue that was encoded as json, or null if a valid EnergyValue could not be decoded from given
      * String
      */
-    @SuppressWarnings("unused")
     public static EnergyValue createFromJson(String jsonEmcValue)
     {
         try

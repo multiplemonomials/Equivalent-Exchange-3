@@ -1,6 +1,7 @@
 package com.pahimar.ee3.item;
 
 import com.pahimar.ee3.EquivalentExchangeReborn;
+import com.pahimar.ee3.interfaces.IDyeable;
 import com.pahimar.ee3.reference.Colors;
 import com.pahimar.ee3.reference.GuiIds;
 import com.pahimar.ee3.reference.Names;

@@ -37,11 +37,11 @@ public class GuiTransmutationTablet extends GuiContainer
     {
     	fontRendererObj.drawString(StatCollector.translateToLocal(tileEntityTransmutationTablet.getInventoryName()), 50, 8, 0x404040);
     	
-    	fontRendererObj.drawString(String.format("EMC: %.2f", tileEntityTransmutationTablet.leftoverEMC), 150, 20, 0x404040);
+    	fontRendererObj.drawString(String.format("EMC: %.2f", tileEntityTransmutationTablet.leftoverEMC), 64, 122, 0x404040);
     	
-    	buttonList.add(new GuiButton(0, xStart + 8, yStart + 115, 55, 20, "Next"));
+    	buttonList.add(new GuiButton(0, xStart + 139, yStart + 115, 55, 20, "Next"));
     	
-    	buttonList.add(new GuiButton(0, xStart + 137, yStart + 115, 55, 20, "Previous"));
+    	buttonList.add(new GuiButton(0, xStart + 6, yStart + 115, 55, 20, "Previous"));
 
     }
 
@@ -70,8 +70,7 @@ public class GuiTransmutationTablet extends GuiContainer
 		{
 			if(tileEntityTransmutationTablet.getCurrentPage() > 0)
 			{
-				tileEntityTransmutationTablet.showPage(tileEntityTransmutationTablet.getCurrentPage() - 1
-						);
+				tileEntityTransmutationTablet.showPage(tileEntityTransmutationTablet.getCurrentPage() - 1);
 			}
 		}
 	}

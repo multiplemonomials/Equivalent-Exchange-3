@@ -1,9 +1,15 @@
 package com.pahimar.ee3.block;
 
+import java.util.Random;
+
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -12,7 +18,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 import com.pahimar.ee3.EquivalentExchangeReborn;
 import com.pahimar.ee3.reference.GuiIds;
 import com.pahimar.ee3.reference.Names;
-import com.pahimar.ee3.tileentity.TileEntityAlchemicalChest;
 import com.pahimar.ee3.tileentity.TileEntityTransmutationTablet;
 
 import cpw.mods.fml.relauncher.Side;
@@ -36,6 +41,7 @@ public class BlockTransmutationTablet extends BlockEE implements ITileEntityProv
     {
         return new TileEntityTransmutationTablet();
     }
+    
 
     @Override
     public boolean renderAsNormalBlock()
@@ -88,6 +94,48 @@ public class BlockTransmutationTablet extends BlockEE implements ITileEntityProv
             }
 
             return true;
+        }
+    }
+    
+    @Override
+    protected void dropInventory(World world, int x, int y, int z)
+    {
+        TileEntity tileEntity = world.getTileEntity(x, y, z);
+
+        if (!(tileEntity instanceof TileEntityTransmutationTablet))
+        {
+            return;
+        }
+
+        TileEntityTransmutationTablet transmutationTablet = (TileEntityTransmutationTablet) tileEntity;
+
+        for (int i = 0; i < transmutationTablet.getSizeInventory(); i++)
+        {
+            ItemStack itemStack = transmutationTablet.getStackInSlot(i);
+
+            //semi-hack to stop tablet from dropping displayed items
+            if (itemStack != null && itemStack.stackSize > 0 && (i ==TileEntityTransmutationTablet.INPUT_SLOT_INDEX || i == TileEntityTransmutationTablet.ENERGY_SLOT_INDEX))
+            {
+                Random rand = new Random();
+
+                float dX = rand.nextFloat() * 0.8F + 0.1F;
+                float dY = rand.nextFloat() * 0.8F + 0.1F;
+                float dZ = rand.nextFloat() * 0.8F + 0.1F;
+
+                EntityItem entityItem = new EntityItem(world, x + dX, y + dY, z + dZ, itemStack.copy());
+
+                if (itemStack.hasTagCompound())
+                {
+                    entityItem.getEntityItem().setTagCompound((NBTTagCompound) itemStack.getTagCompound().copy());
+                }
+
+                float factor = 0.05F;
+                entityItem.motionX = rand.nextGaussian() * factor;
+                entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
+                entityItem.motionZ = rand.nextGaussian() * factor;
+                world.spawnEntityInWorld(entityItem);
+                itemStack.stackSize = 0;
+            }
         }
     }
 }

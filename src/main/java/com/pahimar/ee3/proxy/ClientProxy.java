@@ -5,6 +5,7 @@ import com.pahimar.ee3.client.handler.KeyInputEventHandler;
 import com.pahimar.ee3.client.renderer.item.*;
 import com.pahimar.ee3.client.renderer.tileentity.*;
 import com.pahimar.ee3.client.settings.Keybindings;
+import com.pahimar.ee3.handler.ButtonHandler;
 import com.pahimar.ee3.init.ModBlocks;
 import com.pahimar.ee3.reference.RenderIds;
 import com.pahimar.ee3.tileentity.*;
@@ -59,7 +60,7 @@ public class ClientProxy extends CommonProxy
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityResearchStation.class, new TileEntityResearchStationRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCondenser.class, new TileEntityCondenserRenderer());
 
-
+        MinecraftForge.EVENT_BUS.register(new ButtonHandler());
 
         
     }

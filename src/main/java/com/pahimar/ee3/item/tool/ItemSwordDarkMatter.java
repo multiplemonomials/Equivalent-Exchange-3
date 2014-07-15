@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 import com.pahimar.ee3.client.util.PowerItemUtils;
 import com.pahimar.ee3.creativetab.CreativeTab;
 import com.pahimar.ee3.interfaces.IChargeable;
-import com.pahimar.ee3.item.IKeyBound;
+import com.pahimar.ee3.interfaces.IKeyBound;
 import com.pahimar.ee3.item.ItemEE;
 import com.pahimar.ee3.reference.Key;
 import com.pahimar.ee3.reference.Names;

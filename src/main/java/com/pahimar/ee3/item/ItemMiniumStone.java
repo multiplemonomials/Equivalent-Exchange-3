@@ -1,9 +1,11 @@
 package com.pahimar.ee3.item;
 
+import com.pahimar.ee3.interfaces.IKeyBound;
 import com.pahimar.ee3.reference.Key;
 import com.pahimar.ee3.reference.Names;
 import com.pahimar.ee3.util.LogHelper;
 import com.pahimar.ee3.util.NBTHelper;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
