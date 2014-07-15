@@ -19,7 +19,7 @@ public class GuiTransmutationTablet extends GuiContainer
     
     int yStart;
     
-    public GuiTransmutationTablet(InventoryPlayer inventoryPlayer, TileEntityTransmutationTablet tileEntityTransmutationTablet)
+	public GuiTransmutationTablet(InventoryPlayer inventoryPlayer, TileEntityTransmutationTablet tileEntityTransmutationTablet)
     {
         super(new ContainerTransmutationTablet(inventoryPlayer, tileEntityTransmutationTablet));
         this.tileEntityTransmutationTablet = tileEntityTransmutationTablet;
@@ -29,19 +29,26 @@ public class GuiTransmutationTablet extends GuiContainer
         
         xStart = (width - xSize) / 2;
         yStart = (height - ySize) / 2;
+        
     }
-
+    
     @SuppressWarnings("unchecked")
+	@Override
+    public void initGui()
+    {
+    	super.initGui();
+    	
+    	buttonList.add(new GuiButton(0, guiLeft + 139, guiTop + 115, 55, 20, "Next"));
+    	
+    	buttonList.add(new GuiButton(0, guiLeft + 6, guiTop + 115, 55, 20, "Previous"));
+    }
+    
 	@Override
     protected void drawGuiContainerForegroundLayer(int x, int y)
     {
     	fontRendererObj.drawString(StatCollector.translateToLocal(tileEntityTransmutationTablet.getInventoryName()), 50, 8, 0x404040);
     	
     	fontRendererObj.drawString(String.format("EMC: %.2f", tileEntityTransmutationTablet.leftoverEMC), 64, 122, 0x404040);
-    	
-    	buttonList.add(new GuiButton(0, xStart + 139, yStart + 115, 55, 20, "Next"));
-    	
-    	buttonList.add(new GuiButton(0, xStart + 6, yStart + 115, 55, 20, "Previous"));
 
     }
 
@@ -54,7 +61,7 @@ public class GuiTransmutationTablet extends GuiContainer
 
         xStart = (width - xSize) / 2;
         yStart = (height - ySize) / 2;
-        this.drawTexturedModalRect(xStart, yStart, 0, 0, xSize, ySize);
+        this.drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
     }
 
 	public void onButtonClicked(GuiButton button)
