@@ -32,7 +32,7 @@ item.ee3:darkMatter.name=Dark Matter
 item.ee3:talismanRepair.name=Talisman Of Repair
 item.ee3:ironBandMundane.name=Mundane Iron Band
 item.ee3:ironBandImbued.name=Imbued Iron Band
-item.ee3:ringFlight=Ring of Flight
+item.ee3:ringFlight.name=Ring of Flight
 
 
 # Block localizations

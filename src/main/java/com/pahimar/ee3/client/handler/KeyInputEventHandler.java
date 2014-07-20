@@ -1,5 +1,7 @@
 package com.pahimar.ee3.client.handler;
 
+import org.lwjgl.input.Keyboard;
+
 import com.pahimar.ee3.client.settings.Keybindings;
 import com.pahimar.ee3.interfaces.IKeyBound;
 import com.pahimar.ee3.network.PacketHandler;
@@ -34,6 +36,11 @@ public class KeyInputEventHandler
         else if (Keybindings.toggle.isPressed())
         {
             return Key.TOGGLE;
+        }
+        else if(Keyboard.isKeyDown(Keyboard.KEY_SPACE))
+        {
+        	//TODO: use Minecraft jump key (can you even change that???)
+        	return Key.JUMP;
         }
 
         return Key.UNKNOWN;

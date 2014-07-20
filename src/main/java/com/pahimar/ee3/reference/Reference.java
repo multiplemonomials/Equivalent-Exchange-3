@@ -3,7 +3,7 @@ package com.pahimar.ee3.reference;
 public class Reference
 {
     public static final String MOD_ID = "EE3";
-    public static final String MOD_NAME = "Equivalent Exchange 3";
+    public static final String MOD_NAME = "Equivalent Exchange Reborn";
     public static final String FINGERPRINT = "@FINGERPRINT@";
     public static final String VERSION = "@VERSION@";
     public static final String SERVER_PROXY_CLASS = "com.pahimar.ee3.proxy.ServerProxy";
@@ -27,4 +27,10 @@ public class Reference
 	
 	//how many ticks it will take the Talisman of Repair to repair 1 durability
 	public static final int TALISMAN_OF_REPAIR_TICKS_PER_DURABILITY = 100;
+	
+	//how much EMC the Ring of Flight will spend flying
+	public static final float FLYING_RING_EMC_DRAIN_PER_TICK = 0.4F;
+	
+	//how much EMC the Ring of Flight will spend pushing mobs away
+	public static final float FLYING_RING_EMC_DRAIN_PER_TICK_MOB_PUSH = 1.0F;
 }

@@ -302,4 +302,23 @@ public class ItemHelper
     	
     	return false;
     }
+    
+    /**
+     * Takes one from the itemstack, or sets it to null if it is one.
+     * @param itemStack
+     * @return
+     */
+    public static ItemStack takeOneFromItemStack(ItemStack itemStack)
+    {
+    	if(itemStack.stackSize > 1)
+    	{
+    		itemStack.stackSize -= 1;
+    	}
+    	else
+    	{
+    		itemStack = null;
+    	}
+    	
+    	return itemStack;
+    }
 }
