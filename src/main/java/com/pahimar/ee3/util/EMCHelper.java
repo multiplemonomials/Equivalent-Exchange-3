@@ -51,8 +51,13 @@ public class EMCHelper
 	
 	//is there a standard-library method for an iterative array search?
 	//I haven't found it yet.
-	private static boolean isConsideredFuel(ItemStack itemStack)
+	public static boolean isConsideredFuel(ItemStack itemStack)
 	{
+		if(itemStack == null)
+		{
+			return false;
+		}
+		
 		Item item = itemStack.getItem();
 		for(Item fuelItem : itemsConsideredAlchemicalFuel)
 		{

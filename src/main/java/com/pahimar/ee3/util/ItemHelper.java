@@ -321,4 +321,13 @@ public class ItemHelper
     	
     	return itemStack;
     }
+    
+    /**
+     * shorter way of itemStack.getItem().getItemStackLimit(itemStack)
+     * @return
+     */
+    public static int maxStackSize(ItemStack itemStack)
+    {
+    	return itemStack.getItem().getItemStackLimit(itemStack);
+    }
 }

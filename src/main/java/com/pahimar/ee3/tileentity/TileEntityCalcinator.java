@@ -20,6 +20,8 @@ import com.pahimar.ee3.network.PacketHandler;
 import com.pahimar.ee3.network.message.MessageTileCalcinator;
 import com.pahimar.ee3.reference.Names;
 import com.pahimar.ee3.reference.Reference;
+import com.pahimar.ee3.util.EMCHelper;
+import com.pahimar.ee3.util.ItemHelper;
 
 public class TileEntityCalcinator extends TileEntityEE implements ISidedInventory
 {
@@ -271,12 +273,12 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
      */
     private boolean canBurn()
     {
-    	if((inventory[INPUT_INVENTORY_INDEX] == null && itemsToOutput == null) || inventory[FUEL_INVENTORY_INDEX] == null)
+    	if(inventory[INPUT_INVENTORY_INDEX] == null && itemsToOutput == null)
     	{
     		return false;
     	}
     	
-    	return inventory[FUEL_INVENTORY_INDEX].getItem() instanceof ItemAlchemicalFuel && (EnergyRegistry.getInstance().hasEnergyValue(inventory[INPUT_INVENTORY_INDEX]) || itemsToOutput != null);
+    	return (burnTimeLeftInTicks >= 0 || EMCHelper.isConsideredFuel(inventory[FUEL_INVENTORY_INDEX])) && (EnergyRegistry.getInstance().hasEnergyValue(inventory[INPUT_INVENTORY_INDEX]) || itemsToOutput != null);
     	
     }
     
@@ -302,7 +304,7 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
      */
     private int getItemCookTimeForItemStack(ItemStack itemStack)
     {
-    	if(EnergyRegistry.getInstance().hasEnergyValue(itemStack))
+    	if(EnergyRegistry.getInstance().hasEnergyValue(itemStack) && EMCHelper.isConsideredFuel(itemStack))
     	{
 	    	EnergyValue stackEmc = EnergyRegistry.getInstance().getEnergyValue(inventory[FUEL_INVENTORY_INDEX]);
 			float stackEmcValue = stackEmc.getValue();
@@ -329,29 +331,39 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
 		float stackEmcValue = stackEmc.getValue();
 		ItemStack[] outputs = calculateOutputItemsForEmc(MathHelper.floor_float(stackEmcValue));
 		
-		//items won't fit in output slots = no go
-		if(!((inventory[OUTPUT_LEFT_INVENTORY_INDEX] == null || (inventory[OUTPUT_LEFT_INVENTORY_INDEX].getItemDamage() == outputs[0].getItemDamage() && inventory[OUTPUT_LEFT_INVENTORY_INDEX].getItem() == outputs[0].getItem())) &&
-				((inventory[OUTPUT_RIGHT_INVENTORY_INDEX] == null || (inventory[OUTPUT_RIGHT_INVENTORY_INDEX].getItemDamage() == outputs[1].getItemDamage() && inventory[OUTPUT_RIGHT_INVENTORY_INDEX].getItem() == outputs[1].getItem())))))
-		{
-			return false;
-		}
 		
-		//cap stacks to 64, overflow left to right if possible
-		if(outputs[0].stackSize > getInventoryStackLimit())
+		//items won't fit in output slots = no go
+		if(inventory[OUTPUT_LEFT_INVENTORY_INDEX] != null)
 		{
-			if(outputs[1] == null)
+			if(inventory[OUTPUT_LEFT_INVENTORY_INDEX].getItemDamage() != outputs[0].getItemDamage() || inventory[OUTPUT_LEFT_INVENTORY_INDEX].getItem() != outputs[0].getItem())
 			{
-				outputs[1] = outputs[0].copy();
+				return false;
+			}
+			else if(outputs[0].stackSize + inventory[OUTPUT_LEFT_INVENTORY_INDEX].stackSize > ItemHelper.maxStackSize(outputs[0]))
+			{
+				//spill over into the other item stack
+				if(outputs[1] == null || (outputs[1].stackSize < ItemHelper.maxStackSize(outputs[0]) && ItemHelper.similar(outputs[1], outputs[0])))
+				{
+					outputs[1].stackSize = outputs[1].stackSize + (outputs[0].stackSize - ItemHelper.maxStackSize(outputs[0]));
+					outputs[0].stackSize = ItemHelper.maxStackSize(outputs[0]);
+				}
 				
-				outputs[1].stackSize = outputs[1].stackSize - getInventoryStackLimit();
+				return false;
 			}
 			
-			outputs[0].stackSize = getInventoryStackLimit();
 		}
-		
-		if(outputs[1] != null && outputs[1].stackSize > getInventoryStackLimit())
-		{	
-			outputs[1].stackSize = getInventoryStackLimit();
+				
+		if(inventory[OUTPUT_RIGHT_INVENTORY_INDEX] != null && outputs[1] != null)
+		{
+			if(inventory[OUTPUT_RIGHT_INVENTORY_INDEX].getItemDamage() != outputs[1].getItemDamage() || inventory[OUTPUT_RIGHT_INVENTORY_INDEX].getItem() != outputs[1].getItem())
+			{
+				return false;
+			}
+			else if(outputs[1].stackSize + inventory[OUTPUT_RIGHT_INVENTORY_INDEX].stackSize > ItemHelper.maxStackSize(outputs[1]))
+			{
+				return false;
+			}
+			
 		}
 		
 		//TODO: Increase the number of output slots and output all four produced dusts instead of dropping the lowest two
@@ -434,7 +446,13 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
 	    	}
 	    	
 	    	leftStackSize = (byte) itemsToOutput.getLeft().stackSize;
+	    	worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.calcinator, 2, leftStackSize);
+	    	
 	    	leftStackMeta = (byte) itemsToOutput.getLeft().getItemDamage();
+	    	worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.calcinator, 3, leftStackMeta);
+
+	    	
+	    	
     	}
     	
     	if(itemsToOutput.getRight() != null)
@@ -449,7 +467,11 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
 	    	}
 	    	
 	    	rightStackSize = (byte) itemsToOutput.getRight().stackSize;
+	    	worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.calcinator, 3, rightStackSize);
+
 	    	rightStackMeta = (byte) itemsToOutput.getRight().getItemDamage();
+	    	worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.calcinator, 4, rightStackMeta);
+
     	}
     	
     	itemsToOutput = null;

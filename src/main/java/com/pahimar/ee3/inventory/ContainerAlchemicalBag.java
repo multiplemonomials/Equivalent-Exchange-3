@@ -1,8 +1,10 @@
 package com.pahimar.ee3.inventory;
 
+import com.pahimar.ee3.inventory.slot.SlotAlchemicalBag;
 import com.pahimar.ee3.item.ItemAlchemicalBag;
 import com.pahimar.ee3.reference.Names;
 import com.pahimar.ee3.util.NBTHelper;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;

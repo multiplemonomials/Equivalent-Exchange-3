@@ -1,6 +1,8 @@
-package com.pahimar.ee3.inventory;
+package com.pahimar.ee3.inventory.slot;
 
+import com.pahimar.ee3.inventory.ContainerAlchemicalBag;
 import com.pahimar.ee3.item.ItemAlchemicalBag;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
