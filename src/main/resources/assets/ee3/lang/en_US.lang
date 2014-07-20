@@ -32,6 +32,8 @@ item.ee3:darkMatter.name=Dark Matter
 item.ee3:talismanRepair.name=Talisman Of Repair
 item.ee3:ironBandMundane.name=Mundane Iron Band
 item.ee3:ironBandImbued.name=Imbued Iron Band
+item.ee3:ringFlight=Ring of Flight
+
 
 # Block localizations
 tile.ee3:alchemicalChest.name=Alchemical Chest

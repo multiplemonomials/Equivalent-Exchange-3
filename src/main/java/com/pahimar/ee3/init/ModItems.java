@@ -27,6 +27,7 @@ public class ModItems
     public static final ItemEE darkMatter = new ItemDarkMatter();
     public static final ItemEE talismanRepair = new ItemTalismanRepair();
     public static final ItemEE bandIron = new ItemIronBand();
+    public static final ItemEE ringFlight = new ItemRingFlight();
     
     public static final ItemTool axeDarkMatter = new ItemAxeDarkMatter();
     public static final ItemTool pickaxeDarkMatter = new ItemPickaxeDarkMatter();
@@ -50,8 +51,9 @@ public class ModItems
         GameRegistry.registerItem(darkMatter, Names.Items.DARK_MATTER);
         GameRegistry.registerItem(talismanRepair, Names.Items.TALISMAN_REPAIR);
         GameRegistry.registerItem(bandIron, Names.Items.IRON_BAND);
+        GameRegistry.registerItem(ringFlight, Names.Items.RING_FLIGHT);
 
-        
+
         GameRegistry.registerItem(axeDarkMatter, Names.Tools.AXE_DARK_MATTER);
         GameRegistry.registerItem(hoeDarkMatter, Names.Tools.HOE_DARK_MATTER);
         GameRegistry.registerItem(pickaxeDarkMatter, Names.Tools.PICKAXE_DARK_MATTER);

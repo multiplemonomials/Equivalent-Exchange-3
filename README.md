@@ -20,6 +20,8 @@ Also make sure you know EXACTLY what you're doing!  It's not any of our faults i
 
 [Setup EER](#setup-eer)
 
+[Setup Eclipse](#setup-eclipse)
+
 [Compile EER](#compile-eer)
 
 [Updating Your Repository](#updating-your-repository)
@@ -83,14 +85,29 @@ This section assumes that you're using the command-line version of Git.
 ***
 
 ####Compile EER
-1. Execute `gradle setupCiWorkspace`. This sets up Forge and downloads the necessary libraries to build EER.  This might take some time, be patient.
+1. Execute `gradle setupDecompWorkspace --refresh-dependencies eclipse`. This sets up Forge and downloads the necessary libraries to build EER.  This might take some time, be patient.
 	* You will generally only have to do this once until the Forge version in `build.properties` changes.
 2. Execute `gradle build`. If you did everything right, `BUILD SUCCESSFUL` will be displayed after it finishes.  This should be relatively quick.
     * If you see `BUILD FAILED`, check the error output (it should be right around `BUILD FAILED`), fix everything (if possible), and try again.
 3. Navigate to `mcdev\Equivalent-Exchange-Reborn\build\libs`.
     *  You should see a `.jar` file named `EquivalentExchange3-1.6.4-0.1.#.jar`, where # is the `build_number` value in `build.properties`.
-		* NOTE: `null` means that you are missing a `build_number` value in `build.properties` or that your CI environment is set up incorrectly.
+		* NOTE: `null` means that you are missing a `build_number` value in `build.properties` or that your decomp environment is set up incorrectly.
 4. Copy the jar into your Minecraft mods folder, and you are done!
+
+####Setup Eclipse
+This is optional, but if you want to (a) have an easier time digging into the Minecraft source code, and
+(b) use a code-completion-enabled java editor, get it! It will make your life easier, especially since often the Minecraft/Forge source is the only documentation available
+
+1. Download Eclipse Standard from https://www.eclipse.org/
+
+2. Unzip the folder to... somewhere.  I put it in C:
+
+3. Start eclipse.exe from the install directory.
+
+4. It will ask for a workspace folder.  Again, this is your decision.
+
+5. After it's finished starting, go to `file->import...->General->Existing Projects` into Workspace.
+	* Point it to the Equivalent-Exchange-Reborn folder and select the project that comes up.
 
 ####Updating Your Repository
 In order to get the most up-to-date builds, you'll have to periodically update your local repository.
@@ -121,7 +138,7 @@ EER crashes every time?  Have a suggestion?  Found a bug?  Create an issue now!
 	* Please do not open an issue to ask a question-that is for the forums.
 2. Go to [the issues page](http://github.com/pahimar/Equivalent-Exchange-Reborn/issues).
 3. Click `New Issue` right below `Star` and `Fork`.
-4. Enter your Issue's title (something that summarizes your issue), and then create a detailed description ("Hey pahimar, could you add/change xxx?" or "Hey, found an exploit:  stuff").
+4. Enter your Issue's title (something that summarizes your issue), and then create a detailed description ("Hey, could you add/change xxx?" or "Hey, found $exploit").
 	* If you are reporting a bug report from an unofficial version, make sure you include the following:
 		* Commit SHA (usually located in a changelog or the jar name itself)
 		* ForgeModLoader log
