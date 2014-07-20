@@ -2,9 +2,11 @@ package com.pahimar.ee3.item;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -114,6 +116,7 @@ public class ItemRingFlight extends ItemEE implements IKeyBound
     		
     		if(isPushingMobsAway(itemStack))
     		{
+    			pushMobsAway(player);
     			fuelEMCLeft -= Reference.FLYING_RING_EMC_DRAIN_PER_TICK_MOB_PUSH;
     		}
     		
@@ -138,6 +141,20 @@ public class ItemRingFlight extends ItemEE implements IKeyBound
     		
     	}
     }
+    
+	private void pushMobsAway(EntityPlayer player) 
+	{
+		AxisAlignedBB pushBox = AxisAlignedBB.getBoundingBox(player.posX - 5, player.posY - 2, player.posZ - 5, player.posX + 5, player.posY + 1, player.posZ + 5);
+		for(Object object : player.worldObj.getEntitiesWithinAABB(EntityMob.class, pushBox))
+		{
+			assert(object instanceof EntityMob);
+			EntityMob mob = (EntityMob)object;
+			//mob.motionX = 1/(mob.posX - player.posX);
+			//mob.motionZ = 1/(mob.posZ - player.posZ);
+			mob.motionX = (mob.posX - player.posX) / 5;
+			mob.motionZ = (mob.posZ - player.posZ) / 5;
+		}
+	}
     
     
 }
