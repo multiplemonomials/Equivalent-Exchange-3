@@ -70,14 +70,14 @@ public class GuiTransmutationTablet extends GuiContainer
 		{
 			if(tileEntityTransmutationTablet.getCurrentPage() < tileEntityTransmutationTablet.getNumberOfPages() - 1)
 			{
-				tileEntityTransmutationTablet.showPage(tileEntityTransmutationTablet.getCurrentPage() + 1);
+				//tileEntityTransmutationTablet.showPage(tileEntityTransmutationTablet.getCurrentPage() + 1);
 			}
 		}
 		else if(button.displayString.contentEquals("Previous"))
 		{
 			if(tileEntityTransmutationTablet.getCurrentPage() > 0)
 			{
-				tileEntityTransmutationTablet.showPage(tileEntityTransmutationTablet.getCurrentPage() - 1);
+				//tileEntityTransmutationTablet.showPage(tileEntityTransmutationTablet.getCurrentPage() - 1);
 			}
 		}
 	}

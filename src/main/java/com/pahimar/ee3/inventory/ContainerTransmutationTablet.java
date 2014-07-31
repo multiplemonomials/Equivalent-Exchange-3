@@ -6,6 +6,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
+import com.pahimar.ee3.data.EERExtendedPlayer;
 import com.pahimar.ee3.interfaces.IShowcaseSlotCallback;
 import com.pahimar.ee3.inventory.slot.EMCValuesOnlySlot;
 import com.pahimar.ee3.inventory.slot.ShowcaseSlot;
@@ -21,9 +22,12 @@ public class ContainerTransmutationTablet extends Container
 		
 		private TileEntityTransmutationTablet _tileEntityTransmutationTablet;
 		
-		public TransmutationSlotHandler(TileEntityTransmutationTablet tileEntityTransmutationTablet)
+		EERExtendedPlayer _playerData;
+		
+		public TransmutationSlotHandler(TileEntityTransmutationTablet tileEntityTransmutationTablet, EERExtendedPlayer playerData)
 		{
 			_tileEntityTransmutationTablet = tileEntityTransmutationTablet;
+			_playerData = playerData;
 		}
 
 		@Override
@@ -32,7 +36,7 @@ public class ContainerTransmutationTablet extends Container
 			if(currentStackInSlot != null)
 			{
 				int stackSizeToReturn =  _tileEntityTransmutationTablet.tryTransmute(currentStackInSlot, isShiftClicking ?
-						currentStackInSlot.getItem().getItemStackLimit(currentStackInSlot) : 1);
+						currentStackInSlot.getItem().getItemStackLimit(currentStackInSlot) : 1, _playerData);
 				
 				if(stackSizeToReturn != 0)
 				{
@@ -49,12 +53,16 @@ public class ContainerTransmutationTablet extends Container
 	private class TransmutationTableInputSlot extends EMCValuesOnlySlot
 	{
 		private TileEntityTransmutationTablet _tileEntityTransmutationTablet;
+		
+		private EERExtendedPlayer _playerData;
 
-		public TransmutationTableInputSlot(TileEntityTransmutationTablet tileEntityTransmutationTablet, int par2, int par3, int par4)
+		public TransmutationTableInputSlot(EERExtendedPlayer playerData, TileEntityTransmutationTablet tileEntityTransmutationTablet, int par2, int par3, int par4)
 		{
 			super(tileEntityTransmutationTablet, par2, par3, par4);
 			
 			_tileEntityTransmutationTablet = tileEntityTransmutationTablet;
+			
+			_playerData = playerData;
 
 		}
 		
@@ -62,9 +70,9 @@ public class ContainerTransmutationTablet extends Container
 		{
 			LogHelper.debug("Recalculating transmutable objects");
 			
-			_tileEntityTransmutationTablet.learnNewItem(getStack());
+			_playerData.learnNewItem(getStack());
 			
-			_tileEntityTransmutationTablet.showPage(0);
+			_tileEntityTransmutationTablet.showPage(0, _playerData);
 		}
 		
 	}
@@ -80,11 +88,12 @@ public class ContainerTransmutationTablet extends Container
     {
         this.tileEntityCondenser = tileEntityTransmutationTablet;
         tileEntityTransmutationTablet.openInventory();
-        
-        slotHandler = new TransmutationSlotHandler(tileEntityTransmutationTablet);
 
+        EERExtendedPlayer playerData = EERExtendedPlayer.get(inventoryPlayer.player);
         
-        this.addSlotToContainer(new TransmutationTableInputSlot(tileEntityTransmutationTablet, TileEntityTransmutationTablet.INPUT_SLOT_INDEX, 93, 62));
+        slotHandler = new TransmutationSlotHandler(tileEntityTransmutationTablet, playerData);
+        
+        this.addSlotToContainer(new TransmutationTableInputSlot(playerData, tileEntityTransmutationTablet, TileEntityTransmutationTablet.INPUT_SLOT_INDEX, 93, 62));
         this.addSlotToContainer(new ShowcaseSlot(tileEntityTransmutationTablet, TileEntityTransmutationTablet.EAST_SLOT_INDEX, 132, 62, slotHandler));
         this.addSlotToContainer(new ShowcaseSlot(tileEntityTransmutationTablet, TileEntityTransmutationTablet.SOUTHEAST_SLOT_INDEX, 117, 86, slotHandler));
         this.addSlotToContainer(new ShowcaseSlot(tileEntityTransmutationTablet, TileEntityTransmutationTablet.SOUTH_SLOT_INDEX, 93, 101, slotHandler));

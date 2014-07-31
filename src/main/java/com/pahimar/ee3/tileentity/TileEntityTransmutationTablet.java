@@ -1,25 +1,22 @@
 package com.pahimar.ee3.tileentity;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.Packet;
 import net.minecraft.util.MathHelper;
 
+import com.pahimar.ee3.data.EERExtendedPlayer;
 import com.pahimar.ee3.exchange.EnergyRegistry;
 import com.pahimar.ee3.exchange.EnergyValue;
 import com.pahimar.ee3.network.PacketHandler;
 import com.pahimar.ee3.network.message.MessageTileEntityEE;
 import com.pahimar.ee3.reference.Names;
 import com.pahimar.ee3.util.ItemHelper;
-import com.pahimar.ee3.util.LogHelper;
 
 public class TileEntityTransmutationTablet extends TileEntityEE implements IInventory
 {
@@ -40,9 +37,7 @@ public class TileEntityTransmutationTablet extends TileEntityEE implements IInve
     public static final int NORTHWEST_SLOT_INDEX = 8;
 
     public static final int ENERGY_SLOT_INDEX = 9;
-    
-    public Set<ItemStack> learnedItems;
-    
+        
     private int currentPage;
     
     //caches the items that can be transmuted with the current EMC and input
@@ -63,11 +58,6 @@ public class TileEntityTransmutationTablet extends TileEntityEE implements IInve
     	super();
     	
     	inventory = new ItemStack[INVENTORY_SIZE];
-    	
-    	if(learnedItems == null)
-    	{
-    		learnedItems = new HashSet<ItemStack>();
-    	}
     	
     	if(transmutableItems == null)
 		{
@@ -187,20 +177,6 @@ public class TileEntityTransmutationTablet extends TileEntityEE implements IInve
     public void writeToNBT(NBTTagCompound nbtTagCompound)
     {
         super.writeToNBT(nbtTagCompound);
-
-        if(!learnedItems.isEmpty())
-	    {
-        	// Write the known items to NBT
-	        NBTTagList learnedItemList = new NBTTagList();
-	        
-	        for(ItemStack wrappedStack : learnedItems)
-	        {
-                NBTTagCompound tagCompound = new NBTTagCompound();
-                wrappedStack.writeToNBT(tagCompound);
-                learnedItemList.appendTag(tagCompound);
-	        }
-	        nbtTagCompound.setTag("learnedItems", learnedItemList);
-	    }
         
         //write inventory to NBT
         NBTTagCompound inputSlotCompound = new NBTTagCompound();
@@ -228,32 +204,6 @@ public class TileEntityTransmutationTablet extends TileEntityEE implements IInve
     public void readFromNBT(NBTTagCompound nbtTagCompound)
     {
         super.readFromNBT(nbtTagCompound);
-
-        // read the known items from NBT
-        NBTTagList learnedItemList = nbtTagCompound.getTagList("learnedItems", 10);
-        for(int currentIndex = 0; currentIndex < learnedItemList.tagCount(); ++currentIndex)
-        {
-                NBTTagCompound tagCompound = learnedItemList.getCompoundTagAt(currentIndex);
-                
-                ItemStack itemStackToAdd = ItemStack.loadItemStackFromNBT(tagCompound);
-                
-                if(itemStackToAdd == null)
-                {
-                	LogHelper.error("[Transmutation Tablet] Could not load a learned item from NBT");
-                	continue;
-                }
-                
-                EnergyValue energyValue = EnergyRegistry.getInstance().getEnergyValue(itemStackToAdd);
-                
-                if(energyValue == null)
-                {
-                	LogHelper.error("[Transmutation Tablet] Could not load the EMC value of a learned item");
-                	continue;
-                }
-                
-                learnedItems.add(itemStackToAdd);
-                
-        }
         
         //read inventory from NBT
         NBTTagCompound inputSlotCompound = nbtTagCompound.getCompoundTag("inputSlot");
@@ -261,10 +211,7 @@ public class TileEntityTransmutationTablet extends TileEntityEE implements IInve
         
         inventory[INPUT_SLOT_INDEX] = ItemStack.loadItemStackFromNBT(inputSlotCompound);
         inventory[ENERGY_SLOT_INDEX] = ItemStack.loadItemStackFromNBT(energySlotCompound);
-        
         leftoverEMC = nbtTagCompound.getDouble("leftoverEMC");
-        
-        recalculateTransmutableItems();
 
     }
     
@@ -272,14 +219,14 @@ public class TileEntityTransmutationTablet extends TileEntityEE implements IInve
      * Adds the ItemStack to the database of learned items.  
      * @param itemToLearn
      */
-    public void learnNewItem(ItemStack itemToLearn)
+    public void learnNewItem(ItemStack itemToLearn, EERExtendedPlayer playerData)
     {   
     	if(itemToLearn != null)
     	{
     		ItemStack stackToAdd = new ItemStack(itemToLearn.getItem(), 1, itemToLearn.getItemDamage());
-    		if(!ItemHelper.containsItem(learnedItems, stackToAdd))
+    		if(!ItemHelper.containsItem(playerData.learnedItems, stackToAdd))
     		{
-        		learnedItems.add(stackToAdd);
+        		playerData.learnedItems.add(stackToAdd);
 
     		}
     	}
@@ -301,7 +248,7 @@ public class TileEntityTransmutationTablet extends TileEntityEE implements IInve
      * @param itemLimit how many of the item to try to transmute
      * @return how many of the item could be transmuted
      */
-    public int tryTransmute(ItemStack itemStack, int itemLimit)
+    public int tryTransmute(ItemStack itemStack, int itemLimit, EERExtendedPlayer learnedItemsData)
     {	
     	EnergyValue energyValue = EnergyRegistry.getInstance().getEnergyValue(itemStack);
     	if(energyValue == null)
@@ -358,8 +305,8 @@ public class TileEntityTransmutationTablet extends TileEntityEE implements IInve
     	
     	if(itemsProduced > 0)
     	{
-    		recalculateTransmutableItems();
-    		showPage(getCurrentPage());
+    		recalculateTransmutableItems(learnedItemsData);
+    		showPage(getCurrentPage(), learnedItemsData);
     	}
     	
     	return itemsProduced;
@@ -375,13 +322,11 @@ public class TileEntityTransmutationTablet extends TileEntityEE implements IInve
      * Pages start at 0.
      * @param i
      */
-	public void showPage(int page) 
+	public void showPage(int page, EERExtendedPlayer learnedItemsData) 
 	{
 		if(inventory[INPUT_SLOT_INDEX] != previousInputSlotContents)
 		{
-			recalculateTransmutableItems();
-			
-			previousInputSlotContents = inventory[INPUT_SLOT_INDEX];
+			recalculateTransmutableItems(learnedItemsData);
 		}
 		
 		if(!transmutableItems.isEmpty())
@@ -445,18 +390,18 @@ public class TileEntityTransmutationTablet extends TileEntityEE implements IInve
 		return maxAvailableEMC;
 	}
 	
-	private void recalculateTransmutableItems()
+	private void recalculateTransmutableItems(EERExtendedPlayer learnedItemsData)
 	{
 		transmutableItems = new ArrayList<ItemStack>();
 		
-		if(learnedItems.isEmpty())
+		if(learnedItemsData.learnedItems.isEmpty())
 		{
 			return;
 		}
 		
 		double maxAvailableEMC = getMaxAvailableEMC();
 		
-		for(ItemStack learnedItem : learnedItems)
+		for(ItemStack learnedItem : learnedItemsData.learnedItems)
     	{
 			
     		if(learnedItem == null)
@@ -472,6 +417,9 @@ public class TileEntityTransmutationTablet extends TileEntityEE implements IInve
     			transmutableItems.add(new ItemStack(learnedItem.getItem(), 1, learnedItem.getItemDamage()));
     		}
     	}
+		
+		previousInputSlotContents = inventory[INPUT_SLOT_INDEX];
+
 	}
 	
 }
