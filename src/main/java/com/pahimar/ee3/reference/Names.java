@@ -2,6 +2,11 @@ package com.pahimar.ee3.reference;
 
 public class Names
 {
+    public static class Data
+    {
+    	public final static String EEREXTENDEDPROPERTIES = "EERExtendedPlayer";
+    }
+    
     public static class Blocks
     {
         public static final String CHALK = "chalkBlock";

@@ -82,11 +82,11 @@ public class BlockAlchemicalChest extends BlockEE implements ITileEntityProvider
     {
         if (player.isSneaking() || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN))
         {
-            return true;
+            return false;
         }
         else if(player.getHeldItem() != null && player.getHeldItem().getItem() == ModItems.alchemicalUpgrade)
         {
-        	if(world.getBlockMetadata(x, y, z) == player.getHeldItem().getItemDamage())
+        	if(world.getBlockMetadata(x, y, z) == player.getHeldItem().getItemDamage() - 1)
         	{
         		TileEntityAlchemicalChest alchemicalChest = (TileEntityAlchemicalChest)(world.getTileEntity(x, y, z));
         		alchemicalChest.upgradeToNextLevel();

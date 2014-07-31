@@ -3,6 +3,7 @@ package com.pahimar.ee3.proxy;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.pahimar.ee3.handler.CraftingHandler;
 import com.pahimar.ee3.handler.EntityConstructedEventHandler;
 import com.pahimar.ee3.handler.EntityJoinWorldHandler;
 import com.pahimar.ee3.handler.ItemEventHandler;
@@ -35,6 +36,8 @@ public abstract class CommonProxy implements IProxy
         MinecraftForge.EVENT_BUS.register(new EntityConstructedEventHandler());
         MinecraftForge.EVENT_BUS.register(new LivingDeathEventHandler());
         MinecraftForge.EVENT_BUS.register(new EntityJoinWorldHandler());
+        
+        FMLCommonHandler.instance().bus().register(new CraftingHandler());
     }
 
     public void registerTileEntities()
