@@ -5,12 +5,11 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraftforge.common.util.FakePlayer;
-
+import net.minecraftforge.oredict.OreDictionary;
 import net.multiplemonomials.eer.init.ModBlocks;
 import net.multiplemonomials.eer.init.ModItems;
 import net.multiplemonomials.eer.item.crafting.RecipesAlchemicalBagDyes;
 import net.multiplemonomials.eer.registry.AludelRecipeRegistry;
-
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -95,8 +94,8 @@ public class CraftingHandler
         	Items.gold_ingot, 'I', Items.iron_ingot, 'S', Blocks.stone});
         
         //alchemical bag
-        GameRegistry.addShapedRecipe(new ItemStack(ModItems.alchemicalBag), new Object[] {"WGW", "ACA", "WGW", 'W', 
-        	new ItemStack(Blocks.wool, 1, -1), 'G', Items.gold_ingot, 'C', new ItemStack(ModBlocks.alchemicalChest, 1, -1), 'A', new ItemStack(ModItems.alchemicalDust, 1, 2)});
+        GameRegistry.addShapedRecipe(new ItemStack(ModItems.alchemicalBag, 1, 0), new Object[] {"WGW", "ACA", "WGW", 'W', 
+        	new ItemStack(Blocks.wool, 1, OreDictionary.WILDCARD_VALUE), 'G', Items.gold_ingot, 'C', new ItemStack(ModBlocks.alchemicalChest, 1, 0), 'A', new ItemStack(ModItems.alchemicalDust, 1, 2)});
         
         //Talisman of Repair
         GameRegistry.addShapedRecipe(new ItemStack(ModItems.talismanRepair), new Object[] {"VAW", "SPM", "VAW", 'W', new ItemStack(Blocks.wool, 1, -1),

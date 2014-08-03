@@ -1,9 +1,7 @@
 package net.multiplemonomials.eer.tileentity;
 
 import net.minecraft.item.ItemStack;
-
 import net.multiplemonomials.eer.inventory.ContainerAlchemicalChest;
-import net.multiplemonomials.eer.reference.Flags;
 
 public class TileEntityAlchemicalChestMedium extends TileEntityAlchemicalChest
 {
@@ -24,7 +22,7 @@ public class TileEntityAlchemicalChestMedium extends TileEntityAlchemicalChest
         System.arraycopy(inventory, 0, newEntity.inventory, 0, inventory.length);
         
         worldObj.setTileEntity(xCoord, yCoord, zCoord, newEntity);
-        worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, this.blockMetadata + 1, Flags.ALCHEMICAL_CHEST_UPGRADED_FLAG);
+        worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, this.blockMetadata + 1, 2);
      
         ++state;
         

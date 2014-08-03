@@ -1,14 +1,13 @@
 package net.multiplemonomials.eer.init;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
-
 import net.multiplemonomials.eer.item.*;
 import net.multiplemonomials.eer.item.tool.*;
 import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.reference.Reference;
-
 import cpw.mods.fml.common.registry.GameRegistry;
 
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
@@ -35,7 +34,8 @@ public class ModItems
     
     public static final ItemHoe hoeDarkMatter = new ItemHoeDarkMatter();
     public static final ItemSword swordDarkMatter = new ItemSwordDarkMatter();
-
+    public static final Item flintDarkMatter = new ItemFlintDarkMatter();
+    
     public static void init()
     {
         GameRegistry.registerItem(alchemicalBag, Names.Items.ALCHEMICAL_BAG);
@@ -59,6 +59,8 @@ public class ModItems
         GameRegistry.registerItem(pickaxeDarkMatter, Names.Tools.PICKAXE_DARK_MATTER);
         GameRegistry.registerItem(shovelDarkMatter, Names.Tools.SHOVEL_DARK_MATTER);
         GameRegistry.registerItem(swordDarkMatter, Names.Tools.SWORD_DARK_MATTER);
+        GameRegistry.registerItem(flintDarkMatter, Names.Tools.FLINT_DARK_MATTER);
+
         
     }
 }

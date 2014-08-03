@@ -1,6 +1,8 @@
 package net.multiplemonomials.eer.exchange;
 
 import com.google.common.collect.ImmutableSortedMap;
+
+import net.multiplemonomials.eer.EquivalentExchangeReborn;
 import net.multiplemonomials.eer.recipe.RecipeRegistry;
 import net.multiplemonomials.eer.util.LogHelper;
 import net.minecraft.item.Item;
@@ -38,7 +40,7 @@ public class EnergyRegistry
         /*
          *  Default values
          */
-        Map<WrappedStack, EnergyValue> defaultValuesMap = EnergyValuesDefault.getDefaultValueMap();
+        Map<WrappedStack, EnergyValue> defaultValuesMap = EquivalentExchangeReborn.emcDefaultValues.getDefaultValueMap();
         for (WrappedStack keyStack : defaultValuesMap.keySet())
         {
             EnergyValue factoredEnergyValue = null;

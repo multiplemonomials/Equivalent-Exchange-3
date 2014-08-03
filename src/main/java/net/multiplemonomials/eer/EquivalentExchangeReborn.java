@@ -1,6 +1,8 @@
 package net.multiplemonomials.eer;
 
 import net.multiplemonomials.eer.configuration.ConfigurationHandler;
+import net.multiplemonomials.eer.exchange.EnergyRegistry;
+import net.multiplemonomials.eer.exchange.EnergyValuesDefault;
 import net.multiplemonomials.eer.handler.CraftingHandler;
 import net.multiplemonomials.eer.handler.FuelHandler;
 import net.multiplemonomials.eer.handler.GuiHandler;
@@ -9,7 +11,6 @@ import net.multiplemonomials.eer.init.ModItems;
 import net.multiplemonomials.eer.network.PacketHandler;
 import net.multiplemonomials.eer.proxy.IProxy;
 import net.multiplemonomials.eer.reference.Reference;
-
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -29,6 +30,9 @@ public class EquivalentExchangeReborn
 
     @SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
     public static IProxy proxy;
+    
+    public static EnergyValuesDefault emcDefaultValues = null;
+
 
     @EventHandler
     public void invalidFingerprint(FMLFingerprintViolationEvent event)
@@ -54,6 +58,9 @@ public class EquivalentExchangeReborn
         ModItems.init();
 
         ModBlocks.init();
+        
+        emcDefaultValues = new EnergyValuesDefault();
+        emcDefaultValues.init();
     }
 
     @EventHandler
@@ -75,12 +82,13 @@ public class EquivalentExchangeReborn
 
         // Register our fuels
         GameRegistry.registerFuelHandler(new FuelHandler());
+        
     }
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
-
+    	EnergyRegistry.getInstance();
     }
 
     @EventHandler

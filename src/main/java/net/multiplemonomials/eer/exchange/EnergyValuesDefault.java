@@ -12,30 +12,14 @@ import java.util.Map;
 
 public class EnergyValuesDefault
 {
-    private static EnergyValuesDefault emcDefaultValues = null;
-    private Map<WrappedStack, EnergyValue> valueMap;
+	private Map<WrappedStack, EnergyValue> valueMap;
 
-    private EnergyValuesDefault()
+    public EnergyValuesDefault()
     {
         valueMap = new HashMap<WrappedStack, EnergyValue>();
     }
 
-    private static void lazyInit()
-    {
-        if (emcDefaultValues == null)
-        {
-            emcDefaultValues = new EnergyValuesDefault();
-            emcDefaultValues.init();
-        }
-    }
-
-    public static Map<WrappedStack, EnergyValue> getDefaultValueMap()
-    {
-        lazyInit();
-        return emcDefaultValues.valueMap;
-    }
-
-    private void init()
+    public void init()
     {
         // OreDictionary assignment
         valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.cobblestone))), new EnergyValue(1));
@@ -44,14 +28,6 @@ public class EnergyValuesDefault
             valueMap.put(new WrappedStack(new OreStack(new ItemStack(Items.dye, 1, meta))), new EnergyValue(8));
         }
         valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.log))), new EnergyValue(32));
-        //valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.diamond_ore))), new EnergyValue(8192));
-       // valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.emerald_ore))), new EnergyValue(8192));
-       // valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.gold_ore))), new EnergyValue(2048));
-        //valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.iron_ore))), new EnergyValue(256));
-        //valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.lapis_ore))), new EnergyValue(864));
-        //valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.quartz_ore))), new EnergyValue(256));
-        //valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.redstone_ore))), new EnergyValue(32));
-//        valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.lit_redstone_ore))), new EnergyValue(32));
         valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.planks))), new EnergyValue(8));
         valueMap.put(new WrappedStack(new OreStack(new ItemStack(Items.record_11))), new EnergyValue(2048));
         valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.wooden_slab))), new EnergyValue(4));
@@ -70,11 +46,14 @@ public class EnergyValuesDefault
         valueMap.put(new WrappedStack(Blocks.stone), new EnergyValue(1));
         valueMap.put(new WrappedStack(Blocks.grass), new EnergyValue(1));
         valueMap.put(new WrappedStack(Blocks.dirt), new EnergyValue(1));
+        
+        //podzol
+        valueMap.put(new WrappedStack(new ItemStack(Blocks.dirt, 1, 2)), new EnergyValue(1));
+
         valueMap.put(new WrappedStack(Blocks.cobblestone), new EnergyValue(1));
         // Bedrock (7:0)
         valueMap.put(new WrappedStack(Blocks.sand), new EnergyValue(1));
         valueMap.put(new WrappedStack(Blocks.gravel), new EnergyValue(4));
-        //valueMap.put(new WrappedStack(Blocks.coal_ore), new EnergyValue(32));
         // Sponge (19:0)
         valueMap.put(new WrappedStack(Blocks.glass), new EnergyValue(1));
         valueMap.put(new WrappedStack(Blocks.sandstone), new EnergyValue(4));
@@ -201,5 +180,15 @@ public class EnergyValuesDefault
         valueMap.put(new WrappedStack(new ItemStack(ModItems.alchemicalFuel, 1, 0)), new EnergyValue(256));
         valueMap.put(new WrappedStack(new ItemStack(ModItems.alchemicalFuel, 1, 1)), new EnergyValue(1024));
         valueMap.put(new WrappedStack(new ItemStack(ModItems.alchemicalFuel, 1, 2)), new EnergyValue(4096));
+    }
+    
+    public void addEMCValue(WrappedStack stack, EnergyValue energyValue)
+    {
+    	valueMap.put(stack, energyValue);
+    }
+    
+    protected Map<WrappedStack, EnergyValue> getDefaultValueMap()
+    {
+    	return valueMap;
     }
 }

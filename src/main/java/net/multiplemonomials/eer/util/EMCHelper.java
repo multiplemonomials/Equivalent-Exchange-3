@@ -4,8 +4,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
 import net.multiplemonomials.eer.exchange.EnergyRegistry;
+import net.multiplemonomials.eer.exchange.EnergyValue;
 import net.multiplemonomials.eer.init.ModItems;
 
 public class EMCHelper 
@@ -35,8 +35,12 @@ public class EMCHelper
 			{
 				if(isConsideredFuel(player.inventory.mainInventory[index]))
 				{
-					builtupEMC += EnergyRegistry.getInstance().getEnergyValue(player.inventory.mainInventory[index]).getValue();
-					player.inventory.mainInventory[index] = ItemHelper.takeOneFromItemStack(player.inventory.mainInventory[index]);
+					EnergyValue energyValue = EnergyRegistry.getInstance().getEnergyValue(player.inventory.mainInventory[index]);
+					if(energyValue != null)
+					{
+						builtupEMC += energyValue.getValue();
+						player.inventory.mainInventory[index] = ItemHelper.takeOneFromItemStack(player.inventory.mainInventory[index]);
+					}
 				}
 			}
 			

@@ -54,6 +54,7 @@ public class Names
     	public static final String PICKAXE_DARK_MATTER = "pickaxeDarkMatter";
     	public static final String SHOVEL_DARK_MATTER = "shovelDarkMatter";
     	public static final String SWORD_DARK_MATTER = "swordDarkMatter";
+    	public static final String FLINT_DARK_MATTER = "flintDarkMatter";
     }
 
     public static class NBT

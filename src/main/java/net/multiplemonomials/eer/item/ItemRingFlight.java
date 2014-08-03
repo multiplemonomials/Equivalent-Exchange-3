@@ -109,7 +109,7 @@ public class ItemRingFlight extends ItemEE implements IKeyBound
     		
     		
     		//use some fuel
-    		if(player.capabilities.isFlying)
+    		if(player.capabilities.isFlying && (!player.capabilities.isCreativeMode))
     		{
     			fuelEMCLeft -= Reference.FLYING_RING_EMC_DRAIN_PER_TICK;
     		}
