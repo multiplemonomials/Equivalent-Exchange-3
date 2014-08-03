@@ -51,13 +51,13 @@ public class TileEntityAludel extends TileEntityEE implements ISidedInventory
     @Override
     public boolean canInsertItem(int var1, ItemStack var2, int var3)
     {
-        return false;
+        return true;
     }
 
     @Override
     public boolean canExtractItem(int var1, ItemStack var2, int var3)
     {
-        return false;
+        return true;
     }
 
     @Override
@@ -78,9 +78,26 @@ public class TileEntityAludel extends TileEntityEE implements ISidedInventory
     }
 
     @Override
-    public ItemStack decrStackSize(int var1, int var2)
+    public ItemStack decrStackSize(int slotIndex, int decrementAmount)
     {
-        return null;
+        ItemStack itemStack = getStackInSlot(slotIndex);
+        if (itemStack != null)
+        {
+            if (itemStack.stackSize <= decrementAmount)
+            {
+                setInventorySlotContents(slotIndex, null);
+            }
+            else
+            {
+                itemStack = itemStack.splitStack(decrementAmount);
+                if (itemStack.stackSize == 0)
+                {
+                    setInventorySlotContents(slotIndex, null);
+                }
+            }
+        }
+
+        return itemStack;
     }
 
     @Override

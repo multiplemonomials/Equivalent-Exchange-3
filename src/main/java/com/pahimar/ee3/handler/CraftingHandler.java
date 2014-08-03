@@ -4,6 +4,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
+import net.minecraftforge.common.util.FakePlayer;
 
 import com.pahimar.ee3.init.ModBlocks;
 import com.pahimar.ee3.init.ModItems;
@@ -66,7 +67,7 @@ public class CraftingHandler
         GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.condenser, 1, 0), new Object[] {"OVO", "AaA", "OVO", 'O', new ItemStack(Blocks.obsidian),
         	'a', new ItemStack(ModBlocks.alchemicalChest, 1, 2), 'A', new ItemStack(ModItems.alchemicalDust, 1, 1), 'V', new ItemStack(ModItems.alchemicalDust, 1, 2), 'A', new ItemStack(ModItems.alchemicalDust, 1, 2)});
         //alchemical upgrades
-        //not exactly sure what the minium upgrade does, since there are only three types of chest
+        //not exactly sure what the verdant upgrade does, since there are only three types of chest
         //GameRegistry.addShapedRecipe(new ItemStack(ModItems.alchemicalUpgrade, 1, 0), new Object[] {" V ", "VMV", " V ", 'V', 
         //	new ItemStack(ModItems.alchemicalDust, 1, 1), 'M', ModItems.stoneMinium});
         
@@ -123,23 +124,25 @@ public class CraftingHandler
     public void onItemCraftedEvent(PlayerEvent.ItemCraftedEvent event)
     {
         // TODO Set owner on who crafted the item (make sure it's not a FakePlayer)
-    	
-    	//take durability damage from minium stone
-    	for(int counter = event.craftMatrix.getSizeInventory(); counter > 0; --counter)
+    	if(!(event.player instanceof FakePlayer))
     	{
-    		ItemStack itemStack = event.craftMatrix.getStackInSlot(counter);
-    		
-    		if(itemStack.getItem() == ModItems.stoneMinium)
-    		{
-    			itemStack.damageItem(1, event.player);
-    			
-    			//and then return it
-    			if(!event.player.inventory.addItemStackToInventory(itemStack))
-    			{
-    				event.player.entityDropItem(itemStack, 0);
-    			}
-    		}
-    		
+	    	//take durability damage from minium stone
+	    	for(int counter = event.craftMatrix.getSizeInventory(); counter > 0; --counter)
+	    	{
+	    		ItemStack itemStack = event.craftMatrix.getStackInSlot(counter);
+	    		
+	    		if(itemStack != null && itemStack.getItem() == ModItems.stoneMinium)
+	    		{
+	    			itemStack.damageItem(1, event.player);
+	    			
+	    			//and then return it
+	    			if(!event.player.inventory.addItemStackToInventory(itemStack))
+	    			{
+	    				event.player.entityDropItem(itemStack, 0);
+	    			}
+	    		}
+	    		
+	    	}
     	}
     }
 }

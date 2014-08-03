@@ -97,7 +97,6 @@ public class TileEntityAlchemicalChest extends TileEntityEE implements IInventor
         }
     }
     
-    //this gets overriden in subclasses
     public boolean upgradeToNextLevel()
     {
     	return false;
