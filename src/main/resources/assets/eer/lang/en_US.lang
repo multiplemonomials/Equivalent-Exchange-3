@@ -1,0 +1,82 @@
+# Key localizations
+key.categories.eer=Equivalent Exchange Reborn
+key.charge=Charge
+key.extra=Extra
+key.release=Release
+key.toggle=Toggle
+
+# Item localizations
+item.eer:alchemicalBag.name=Alchemical Bag
+item.eer:alchemicalDust.ash.name=Ash
+item.eer:alchemicalDust.verdant.name=Verdant Dust
+item.eer:alchemicalDust.azure.name=Azure Dust
+item.eer:alchemicalDust.minium.name=Minium Dust
+item.eer:alchemicalFuel.alchemicalCoal.name=Alchemical Coal
+item.eer:alchemicalFuel.mobiusFuel.name=Mobius Fuel
+item.eer:alchemicalFuel.aeternalisFuel.name=Aeternalis Fuel
+item.eer:chalk.name=Chalk [WIP]
+item.eer:diviningRod.name=Divining Rod [WIP]
+item.eer:shardMinium.name=Shard of Minium
+item.eer:stoneInert.name=Inert Stone
+item.eer:stoneMinium.name=Minium Stone
+item.eer:stonePhilosophers.name=Philosopher's Stone
+item.eer:alchemicalUpgrade.verdant.name=Verdant Upgrade
+item.eer:alchemicalUpgrade.azure.name=Azure Upgrade
+item.eer:alchemicalUpgrade.minium.name=Minium Upgrade
+item.eer:axeDarkMatter.name=Dark Matter Axe
+item.eer:hoeDarkMatter.name=Dark Matter Hoe
+item.eer:pickaxeDarkMatter.name=Dark Matter Pickaxe
+item.eer:shovelDarkMatter.name=Dark Matter Shovel
+item.eer:swordDarkMatter.name=Dark Matter Sword
+item.eer:darkMatter.name=Dark Matter
+item.eer:talismanRepair.name=Talisman Of Repair
+item.eer:ironBandMundane.name=Mundane Iron Band
+item.eer:ironBandImbued.name=Imbued Iron Band
+item.eer:ringFlight.name=Ring of Flight
+
+
+# Block localizations
+tile.eer:alchemicalChest.name=Alchemical Chest
+tile.eer:alchemicalFuelBlock.alchemicalCoal.name=Block of Alchemical Coal
+tile.eer:alchemicalFuelBlock.mobiusFuel.name=Block of Mobius Fuel
+tile.eer:alchemicalFuelBlock.aeternalisFuel.name=Block of Aeternalis Fuel
+tile.eer:aludel.name=Aludel Base
+tile.eer:calcinator.name=Calcinator
+tile.eer:chalk.name=Chalk
+tile.eer:glassBell.name=Glass Bell
+tile.eer:researchStation.name=Research Station [WIP]
+tile.eer:condenser.name=Energy Condenser
+tile.eer:transmutationTablet.name=Transmutation Tablet
+
+# GUI localizations
+container.eer:alchemicalBag=Alchemical Bag
+container.eer:alchemicalChest=Alchemical Chest
+container.eer:aludel=Aludel
+container.eer:calcinator=Calcinator
+container.eer:glassBell=Glass Bell
+container.eer:researchStation=Research Station [WIP]
+container.eer:condenser=Energy Condenser
+container.eer:transmutationTablet=Transmutation Tablet
+
+# Command localizations
+command.eer:overlay.turned_on=Target transmutation overlay turned on
+command.eer:overlay.turned_off=Target transmutation overlay turned off
+command.eer:overlay.position.top_left=Target transmutation overlay position set to top left
+command.eer:overlay.position.top_right=Target transmutation overlay position set to top right
+command.eer:overlay.position.bottom_left=Target transmutation overlay position set to bottom left
+command.eer:overlay.position.bottom_right=Target transmutation overlay position set to bottom right
+command.eer:overlay.opacity.usage.additional_text=(where ### is a decimal value between 0.0 and 1.0) 
+command.eer:overlay.opacity.updated=Target transmutation overlay opacity updated successfully
+command.eer:overlay.scale.usage.additional_text=%s (where ### is a decimal value greater than 0.0) 
+command.eer:overlay.scale.updated=Target transmutation overlay scale updated successfully
+command.eer:particles.turned_on=Equivalent Exchange 3 particles turned on
+command.eer:particles.turned_off=Equivalent Exchange 3 particles turned off
+command.eer:sounds.set_to_all=Playing Equivalent Exchange 3 sounds from all players
+command.eer:sounds.set_to_self=Playing Equivalent Exchange 3 sounds from self only
+command.eer:sounds.turned_off=Playing Equivalent Exchange 3 sounds disabled
+
+# Tooltip localizations
+tooltip.eer:upgradesPrefix=Upgrades (Alchemical) Chests
+tooltip.eer:alchemicalChestPrefix.small=Small
+tooltip.eer:alchemicalChestPrefix.medium=Medium
+tooltip.eer:alchemicalChestPrefix.large=Large
