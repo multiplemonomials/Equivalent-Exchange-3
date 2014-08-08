@@ -3,6 +3,7 @@ package net.multiplemonomials.eer.exchange;
 import net.multiplemonomials.eer.reference.Compare;
 import net.multiplemonomials.eer.util.FluidHelper;
 import net.multiplemonomials.eer.util.ItemHelper;
+import net.multiplemonomials.eer.util.LogHelper;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -314,16 +315,19 @@ public class WrappedStack implements Comparable<WrappedStack>
     {
         int hashCode = 1;
         hashCode = (37 * hashCode) + stackSize;
-
+        
         if (wrappedStack instanceof ItemStack)
         {
-            hashCode = (37 * hashCode) + Item.getIdFromItem(((ItemStack) wrappedStack).getItem());
+        	//unfortunately, it seems that post-1.7, item ID's are prone to being changed around while the game is loading
+            hashCode = (37 * hashCode) + ((ItemStack) wrappedStack).getUnlocalizedName().hashCode();
             hashCode = (37 * hashCode) + ((ItemStack) wrappedStack).getItemDamage();
 
             if (((ItemStack) wrappedStack).getTagCompound() != null)
             {
                 hashCode = (37 * hashCode) + ((ItemStack) wrappedStack).getTagCompound().hashCode();
             }
+            
+            
         }
         else if (wrappedStack instanceof OreStack)
         {
@@ -341,6 +345,8 @@ public class WrappedStack implements Comparable<WrappedStack>
                 hashCode = (37 * hashCode) + ((FluidStack) wrappedStack).tag.hashCode();
             }
         }
+        
+        
 
         return hashCode;
     }
