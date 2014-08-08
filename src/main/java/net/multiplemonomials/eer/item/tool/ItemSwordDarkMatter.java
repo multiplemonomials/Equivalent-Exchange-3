@@ -98,6 +98,11 @@ public class ItemSwordDarkMatter extends ItemSword implements IChargeable, IKeyB
     {
         return EnumAction.bow;
     }
+    
+    public boolean isDamageable()
+    {
+        return false;
+    }
 
 
 }

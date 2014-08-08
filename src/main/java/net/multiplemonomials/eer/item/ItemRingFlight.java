@@ -117,15 +117,18 @@ public class ItemRingFlight extends ItemEE implements IKeyBound
     		if(isPushingMobsAway(itemStack))
     		{
     			pushMobsAway(player);
-    			fuelEMCLeft -= Reference.FLYING_RING_EMC_DRAIN_PER_TICK_MOB_PUSH;
+    			if((!player.capabilities.isCreativeMode))
+    			{
+    				fuelEMCLeft -= Reference.FLYING_RING_EMC_DRAIN_PER_TICK_MOB_PUSH;
+    			}
     		}
     		
-    		if(fuelEMCLeft < 1)
+    		if(fuelEMCLeft < 0)
     		{
     			fuelEMCLeft += EMCHelper.consumeEMCFromPlayerInventory(player, 10 * Reference.FLYING_RING_EMC_DRAIN_PER_TICK);
     		}
     		
-    		if(fuelEMCLeft < 1)
+    		if(fuelEMCLeft < 0)
     		{
     			itemStack.setItemDamage(0);
     		}

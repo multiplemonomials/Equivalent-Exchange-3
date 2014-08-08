@@ -1,0 +1,171 @@
+[19:47:42] [main/INFO] [LaunchWrapper]: Loading tweak class name cpw.mods.fml.common.launcher.FMLTweaker
+[19:47:42] [main/INFO] [LaunchWrapper]: Using primary tweak class name cpw.mods.fml.common.launcher.FMLTweaker
+[19:47:42] [main/INFO] [LaunchWrapper]: Calling tweak class cpw.mods.fml.common.launcher.FMLTweaker
+[19:47:42] [main/INFO] [FML]: Forge Mod Loader version 7.10.11.1179 for Minecraft 1.7.10 loading
+[19:47:42] [main/INFO] [FML]: Java is Java HotSpot(TM) 64-Bit Server VM, version 1.7.0_51, running on Windows 7:amd64:6.1, installed at C:\Program Files\Java\jre7
+[19:47:42] [main/INFO] [FML]: Managed to load a deobfuscated Minecraft name- we are in a deobfuscated environment. Skipping runtime deobfuscation
+[19:47:42] [main/WARN] [FML]: The coremod codechicken.core.launch.CodeChickenCorePlugin does not have a MCVersion annotation, it may cause issues with this version of Minecraft
+[19:47:42] [main/WARN] [FML]: The coremod codechicken.nei.asm.NEICorePlugin does not have a MCVersion annotation, it may cause issues with this version of Minecraft
+[19:47:42] [main/INFO] [LaunchWrapper]: Loading tweak class name cpw.mods.fml.common.launcher.FMLInjectionAndSortingTweaker
+[19:47:42] [main/INFO] [LaunchWrapper]: Loading tweak class name cpw.mods.fml.common.launcher.FMLDeobfTweaker
+[19:47:42] [main/INFO] [LaunchWrapper]: Calling tweak class cpw.mods.fml.common.launcher.FMLInjectionAndSortingTweaker
+[19:47:42] [main/INFO] [LaunchWrapper]: Calling tweak class cpw.mods.fml.common.launcher.FMLInjectionAndSortingTweaker
+[19:47:42] [main/INFO] [LaunchWrapper]: Calling tweak class cpw.mods.fml.relauncher.CoreModManager$FMLPluginWrapper
+[19:47:42] [main/ERROR] [FML]: The binary patch set is missing. Either you are in a development environment, or things are not going to work!
+[19:47:43] [main/ERROR] [FML]: The minecraft jar file:/C:/Users/Jamie/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.0.1179/forgeSrc-1.7.10-10.13.0.1179.jar!/net/minecraft/client/ClientBrandRetriever.class appears to be corrupt! There has been CRITICAL TAMPERING WITH MINECRAFT, it is highly unlikely minecraft will work! STOP NOW, get a clean copy and try again!
+[19:47:43] [main/ERROR] [FML]: FML has been ordered to ignore the invalid or missing minecraft certificate. This is very likely to cause a problem!
+[19:47:43] [main/ERROR] [FML]: Technical information: ClientBrandRetriever was at jar:file:/C:/Users/Jamie/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.0.1179/forgeSrc-1.7.10-10.13.0.1179.jar!/net/minecraft/client/ClientBrandRetriever.class, there were 0 certificates for it
+[19:47:43] [main/ERROR] [FML]: FML appears to be missing any signature data. This is not a good thing
+[19:47:43] [main/INFO] [LaunchWrapper]: Calling tweak class cpw.mods.fml.relauncher.CoreModManager$FMLPluginWrapper
+[19:47:43] [main/INFO] [LaunchWrapper]: Calling tweak class cpw.mods.fml.relauncher.CoreModManager$FMLPluginWrapper
+[19:47:43] [main/INFO] [LaunchWrapper]: Calling tweak class cpw.mods.fml.relauncher.CoreModManager$FMLPluginWrapper
+[19:47:43] [main/INFO] [LaunchWrapper]: Calling tweak class cpw.mods.fml.relauncher.CoreModManager$FMLPluginWrapper
+[19:47:43] [main/INFO] [LaunchWrapper]: Calling tweak class cpw.mods.fml.common.launcher.FMLDeobfTweaker
+[19:47:44] [main/INFO] [LaunchWrapper]: Launching wrapped minecraft {net.minecraft.client.main.Main}
+[19:47:46] [main/INFO]: Setting user: ChatterComa
+[19:47:49] [Client thread/INFO]: LWJGL Version: 2.9.1
+[19:47:49] [Client thread/INFO] [MinecraftForge]: Attempting early MinecraftForge initialization
+[19:47:49] [Client thread/INFO] [FML]: MinecraftForge v10.13.0.1179 Initialized
+[19:47:49] [Client thread/INFO] [FML]: Replaced 182 ore recipies
+[19:47:49] [Client thread/INFO] [MinecraftForge]: Completed early MinecraftForge initialization
+[19:47:49] [Client thread/INFO] [FML]: Searching C:\Files\Equivalent-Exchange-Reborn\mods for mods
+[19:47:49] [Client thread/INFO] [FML]: Also searching C:\Files\Equivalent-Exchange-Reborn\mods\1.7.10 for mods
+[19:47:52] [Client thread/WARN] [FML]: Zip file rt.jar failed to read properly, it will be ignored
+java.lang.NullPointerException
+	at cpw.mods.fml.common.discovery.asm.ASMModParser.isBaseMod(ASMModParser.java:130) ~[ASMModParser.class:?]
+	at cpw.mods.fml.common.ModContainerFactory.build(ModContainerFactory.java:34) ~[ModContainerFactory.class:?]
+	at cpw.mods.fml.common.discovery.JarDiscoverer.discover(JarDiscoverer.java:83) [JarDiscoverer.class:?]
+	at cpw.mods.fml.common.discovery.ContainerType.findMods(ContainerType.java:42) [ContainerType.class:?]
+	at cpw.mods.fml.common.discovery.ModCandidate.explore(ModCandidate.java:71) [ModCandidate.class:?]
+	at cpw.mods.fml.common.discovery.ModDiscoverer.identifyMods(ModDiscoverer.java:123) [ModDiscoverer.class:?]
+	at cpw.mods.fml.common.Loader.identifyMods(Loader.java:347) [Loader.class:?]
+	at cpw.mods.fml.common.Loader.loadMods(Loader.java:468) [Loader.class:?]
+	at cpw.mods.fml.client.FMLClientHandler.beginMinecraftLoading(FMLClientHandler.java:204) [FMLClientHandler.class:?]
+	at net.minecraft.client.Minecraft.startGame(Minecraft.java:532) [Minecraft.class:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:941) [Minecraft.class:?]
+	at net.minecraft.client.main.Main.main(Main.java:164) [Main.class:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.7.0_51]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[?:1.7.0_51]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[?:1.7.0_51]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[?:1.7.0_51]
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:134) [launchwrapper-1.9.jar:?]
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28) [launchwrapper-1.9.jar:?]
+[19:47:52] [Client thread/ERROR] [FML]: FML has detected a mod that is using a package name based on 'net.minecraft.src' : net.minecraft.src.FMLRenderAccessLibrary. This is generally a severe programming error.  There should be no mod code in the minecraft namespace. MOVE YOUR MOD! If you're in eclipse, select your source code and 'refactor' it into a new package. Go on. DO IT NOW!
+[19:47:54] [Client thread/INFO] [FML]: Forge Mod Loader has identified 6 mods to load
+[19:47:54] [Client thread/INFO] [FML]: FML has found a non-mod file CodeChickenLib-1.7.10-1.1.1.93-dev.jar in your mods directory. It will now be injected into your classpath. This could severe stability issues, it should be removed if possible.
+[19:47:54] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Not Enough Items, FMLFileResourcePack:Equivalent Exchange Reborn
+[19:47:54] [Client thread/INFO] [FML]: Processing ObjectHolder annotations
+[19:47:54] [Client thread/INFO] [FML]: Found 370 ObjectHolder annotations
+[19:47:54] [Client thread/INFO] [FML]: Configured a dormant chunk cache size of 0
+[19:47:55] [Client thread/INFO] [FML]: Applying holder lookups
+[19:47:55] [Client thread/WARN] [FML]: Unable to lookup EER:dark_matter for public static net.multiplemonomials.eer.item.ItemEE net.multiplemonomials.eer.init.ModItems.dark_matter. Is there something wrong with the registry?
+[19:47:55] [Client thread/WARN] [FML]: Unable to lookup EER:bandIron for public static net.multiplemonomials.eer.item.ItemEE net.multiplemonomials.eer.init.ModItems.bandIron. Is there something wrong with the registry?
+[19:47:55] [Client thread/INFO] [FML]: Holder lookups applied
+
+Starting up SoundSystem...
+Initializing LWJGL OpenAL
+    (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+OpenAL initialized.
+
+[19:47:55] [Sound Library Loader/INFO]: Sound engine started
+[19:47:56] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
+[19:47:56] [Client thread/INFO]: Created: 512x256 textures/items-atlas
+[19:47:57] [CodeChicken Update Checker/ERROR] [CodeChickenCore]: Failed to check notifications: 
+[19:47:57] [Client thread/INFO] [FML]: Forge Mod Loader has successfully loaded 6 mods
+[19:47:57] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Not Enough Items, FMLFileResourcePack:Equivalent Exchange Reborn
+[19:47:57] [Client thread/INFO]: Created: 512x256 textures/items-atlas
+[19:47:57] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
+
+SoundSystem shutting down...
+    Author: Paul Lamb, www.paulscode.com
+
+
+Starting up SoundSystem...
+Initializing LWJGL OpenAL
+    (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+OpenAL initialized.
+
+[19:47:58] [Sound Library Loader/INFO]: Sound engine started
+[19:48:05] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
+[19:48:05] [Server thread/INFO]: Generating keypair
+[19:48:05] [Server thread/INFO] [FML]: Injecting existing block and item data into this server instance
+[19:48:05] [Server thread/INFO] [FML]: Applying holder lookups
+[19:48:05] [Server thread/WARN] [FML]: Unable to lookup EER:dark_matter for public static net.multiplemonomials.eer.item.ItemEE net.multiplemonomials.eer.init.ModItems.dark_matter. Is there something wrong with the registry?
+[19:48:05] [Server thread/WARN] [FML]: Unable to lookup EER:bandIron for public static net.multiplemonomials.eer.item.ItemEE net.multiplemonomials.eer.init.ModItems.bandIron. Is there something wrong with the registry?
+[19:48:05] [Server thread/INFO] [FML]: Holder lookups applied
+[19:48:05] [Server thread/INFO] [FML]: Loading dimension 0 (Test 5) (net.minecraft.server.integrated.IntegratedServer@316f52b2)
+[19:48:05] [Server thread/INFO] [FML]: Loading dimension 1 (Test 5) (net.minecraft.server.integrated.IntegratedServer@316f52b2)
+[19:48:06] [Server thread/INFO] [FML]: Loading dimension -1 (Test 5) (net.minecraft.server.integrated.IntegratedServer@316f52b2)
+[19:48:06] [Server thread/INFO]: Preparing start region for level 0
+[19:48:06] [EE3 - DynEmc Init Thread/INFO] [Equivalent Exchange Reborn]: DynEmc system initialized after 511 ms
+[19:48:07] [Server thread/INFO]: Preparing spawn area: 2%
+[19:48:07] [Server thread/WARN]: Wrong location! EntityCreeper['Creeper'/206, l='Test 5', x=-548.61, y=192.42, z=336.03] (at -35, 21 instead of -12, 6)
+java.lang.Exception: Stack trace
+[19:48:07] [Server thread/WARN]: Wrong location! EntityCreeper['Creeper'/207, l='Test 5', x=-552.43, y=192.42, z=336.61] (at -35, 21 instead of -12, 6)
+	at java.lang.Thread.dumpStack(Unknown Source)
+	at net.minecraft.world.chunk.Chunk.addEntity(Chunk.java:861)
+	at net.minecraft.world.chunk.storage.AnvilChunkLoader.loadEntities(AnvilChunkLoader.java:499)
+	at net.minecraftforge.common.chunkio.ChunkIOProvider.callStage2(ChunkIOProvider.java:41)
+	at net.minecraftforge.common.chunkio.ChunkIOProvider.callStage2(ChunkIOProvider.java:12)
+	at net.minecraftforge.common.util.AsynchronousExecutor.skipQueue(AsynchronousExecutor.java:344)
+	at net.minecraftforge.common.util.AsynchronousExecutor.getSkipQueue(AsynchronousExecutor.java:302)
+	at net.minecraftforge.common.chunkio.ChunkIOExecutor.syncChunkLoad(ChunkIOExecutor.java:12)
+	at net.minecraft.world.gen.ChunkProviderServer.loadChunk(ChunkProviderServer.java:146)
+	at net.minecraft.world.gen.ChunkProviderServer.loadChunk(ChunkProviderServer.java:121)
+	at net.minecraft.server.MinecraftServer.initialWorldChunkLoad(MinecraftServer.java:315)
+	at net.minecraft.server.integrated.IntegratedServer.loadAllWorlds(IntegratedServer.java:79)
+	at net.minecraft.server.integrated.IntegratedServer.startServer(IntegratedServer.java:96)
+	at net.minecraft.server.MinecraftServer.run(MinecraftServer.java:455)
+	at net.minecraft.server.MinecraftServer$2.run(MinecraftServer.java:762)
+java.lang.Exception: Stack trace
+	at java.lang.Thread.dumpStack(Unknown Source)
+	at net.minecraft.world.chunk.Chunk.addEntity(Chunk.java:861)
+	at net.minecraft.world.chunk.storage.AnvilChunkLoader.loadEntities(AnvilChunkLoader.java:499)
+	at net.minecraftforge.common.chunkio.ChunkIOProvider.callStage2(ChunkIOProvider.java:41)
+	at net.minecraftforge.common.chunkio.ChunkIOProvider.callStage2(ChunkIOProvider.java:12)
+	at net.minecraftforge.common.util.AsynchronousExecutor.skipQueue(AsynchronousExecutor.java:344)
+	at net.minecraftforge.common.util.AsynchronousExecutor.getSkipQueue(AsynchronousExecutor.java:302)
+	at net.minecraftforge.common.chunkio.ChunkIOExecutor.syncChunkLoad(ChunkIOExecutor.java:12)
+	at net.minecraft.world.gen.ChunkProviderServer.loadChunk(ChunkProviderServer.java:146)
+	at net.minecraft.world.gen.ChunkProviderServer.loadChunk(ChunkProviderServer.java:121)
+	at net.minecraft.server.MinecraftServer.initialWorldChunkLoad(MinecraftServer.java:315)
+	at net.minecraft.server.integrated.IntegratedServer.loadAllWorlds(IntegratedServer.java:79)
+	at net.minecraft.server.integrated.IntegratedServer.startServer(IntegratedServer.java:96)
+	at net.minecraft.server.MinecraftServer.run(MinecraftServer.java:455)
+	at net.minecraft.server.MinecraftServer$2.run(MinecraftServer.java:762)
+[19:48:07] [Server thread/INFO]: Changing view distance to 12, from 10
+[19:48:08] [Netty Client IO #0/INFO] [FML]: Server protocol version 1
+[19:48:08] [Netty IO #1/INFO] [FML]: Client protocol version 1
+[19:48:08] [Netty IO #1/INFO] [FML]: Client attempting to join with 6 mods : mcp@9.05,FML@7.10.11.1179,NotEnoughItems@1.0.2.15,Forge@10.13.0.1179,CodeChickenCore@1.0.2.9,EER@@VERSION@
+[19:48:08] [Netty IO #1/INFO] [FML]: Attempting connection with missing mods [] at CLIENT
+[19:48:08] [Netty Client IO #0/INFO] [FML]: Attempting connection with missing mods [] at SERVER
+[19:48:08] [Client thread/INFO] [FML]: [Client thread] Client side modded connection established
+[19:48:08] [Server thread/INFO] [FML]: [Server thread] Server side modded connection established
+[19:48:08] [Server thread/INFO]: ChatterComa[local:E:7464acd0] logged in with entity id 377 at (-174.14912447097623, 60.0, 114.53314522078682)
+[19:48:08] [Server thread/INFO]: ChatterComa joined the game
+[19:48:13] [Server thread/INFO]: Saving and pausing game...
+[19:48:13] [Server thread/INFO]: Saving chunks for level 'Test 5'/Overworld
+[19:48:13] [Server thread/INFO]: Saving chunks for level 'Test 5'/Nether
+[19:48:13] [Server thread/INFO]: Saving chunks for level 'Test 5'/The End
+[19:49:16] [Server thread/INFO]: Saving and pausing game...
+[19:49:16] [Server thread/INFO]: Saving chunks for level 'Test 5'/Overworld
+[19:49:16] [Server thread/INFO]: Saving chunks for level 'Test 5'/Nether
+[19:49:16] [Server thread/INFO]: Saving chunks for level 'Test 5'/The End
+[19:49:17] [Server thread/INFO]: Stopping server
+[19:49:17] [Server thread/INFO]: Saving players
+[19:49:17] [Server thread/INFO]: Saving worlds
+[19:49:17] [Server thread/INFO]: Saving chunks for level 'Test 5'/Overworld
+[19:49:17] [Server thread/INFO]: Saving chunks for level 'Test 5'/Nether
+[19:49:17] [Server thread/INFO]: Saving chunks for level 'Test 5'/The End
+[19:49:17] [Server thread/INFO] [FML]: Unloading dimension 0
+[19:49:17] [Server thread/INFO] [FML]: Unloading dimension -1
+[19:49:17] [Server thread/INFO] [FML]: Unloading dimension 1
+[19:49:17] [Server thread/INFO] [FML]: Applying holder lookups
+[19:49:17] [Server thread/WARN] [FML]: Unable to lookup EER:dark_matter for public static net.multiplemonomials.eer.item.ItemEE net.multiplemonomials.eer.init.ModItems.dark_matter. Is there something wrong with the registry?
+[19:49:17] [Server thread/WARN] [FML]: Unable to lookup EER:bandIron for public static net.multiplemonomials.eer.item.ItemEE net.multiplemonomials.eer.init.ModItems.bandIron. Is there something wrong with the registry?
+[19:49:17] [Server thread/INFO] [FML]: Holder lookups applied
+[19:49:19] [Client thread/INFO]: Stopping!
+
+SoundSystem shutting down...
+    Author: Paul Lamb, www.paulscode.com
+

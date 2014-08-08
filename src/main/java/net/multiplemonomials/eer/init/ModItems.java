@@ -23,7 +23,7 @@ public class ModItems
     public static final ItemEE alchemicalUpgrade = new ItemAlchemicalInventoryUpgrade();
     public static final ItemEE chalk = new ItemChalk();
     public static final ItemEE diviningRod = new ItemDiviningRod();
-    public static final ItemEE darkMatter = new ItemDarkMatter();
+    public static final ItemEE dark_matter = new ItemDarkMatter();
     public static final ItemEE talismanRepair = new ItemTalismanRepair();
     public static final ItemEE bandIron = new ItemIronBand();
     public static final ItemEE ringFlight = new ItemRingFlight();
@@ -48,7 +48,7 @@ public class ModItems
         GameRegistry.registerItem(chalk, Names.Items.CHALK);
         GameRegistry.registerItem(alchemicalUpgrade, Names.Items.ALCHEMICAL_UPGRADE);
         GameRegistry.registerItem(diviningRod, Names.Items.DIVINING_ROD);
-        GameRegistry.registerItem(darkMatter, Names.Items.DARK_MATTER);
+        GameRegistry.registerItem(dark_matter, Names.Items.DARK_MATTER);
         GameRegistry.registerItem(talismanRepair, Names.Items.TALISMAN_REPAIR);
         GameRegistry.registerItem(bandIron, Names.Items.IRON_BAND);
         GameRegistry.registerItem(ringFlight, Names.Items.RING_FLIGHT);

@@ -132,5 +132,9 @@ public class ItemHoeDarkMatter extends ItemHoe implements IChargeable, IKeyBound
         itemIcon = iconRegister.registerIcon(ItemEE.getUnwrappedUnlocalizedName(this.getUnlocalizedName()));
     }
 
+    public boolean isDamageable()
+    {
+        return false;
+    }
 
 }

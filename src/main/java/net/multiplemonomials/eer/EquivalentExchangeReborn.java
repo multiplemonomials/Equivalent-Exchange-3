@@ -58,9 +58,6 @@ public class EquivalentExchangeReborn
         ModItems.init();
 
         ModBlocks.init();
-        
-        emcDefaultValues = new EnergyValuesDefault();
-        emcDefaultValues.init();
     }
 
     @EventHandler
@@ -83,12 +80,15 @@ public class EquivalentExchangeReborn
         // Register our fuels
         GameRegistry.registerFuelHandler(new FuelHandler());
         
+        emcDefaultValues = new EnergyValuesDefault();
+        emcDefaultValues.init();
+        
     }
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
-    	EnergyRegistry.getInstance();
+    	
     }
 
     @EventHandler

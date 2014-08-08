@@ -24,7 +24,8 @@ public class ItemBlockAlchemicalChest extends ItemBlock
         return meta;
     }
 
-    @SideOnly(Side.CLIENT)
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	@SideOnly(Side.CLIENT)
     public void addInformation(ItemStack itemStack, EntityPlayer entityPlayer, List list, boolean flag)
     {
         // TODO Localize and add more descriptive text
@@ -32,15 +33,15 @@ public class ItemBlockAlchemicalChest extends ItemBlock
 
         if (metaData == 0)
         {
-            list.add(StatCollector.translateToLocal("tooltip.ee3:alchemicalChestPrefix.small"));
+            list.add(StatCollector.translateToLocal("tooltip.eer:alchemicalChestPrefix.small"));
         }
         else if (metaData == 1)
         {
-            list.add(StatCollector.translateToLocal("tooltip.ee3:alchemicalChestPrefix.medium"));
+            list.add(StatCollector.translateToLocal("tooltip.eer:alchemicalChestPrefix.medium"));
         }
         else if (metaData == 2)
         {
-            list.add(StatCollector.translateToLocal("tooltip.ee3:alchemicalChestPrefix.large"));
+            list.add(StatCollector.translateToLocal("tooltip.eer:alchemicalChestPrefix.large"));
         }
     }
 }

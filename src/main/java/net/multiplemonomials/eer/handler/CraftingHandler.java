@@ -23,19 +23,22 @@ public class CraftingHandler
         CraftingManager.getInstance().getRecipeList().add(new RecipesAlchemicalBagDyes());
         
         //add Dark Matter crafting recipe
-        GameRegistry.addShapedRecipe(new ItemStack(ModItems.darkMatter), new Object[] {"AAA", "ADA", "AAA", 'A', new ItemStack(ModItems.alchemicalFuel, 1, 2), 'D', Blocks.diamond_block});
+        GameRegistry.addShapedRecipe(new ItemStack(ModItems.dark_matter), new Object[] {"AAA", "ADA", "AAA", 'A', new ItemStack(ModItems.alchemicalFuel, 1, 2), 'D', Blocks.diamond_block});
         
         //add Dark Matter tools' crafting recipies
-        GameRegistry.addShapedRecipe(new ItemStack(ModItems.pickaxeDarkMatter), new Object[] {"AAA", " D ", " D ", 'A', ModItems.darkMatter, 'D', Items.diamond});
+        GameRegistry.addShapedRecipe(new ItemStack(ModItems.pickaxeDarkMatter), new Object[] {"AAA", " D ", " D ", 'A', ModItems.dark_matter, 'D', Items.diamond});
         
-        GameRegistry.addShapedRecipe(new ItemStack(ModItems.axeDarkMatter), new Object[] {"AA ", "AD ", " D ", 'A', ModItems.darkMatter, 'D', Items.diamond});
+        GameRegistry.addShapedRecipe(new ItemStack(ModItems.axeDarkMatter), new Object[] {"AA ", "AD ", " D ", 'A', ModItems.dark_matter, 'D', Items.diamond});
         
-        GameRegistry.addShapedRecipe(new ItemStack(ModItems.swordDarkMatter), new Object[] {" A ", " A ", " D ", 'A', ModItems.darkMatter, 'D', Items.diamond});
+        GameRegistry.addShapedRecipe(new ItemStack(ModItems.swordDarkMatter), new Object[] {" A ", " A ", " D ", 'A', ModItems.dark_matter, 'D', Items.diamond});
         
-        GameRegistry.addShapedRecipe(new ItemStack(ModItems.shovelDarkMatter), new Object[] {" A ", " D ", " D ", 'A', ModItems.darkMatter, 'D', Items.diamond});
+        GameRegistry.addShapedRecipe(new ItemStack(ModItems.shovelDarkMatter), new Object[] {" A ", " D ", " D ", 'A', ModItems.dark_matter, 'D', Items.diamond});
         
-        GameRegistry.addShapedRecipe(new ItemStack(ModItems.hoeDarkMatter), new Object[] {"AA ", " D ", " D ", 'A', ModItems.darkMatter, 'D', Items.diamond});
+        GameRegistry.addShapedRecipe(new ItemStack(ModItems.hoeDarkMatter), new Object[] {"AA ", " D ", " D ", 'A', ModItems.dark_matter, 'D', Items.diamond});
         
+        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.flintDarkMatter), Items.iron_ingot, ModItems.dark_matter);
+       
+        //alchemical fuel
         GameRegistry.addShapedRecipe(new ItemStack(ModItems.alchemicalFuel, 2, 0), new Object[] {"GC ", "CC ", "C  ", 'G', Items.glowstone_dust, 'C', new ItemStack(Items.coal, 1, 0)});
         
         //add machines' crafting recipes
@@ -81,7 +84,7 @@ public class CraftingHandler
         	new ItemStack(ModItems.alchemicalBag, 1, 0), new ItemStack(ModItems.alchemicalUpgrade,1, 1) });
         
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.alchemicalBag, 1, 2), new Object[] { 
-        	new ItemStack(ModItems.alchemicalBag, 1, 2), new ItemStack(ModItems.alchemicalUpgrade,1, 2) });
+        	new ItemStack(ModItems.alchemicalBag, 1, 1), new ItemStack(ModItems.alchemicalUpgrade,1, 2) });
         
         
         //alchemical chest upgrades
@@ -111,12 +114,27 @@ public class CraftingHandler
         		'g', new ItemStack(Items.glowstone_dust), 'b', new ItemStack(ModItems.bandIron, 1, 0));
         
         //ring of flight
-        GameRegistry.addShapedRecipe(new ItemStack(ModItems.bandIron, 1, 0), new Object[] {" F ", "DBD", " F ", 'F', Items.feather, 
-        	'D', ModItems.darkMatter, 'B', new ItemStack(ModItems.bandIron, 1, 1)});
+        GameRegistry.addShapedRecipe(new ItemStack(ModItems.ringFlight, 1, 0), new Object[] {" F ", "DBD", " F ", 'F', Items.feather, 
+        	'D', ModItems.dark_matter, 'B', new ItemStack(ModItems.bandIron, 1, 1)});
         
         //transmutation tablet
-        GameRegistry.addShapedRecipe(new ItemStack(ModItems.bandIron, 1, 0), new Object[] {"   ", "OMO", "DGD", 'O', new ItemStack(Blocks.obsidian),
+        GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.transmutationTablet, 1, 0), new Object[] {"   ", "OMO", "DGD", 'O', new ItemStack(Blocks.obsidian),
         	'D', Items.diamond, 'M', Items.glowstone_dust, 'M', new ItemStack(ModItems.stoneMinium)});
+        
+        //alchemical fuel blocks
+        GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.alchemicalFuelBlock, 1, 0), new Object[] {"FFF", "FFF", "FFF", 'F', new ItemStack(ModItems.alchemicalFuel, 1, 0)});
+        
+        GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.alchemicalFuelBlock, 1, 1), new Object[] {"FFF", "FFF", "FFF", 'F', new ItemStack(ModItems.alchemicalFuel, 1, 1)});
+
+        GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.alchemicalFuelBlock, 1, 2), new Object[] {"FFF", "FFF", "FFF", 'F', new ItemStack(ModItems.alchemicalFuel, 1, 2)});
+        
+        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.alchemicalFuel, 9, 0), new ItemStack(ModBlocks.alchemicalFuelBlock, 1, 0));
+
+        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.alchemicalFuel, 9, 1), new ItemStack(ModBlocks.alchemicalFuelBlock, 1, 1));
+
+        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.alchemicalFuel, 9, 2), new ItemStack(ModBlocks.alchemicalFuelBlock, 1, 2));
+
+
     }
 
     @SubscribeEvent

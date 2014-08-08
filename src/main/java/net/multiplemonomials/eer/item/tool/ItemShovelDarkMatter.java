@@ -100,6 +100,11 @@ public class ItemShovelDarkMatter extends ItemSpade implements IChargeable, IKey
     {
         itemIcon = iconRegister.registerIcon(ItemEE.getUnwrappedUnlocalizedName(this.getUnlocalizedName()));
     }
+    
+    public boolean isDamageable()
+    {
+        return false;
+    }
 
 
 }

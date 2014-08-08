@@ -26,7 +26,7 @@ configFile.withReader {
 }
 
 version = config.mod_version
-group = "com.pahimar.ee3" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = "net.multiplemonomials.eer" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "EquivalentExchangeReborn"
 
 minecraft {

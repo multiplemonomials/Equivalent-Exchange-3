@@ -100,5 +100,8 @@ public class ItemPickaxeDarkMatter extends ItemPickaxe implements IChargeable, I
         itemIcon = iconRegister.registerIcon(ItemEE.getUnwrappedUnlocalizedName(this.getUnlocalizedName()));
     }
 
-
+    public boolean isDamageable()
+    {
+        return false;
+    }
 }

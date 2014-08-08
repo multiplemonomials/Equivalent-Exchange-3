@@ -48,11 +48,16 @@ public class EnergyRegistry
 
             if (keyStack != null && keyStack.getWrappedStack() != null && keyStack.getStackSize() > 0)
             {
-                if (defaultValuesMap.get(keyStack) != null && Float.compare(defaultValuesMap.get(keyStack).getValue(), 0f) > 0)
+                if (defaultValuesMap.get(keyStack) != null)
                 {
-                    factoredEnergyValue = EnergyHelper.factorEnergyValue(defaultValuesMap.get(keyStack), keyStack.getStackSize());
-                    factoredKeyStack = new WrappedStack(keyStack, 1);
-                }
+                	float emcValue = defaultValuesMap.get(keyStack).getValue();
+                	
+                	if(Float.compare(emcValue, 0f) > 0)
+                    {
+                    	factoredEnergyValue = EnergyHelper.factorEnergyValue(defaultValuesMap.get(keyStack), keyStack.getStackSize());
+                    	factoredKeyStack = new WrappedStack(keyStack, 1);
+                    }
+               }
             }
 
             if (factoredEnergyValue != null)
@@ -467,7 +472,6 @@ public class EnergyRegistry
         return getEnergyValue(object, false);
     }
 
-    @SuppressWarnings("unused")
     public List<WrappedStack> getStacksInRange(int start, int finish)
     {
         return getStacksInRange(new EnergyValue(start), new EnergyValue(finish));

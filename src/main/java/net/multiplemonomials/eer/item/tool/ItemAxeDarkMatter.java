@@ -35,7 +35,7 @@ public class ItemAxeDarkMatter extends ItemAxe implements IChargeable, IKeyBound
 		setCreativeTab(CreativeTab.EER_TAB);
 		
 		setNoRepair();
-		
+				
 		maxStackSize = 1;
 	}
 	
@@ -96,5 +96,9 @@ public class ItemAxeDarkMatter extends ItemAxe implements IChargeable, IKeyBound
         itemIcon = iconRegister.registerIcon(ItemEE.getUnwrappedUnlocalizedName(this.getUnlocalizedName()));
     }
 
+    public boolean isDamageable()
+    {
+        return false;
+    }
 
 }

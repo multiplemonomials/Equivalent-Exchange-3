@@ -133,6 +133,11 @@ public class ItemFlintDarkMatter extends ItemFlintAndSteel implements IChargeabl
             return true;
         }
     }
+    
+    public boolean isDamageable()
+    {
+        return false;
+    }
 
 
 }
