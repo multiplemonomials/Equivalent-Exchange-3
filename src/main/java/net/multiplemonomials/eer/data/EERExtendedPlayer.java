@@ -11,11 +11,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
-
 import net.multiplemonomials.eer.exchange.EnergyRegistry;
 import net.multiplemonomials.eer.exchange.EnergyValue;
 import net.multiplemonomials.eer.network.PacketHandler;
-import net.multiplemonomials.eer.network.message.MessageEERExtendedPlayerUpdate;
+import net.multiplemonomials.eer.network.message.MessageEERExtendedPlayerUpdateClient;
+import net.multiplemonomials.eer.network.message.MessageEERExtendedPlayerUpdateServer;
 import net.multiplemonomials.eer.proxy.CommonProxy;
 import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.util.ItemHelper;
@@ -150,8 +150,7 @@ public class EERExtendedPlayer implements IExtendedEntityProperties
     	NBTTagCompound savedData = new NBTTagCompound();
 
     	playerData.saveNBTData(savedData);
-    	// Note that we made the CommonProxy method storeEntityData static,
-    	// so now we don't need an instance of CommonProxy to use it! Great!
+
     	CommonProxy.storeEntityData(getSaveKey(player), savedData);
     }
     
@@ -159,11 +158,11 @@ public class EERExtendedPlayer implements IExtendedEntityProperties
     {
     	if(!player.worldObj.isRemote)
     	{
-    		PacketHandler.INSTANCE.sendTo(new MessageEERExtendedPlayerUpdate(EERExtendedPlayer.get(player)), (EntityPlayerMP)player);
+    		PacketHandler.INSTANCE.sendTo(new MessageEERExtendedPlayerUpdateClient(EERExtendedPlayer.get(player)), (EntityPlayerMP)player);
     	}
     	else
     	{
-    		PacketHandler.INSTANCE.sendToServer(new MessageEERExtendedPlayerUpdate(EERExtendedPlayer.get(player)));
+    		PacketHandler.INSTANCE.sendToServer(new MessageEERExtendedPlayerUpdateServer(EERExtendedPlayer.get(player)));
     	}
     }
 

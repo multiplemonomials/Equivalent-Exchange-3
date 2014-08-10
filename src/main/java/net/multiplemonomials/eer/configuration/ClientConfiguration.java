@@ -15,7 +15,7 @@ public class ClientConfiguration
     private static final String CATEGORY_KEYBIND = "keybindings";
     private static Configuration configuration;
 
-    protected static void init(File configFile)
+    public static void init(File configFile)
     {
         configuration = new Configuration(configFile);
 
@@ -40,4 +40,6 @@ public class ClientConfiguration
             configuration.save();
         }
     }
+    
+    
 }

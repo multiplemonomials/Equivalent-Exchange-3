@@ -17,7 +17,7 @@ public class PacketHandler
         INSTANCE.registerMessage(MessageTileEntityAludel.class, MessageTileEntityAludel.class, 2, Side.CLIENT);
         INSTANCE.registerMessage(MessageTileEntityGlassBell.class, MessageTileEntityGlassBell.class, 3, Side.CLIENT);
         INSTANCE.registerMessage(MessageKeyPressed.class, MessageKeyPressed.class, 4, Side.SERVER);
-        INSTANCE.registerMessage(MessageEERExtendedPlayerUpdate.class, MessageEERExtendedPlayerUpdate.class, 5, Side.CLIENT);
-        INSTANCE.registerMessage(MessageEERExtendedPlayerUpdate.class, MessageEERExtendedPlayerUpdate.class, 5, Side.SERVER);
+        INSTANCE.registerMessage(MessageEERExtendedPlayerUpdateClient.class, MessageEERExtendedPlayerUpdateClient.class, 5, Side.CLIENT);
+        INSTANCE.registerMessage(MessageEERExtendedPlayerUpdateServer.class, MessageEERExtendedPlayerUpdateServer.class, 6, Side.SERVER);
     }
 }

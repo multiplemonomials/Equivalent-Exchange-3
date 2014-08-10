@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 import net.multiplemonomials.eer.interfaces.IWantsUpdatesInAlchemicalStorage;
 import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.reference.Reference;
-import net.multiplemonomials.eer.reference.Textures;
+import net.multiplemonomials.eer.reference.Reference;
 
 public class ItemTalismanRepair extends ItemEE implements IWantsUpdatesInAlchemicalStorage
 {
@@ -28,7 +28,7 @@ public class ItemTalismanRepair extends ItemEE implements IWantsUpdatesInAlchemi
     @Override
     public String getUnlocalizedName()
     {
-        return String.format("item.%s%s", Textures.RESOURCE_PREFIX, Names.Items.TALISMAN_REPAIR);
+        return String.format("item.%s%s", Reference.RESOURCE_PREFIX, Names.Items.TALISMAN_REPAIR);
     }
     
     @Override

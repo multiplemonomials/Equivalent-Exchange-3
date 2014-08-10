@@ -3,7 +3,7 @@ package net.multiplemonomials.eer.item;
 import net.multiplemonomials.eer.reference.Colors;
 import net.multiplemonomials.eer.reference.Messages;
 import net.multiplemonomials.eer.reference.Names;
-import net.multiplemonomials.eer.reference.Textures;
+import net.multiplemonomials.eer.reference.Reference;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.creativetab.CreativeTabs;
@@ -29,13 +29,13 @@ public class ItemAlchemicalInventoryUpgrade extends ItemEE
     @Override
     public String getUnlocalizedName()
     {
-        return String.format("item.%s%s", Textures.RESOURCE_PREFIX, Names.Items.ALCHEMICAL_UPGRADE);
+        return String.format("item.%s%s", Reference.RESOURCE_PREFIX, Names.Items.ALCHEMICAL_UPGRADE);
     }
 
     @Override
     public String getUnlocalizedName(ItemStack itemStack)
     {
-        return String.format("item.%s%s.%s", Textures.RESOURCE_PREFIX, Names.Items.ALCHEMICAL_UPGRADE, Names.Items.ALCHEMICAL_UPGRADE_SUBTYPES[MathHelper.clamp_int(itemStack.getItemDamage(), 0, Names.Items.ALCHEMICAL_UPGRADE_SUBTYPES.length - 1)]);
+        return String.format("item.%s%s.%s", Reference.RESOURCE_PREFIX, Names.Items.ALCHEMICAL_UPGRADE, Names.Items.ALCHEMICAL_UPGRADE_SUBTYPES[MathHelper.clamp_int(itemStack.getItemDamage(), 0, Names.Items.ALCHEMICAL_UPGRADE_SUBTYPES.length - 1)]);
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })

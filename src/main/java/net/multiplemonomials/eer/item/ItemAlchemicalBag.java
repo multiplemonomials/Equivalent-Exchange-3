@@ -4,7 +4,7 @@ import net.multiplemonomials.eer.interfaces.IDyeable;
 import net.multiplemonomials.eer.reference.Colors;
 import net.multiplemonomials.eer.reference.GuiIds;
 import net.multiplemonomials.eer.reference.Names;
-import net.multiplemonomials.eer.reference.Textures;
+import net.multiplemonomials.eer.reference.Reference;
 import net.multiplemonomials.eer.util.ColorHelper;
 import net.multiplemonomials.eer.util.NBTHelper;
 
@@ -52,7 +52,7 @@ public class ItemAlchemicalBag extends ItemEE implements IDyeable
 
         for (int i = 0; i < ALCHEMICAL_BAG_ICONS.length; i++)
         {
-            icons[i] = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + Names.Items.ALCHEMICAL_BAG + "." + ALCHEMICAL_BAG_ICONS[i]);
+            icons[i] = iconRegister.registerIcon(Reference.RESOURCE_PREFIX + Names.Items.ALCHEMICAL_BAG + "." + ALCHEMICAL_BAG_ICONS[i]);
         }
     }
 

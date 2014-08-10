@@ -1,21 +1,38 @@
 package net.multiplemonomials.eer.proxy;
 
-import net.multiplemonomials.eer.client.handler.ItemTooltipEventHandler;
-import net.multiplemonomials.eer.client.handler.KeyInputEventHandler;
-import net.multiplemonomials.eer.client.renderer.item.*;
-import net.multiplemonomials.eer.client.renderer.tileentity.*;
-import net.multiplemonomials.eer.client.settings.Keybindings;
-import net.multiplemonomials.eer.handler.ButtonHandler;
-import net.multiplemonomials.eer.init.ModBlocks;
-import net.multiplemonomials.eer.reference.RenderIds;
-import net.multiplemonomials.eer.tileentity.*;
+import java.io.File;
 
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
+import net.multiplemonomials.eer.client.handler.ItemTooltipEventHandler;
+import net.multiplemonomials.eer.client.handler.KeyInputEventHandler;
+import net.multiplemonomials.eer.client.renderer.item.ItemAlchemicalChestRenderer;
+import net.multiplemonomials.eer.client.renderer.item.ItemAludelRenderer;
+import net.multiplemonomials.eer.client.renderer.item.ItemCalcinatorRenderer;
+import net.multiplemonomials.eer.client.renderer.item.ItemCondenserRenderer;
+import net.multiplemonomials.eer.client.renderer.item.ItemGlassBellRenderer;
+import net.multiplemonomials.eer.client.renderer.item.ItemResearchStationRenderer;
+import net.multiplemonomials.eer.client.renderer.tileentity.TileEntityAlchemicalChestRenderer;
+import net.multiplemonomials.eer.client.renderer.tileentity.TileEntityAludelRenderer;
+import net.multiplemonomials.eer.client.renderer.tileentity.TileEntityCalcinatorRenderer;
+import net.multiplemonomials.eer.client.renderer.tileentity.TileEntityCondenserRenderer;
+import net.multiplemonomials.eer.client.renderer.tileentity.TileEntityGlassBellRenderer;
+import net.multiplemonomials.eer.client.renderer.tileentity.TileEntityResearchStationRenderer;
+import net.multiplemonomials.eer.client.settings.Keybindings;
+import net.multiplemonomials.eer.configuration.ClientConfiguration;
+import net.multiplemonomials.eer.handler.ButtonHandler;
+import net.multiplemonomials.eer.init.ModBlocks;
+import net.multiplemonomials.eer.reference.RenderIds;
+import net.multiplemonomials.eer.tileentity.TileEntityAlchemicalChest;
+import net.multiplemonomials.eer.tileentity.TileEntityAludel;
+import net.multiplemonomials.eer.tileentity.TileEntityCalcinator;
+import net.multiplemonomials.eer.tileentity.TileEntityCondenser;
+import net.multiplemonomials.eer.tileentity.TileEntityGlassBell;
+import net.multiplemonomials.eer.tileentity.TileEntityResearchStation;
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.FMLCommonHandler;
 
 public class ClientProxy extends CommonProxy
 {
@@ -63,5 +80,12 @@ public class ClientProxy extends CommonProxy
         MinecraftForge.EVENT_BUS.register(new ButtonHandler());
 
         
+    }
+    
+    @Override
+    public void initConfiguration(String configPath)
+    {
+    	super.initConfiguration(configPath);
+    	ClientConfiguration.init(new File(configPath + "common.properties"));
     }
 }

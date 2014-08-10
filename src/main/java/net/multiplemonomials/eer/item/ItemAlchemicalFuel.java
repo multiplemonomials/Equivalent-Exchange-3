@@ -1,7 +1,7 @@
 package net.multiplemonomials.eer.item;
 
 import net.multiplemonomials.eer.reference.Names;
-import net.multiplemonomials.eer.reference.Textures;
+import net.multiplemonomials.eer.reference.Reference;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -30,13 +30,13 @@ public class ItemAlchemicalFuel extends ItemEE
     @Override
     public String getUnlocalizedName()
     {
-        return String.format("item.%s%s", Textures.RESOURCE_PREFIX, Names.Items.ALCHEMICAL_FUEL);
+        return String.format("item.%s%s", Reference.RESOURCE_PREFIX, Names.Items.ALCHEMICAL_FUEL);
     }
 
     @Override
     public String getUnlocalizedName(ItemStack itemStack)
     {
-        return String.format("item.%s%s.%s", Textures.RESOURCE_PREFIX, Names.Items.ALCHEMICAL_FUEL, Names.Items.ALCHEMICAL_FUEL_SUBTYPES[MathHelper.clamp_int(itemStack.getItemDamage(), 0, Names.Items.ALCHEMICAL_FUEL_SUBTYPES.length - 1)]);
+        return String.format("item.%s%s.%s", Reference.RESOURCE_PREFIX, Names.Items.ALCHEMICAL_FUEL, Names.Items.ALCHEMICAL_FUEL_SUBTYPES[MathHelper.clamp_int(itemStack.getItemDamage(), 0, Names.Items.ALCHEMICAL_FUEL_SUBTYPES.length - 1)]);
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -65,7 +65,7 @@ public class ItemAlchemicalFuel extends ItemEE
 
         for (int i = 0; i < Names.Items.ALCHEMICAL_FUEL_SUBTYPES.length; i++)
         {
-            icons[i] = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + Names.Items.ALCHEMICAL_FUEL + "." + Names.Items.ALCHEMICAL_FUEL_SUBTYPES[i]);
+            icons[i] = iconRegister.registerIcon(Reference.RESOURCE_PREFIX + Names.Items.ALCHEMICAL_FUEL + "." + Names.Items.ALCHEMICAL_FUEL_SUBTYPES[i]);
         }
     }
 }

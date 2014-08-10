@@ -12,18 +12,18 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
 /**
- * Message that sets the given EEREExtebdedPlayer as the player data for the client it's sent to
+ * Message that sets the given EEREExtebdedPlayer as the player data for that player on the server
  *
  */
-public class MessageEERExtendedPlayerUpdate implements IMessage, IMessageHandler<MessageEERExtendedPlayerUpdate, IMessage>
+public class MessageEERExtendedPlayerUpdateServer implements IMessage, IMessageHandler<MessageEERExtendedPlayerUpdateServer, IMessage>
 {
 	NBTTagCompound _playerDataCompound;
 	
-    public MessageEERExtendedPlayerUpdate()
+    public MessageEERExtendedPlayerUpdateServer()
     {
     }
 
-    public MessageEERExtendedPlayerUpdate(EERExtendedPlayer playerData)
+    public MessageEERExtendedPlayerUpdateServer(EERExtendedPlayer playerData)
     {
     	_playerDataCompound = new NBTTagCompound();
         playerData.saveNBTData(_playerDataCompound);
@@ -42,9 +42,9 @@ public class MessageEERExtendedPlayerUpdate implements IMessage, IMessageHandler
     }
 
     @Override
-    public IMessage onMessage(MessageEERExtendedPlayerUpdate message, MessageContext ctx)
+    public IMessage onMessage(MessageEERExtendedPlayerUpdateServer message, MessageContext ctx)
     {
-    	EERExtendedPlayer.get(Minecraft.getMinecraft().thePlayer).loadNBTData(_playerDataCompound);
+    	EERExtendedPlayer.get(ctx.getServerHandler().playerEntity).loadNBTData(_playerDataCompound);
     	
     	return null;
     }

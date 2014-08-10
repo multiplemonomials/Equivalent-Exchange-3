@@ -41,7 +41,7 @@ public class Names
         public static final String DIVINING_ROD = "diviningRod";
         public static final String DARK_MATTER = "darkMatter";
 		public static final String TALISMAN_REPAIR = "talismanRepair";
-		public static final String IRON_BAND = "ironBand";
+		public static final String BAND_IRON = "bandIron";
 		public static final String[] IRON_BAND_SUBTYPES = {"Mundane", "Imbued"};		
 		public static final String RING_FLIGHT = "ringFlight";
 

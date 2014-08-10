@@ -1,8 +1,12 @@
 package net.multiplemonomials.eer.proxy;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.MinecraftForge;
+import net.multiplemonomials.eer.configuration.CommonConfiguration;
 import net.multiplemonomials.eer.handler.CraftingHandler;
 import net.multiplemonomials.eer.handler.EntityConstructedEventHandler;
 import net.multiplemonomials.eer.handler.EntityJoinWorldHandler;
@@ -11,12 +15,17 @@ import net.multiplemonomials.eer.handler.LivingDeathEventHandler;
 import net.multiplemonomials.eer.handler.PlayerEventHandler;
 import net.multiplemonomials.eer.handler.WorldEventHandler;
 import net.multiplemonomials.eer.reference.Names;
-import net.multiplemonomials.eer.tileentity.*;
-
+import net.multiplemonomials.eer.tileentity.TileEntityAlchemicalChest;
+import net.multiplemonomials.eer.tileentity.TileEntityAlchemicalChestLarge;
+import net.multiplemonomials.eer.tileentity.TileEntityAlchemicalChestMedium;
+import net.multiplemonomials.eer.tileentity.TileEntityAlchemicalChestSmall;
+import net.multiplemonomials.eer.tileentity.TileEntityAludel;
+import net.multiplemonomials.eer.tileentity.TileEntityCalcinator;
+import net.multiplemonomials.eer.tileentity.TileEntityCondenser;
+import net.multiplemonomials.eer.tileentity.TileEntityGlassBell;
+import net.multiplemonomials.eer.tileentity.TileEntityTransmutationTablet;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.MinecraftForge;
 
 public abstract class CommonProxy implements IProxy
 {
@@ -38,6 +47,12 @@ public abstract class CommonProxy implements IProxy
         MinecraftForge.EVENT_BUS.register(new EntityJoinWorldHandler());
         
         FMLCommonHandler.instance().bus().register(new CraftingHandler());
+    }
+    
+    @Override
+    public void initConfiguration(String configPath)
+    {
+    	CommonConfiguration.init(new File(configPath + "client.properties"));
     }
 
     public void registerTileEntities()

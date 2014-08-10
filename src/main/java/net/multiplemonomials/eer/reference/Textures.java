@@ -1,13 +1,14 @@
 package net.multiplemonomials.eer.reference;
 
+import cpw.mods.fml.relauncher.SideOnly;
+import cpw.mods.fml.relauncher.Side;
 import net.multiplemonomials.eer.util.ResourceLocationHelper;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.ResourceLocation;
 
+@SideOnly(Side.CLIENT)
 public class Textures
 {
-    public static final String RESOURCE_PREFIX = Reference.MOD_ID.toLowerCase() + ":";
-
     // Base file paths
     public static final String MODEL_TEXTURE_LOCATION = "textures/models/";
     // Model textures

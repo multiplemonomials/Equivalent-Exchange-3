@@ -9,4 +9,6 @@ public interface IProxy
     public abstract void registerEventHandlers();
 
     public abstract void registerKeybindings();
+
+	public abstract void initConfiguration(String string);
 }

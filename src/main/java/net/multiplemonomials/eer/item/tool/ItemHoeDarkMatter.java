@@ -16,7 +16,7 @@ import net.minecraftforge.event.entity.player.UseHoeEvent;
 
 import net.multiplemonomials.eer.reference.Key;
 import net.multiplemonomials.eer.reference.Names;
-import net.multiplemonomials.eer.reference.Textures;
+import net.multiplemonomials.eer.reference.Reference;
 import net.multiplemonomials.eer.client.util.PowerItemUtils;
 import net.multiplemonomials.eer.creativetab.CreativeTab;
 import net.multiplemonomials.eer.interfaces.IChargeable;
@@ -116,13 +116,13 @@ public class ItemHoeDarkMatter extends ItemHoe implements IChargeable, IKeyBound
     @Override
     public String getUnlocalizedName()
     {
-        return String.format("item.%s%s", Textures.RESOURCE_PREFIX, ItemEE.getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
+        return String.format("item.%s%s", Reference.RESOURCE_PREFIX, ItemEE.getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
     }
 
     @Override
     public String getUnlocalizedName(ItemStack itemStack)
     {
-        return String.format("item.%s%s", Textures.RESOURCE_PREFIX, ItemEE.getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
+        return String.format("item.%s%s", Reference.RESOURCE_PREFIX, ItemEE.getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
     }
 
     @Override

@@ -242,7 +242,7 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest
 				{
 					if(EnergyRegistry.getInstance().hasEnergyValue(itemStack))
 					{
-						int freeSlotsInStack = inventory[INPUT_SLOT_INVENTORY_INDEX].getItem().getItemStackLimit(inventory[INPUT_SLOT_INVENTORY_INDEX]) - inventory[INPUT_SLOT_INVENTORY_INDEX].stackSize;
+						int freeSlotsInStack = inventory[INPUT_SLOT_INVENTORY_INDEX].getItem().getItemStackLimit(inventory[INPUT_SLOT_INVENTORY_INDEX]) - inventory[counter].stackSize;
 						if(itemStack.getItem() == inventory[INPUT_SLOT_INVENTORY_INDEX].getItem() && freeSlotsInStack > 0)
 						{
 							freeSlots += freeSlotsInStack;

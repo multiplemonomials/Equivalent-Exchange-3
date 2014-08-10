@@ -1,7 +1,7 @@
 package net.multiplemonomials.eer.block;
 
 import net.multiplemonomials.eer.creativetab.CreativeTab;
-import net.multiplemonomials.eer.reference.Textures;
+import net.multiplemonomials.eer.reference.Reference;
 import net.multiplemonomials.eer.tileentity.TileEntityEE;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -36,7 +36,7 @@ public class BlockEE extends Block
     @Override
     public String getUnlocalizedName()
     {
-        return String.format("tile.%s%s", Textures.RESOURCE_PREFIX, getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
+        return String.format("tile.%s%s", Reference.RESOURCE_PREFIX, getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
     }
 
     @Override

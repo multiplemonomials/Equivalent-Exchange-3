@@ -31,8 +31,8 @@ item.eer:swordDarkMatter.name=Dark Matter Sword
 item.eer:flintDarkMatter.name=Dark Matter and Steel 
 item.eer:darkMatter.name=Dark Matter
 item.eer:talismanRepair.name=Talisman Of Repair
-item.eer:ironBandMundane.name=Mundane Iron Band
-item.eer:ironBandImbued.name=Imbued Iron Band
+item.eer:bandIronMundane.name=Mundane Iron Band
+item.eer:bandIronImbued.name=Imbued Iron Band
 item.eer:ringFlight.name=Ring of Flight
 
 

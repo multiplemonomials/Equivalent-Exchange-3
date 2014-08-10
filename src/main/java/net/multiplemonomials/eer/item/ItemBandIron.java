@@ -8,37 +8,34 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
-
-import net.multiplemonomials.eer.item.ItemEE;
 import net.multiplemonomials.eer.reference.Names;
-import net.multiplemonomials.eer.reference.Textures;
-
+import net.multiplemonomials.eer.reference.Reference;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemIronBand extends ItemEE 
+public class ItemBandIron extends ItemEE 
 {
 	private IIcon[] icons;
 	
-	public ItemIronBand()
+	public ItemBandIron()
 	{
 		super();
 		this.setMaxStackSize(64);
 		this.setHasSubtypes(true);
-		this.setUnlocalizedName(Names.Items.IRON_BAND);
+		this.setUnlocalizedName(Names.Items.BAND_IRON);
         setMaxDamage(0);
 	}
 	
     @Override
     public String getUnlocalizedName()
     {
-        return String.format("item.%s%s", Textures.RESOURCE_PREFIX, Names.Items.IRON_BAND);
+        return String.format("item.%s%s", Reference.RESOURCE_PREFIX, Names.Items.BAND_IRON);
     }
     
     @Override
     public String getUnlocalizedName(ItemStack itemStack)
     {
-        return String.format("item.%s%s%s", Textures.RESOURCE_PREFIX, Names.Items.IRON_BAND, Names.Items.IRON_BAND_SUBTYPES[
+        return String.format("item.%s%s%s", Reference.RESOURCE_PREFIX, Names.Items.BAND_IRON, Names.Items.IRON_BAND_SUBTYPES[
            MathHelper.clamp_int(itemStack.getItemDamage(), 0, Names.Items.IRON_BAND_SUBTYPES.length - 1)]);
        
     }
@@ -62,7 +59,7 @@ public class ItemIronBand extends ItemEE
 
         for (int i = 0; i < Names.Items.IRON_BAND_SUBTYPES.length; i++)
         {
-            icons[i] = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + Names.Items.IRON_BAND + Names.Items.IRON_BAND_SUBTYPES[i]);
+            icons[i] = iconRegister.registerIcon(Reference.RESOURCE_PREFIX + Names.Items.BAND_IRON + Names.Items.IRON_BAND_SUBTYPES[i]);
         }
     }
     
