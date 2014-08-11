@@ -126,7 +126,7 @@ public class ItemFlintDarkMatter extends ItemFlintAndSteel implements IChargeabl
                 }
                 else
                 {
-                	BlockHelper.setBlocksAround(x, y, z, Blocks.fire, 0, Reference.MAX_ITEM_CHARGES - getDamage(itemStack), world);
+                	BlockHelper.setAirBlocksAround(x, y, z, Blocks.fire, 0, Reference.MAX_ITEM_CHARGES - getDamage(itemStack), world);
                 }
             }
             return true;
