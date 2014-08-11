@@ -14,12 +14,20 @@ public class EmcInitializationHelper implements Runnable
     @Override
     public void run()
     {
-        long startTime = System.currentTimeMillis();
-        EnergyRegistry.getInstance();
-        long duration = System.currentTimeMillis() - startTime;
-        if (duration > 10)
-        {
-            LogHelper.info(String.format("DynEmc system initialized after %s ms", duration));
-        }
+    	try
+    	{
+	        long startTime = System.currentTimeMillis();
+	        EnergyRegistry.getInstance();
+	        long duration = System.currentTimeMillis() - startTime;
+	        if (duration > 10)
+	        {
+	            LogHelper.info(String.format("DynEmc system initialized after %s ms", duration));
+	        }
+    	}
+    	catch(RuntimeException error)
+    	{
+    		LogHelper.error("Um, the EER DynEMC system failed to initialize.  Uh-oh.");
+    		error.printStackTrace();
+    	}
     }
 }

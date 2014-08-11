@@ -33,7 +33,8 @@ public class BlockAlchemicalFuel extends BlockEE
         return Item.getItemFromBlock(this);
     }
 
-    @Override
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list)
     {
