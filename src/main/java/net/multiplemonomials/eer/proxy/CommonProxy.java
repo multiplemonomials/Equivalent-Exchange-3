@@ -12,7 +12,6 @@ import net.multiplemonomials.eer.handler.EntityConstructedEventHandler;
 import net.multiplemonomials.eer.handler.EntityJoinWorldHandler;
 import net.multiplemonomials.eer.handler.ItemEventHandler;
 import net.multiplemonomials.eer.handler.LivingDeathEventHandler;
-import net.multiplemonomials.eer.handler.PlayerEventHandler;
 import net.multiplemonomials.eer.handler.WorldEventHandler;
 import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.tileentity.TileEntityAlchemicalChest;
@@ -39,8 +38,6 @@ public abstract class CommonProxy implements IProxy
         FMLCommonHandler.instance().bus().register(itemEventHandler);
         MinecraftForge.EVENT_BUS.register(itemEventHandler);
         MinecraftForge.EVENT_BUS.register(new WorldEventHandler());
-        
-        FMLCommonHandler.instance().bus().register(new PlayerEventHandler());
         
         MinecraftForge.EVENT_BUS.register(new EntityConstructedEventHandler());
         MinecraftForge.EVENT_BUS.register(new LivingDeathEventHandler());

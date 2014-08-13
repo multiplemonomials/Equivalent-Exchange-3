@@ -35,6 +35,7 @@ public class EnergyValuesDefault
          *  Minium Stone
          */
         valueMap.put(new WrappedStack(new ItemStack(ModItems.stoneMinium)), new EnergyValue(24960));
+        valueMap.put(new WrappedStack(new ItemStack(ModItems.shardMinium)), new EnergyValue(2773.333F));
         
         //Fuels
         valueMap.put(new WrappedStack(new ItemStack(ModItems.alchemicalFuel, 1, 0)), new EnergyValue(256));

@@ -34,6 +34,8 @@ public class EERExtendedPlayer implements IExtendedEntityProperties
 	}
 
 	public Set<ItemStack> learnedItems;
+	
+	private boolean isUsingFlyingRing;
     
     public EERExtendedPlayer(EntityPlayer player)
     {
@@ -121,7 +123,7 @@ public class EERExtendedPlayer implements IExtendedEntityProperties
     		{
         		learnedItems.add(stackToAdd);
         		
-        		syncExtendedPlayer(player);
+        		syncExtendedPlayer(player, this);
     		}
     	}
     }
@@ -141,7 +143,7 @@ public class EERExtendedPlayer implements IExtendedEntityProperties
     		playerData.loadNBTData(savedData);
     	}
     	
-    	syncExtendedPlayer(player);
+    	syncExtendedPlayer(player, playerData);
     }
     
     public static void saveProxyData(EntityPlayer player)
@@ -154,23 +156,33 @@ public class EERExtendedPlayer implements IExtendedEntityProperties
     	CommonProxy.storeEntityData(getSaveKey(player), savedData);
     }
     
-    public static void syncExtendedPlayer(EntityPlayer player)
+    public static void syncExtendedPlayer(EntityPlayer player, EERExtendedPlayer playerData)
     {
     	if(!player.worldObj.isRemote)
     	{
-    		PacketHandler.INSTANCE.sendTo(new MessageEERExtendedPlayerUpdateClient(EERExtendedPlayer.get(player)), (EntityPlayerMP)player);
+    		PacketHandler.INSTANCE.sendTo(new MessageEERExtendedPlayerUpdateClient(playerData), (EntityPlayerMP)player);
     	}
     	else
     	{
-    		PacketHandler.INSTANCE.sendToServer(new MessageEERExtendedPlayerUpdateServer(EERExtendedPlayer.get(player)));
+    		PacketHandler.INSTANCE.sendToServer(new MessageEERExtendedPlayerUpdateServer(playerData));
     	}
     }
 
 	@Override
 	public void init(Entity entity, World world)
 	{
-		// TODO Auto-generated method stub
 		
+	}
+
+	public boolean isUsingFlyingRing()
+	{
+		return isUsingFlyingRing;
+	}
+
+	public void setUsingFlyingRing(boolean isUsingFlyingRing)
+	{
+		this.isUsingFlyingRing = isUsingFlyingRing;
+    	syncExtendedPlayer(player, this);
 	}
 
 }

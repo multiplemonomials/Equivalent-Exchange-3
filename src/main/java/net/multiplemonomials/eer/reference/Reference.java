@@ -5,7 +5,7 @@ public class Reference
     public static final String MOD_ID = "EER";
     public static final String MOD_NAME = "Equivalent Exchange Reborn";
     public static final String FINGERPRINT = "@FINGERPRINT@";
-    public static final String VERSION = "0.1.3";
+    public static final String VERSION = "0.1.4";
     public static final String SERVER_PROXY_CLASS = "net.multiplemonomials.eer.proxy.ServerProxy";
     public static final String CLIENT_PROXY_CLASS = "net.multiplemonomials.eer.proxy.ClientProxy";
     
@@ -36,4 +36,8 @@ public class Reference
 	
 	//how much EMC the Ring of Flight will spend pushing mobs away
 	public static final float FLYING_RING_EMC_DRAIN_PER_TICK_MOB_PUSH = 1.0F;
+	
+	//control the use of a more complicated tick handler for the flying ring
+	//that is more laggy but doesn't break other mods' creative-flight systems
+	public static boolean USE_FLYING_RING_COMPATIBILITY_FIX = true;
 }

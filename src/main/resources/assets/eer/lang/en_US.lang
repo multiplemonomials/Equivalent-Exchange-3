@@ -34,6 +34,12 @@ item.eer:talismanRepair.name=Talisman Of Repair
 item.eer:bandIronMundane.name=Mundane Iron Band
 item.eer:bandIronImbued.name=Imbued Iron Band
 item.eer:ringFlight.name=Ring of Flight
+item.eer:kleinStar.Ichi.name=Klein Star Ichi
+item.eer:kleinStar.Ni.name=Klein Star Ni
+item.eer:kleinStar.San.name=Klein Star San
+item.eer:kleinStar.Yon.name=Klein Star Yon
+item.eer:kleinStar.Go.name=Klein Star Go
+item.eer:kleinStar.Zen.name=Klein Star Zen
 
 
 # Block localizations

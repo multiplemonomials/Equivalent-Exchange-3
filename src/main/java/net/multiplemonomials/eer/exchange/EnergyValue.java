@@ -30,11 +30,6 @@ public class EnergyValue implements Comparable<EnergyValue>, JsonDeserializer<En
         this(new float[EnergyType.TYPES.length]);
     }
 
-    public EnergyValue(int value)
-    {
-        this((float) value);
-    }
-
     public EnergyValue(float value)
     {
         this(value, EnergyType.DEFAULT);

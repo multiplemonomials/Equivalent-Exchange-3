@@ -44,6 +44,8 @@ public class Names
 		public static final String BAND_IRON = "bandIron";
 		public static final String[] IRON_BAND_SUBTYPES = {"Mundane", "Imbued"};		
 		public static final String RING_FLIGHT = "ringFlight";
+		public static final String KLEIN_STAR = "kleinStar";
+		public static final String[] KLEIN_STAR_SUBTYPES = {"Ichi", "Ni", "San", "Yon", "Go", "Zen"};
 
     }
     

@@ -1,7 +1,10 @@
 package net.multiplemonomials.eer.handler;
 
+import java.util.Random;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.ContainerWorkbench;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraftforge.common.util.FakePlayer;
@@ -53,13 +56,13 @@ public class CraftingHandler
         
         //alchemical fuel recipes       
         GameRegistry.addShapedRecipe(new ItemStack(ModItems.alchemicalFuel, 1, 0), new Object[] {" C ", "CMC", " C ",
-        	'C', Items.coal, 'M', new ItemStack(ModItems.stoneMinium)});
+        	'C', Items.coal, 'M', new ItemStack(ModItems.stoneMinium, 1, OreDictionary.WILDCARD_VALUE)});
         
         GameRegistry.addShapedRecipe(new ItemStack(ModItems.alchemicalFuel, 1, 1), new Object[] {" C ", "CMC", " C ",
-        	'C', new ItemStack(ModItems.alchemicalFuel, 1, 0), 'M', new ItemStack(ModItems.stoneMinium)});
+        	'C', new ItemStack(ModItems.alchemicalFuel, 1, 0), 'M', new ItemStack(ModItems.stoneMinium, 1, OreDictionary.WILDCARD_VALUE)});
         
         GameRegistry.addShapedRecipe(new ItemStack(ModItems.alchemicalFuel, 1, 2), new Object[] {" C ", "CMC", " C ",
-        	'C', new ItemStack(ModItems.alchemicalFuel, 1, 1), 'M', new ItemStack(ModItems.stoneMinium)});
+        	'C', new ItemStack(ModItems.alchemicalFuel, 1, 1), 'M', new ItemStack(ModItems.stoneMinium, 1, OreDictionary.WILDCARD_VALUE)});
         
         //alchemical chest
         GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.alchemicalChest, 1, 0), new Object[] {"IDI", "VCV", "IMI", 'I', Items.iron_ingot, 'D', Items.diamond, 
@@ -75,13 +78,13 @@ public class CraftingHandler
         //alchemical upgrades
         //not exactly sure what the verdant upgrade does, since there are only three types of chest
         //GameRegistry.addShapedRecipe(new ItemStack(ModItems.alchemicalUpgrade, 1, 0), new Object[] {" V ", "VMV", " V ", 'V', 
-        //	new ItemStack(ModItems.alchemicalDust, 1, 1), 'M', ModItems.stoneMinium});
+        //	new ItemStack(ModItems.alchemicalDust, 1, 1), 'M', new ItemStack(ModItems.stoneMinium, 1, OreDictionary.WILDCARD_VALUE)});
         
         GameRegistry.addShapedRecipe(new ItemStack(ModItems.alchemicalUpgrade, 1, 1), new Object[] {" A ", "AMA", " A ", 'A', 
-        	new ItemStack(ModItems.alchemicalDust, 1, 2), 'M', ModItems.stoneMinium});
+        	new ItemStack(ModItems.alchemicalDust, 1, 2), 'M', new ItemStack(ModItems.stoneMinium, 1, OreDictionary.WILDCARD_VALUE)});
         
         GameRegistry.addShapedRecipe(new ItemStack(ModItems.alchemicalUpgrade, 1, 2), new Object[] {" V ", "VMV", " V ", 'V', 
-        	new ItemStack(ModItems.alchemicalDust, 1, 3), 'M', ModItems.stoneMinium});
+        	new ItemStack(ModItems.alchemicalDust, 1, 3), 'M', new ItemStack(ModItems.stoneMinium, 1, OreDictionary.WILDCARD_VALUE)});
         
         //alchemical bag upgrades
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.alchemicalBag, 1, 1), new Object[] { 
@@ -123,7 +126,7 @@ public class CraftingHandler
         
         //transmutation tablet
         GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.transmutationTablet, 1, 0), new Object[] {"   ", "OMO", "DGD", 'O', new ItemStack(Blocks.obsidian),
-        	'D', Items.diamond, 'M', Items.glowstone_dust, 'M', new ItemStack(ModItems.stoneMinium)});
+        	'D', Items.diamond, 'M', Items.glowstone_dust, 'M', new ItemStack(ModItems.stoneMinium, 1, OreDictionary.WILDCARD_VALUE)});
         
         //alchemical fuel blocks
         GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.alchemicalFuelBlock, 1, 0), new Object[] {"FFF", "FFF", "FFF", 'F', new ItemStack(ModItems.alchemicalFuel, 1, 0)});
@@ -144,7 +147,6 @@ public class CraftingHandler
     @SubscribeEvent
     public void onItemCraftedEvent(PlayerEvent.ItemCraftedEvent event)
     {
-        // TODO Set owner on who crafted the item (make sure it's not a FakePlayer)
     	if(!(event.player instanceof FakePlayer))
     	{
 	    	//take durability damage from minium stone
@@ -154,16 +156,47 @@ public class CraftingHandler
 	    		
 	    		if(itemStack != null && itemStack.getItem() == ModItems.stoneMinium)
 	    		{
-	    			itemStack.damageItem(1, event.player);
+	    			String name = event.crafting.getUnlocalizedName();
+	    			if(name.equals("tile.eer:transmutationTablet"))
+	    			{
+		    			itemStack.damageItem(100, event.player);
+	    			}
+	    			else
+	    			{
+	    				itemStack.damageItem(1, event.player);
+	    			}
+	    			
+	    			//if the stone has broken, return it as shards
+	    			if(itemStack.stackSize == 0)
+	    			{
+	    				itemStack = new ItemStack(ModItems.shardMinium, new Random().nextInt(9), 0);
+	    				if(itemStack.stackSize == 0)
+	    				{
+	    					itemStack = null;
+	    				}
+	    			}
 	    			
 	    			//and then return it
-	    			if(!event.player.inventory.addItemStackToInventory(itemStack))
-	    			{
-	    				event.player.entityDropItem(itemStack, 0);
-	    			}
+	    			//first, try to put it back in the slot where it came from
+	    			//JS: I have no idea why this code doesn't work
+	    			//it's supposed to put the stone back in the crafting matrix
+	    			//but it just deletes it
+	    			//if((itemStack != null && event.player.openContainer instanceof ContainerWorkbench)  && (itemStack.getItem() == ((ContainerWorkbench)event.player.openContainer).craftMatrix.getStackInSlot(counter).getItem()))
+	    			//{
+	    			//	((ContainerWorkbench)event.player.openContainer).craftMatrix.setInventorySlotContents(counter, itemStack);
+	    			//}
+	    			//else
+	    			//{
+	    				//then, try to put it into the player's inventory
+		    			if(!event.player.inventory.addItemStackToInventory(itemStack))
+		    			{
+		    				event.player.entityDropItem(itemStack, 0);
+		    			}
+	    			//}
 	    		}
 	    		
 	    	}
     	}
     }
+    
 }

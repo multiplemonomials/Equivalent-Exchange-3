@@ -27,6 +27,7 @@ public class ModItems
     public static final ItemEE talismanRepair = new ItemTalismanRepair();
     public static final ItemEE bandIron = new ItemBandIron();
     public static final ItemEE ringFlight = new ItemRingFlight();
+    public static final ItemEE kleinStar = new ItemKleinStar();
     
     public static final ItemTool axeDarkMatter = new ItemAxeDarkMatter();
     public static final ItemTool pickaxeDarkMatter = new ItemPickaxeDarkMatter();
@@ -52,7 +53,8 @@ public class ModItems
         GameRegistry.registerItem(talismanRepair, Names.Items.TALISMAN_REPAIR);
         GameRegistry.registerItem(bandIron, Names.Items.BAND_IRON);
         GameRegistry.registerItem(ringFlight, Names.Items.RING_FLIGHT);
-
+        GameRegistry.registerItem(kleinStar, Names.Items.KLEIN_STAR);
+        
 
         GameRegistry.registerItem(axeDarkMatter, Names.Tools.AXE_DARK_MATTER);
         GameRegistry.registerItem(hoeDarkMatter, Names.Tools.HOE_DARK_MATTER);

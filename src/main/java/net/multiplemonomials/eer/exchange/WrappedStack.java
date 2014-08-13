@@ -1,18 +1,17 @@
 package net.multiplemonomials.eer.exchange;
 
-import net.multiplemonomials.eer.reference.Compare;
-import net.multiplemonomials.eer.util.FluidHelper;
-import net.multiplemonomials.eer.util.ItemHelper;
-import net.multiplemonomials.eer.util.LogHelper;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import net.multiplemonomials.eer.reference.Compare;
+import net.multiplemonomials.eer.util.FluidHelper;
+import net.multiplemonomials.eer.util.ItemHelper;
 
 public class WrappedStack implements Comparable<WrappedStack>
 {

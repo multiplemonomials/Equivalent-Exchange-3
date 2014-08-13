@@ -1,7 +1,8 @@
 package net.multiplemonomials.eer.handler;
 
+import net.multiplemonomials.eer.data.EERExtendedPlayer;
 import net.multiplemonomials.eer.item.ItemRingFlight;
-
+import net.multiplemonomials.eer.reference.Reference;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
@@ -30,8 +31,7 @@ public class PlayerEventHandler
 			//process flight ring
 			//this has to be done in here so that flight can be turned off once the ring is no longer in the hotbar
 			//however, this has the unfortunate side effect of nuking any other mods which provide flight this way
-			//TODO: use IExtendedEntityProperties to fix this
-			//http://www.minecraftforum.net/forums/mapping-and-modding/mapping-and-modding-tutorials/1571567-1-7-2-1-6-4-eventhandler-and
+			//so, we use EERPlayerData to store whether they previusly were flying
 			for(int index = 0; index < InventoryPlayer.getHotbarSize(); ++index)
 			{
 				if(player.inventory.mainInventory[index] != null && player.inventory.mainInventory[index].getItem() instanceof ItemRingFlight)
@@ -43,15 +43,28 @@ public class PlayerEventHandler
 				}
 			}
 			
-			
-			if(ringFlight != null)
+			EERExtendedPlayer playerData = null;
+			if(Reference.USE_FLYING_RING_COMPATIBILITY_FIX)
 			{
+				playerData = EERExtendedPlayer.get(player);
+			}
+			if(ringFlight != null)
+			{			
 				player.capabilities.allowFlying = true;
+				if(Reference.USE_FLYING_RING_COMPATIBILITY_FIX && !playerData.isUsingFlyingRing())
+				{
+					playerData.setUsingFlyingRing(true);
+				}
 			}
 			else
 			{
-				player.capabilities.allowFlying = false;
-				player.capabilities.isFlying = false;
+				if(!Reference.USE_FLYING_RING_COMPATIBILITY_FIX || playerData.isUsingFlyingRing())
+				{
+					player.capabilities.allowFlying = false;
+					player.capabilities.isFlying = false;
+					playerData.setUsingFlyingRing(true);
+
+				}
 			}
 		}
 	}
