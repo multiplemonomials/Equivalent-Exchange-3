@@ -29,10 +29,6 @@ public class MessageTileCalcinator implements IMessage, IMessageHandler<MessageT
         this.state = (byte) tileEntityCalcinator.getState();
         this.customName = tileEntityCalcinator.getCustomName();
         this.owner = tileEntityCalcinator.getOwner();
-        this.leftStackSize = tileEntityCalcinator.leftStackSize;
-        this.leftStackMeta = tileEntityCalcinator.leftStackMeta;
-        this.rightStackSize = tileEntityCalcinator.rightStackSize;
-        this.rightStackMeta = tileEntityCalcinator.rightStackMeta;
     }
 
     @Override
@@ -82,10 +78,6 @@ public class MessageTileCalcinator implements IMessage, IMessageHandler<MessageT
             ((TileEntityEE) tileEntity).setState(message.state);
             ((TileEntityEE) tileEntity).setCustomName(message.customName);
             ((TileEntityEE) tileEntity).setOwner(message.owner);
-            ((TileEntityCalcinator) tileEntity).leftStackSize = message.leftStackSize;
-            ((TileEntityCalcinator) tileEntity).leftStackMeta = message.leftStackMeta;
-            ((TileEntityCalcinator) tileEntity).rightStackSize = message.rightStackSize;
-            ((TileEntityCalcinator) tileEntity).rightStackMeta = message.rightStackMeta;
         }
 
         return null;

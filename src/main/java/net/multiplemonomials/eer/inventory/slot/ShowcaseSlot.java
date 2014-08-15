@@ -1,13 +1,10 @@
 package net.multiplemonomials.eer.inventory.slot;
 
-import org.lwjgl.input.Keyboard;
-
-import net.multiplemonomials.eer.interfaces.IShowcaseSlotCallback;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.multiplemonomials.eer.interfaces.IShowcaseSlotCallback;
 
 /**
  * A Slot which shows an item and cannot be added to.
@@ -65,7 +62,8 @@ public class ShowcaseSlot extends Slot
     		return false;
     	}
     	
-    	ItemStack itemToSet = _clickCallback.onSlotClick(this, getStack().copy(), Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_LSHIFT));
+    	//TODO: using Keyboard to detect shift-clicking fails on servers.  I have to use somekind of TransferStackInSlot-based method
+    	ItemStack itemToSet = _clickCallback.onSlotClick(this, getStack().copy(),/* Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)*/false);
     	
     	if(itemToSet == null)
     	{

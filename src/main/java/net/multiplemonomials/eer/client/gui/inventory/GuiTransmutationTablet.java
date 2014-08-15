@@ -1,9 +1,9 @@
 package net.multiplemonomials.eer.client.gui.inventory;
 
+import net.multiplemonomials.eer.data.EERExtendedPlayer;
 import net.multiplemonomials.eer.inventory.ContainerTransmutationTablet;
 import net.multiplemonomials.eer.reference.Textures;
 import net.multiplemonomials.eer.tileentity.TileEntityTransmutationTablet;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -19,6 +19,8 @@ public class GuiTransmutationTablet extends GuiContainer
     
     int yStart;
     
+    EERExtendedPlayer _playerData;
+    
 	public GuiTransmutationTablet(InventoryPlayer inventoryPlayer, TileEntityTransmutationTablet tileEntityTransmutationTablet)
     {
         super(new ContainerTransmutationTablet(inventoryPlayer, tileEntityTransmutationTablet));
@@ -29,6 +31,8 @@ public class GuiTransmutationTablet extends GuiContainer
         
         xStart = (width - xSize) / 2;
         yStart = (height - ySize) / 2;
+        
+        _playerData = EERExtendedPlayer.get(inventoryPlayer.player);
         
     }
     
@@ -70,14 +74,14 @@ public class GuiTransmutationTablet extends GuiContainer
 		{
 			if(tileEntityTransmutationTablet.getCurrentPage() < tileEntityTransmutationTablet.getNumberOfPages() - 1)
 			{
-				//tileEntityTransmutationTablet.showPage(tileEntityTransmutationTablet.getCurrentPage() + 1);
+				tileEntityTransmutationTablet.showPage(tileEntityTransmutationTablet.getCurrentPage() + 1, _playerData);
 			}
 		}
 		else if(button.displayString.contentEquals("Previous"))
 		{
 			if(tileEntityTransmutationTablet.getCurrentPage() > 0)
 			{
-				//tileEntityTransmutationTablet.showPage(tileEntityTransmutationTablet.getCurrentPage() - 1);
+				tileEntityTransmutationTablet.showPage(tileEntityTransmutationTablet.getCurrentPage() - 1, _playerData);
 			}
 		}
 	}

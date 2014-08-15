@@ -140,7 +140,27 @@ public class CraftingHandler
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.alchemicalFuel, 9, 1), new ItemStack(ModBlocks.alchemicalFuelBlock, 1, 1));
 
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.alchemicalFuel, 9, 2), new ItemStack(ModBlocks.alchemicalFuelBlock, 1, 2));
+        
+        //Klein Stars
+        ItemStack kleinStarIchi = new ItemStack(ModItems.kleinStar, 1, 0);
+        ItemStack kleinStarNi = new ItemStack(ModItems.kleinStar, 1, 1);
+        ItemStack kleinStarSan = new ItemStack(ModItems.kleinStar, 1, 2);
+        ItemStack kleinStarYon = new ItemStack(ModItems.kleinStar, 1, 3);
+        ItemStack kleinStarGo = new ItemStack(ModItems.kleinStar, 1, 4);
+        ItemStack kleinStarZen = new ItemStack(ModItems.kleinStar, 1, 5);
+        
+        GameRegistry.addShapedRecipe(kleinStarIchi, new Object[] {"MMM", "MDM", "MMM", 'D', Items.diamond,
+        	'M', new ItemStack(ModItems.alchemicalFuel, 1, 0)});
+        
+        GameRegistry.addShapelessRecipe(kleinStarNi, kleinStarIchi, kleinStarIchi, kleinStarIchi, kleinStarIchi);
+        
+        GameRegistry.addShapelessRecipe(kleinStarSan, kleinStarNi, kleinStarNi, kleinStarNi, kleinStarNi);
 
+        GameRegistry.addShapelessRecipe(kleinStarYon, kleinStarSan, kleinStarSan, kleinStarSan, kleinStarSan);
+
+        GameRegistry.addShapelessRecipe(kleinStarGo, kleinStarYon, kleinStarYon, kleinStarYon, kleinStarYon);
+
+        GameRegistry.addShapelessRecipe(kleinStarZen, kleinStarIchi, kleinStarNi, kleinStarSan, kleinStarYon, kleinStarGo);
 
     }
 

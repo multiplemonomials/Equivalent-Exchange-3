@@ -41,9 +41,7 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
 	final private int bits10To6Bitmask = 0x7C0; //0b11111000000
 	final private int bits11To12Bitmask = 0x1800; //0b1100000000000
 	final private int bits13To31Bitmask = 0x7FFFE000;//0b1111111111111111110000000000000
-
-    public byte leftStackSize, leftStackMeta, rightStackSize, rightStackMeta;
-
+	
     public int itemSuckCoolDown = 0;
     /**
      * The ItemStacks that hold the items currently being used in the Calcinator
@@ -237,23 +235,23 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
         }
         else if (eventId == 2)
         {
-            this.leftStackSize = (byte) eventData;
+            inventory[OUTPUT_LEFT_INVENTORY_INDEX].stackSize = (byte) eventData;
             return true;
         }
         else if (eventId == 3)
         {
-            this.leftStackMeta = (byte) eventData;
+        	inventory[OUTPUT_LEFT_INVENTORY_INDEX].setItemDamage(eventData);
             return true;
         }
         else if (eventId == 4)
         {
-            this.rightStackSize = (byte) eventData;
+        	inventory[OUTPUT_RIGHT_INVENTORY_INDEX].stackSize = (byte) eventData;
             return true;
         }
         else if (eventId == 5)
         {
-            this.rightStackMeta = (byte) eventData;
-            return true;
+        	inventory[OUTPUT_RIGHT_INVENTORY_INDEX].setItemDamage(eventData);
+        	return true;
         }
         else
         {
@@ -288,7 +286,7 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
      */
     private int getBurnTimeForItemStack(ItemStack itemStack)
     {
-    	if(EnergyRegistry.getInstance().hasEnergyValue(itemStack))
+    	if(EnergyRegistry.getInstance().hasEnergyValue(itemStack) && EMCHelper.isConsideredFuel(itemStack))
     	{
 	    	EnergyValue stackEmc = EnergyRegistry.getInstance().getEnergyValue(inventory[FUEL_INVENTORY_INDEX]);
 			float stackEmcValue = stackEmc.getValue();
@@ -304,9 +302,9 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
      */
     private int getItemCookTimeForItemStack(ItemStack itemStack)
     {
-    	if(EnergyRegistry.getInstance().hasEnergyValue(itemStack) && EMCHelper.isConsideredFuel(itemStack))
+    	if(EnergyRegistry.getInstance().hasEnergyValue(itemStack))
     	{
-	    	EnergyValue stackEmc = EnergyRegistry.getInstance().getEnergyValue(inventory[FUEL_INVENTORY_INDEX]);
+	    	EnergyValue stackEmc = EnergyRegistry.getInstance().getEnergyValue(inventory[INPUT_INVENTORY_INDEX]);
 			float stackEmcValue = stackEmc.getValue();
 			return MathHelper.ceiling_float_int((stackEmcValue) * Reference.FURNACE_TICKS_PER_ITEM_EMC);
     	}
@@ -344,8 +342,16 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
 				//spill over into the other item stack
 				if(outputs[1] == null || (outputs[1].stackSize < ItemHelper.maxStackSize(outputs[0]) && ItemHelper.similar(outputs[1], outputs[0])))
 				{
+					if(outputs[1] == null)
+					{
+						outputs[1] = new ItemStack(outputs[0].getItem(), 0, outputs[0].getItemDamage());
+					}
 					outputs[1].stackSize = outputs[1].stackSize + (outputs[0].stackSize - ItemHelper.maxStackSize(outputs[0]));
 					outputs[0].stackSize = ItemHelper.maxStackSize(outputs[0]);
+					if(outputs[1].stackSize > ItemHelper.maxStackSize(outputs[1]))
+					{
+						return false;
+					}
 				}
 				
 				return false;
@@ -445,11 +451,9 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
 	    		inventory[OUTPUT_LEFT_INVENTORY_INDEX].stackSize += itemsToOutput.getLeft().stackSize;
 	    	}
 	    	
-	    	leftStackSize = (byte) itemsToOutput.getLeft().stackSize;
-	    	worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.calcinator, 2, leftStackSize);
+	    	worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.calcinator, 2, itemsToOutput.getLeft().stackSize);
 	    	
-	    	leftStackMeta = (byte) itemsToOutput.getLeft().getItemDamage();
-	    	worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.calcinator, 3, leftStackMeta);
+	    	worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.calcinator, 3, itemsToOutput.getLeft().getItemDamage());
 
 	    	
 	    	
@@ -466,11 +470,9 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
 	    		inventory[OUTPUT_RIGHT_INVENTORY_INDEX].stackSize += itemsToOutput.getRight().stackSize;
 	    	}
 	    	
-	    	rightStackSize = (byte) itemsToOutput.getRight().stackSize;
-	    	worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.calcinator, 3, rightStackSize);
-
-	    	rightStackMeta = (byte) itemsToOutput.getRight().getItemDamage();
-	    	worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.calcinator, 4, rightStackMeta);
+	    	worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.calcinator, 4, itemsToOutput.getRight().stackSize);
+	    	
+	    	worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.calcinator, 5, itemsToOutput.getRight().getItemDamage());
 
     	}
     	

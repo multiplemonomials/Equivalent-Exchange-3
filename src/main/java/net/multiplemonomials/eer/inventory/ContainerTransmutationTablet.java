@@ -102,7 +102,7 @@ public class ContainerTransmutationTablet extends Container
         this.addSlotToContainer(new ShowcaseSlot(tileEntityTransmutationTablet, TileEntityTransmutationTablet.NORTHWEST_SLOT_INDEX, 69, 38, slotHandler));
         this.addSlotToContainer(new ShowcaseSlot(tileEntityTransmutationTablet, TileEntityTransmutationTablet.NORTH_SLOT_INDEX, 93, 23, slotHandler));
         this.addSlotToContainer(new ShowcaseSlot(tileEntityTransmutationTablet, TileEntityTransmutationTablet.NORTHEAST_SLOT_INDEX, 117, 38, slotHandler));
-        this.addSlotToContainer(new Slot(tileEntityTransmutationTablet, TileEntityTransmutationTablet.ENERGY_SLOT_INDEX, 147, 60));
+        this.addSlotToContainer(new Slot(tileEntityTransmutationTablet, TileEntityTransmutationTablet.ENERGY_SLOT_INDEX, 165, 62));
 
         // Add the player's inventory slots to the container
         for (int inventoryRowIndex = 0; inventoryRowIndex < PLAYER_INVENTORY_ROWS; ++inventoryRowIndex)

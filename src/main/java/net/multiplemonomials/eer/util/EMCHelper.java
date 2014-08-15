@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.multiplemonomials.eer.exchange.EnergyRegistry;
 import net.multiplemonomials.eer.exchange.EnergyValue;
 import net.multiplemonomials.eer.init.ModItems;
+import net.multiplemonomials.eer.item.ItemKleinStar;
 
 public class EMCHelper 
 {
@@ -27,13 +28,15 @@ public class EMCHelper
 	{
 		double builtupEMC = 0;
 		
-		//TODO: add support for Klein stars
-		
 		for(int index = 0; index < player.inventory.mainInventory.length; ++index)
 		{
 			if(player.inventory.mainInventory[index] != null)
 			{
-				if(isConsideredFuel(player.inventory.mainInventory[index]))
+				if(player.inventory.mainInventory[index].getItem() == ModItems.kleinStar)
+				{
+					builtupEMC += ItemKleinStar.takeEMC(player.inventory.mainInventory[index], idealEMC);
+				}
+				else if(isConsideredFuel(player.inventory.mainInventory[index]))
 				{
 					EnergyValue energyValue = EnergyRegistry.getInstance().getEnergyValue(player.inventory.mainInventory[index]);
 					if(energyValue != null)

@@ -9,10 +9,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.util.MathHelper;
-
 import net.multiplemonomials.eer.data.EERExtendedPlayer;
 import net.multiplemonomials.eer.exchange.EnergyRegistry;
 import net.multiplemonomials.eer.exchange.EnergyValue;
+import net.multiplemonomials.eer.init.ModItems;
+import net.multiplemonomials.eer.item.ItemKleinStar;
 import net.multiplemonomials.eer.network.PacketHandler;
 import net.multiplemonomials.eer.network.message.MessageTileEntityEE;
 import net.multiplemonomials.eer.reference.Names;
@@ -274,7 +275,6 @@ public class TileEntityTransmutationTablet extends TileEntityEE implements IInve
     	
     	do
     	{
-    		//TODO: get EMC from emc-holding items
     		
     		//take one item
     		if(leftoverEMC < itemEMCValue && inventory[INPUT_SLOT_INDEX] != null)
@@ -298,6 +298,15 @@ public class TileEntityTransmutationTablet extends TileEntityEE implements IInve
 	    		itemsLeftToProduce -= itemsToMakeFromLeftovers;
 	    		leftoverEMC -= itemEMCValue * itemsToMakeFromLeftovers;
 	    	}
+	    	
+	    	//condense from Klein Star
+	    	if((inventory[ENERGY_SLOT_INDEX] != null && inventory[ENERGY_SLOT_INDEX].getItem() == ModItems.kleinStar) && itemsLeftToProduce > 0)
+	    	{
+	    		double availableEMC =  ItemKleinStar.getAvailableEMC(inventory[ENERGY_SLOT_INDEX]);
+	    		int itemsToMakeFromKleinStar = MathHelper.clamp_int(MathHelper.floor_double(availableEMC / itemEMCValue), 0, itemLimit);
+	    		itemsLeftToProduce -= itemsToMakeFromKleinStar;
+	    		ItemKleinStar.takeEMC(inventory[ENERGY_SLOT_INDEX] , itemEMCValue * itemsToMakeFromKleinStar);
+	    	}
     	}
     	while(itemsLeftToProduce > 0 && inventory[INPUT_SLOT_INDEX] != null);
     	
@@ -314,6 +323,17 @@ public class TileEntityTransmutationTablet extends TileEntityEE implements IInve
     			
     		
     	
+    }
+    
+    /**
+     * Called to drain the leftover EMC to a klein star if one is in the slot
+     */
+    private void drainLeftoversToKleinStar()
+    {
+    	if(leftoverEMC != 0 && (inventory[ENERGY_SLOT_INDEX] != null && inventory[ENERGY_SLOT_INDEX].getItem() == ModItems.kleinStar))
+    	{
+    		leftoverEMC = ItemKleinStar.addEMC(inventory[ENERGY_SLOT_INDEX], leftoverEMC);
+    	}
     }
 
     /**
@@ -375,6 +395,11 @@ public class TileEntityTransmutationTablet extends TileEntityEE implements IInve
 	{
 		double maxAvailableEMC = leftoverEMC;
 		
+		if(inventory[ENERGY_SLOT_INDEX] != null && inventory[ENERGY_SLOT_INDEX].getItem() == ModItems.kleinStar)
+		{
+			maxAvailableEMC += ItemKleinStar.getAvailableEMC(inventory[ENERGY_SLOT_INDEX]);
+		}
+		
 		if(inventory[INPUT_SLOT_INDEX] != null)
 		{
 			EnergyValue inputEnergyValue = EnergyRegistry.getInstance().getEnergyValue(inventory[INPUT_SLOT_INDEX]);
@@ -385,13 +410,13 @@ public class TileEntityTransmutationTablet extends TileEntityEE implements IInve
 			}
 		}
 		
-		//TODO: get EMC from emc-holding items
-		
 		return maxAvailableEMC;
 	}
 	
 	private void recalculateTransmutableItems(EERExtendedPlayer learnedItemsData)
 	{
+		drainLeftoversToKleinStar();
+		
 		transmutableItems = new ArrayList<ItemStack>();
 		
 		if(learnedItemsData.learnedItems.isEmpty())

@@ -8,8 +8,10 @@ import net.multiplemonomials.eer.tileentity.TileEntityCalcinator;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
+
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
@@ -23,8 +25,8 @@ public class TileEntityCalcinatorRenderer extends TileEntitySpecialRenderer
 
         if (totalDustStacksSize > 0)
         {
-            int leftStackColour = Integer.parseInt(Colors.DUST_COLOURS[MathHelper.clamp_int(leftStackMeta, 0, Colors.DUST_COLOURS.length)], 16);
-            int rightStackColour = Integer.parseInt(Colors.DUST_COLOURS[MathHelper.clamp_int(rightStackMeta, 0, Colors.DUST_COLOURS.length)], 16);
+            int leftStackColour = Integer.parseInt(Colors.DUST_COLOURS[MathHelper.clamp_int(leftStackMeta, 0, Colors.DUST_COLOURS.length - 1)], 16);
+            int rightStackColour = Integer.parseInt(Colors.DUST_COLOURS[MathHelper.clamp_int(rightStackMeta, 0, Colors.DUST_COLOURS.length - 1)], 16);
 
             float leftStackRatio = leftStackSize * 1f / totalDustStacksSize;
             float rightStackRatio = rightStackSize * 1f / totalDustStacksSize;
@@ -75,8 +77,28 @@ public class TileEntityCalcinatorRenderer extends TileEntitySpecialRenderer
 
             // Render
             modelCalcinator.renderPart("Calcinator");
+            
+            ItemStack leftStack = tileEntityCalcinator.getStackInSlot(TileEntityCalcinator.OUTPUT_LEFT_INVENTORY_INDEX);
+            ItemStack rightStack = tileEntityCalcinator.getStackInSlot(TileEntityCalcinator.OUTPUT_RIGHT_INVENTORY_INDEX);
 
-            int dustStackSize = tileEntityCalcinator.leftStackSize + tileEntityCalcinator.rightStackSize;
+            int leftStackSize = 0;
+            int leftStackMeta = 0;
+            int rightStackSize = 0;
+            int rightStackMeta = 0;
+            
+            if(leftStack != null)
+            {
+            	leftStackSize = leftStack.stackSize;
+            	leftStackMeta = leftStack.getItemDamage();
+            }
+            
+            if(rightStack != null)
+            {
+            	rightStackSize = rightStack.stackSize;
+            	rightStackMeta = rightStack.getItemDamage();
+            }
+            
+            int dustStackSize = rightStackSize + leftStackSize;
 
             if (dustStackSize > 0)
             {
@@ -86,7 +108,7 @@ public class TileEntityCalcinatorRenderer extends TileEntitySpecialRenderer
                 GL11.glRotatef(90F, 1F, 0F, 0F);
                 GL11.glRotatef(-45F, 0F, 1F, 0F);
 
-                float[] dustColour = getBlendedDustColour(tileEntityCalcinator.leftStackSize, tileEntityCalcinator.leftStackMeta, tileEntityCalcinator.rightStackSize, tileEntityCalcinator.rightStackMeta);
+                float[] dustColour = getBlendedDustColour(leftStackSize, leftStackMeta, rightStackSize, rightStackMeta);
 
                 GL11.glColor4f(dustColour[0], dustColour[1], dustColour[2], 1F);
 
