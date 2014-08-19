@@ -26,11 +26,11 @@ public class GuiCondenser extends GuiContainer
     @Override
     protected void drawGuiContainerForegroundLayer(int x, int y)
     {
-    	fontRendererObj.drawString(StatCollector.translateToLocal(tileEntityCondenser.getInventoryName()), 75, 8, 0x404040);
+    	fontRendererObj.drawString(StatCollector.translateToLocal(tileEntityCondenser.getInventoryName()), 70, 9, 0x404040);
     	
-    	String leftoverEMC = String.format("EMC: %d", tileEntityCondenser.getLeftoverEMC());
+    	String leftoverEMC = String.format("EMC: %.2f", tileEntityCondenser.getLeftoverEMC());
     	
-    	fontRendererObj.drawString(leftoverEMC, 185, 8, 0x404040);
+    	fontRendererObj.drawString(leftoverEMC, 174, 9, 0x404040);
     }
 
     @Override

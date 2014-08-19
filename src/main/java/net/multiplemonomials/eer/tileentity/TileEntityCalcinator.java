@@ -276,7 +276,7 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
     		return false;
     	}
     	
-    	return (burnTimeLeftInTicks >= 0 || EMCHelper.isConsideredFuel(inventory[FUEL_INVENTORY_INDEX])) && (EnergyRegistry.getInstance().hasEnergyValue(inventory[INPUT_INVENTORY_INDEX]) || itemsToOutput != null);
+    	return (burnTimeLeftInTicks > 0 || EMCHelper.isConsideredFuel(inventory[FUEL_INVENTORY_INDEX])) && (EnergyRegistry.getInstance().hasEnergyValue(inventory[INPUT_INVENTORY_INDEX]) || itemsToOutput != null);
     	
     }
     
@@ -370,7 +370,7 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
 				return false;
 			}
 			
-		}
+		}		
 		
 		//TODO: Increase the number of output slots and output all four produced dusts instead of dropping the lowest two
 		itemsToOutput = Pair.<ItemStack, ItemStack>of(outputs[0], outputs[1]);
@@ -512,7 +512,11 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
     	}
     	else if(canBurn())
     	{
-    		if(startBurningAnew())
+    		if(itemsToOutput != null)
+    		{
+    			changeState(1);
+    		}
+    		else if(startBurningAnew())
     		{
     			changeState(1);
     		}

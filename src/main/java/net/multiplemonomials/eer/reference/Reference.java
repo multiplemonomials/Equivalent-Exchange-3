@@ -5,7 +5,7 @@ public class Reference
     public static final String MOD_ID = "EER";
     public static final String MOD_NAME = "Equivalent Exchange Reborn";
     public static final String FINGERPRINT = "@FINGERPRINT@";
-    public static final String VERSION = "0.2.0";
+    public static final String VERSION = "0.2.1";
     public static final String SERVER_PROXY_CLASS = "net.multiplemonomials.eer.proxy.ServerProxy";
     public static final String CLIENT_PROXY_CLASS = "net.multiplemonomials.eer.proxy.ClientProxy";
     
@@ -26,7 +26,7 @@ public class Reference
 	//how many ticks the Calcinator will have to burn to cook an item with 1 emc 
 	public static final float FURNACE_TICKS_PER_ITEM_EMC = .1F;
 	
-	public static final int CONDENSER_OUTPUT_ITEMS_PER_TICK = 10;
+	public static final int CONDENSER_INPUT_ITEMS_PER_TICK = 5;
 	
 	//how many ticks it will take the Talisman of Repair to repair 1 durability
 	public static final int TALISMAN_OF_REPAIR_TICKS_PER_DURABILITY = 100;
@@ -39,6 +39,8 @@ public class Reference
 	
 	//half how many EMC a Klein Star Ichi will store
 	public static final double HALF_KLEIN_STAR_ICHI_EMC = 8192.0;
+	
+	public static final double DM_FLINT_REQUIRED_EMC_PER_BLOCK = 32.0;
 	
 	//control the use of a more complicated tick handler for the flying ring
 	//that is more laggy but doesn't break other mods' creative-flight systems

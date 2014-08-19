@@ -19,5 +19,9 @@ public class PacketHandler
         INSTANCE.registerMessage(MessageKeyPressed.class, MessageKeyPressed.class, 4, Side.SERVER);
         INSTANCE.registerMessage(MessageEERExtendedPlayerUpdateClient.class, MessageEERExtendedPlayerUpdateClient.class, 5, Side.CLIENT);
         INSTANCE.registerMessage(MessageEERExtendedPlayerUpdateServer.class, MessageEERExtendedPlayerUpdateServer.class, 6, Side.SERVER);
+        INSTANCE.registerMessage(MessageTileAlchemicalChest.class, MessageTileAlchemicalChest.class, 7, Side.CLIENT);
+        INSTANCE.registerMessage(MessageTileCondenser.class, MessageTileCondenser.class, 8, Side.CLIENT);
+
+        
     }
 }

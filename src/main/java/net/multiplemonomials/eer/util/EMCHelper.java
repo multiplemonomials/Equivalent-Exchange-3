@@ -36,7 +36,19 @@ public class EMCHelper
 				{
 					builtupEMC += ItemKleinStar.takeEMC(player.inventory.mainInventory[index], idealEMC);
 				}
-				else if(isConsideredFuel(player.inventory.mainInventory[index]))
+			}
+			
+			if(builtupEMC >= idealEMC)
+			{
+				return builtupEMC;
+			}
+		}
+		
+		for(int index = 0; index < player.inventory.mainInventory.length; ++index)
+		{
+			if(player.inventory.mainInventory[index] != null)
+			{
+				if(isConsideredFuel(player.inventory.mainInventory[index]))
 				{
 					EnergyValue energyValue = EnergyRegistry.getInstance().getEnergyValue(player.inventory.mainInventory[index]);
 					if(energyValue != null)
