@@ -7,6 +7,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemFlintAndSteel;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.multiplemonomials.eer.client.util.PowerItemUtils;
 import net.multiplemonomials.eer.creativetab.CreativeTab;
@@ -17,6 +19,7 @@ import net.multiplemonomials.eer.reference.Key;
 import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.reference.Reference;
 import net.multiplemonomials.eer.util.BlockHelper;
+import net.multiplemonomials.eer.util.EMCHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -79,7 +82,7 @@ public class ItemFlintDarkMatter extends ItemFlintAndSteel implements IChargeabl
     }
     
     public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float x2, float y2, float z2)
-    {
+    {	
         if (side == 0)
         {
             --y;
@@ -120,14 +123,43 @@ public class ItemFlintDarkMatter extends ItemFlintAndSteel implements IChargeabl
             {
                 world.playSoundEffect((double)x + 0.5D, (double)y + 0.5D, (double)z + 0.5D, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
                 
-                if(getDamage(itemStack) == Reference.MAX_ITEM_CHARGES)
-                {
-                	world.setBlock(x, y, z, Blocks.fire, 0, 2);
-                }
-                else
-                {
-                	BlockHelper.setAirBlocksAround(x, y, z, Blocks.fire, 0, Reference.MAX_ITEM_CHARGES - getDamage(itemStack), world);
-                }
+            	//take some EMC
+            	if(itemStack.stackTagCompound == null)
+            	{
+            		itemStack.stackTagCompound = new NBTTagCompound();
+            	}
+            	
+            	//TODO: don't take EMC for blocks that are skipped because they are not air
+            	
+            	double emcLeft = itemStack.stackTagCompound.getDouble("emcLeft");
+            	int blocksToSet = getDamage(itemStack) == Reference.MAX_ITEM_CHARGES ? 1 : MathHelper.floor_double(Math.pow((Reference.MAX_ITEM_CHARGES - getDamage(itemStack)) + 1, 2));
+            	double neededEMC = Reference.DM_FLINT_REQUIRED_EMC_PER_BLOCK * blocksToSet;
+            	
+            	
+            	if(emcLeft < neededEMC)
+            	{
+            		emcLeft += EMCHelper.consumeEMCFromPlayerInventory(player, neededEMC - emcLeft);
+            	}
+            	if(emcLeft >= neededEMC)
+            	{
+            		 emcLeft -= neededEMC;
+            		 itemStack.stackTagCompound.setDouble("emcLeft", emcLeft);
+            		 
+            		 if(getDamage(itemStack) == Reference.MAX_ITEM_CHARGES)
+                     {
+                     	world.setBlock(x, y, z, Blocks.fire, 0, 2);
+                     }
+                     else
+                     {
+                     	BlockHelper.setAirBlocksAround(x, y, z, Blocks.fire, 0, Reference.MAX_ITEM_CHARGES - getDamage(itemStack), world);
+                     }
+            	}
+            	else
+            	{
+            		itemStack.stackTagCompound.setDouble("emcLeft", emcLeft);
+            		return false;
+            	}
+                
             }
             return true;
         }
