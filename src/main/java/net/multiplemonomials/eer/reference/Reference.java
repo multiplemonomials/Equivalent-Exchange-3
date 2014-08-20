@@ -45,4 +45,7 @@ public class Reference
 	//control the use of a more complicated tick handler for the flying ring
 	//that is more laggy but doesn't break other mods' creative-flight systems
 	public static boolean USE_FLYING_RING_COMPATIBILITY_FIX = true;
+	
+	//show player-like chat messages for all living things (except bats who burn to death)
+	public static boolean SHOW_ALL_DEATH_MESSAGES = true;
 }

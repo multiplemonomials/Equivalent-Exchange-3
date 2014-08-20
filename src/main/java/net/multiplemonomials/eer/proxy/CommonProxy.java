@@ -40,8 +40,10 @@ public abstract class CommonProxy implements IProxy
         MinecraftForge.EVENT_BUS.register(new WorldEventHandler());
         
         MinecraftForge.EVENT_BUS.register(new EntityConstructedEventHandler());
-        MinecraftForge.EVENT_BUS.register(new LivingDeathEventHandler());
         MinecraftForge.EVENT_BUS.register(new EntityJoinWorldHandler());
+        MinecraftForge.EVENT_BUS.register(new LivingDeathEventHandler());
+        MinecraftForge.EVENT_BUS.register(new LivingDeathEventHandler());
+
         
         FMLCommonHandler.instance().bus().register(new CraftingHandler());
     }

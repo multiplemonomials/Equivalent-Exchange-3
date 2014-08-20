@@ -1,5 +1,6 @@
 package net.multiplemonomials.eer.proxy;
 
+
 public class ServerProxy extends CommonProxy
 {
     @Override
@@ -12,5 +13,10 @@ public class ServerProxy extends CommonProxy
     public void registerKeybindings()
     {
         // NOOP
+    }
+    
+    public void registerEventHandlers()
+    {
+    	super.registerEventHandlers();
     }
 }

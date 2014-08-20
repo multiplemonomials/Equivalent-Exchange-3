@@ -79,7 +79,7 @@ public class EquivalentExchangeReborn
 
         CraftingHandler.init();
 
-        // Register our fuels
+    // Register our fuels
         GameRegistry.registerFuelHandler(new FuelHandler());
         
         emcDefaultValues = new EnergyValuesDefault();
