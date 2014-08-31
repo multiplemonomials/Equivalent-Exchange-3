@@ -1,11 +1,8 @@
 package net.multiplemonomials.eer.network.message;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
-
 import net.multiplemonomials.eer.data.EERExtendedPlayer;
-
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
@@ -44,7 +41,7 @@ public class MessageEERExtendedPlayerUpdateServer implements IMessage, IMessageH
     @Override
     public IMessage onMessage(MessageEERExtendedPlayerUpdateServer message, MessageContext ctx)
     {
-    	EERExtendedPlayer.get(ctx.getServerHandler().playerEntity).loadNBTData(_playerDataCompound);
+    	EERExtendedPlayer.get(ctx.getServerHandler().playerEntity).loadNBTData(message._playerDataCompound);
     	
     	return null;
     }

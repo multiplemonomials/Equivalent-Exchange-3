@@ -13,11 +13,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
-
 import net.multiplemonomials.eer.reference.Key;
 import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.reference.Reference;
-import net.multiplemonomials.eer.client.util.PowerItemUtils;
+import net.multiplemonomials.eer.util.PowerItemUtils;
 import net.multiplemonomials.eer.creativetab.CreativeTab;
 import net.multiplemonomials.eer.interfaces.IChargeable;
 import net.multiplemonomials.eer.interfaces.IKeyBound;

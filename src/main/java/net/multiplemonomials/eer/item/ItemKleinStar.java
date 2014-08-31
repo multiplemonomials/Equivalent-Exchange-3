@@ -1,9 +1,7 @@
 package net.multiplemonomials.eer.item;
 
-import net.multiplemonomials.eer.reference.Names;
-import net.multiplemonomials.eer.reference.Reference;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -11,8 +9,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
-
-import java.util.List;
+import net.multiplemonomials.eer.configuration.CommonConfiguration;
+import net.multiplemonomials.eer.reference.Names;
+import net.multiplemonomials.eer.reference.Reference;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemKleinStar extends ItemEE
 {
@@ -107,7 +108,7 @@ public class ItemKleinStar extends ItemEE
 	 */
 	public static double getMaxStorableEMC(ItemStack itemStack)
 	{
-		return Reference.HALF_KLEIN_STAR_ICHI_EMC * Math.pow(2, itemStack.getItemDamage() + 1);
+		return CommonConfiguration.HALF_KLEIN_STAR_ICHI_EMC * Math.pow(2, itemStack.getItemDamage() + 1);
 	}
 	
 	public static double getAvailableEMC(ItemStack itemStack)

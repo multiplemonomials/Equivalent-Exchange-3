@@ -5,6 +5,7 @@ import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.multiplemonomials.eer.chat.EntityLivingDeathMessager;
+import net.multiplemonomials.eer.configuration.CommonConfiguration;
 import net.multiplemonomials.eer.data.EERExtendedPlayer;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -26,7 +27,7 @@ public class LivingDeathEventHandler
 				EERExtendedPlayer.saveProxyData((EntityPlayer) event.entity);
 			}
 			//stop bats in caves from burning to death all the time
-			else if(event.entityLiving instanceof EntityBat && event.source.isFireDamage())
+			else if((!CommonConfiguration.SHOW_BATS_TO_BURN_TO_DEATH) && (event.entityLiving instanceof EntityBat && event.source.isFireDamage()))
 			{
 				event.setCanceled(true);
 			}

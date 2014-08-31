@@ -88,6 +88,6 @@ public class ClientProxy extends CommonProxy
     public void initConfiguration(String configPath)
     {
     	super.initConfiguration(configPath);
-    	ClientConfiguration.init(new File(configPath + "common.properties"));
+    	ClientConfiguration.init(new File(configPath + "client.properties"));
     }
 }

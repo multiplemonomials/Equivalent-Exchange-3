@@ -10,14 +10,11 @@ import net.minecraft.item.ItemStack;
 
 public class ItemPhilosophersStone extends ItemEE implements IKeyBound
 {
-    private int maxChargeLevel;
-
     public ItemPhilosophersStone()
     {
         super();
         this.setUnlocalizedName(Names.Items.PHILOSOPHERS_STONE);
         this.setMaxDamage(1000);
-        this.maxChargeLevel = 3;
     }
 
     @Override

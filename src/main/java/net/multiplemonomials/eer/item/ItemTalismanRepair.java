@@ -5,10 +5,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-
+import net.multiplemonomials.eer.configuration.CommonConfiguration;
 import net.multiplemonomials.eer.interfaces.IWantsUpdatesInAlchemicalStorage;
 import net.multiplemonomials.eer.reference.Names;
-import net.multiplemonomials.eer.reference.Reference;
 import net.multiplemonomials.eer.reference.Reference;
 
 public class ItemTalismanRepair extends ItemEE implements IWantsUpdatesInAlchemicalStorage
@@ -22,7 +21,7 @@ public class ItemTalismanRepair extends ItemEE implements IWantsUpdatesInAlchemi
         this.setHasSubtypes(false);
         this.setUnlocalizedName(Names.Items.TALISMAN_REPAIR);
         
-        _ticksLeftBeforeAction = Reference.TALISMAN_OF_REPAIR_TICKS_PER_DURABILITY;
+        _ticksLeftBeforeAction = CommonConfiguration.TALISMAN_OF_REPAIR_TICKS_PER_DURABILITY;
     }
 	 
     @Override
@@ -57,7 +56,7 @@ public class ItemTalismanRepair extends ItemEE implements IWantsUpdatesInAlchemi
 	    		}
 	    	}
 	    	
-	    	_ticksLeftBeforeAction = Reference.TALISMAN_OF_REPAIR_TICKS_PER_DURABILITY;
+	    	_ticksLeftBeforeAction = CommonConfiguration.TALISMAN_OF_REPAIR_TICKS_PER_DURABILITY;
     	}
     }
     

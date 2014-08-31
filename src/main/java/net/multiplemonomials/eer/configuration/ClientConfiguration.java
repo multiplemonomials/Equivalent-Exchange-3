@@ -18,6 +18,8 @@ public class ClientConfiguration
     public static void init(File configFile)
     {
         configuration = new Configuration(configFile);
+        
+    	LogHelper.info("Loading client configuration...");
 
         try
         {
@@ -33,7 +35,7 @@ public class ClientConfiguration
         }
         catch (Exception e)
         {
-            LogHelper.error(Reference.MOD_NAME + " has had a problem loading its general configuration");
+            LogHelper.error(Reference.MOD_NAME + " has had a problem loading its client configuration");
         }
         finally
         {

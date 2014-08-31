@@ -1,11 +1,10 @@
-package net.multiplemonomials.eer.client.util;
-
-import net.multiplemonomials.eer.interfaces.IChargeable;
-import net.multiplemonomials.eer.reference.Reference;
+package net.multiplemonomials.eer.util;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.EnumHelper;
+import net.multiplemonomials.eer.configuration.CommonConfiguration;
+import net.multiplemonomials.eer.interfaces.IChargeable;
 
 /**
  * Common functions for the Dark Matter tools
@@ -14,7 +13,7 @@ import net.minecraftforge.common.util.EnumHelper;
 public class PowerItemUtils 
 {
 	/**
-	 * Increases the charge on an ee3 power item if the provided
+	 * Increases the charge on an eer power item if the provided
 	 * ItemStack is a power item
 	 * @param itemStack
 	 */
@@ -30,7 +29,7 @@ public class PowerItemUtils
 		else
 		{
 			//reset charge to default
-			itemStack.setItemDamage(Reference.MAX_ITEM_CHARGES);
+			itemStack.setItemDamage(CommonConfiguration.MAX_ITEM_CHARGES);
 		}
 		
 	}
@@ -38,7 +37,7 @@ public class PowerItemUtils
 	/**
 	 * material for Dark Matter
 	 */
-	public static final Item.ToolMaterial MATERIALDARKMATTER = EnumHelper.addToolMaterial("DARKMATTER", 3, Reference.MAX_ITEM_CHARGES, 4.0F, 4.0F, 0);
+	public static final Item.ToolMaterial MATERIALDARKMATTER = EnumHelper.addToolMaterial("DARKMATTER", 3, CommonConfiguration.MAX_ITEM_CHARGES, 4.0F, 4.0F, 0);
 	
 	
 	/**
@@ -48,7 +47,7 @@ public class PowerItemUtils
 	 */
 	public static int computeEfficiencyBonus(int durability)
 	{
-		return (4 * (Reference.MAX_ITEM_CHARGES - durability));
+		return (4 * (CommonConfiguration.MAX_ITEM_CHARGES - durability));
 	}
 	
 }

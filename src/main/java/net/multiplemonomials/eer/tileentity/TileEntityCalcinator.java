@@ -8,9 +8,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.Packet;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.common.util.ForgeDirection;
-
-import org.apache.commons.lang3.tuple.Pair;
-
+import net.multiplemonomials.eer.configuration.CommonConfiguration;
 import net.multiplemonomials.eer.exchange.EnergyRegistry;
 import net.multiplemonomials.eer.exchange.EnergyValue;
 import net.multiplemonomials.eer.init.ModBlocks;
@@ -19,9 +17,10 @@ import net.multiplemonomials.eer.item.ItemAlchemicalFuel;
 import net.multiplemonomials.eer.network.PacketHandler;
 import net.multiplemonomials.eer.network.message.MessageTileCalcinator;
 import net.multiplemonomials.eer.reference.Names;
-import net.multiplemonomials.eer.reference.Reference;
 import net.multiplemonomials.eer.util.EMCHelper;
 import net.multiplemonomials.eer.util.ItemHelper;
+
+import org.apache.commons.lang3.tuple.Pair;
 
 public class TileEntityCalcinator extends TileEntityEE implements ISidedInventory
 {
@@ -290,7 +289,7 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
     	{
 	    	EnergyValue stackEmc = EnergyRegistry.getInstance().getEnergyValue(inventory[FUEL_INVENTORY_INDEX]);
 			float stackEmcValue = stackEmc.getValue();
-			return MathHelper.ceiling_float_int((stackEmcValue) * Reference.FURNACE_TICKS_PER_FUEL_EMC);
+			return MathHelper.ceiling_double_int((stackEmcValue) * CommonConfiguration.FURNACE_TICKS_PER_FUEL_EMC);
     	}
     	
     	return 0;
@@ -306,7 +305,7 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
     	{
 	    	EnergyValue stackEmc = EnergyRegistry.getInstance().getEnergyValue(inventory[INPUT_INVENTORY_INDEX]);
 			float stackEmcValue = stackEmc.getValue();
-			return MathHelper.ceiling_float_int((stackEmcValue) * Reference.FURNACE_TICKS_PER_ITEM_EMC);
+			return MathHelper.ceiling_double_int((stackEmcValue) * CommonConfiguration.FURNACE_TICKS_PER_ITEM_EMC);
     	}
     	
     	return 0;

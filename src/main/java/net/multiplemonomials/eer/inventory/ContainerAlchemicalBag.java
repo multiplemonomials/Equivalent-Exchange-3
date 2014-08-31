@@ -22,7 +22,6 @@ public class ContainerAlchemicalBag extends Container
     // Large Bag
     public static final int LARGE_BAG_INVENTORY_ROWS = 9;
     public static final int LARGE_BAG_INVENTORY_COLUMNS = 13;
-    private final EntityPlayer entityPlayer;
     private final InventoryAlchemicalBag inventoryAlchemicalBag;
     // Player Inventory
     private final int PLAYER_INVENTORY_ROWS = 3;
@@ -32,7 +31,6 @@ public class ContainerAlchemicalBag extends Container
 
     public ContainerAlchemicalBag(EntityPlayer entityPlayer, InventoryAlchemicalBag inventoryAlchemicalBag)
     {
-        this.entityPlayer = entityPlayer;
         this.inventoryAlchemicalBag = inventoryAlchemicalBag;
 
         if (inventoryAlchemicalBag.parentItemStack.getItemDamage() == 0)

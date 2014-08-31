@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
-import net.multiplemonomials.eer.client.util.PowerItemUtils;
+import net.multiplemonomials.eer.configuration.CommonConfiguration;
 import net.multiplemonomials.eer.creativetab.CreativeTab;
 import net.multiplemonomials.eer.interfaces.IChargeable;
 import net.multiplemonomials.eer.interfaces.IKeyBound;
@@ -18,6 +18,7 @@ import net.multiplemonomials.eer.item.ItemEE;
 import net.multiplemonomials.eer.reference.Key;
 import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.reference.Reference;
+import net.multiplemonomials.eer.util.PowerItemUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -34,6 +35,8 @@ public class ItemSwordDarkMatter extends ItemSword implements IChargeable, IKeyB
 		setNoRepair();
 		
 		maxStackSize = 1;
+		
+		setMaxDamage(CommonConfiguration.MAX_ITEM_CHARGES);
 	}
 	
 	//not repairable... because it never breaks
@@ -55,7 +58,7 @@ public class ItemSwordDarkMatter extends ItemSword implements IChargeable, IKeyB
 	 public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase)
     {
     	
-		float damageToDo = Reference.DM_SWORD_BASE_DAMAGE + PowerItemUtils.computeEfficiencyBonus(par1ItemStack.getItemDamage());
+		float damageToDo = (float) (CommonConfiguration.DM_SWORD_BASE_DAMAGE + PowerItemUtils.computeEfficiencyBonus(par1ItemStack.getItemDamage()));
 		 
     	DamageSource damagesource = DamageSource.causePlayerDamage((EntityPlayer)par3EntityLivingBase);
     	

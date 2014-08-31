@@ -48,10 +48,9 @@ public abstract class CommonProxy implements IProxy
         FMLCommonHandler.instance().bus().register(new CraftingHandler());
     }
     
-    @Override
     public void initConfiguration(String configPath)
     {
-    	CommonConfiguration.init(new File(configPath + "client.properties"));
+    	CommonConfiguration.init(new File(configPath + "common.properties"));
     }
 
     public void registerTileEntities()

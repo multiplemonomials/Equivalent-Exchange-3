@@ -40,7 +40,6 @@ public class EnergyHelper
         return filteredStacks;
     }
 
-    @SuppressWarnings("unused")
     public static List<WrappedStack> filterStacksByEmcAndRange(float start, float end, EnergyValue filterValue)
     {
         return filterStacksByEmc(EnergyRegistry.getInstance().getStacksInRange(start, end), filterValue);

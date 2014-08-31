@@ -9,16 +9,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-
 import net.multiplemonomials.eer.reference.Key;
 import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.reference.Reference;
-import net.multiplemonomials.eer.client.util.PowerItemUtils;
+import net.multiplemonomials.eer.util.PowerItemUtils;
 import net.multiplemonomials.eer.creativetab.CreativeTab;
 import net.multiplemonomials.eer.interfaces.IChargeable;
 import net.multiplemonomials.eer.interfaces.IKeyBound;
 import net.multiplemonomials.eer.item.ItemEE;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -68,7 +66,8 @@ public class ItemPickaxeDarkMatter extends ItemPickaxe implements IChargeable, I
         }
         
         //for every charge level, efficiency increases by 3
-        return efficiencyOnProperMaterial + PowerItemUtils.computeEfficiencyBonus(itemstack.getItemDamage());
+        //added the 1 to give it a slight buff versus the other tools
+        return efficiencyOnProperMaterial + PowerItemUtils.computeEfficiencyBonus(itemstack.getItemDamage()) + 3;
   
     }
 	

@@ -1,7 +1,6 @@
 package net.multiplemonomials.eer.network.message;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 import net.multiplemonomials.eer.data.EERExtendedPlayer;
 import cpw.mods.fml.client.FMLClientHandler;
@@ -46,7 +45,7 @@ public class MessageEERExtendedPlayerUpdateClient implements IMessage, IMessageH
     @Override
     public IMessage onMessage(MessageEERExtendedPlayerUpdateClient message, MessageContext ctx)
     {
-    	EERExtendedPlayer.get(FMLClientHandler.instance().getClient().thePlayer).loadNBTData(_playerDataCompound);
+    	EERExtendedPlayer.get(FMLClientHandler.instance().getClient().thePlayer).loadNBTData(message._playerDataCompound);
     	
     	return null;
     }

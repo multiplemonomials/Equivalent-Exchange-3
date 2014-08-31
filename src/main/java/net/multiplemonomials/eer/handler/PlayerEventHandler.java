@@ -1,11 +1,11 @@
 package net.multiplemonomials.eer.handler;
 
-import net.multiplemonomials.eer.data.EERExtendedPlayer;
-import net.multiplemonomials.eer.item.ItemRingFlight;
-import net.multiplemonomials.eer.reference.Reference;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
+import net.multiplemonomials.eer.configuration.CommonConfiguration;
+import net.multiplemonomials.eer.data.EERExtendedPlayer;
+import net.multiplemonomials.eer.item.ItemRingFlight;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
 
@@ -44,21 +44,21 @@ public class PlayerEventHandler
 			}
 			
 			EERExtendedPlayer playerData = null;
-			if(Reference.USE_FLYING_RING_COMPATIBILITY_FIX)
+			if(CommonConfiguration.USE_FLYING_RING_COMPATIBILITY_FIX)
 			{
 				playerData = EERExtendedPlayer.get(player);
 			}
 			if(ringFlight != null)
 			{			
 				player.capabilities.allowFlying = true;
-				if(Reference.USE_FLYING_RING_COMPATIBILITY_FIX && !playerData.isUsingFlyingRing())
+				if(CommonConfiguration.USE_FLYING_RING_COMPATIBILITY_FIX && !playerData.isUsingFlyingRing())
 				{
 					playerData.setUsingFlyingRing(true);
 				}
 			}
 			else
 			{
-				if(!Reference.USE_FLYING_RING_COMPATIBILITY_FIX || playerData.isUsingFlyingRing())
+				if(!CommonConfiguration.USE_FLYING_RING_COMPATIBILITY_FIX || playerData.isUsingFlyingRing())
 				{
 					player.capabilities.allowFlying = false;
 					player.capabilities.isFlying = false;

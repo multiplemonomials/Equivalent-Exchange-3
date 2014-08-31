@@ -10,17 +10,16 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-
+import net.multiplemonomials.eer.configuration.CommonConfiguration;
 import net.multiplemonomials.eer.interfaces.IKeyBound;
+import net.multiplemonomials.eer.interfaces.IStoresEMC;
 import net.multiplemonomials.eer.reference.Key;
 import net.multiplemonomials.eer.reference.Names;
-import net.multiplemonomials.eer.reference.Reference;
 import net.multiplemonomials.eer.util.EMCHelper;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemRingFlight extends ItemEE implements IKeyBound
+public class ItemRingFlight extends ItemEE implements IKeyBound, IStoresEMC
 {	
 	IIcon [] icons;
 	
@@ -96,22 +95,12 @@ public class ItemRingFlight extends ItemEE implements IKeyBound
     	{
     		EntityPlayer player = (EntityPlayer)entity;
     		
-    		//use some fuel
-    		NBTTagCompound stackTag = itemStack.stackTagCompound;
-    		
-    		if(stackTag == null)
-    		{
-    			stackTag = new NBTTagCompound();
-    			stackTag.setFloat("fuelEMCLeft", 0F);
-    		}
-    		
-    		float fuelEMCLeft = stackTag.getFloat("fuelEMCLeft");
-    		
-    		
+    		double fuelEMCLeft = getAvailableEMC(itemStack);
+	
     		//use some fuel
     		if(player.capabilities.isFlying && (!player.capabilities.isCreativeMode))
     		{
-    			fuelEMCLeft -= Reference.FLYING_RING_EMC_DRAIN_PER_TICK;
+    			fuelEMCLeft -= CommonConfiguration.FLYING_RING_EMC_DRAIN_PER_TICK;
     		}
     		
     		if(isPushingMobsAway(itemStack))
@@ -119,13 +108,13 @@ public class ItemRingFlight extends ItemEE implements IKeyBound
     			pushMobsAway(player);
     			if((!player.capabilities.isCreativeMode))
     			{
-    				fuelEMCLeft -= Reference.FLYING_RING_EMC_DRAIN_PER_TICK_MOB_PUSH;
+    				fuelEMCLeft -= CommonConfiguration.FLYING_RING_EMC_DRAIN_PER_TICK_MOB_PUSH;
     			}
     		}
     		
     		if(fuelEMCLeft < 0)
     		{
-    			fuelEMCLeft += EMCHelper.consumeEMCFromPlayerInventory(player, 10 * Reference.FLYING_RING_EMC_DRAIN_PER_TICK);
+    			fuelEMCLeft += EMCHelper.consumeEMCFromPlayerInventory(player, 10 * CommonConfiguration.FLYING_RING_EMC_DRAIN_PER_TICK);
     		}
     		
     		if(fuelEMCLeft < 0)
@@ -137,9 +126,8 @@ public class ItemRingFlight extends ItemEE implements IKeyBound
     			itemStack.setItemDamage(1);
     		}
     		
-    		stackTag.setFloat("fuelEMCLeft", fuelEMCLeft);
-    		
-    		itemStack.stackTagCompound = stackTag;
+    		itemStack.stackTagCompound.setDouble("fuelEMCLeft", fuelEMCLeft);
+ 
     		
     		
     	}
@@ -152,11 +140,34 @@ public class ItemRingFlight extends ItemEE implements IKeyBound
 		{
 			assert(object instanceof EntityMob);
 			EntityMob mob = (EntityMob)object;
-			//mob.motionX = 1/(mob.posX - player.posX);
-			//mob.motionZ = 1/(mob.posZ - player.posZ);
+			
+			//what units are the EntityMob.motion{X, Y, Z} variables in?  I sure don't know.
 			mob.motionX = (mob.posX - player.posX) / 5;
 			mob.motionZ = (mob.posZ - player.posZ) / 5;
 		}
+	}
+	
+    /**
+     * Returns the available EMC in this RingFlight.
+     * Creates the NBT tag if this ItemStack does not have one.
+     */
+	@Override
+	public double getAvailableEMC(ItemStack itemStack)
+	{
+
+		if(itemStack.stackTagCompound == null)
+		{
+			itemStack.stackTagCompound = new NBTTagCompound();
+			itemStack.stackTagCompound.setFloat("fuelEMCLeft", 0F);
+		}
+		
+		return itemStack.stackTagCompound.getDouble("fuelEMCLeft");
+	}
+
+	@Override
+	public double getMaxStorableEMC(ItemStack itemStack)
+	{
+		return 0;
 	}
     
     

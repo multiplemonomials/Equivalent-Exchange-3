@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.IChatComponent;
+import net.multiplemonomials.eer.configuration.CommonConfiguration;
 import cpw.mods.fml.common.FMLCommonHandler;
 
 public class EntityLivingDeathMessager 
@@ -13,14 +14,17 @@ public class EntityLivingDeathMessager
 	
 	public static void showDeathMessage(EntityLiving entityLiving, DamageSource damageSource)
 	{
-		if(server == null)
+		if(CommonConfiguration.SHOW_ALL_DEATH_MESSAGES)
 		{
-			server = FMLCommonHandler.instance().getMinecraftServerInstance();
+			if(server == null)
+			{
+				server = FMLCommonHandler.instance().getMinecraftServerInstance();
+			}
+			
+			//                                         getCombatTracker().getDeathMessage()
+			IChatComponent deathMessage = entityLiving.func_110142_aN().func_151521_b();
+			
+			server.getConfigurationManager().sendChatMsg(deathMessage);
 		}
-		
-		//                                         getCombatTracker().getDeathMessage()
-		IChatComponent deathMessage = entityLiving.func_110142_aN().func_151521_b();
-		
-		server.getConfigurationManager().sendChatMsg(deathMessage);
 	}
 }

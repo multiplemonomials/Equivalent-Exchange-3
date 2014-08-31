@@ -101,7 +101,6 @@ public class OreStack implements Comparable<OreStack>
      *
      * @return The OreStack that was encoded as json, or null if a valid OreStack could not be decoded from given String
      */
-    @SuppressWarnings("unused")
     public static OreStack createFromJson(String jsonOreStack)
     {
         try
@@ -171,7 +170,6 @@ public class OreStack implements Comparable<OreStack>
      *
      * @return Json serialized String of this OreStack
      */
-    @SuppressWarnings("unused")
     public String toJson()
     {
         return gsonSerializer.toJson(this);
