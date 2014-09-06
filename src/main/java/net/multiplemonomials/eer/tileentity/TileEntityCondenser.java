@@ -14,7 +14,6 @@ import net.multiplemonomials.eer.exchange.EnergyRegistry;
 import net.multiplemonomials.eer.inventory.ContainerCondenser;
 import net.multiplemonomials.eer.network.PacketHandler;
 import net.multiplemonomials.eer.network.message.MessageTileCondenser;
-import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.util.ItemHelper;
 import net.multiplemonomials.eer.util.LogHelper;
 
@@ -40,7 +39,7 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest
 	
     public TileEntityCondenser()
     {
-        super(3);
+        super(ContainerCondenser.CONDENSER_INVENTORY_SIZE, 3);
         
         //I realize this isn't very thread-safe, but if you can think of a better way let me know
         if(_invalidSlots == null)
@@ -48,9 +47,7 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest
         	_invalidSlots = new HashSet<Integer>();
         	_invalidSlots.add(INPUT_SLOT_INVENTORY_INDEX);
         }
-        
-        inventory = new ItemStack[ContainerCondenser.CONDENSER_INVENTORY_SIZE];
-        
+
         previousInventory = new ItemStack[ContainerCondenser.CONDENSER_INVENTORY_SIZE];
 
     }
@@ -71,12 +68,6 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest
 
        nbtTagCompound.setDouble("leftoverEMC", leftoverEMC);
        nbtTagCompound.setDouble("targetItemEMC", _targetItemEMC);
-    }
-    
-    @Override
-    public String getInventoryName()
-    {
-        return this.hasCustomName() ? this.getCustomName() : Names.Containers.CONDENSER;
     }
     
     @Override

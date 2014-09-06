@@ -12,6 +12,8 @@ public class Names
         public static final String CHALK = "chalkBlock";
         public static final String ALCHEMICAL_CHEST = "alchemicalChest";
         public static final String ALCHEMICAL_FUEL = "alchemicalFuelBlock";
+        public static final String ENERGY_COLLECTOR = "energyCollector";
+        public static final String[] ENERGY_COLLECTOR_SUBTYPES = new String[]{"Verdant", "Azure", "Minium"};
         public static final String ALUDEL = "aludel";
         public static final String GLASS_BELL = "glassBell";
         public static final String CALCINATOR = "calcinator";
@@ -87,7 +89,8 @@ public class Names
 
         public static final String GLASS_BELL = "container.eer:" + Blocks.GLASS_BELL;
 		public static final String CONDENSER = "container.eer:" + Blocks.CONDENSER;
-		public static final String TRANSMUTATION_TABLET = "container.eer:" + Blocks.TRANSMUTATION_TABLET;;
+		public static final String TRANSMUTATION_TABLET = "container.eer:" + Blocks.TRANSMUTATION_TABLET;
+		public static final String ENERGY_COLLECTOR= "container.eer:" + Blocks.ENERGY_COLLECTOR;
     }
 
     public static class Keys

@@ -25,8 +25,8 @@ public class TileEntityCalcinatorRenderer extends TileEntitySpecialRenderer
 
         if (totalDustStacksSize > 0)
         {
-            int leftStackColour = Integer.parseInt(Colors.DUST_COLOURS[MathHelper.clamp_int(leftStackMeta, 0, Colors.DUST_COLOURS.length - 1)], 16);
-            int rightStackColour = Integer.parseInt(Colors.DUST_COLOURS[MathHelper.clamp_int(rightStackMeta, 0, Colors.DUST_COLOURS.length - 1)], 16);
+            int leftStackColour = Integer.parseInt(Colors.DUST_COLOURS_STRING[MathHelper.clamp_int(leftStackMeta, 0, Colors.DUST_COLOURS_STRING.length - 1)], 16);
+            int rightStackColour = Integer.parseInt(Colors.DUST_COLOURS_STRING[MathHelper.clamp_int(rightStackMeta, 0, Colors.DUST_COLOURS_STRING.length - 1)], 16);
 
             float leftStackRatio = leftStackSize * 1f / totalDustStacksSize;
             float rightStackRatio = rightStackSize * 1f / totalDustStacksSize;

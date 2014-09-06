@@ -1,15 +1,12 @@
 package net.multiplemonomials.eer.tileentity;
 
-import net.minecraft.item.ItemStack;
 import net.multiplemonomials.eer.inventory.ContainerAlchemicalChest;
 
 public class TileEntityAlchemicalChestMedium extends TileEntityAlchemicalChest
 {
     public TileEntityAlchemicalChestMedium()
     {
-        super(1);
-        
-        inventory = new ItemStack[ContainerAlchemicalChest.MEDIUM_INVENTORY_SIZE];
+        super(ContainerAlchemicalChest.MEDIUM_INVENTORY_SIZE, 1);
     }
     
     public boolean upgradeToNextLevel()

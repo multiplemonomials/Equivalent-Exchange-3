@@ -3,17 +3,14 @@ package net.multiplemonomials.eer.tileentity;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import net.multiplemonomials.eer.network.PacketHandler;
-import net.multiplemonomials.eer.network.message.MessageTileEntityAludel;
-import net.multiplemonomials.eer.reference.Names;
-import net.multiplemonomials.eer.registry.AludelRecipeRegistry;
-
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.Packet;
+import net.multiplemonomials.eer.network.PacketHandler;
+import net.multiplemonomials.eer.network.message.MessageTileEntityAludel;
+import net.multiplemonomials.eer.registry.AludelRecipeRegistry;
 
 public class TileEntityAludel extends TileEntityEE implements ISidedInventory
 {
@@ -26,18 +23,13 @@ public class TileEntityAludel extends TileEntityEE implements ISidedInventory
     public static final int OUTPUT_INVENTORY_INDEX = 5;
     
     public boolean hasGlassBell = false;
-    /**
-     * The ItemStacks that hold the items currently being used in the Aludel
-     * public so that the renderer can use it
-     */
-    public ItemStack[] inventory;
     
     //inventory as of the last tick, so that aludel can tell if anything has changed
     private ItemStack[] lastTickInventory;
 
     public TileEntityAludel()
     {
-        inventory = new ItemStack[INVENTORY_SIZE];
+    	super(INVENTORY_SIZE);
         
         lastTickInventory = new ItemStack[INVENTORY_SIZE];
     }
@@ -45,6 +37,7 @@ public class TileEntityAludel extends TileEntityEE implements ISidedInventory
     @Override
     public int[] getAccessibleSlotsFromSide(int var1)
     {
+    	//TODO: implement this
         return new int[0];
     }
 
@@ -59,105 +52,7 @@ public class TileEntityAludel extends TileEntityEE implements ISidedInventory
     {
         return true;
     }
-
-    @Override
-    public int getSizeInventory()
-    {
-        return inventory.length;
-    }
-
-    @Override
-    public ItemStack getStackInSlot(int var1)
-    {
-    	if(var1 < inventory.length)
-    	{
-    		return inventory[var1];
-    	}
-    	
-    	return null;
-    }
-
-    @Override
-    public ItemStack decrStackSize(int slotIndex, int decrementAmount)
-    {
-        ItemStack itemStack = getStackInSlot(slotIndex);
-        if (itemStack != null)
-        {
-            if (itemStack.stackSize <= decrementAmount)
-            {
-                setInventorySlotContents(slotIndex, null);
-            }
-            else
-            {
-                itemStack = itemStack.splitStack(decrementAmount);
-                if (itemStack.stackSize == 0)
-                {
-                    setInventorySlotContents(slotIndex, null);
-                }
-            }
-        }
-
-        return itemStack;
-    }
-
-    @Override
-    public ItemStack getStackInSlotOnClosing(int var1)
-    {
-        return null;
-    }
-
-    @Override
-    public void setInventorySlotContents(int slotIndex, ItemStack itemStack)
-    {
-        inventory[slotIndex] = itemStack;
-        if (itemStack != null && itemStack.stackSize > getInventoryStackLimit())
-        {
-            itemStack.stackSize = getInventoryStackLimit();
-        }
-    }
-
-    @Override
-    public String getInventoryName()
-    {
-    	return this.hasCustomName() ? this.getCustomName() : Names.Containers.ALUDEL_NAME;
-    }
-
-    @Override
-    public boolean hasCustomInventoryName()
-    {
-        return this.hasCustomInventoryName();
-    }
-
-    @Override
-    public int getInventoryStackLimit()
-    {
-        return 64;
-    }
-
-    @Override
-    public boolean isUseableByPlayer(EntityPlayer var1)
-    {
-        return true;
-    }
-
-    @Override
-    public void openInventory()
-    {
-
-    }
-
-    @Override
-    public void closeInventory()
-    {
-
-    }
-
-    @Override
-    public boolean isItemValidForSlot(int var1, ItemStack var2)
-    {
-        return false;
-    }
-
+    
     @Override
     public Packet getDescriptionPacket()
     {

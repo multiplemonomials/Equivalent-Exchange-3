@@ -62,8 +62,7 @@ public class ShowcaseSlot extends Slot
     		return false;
     	}
     	
-    	//TODO: using Keyboard to detect shift-clicking fails on servers.  I have to use somekind of TransferStackInSlot-based method
-    	ItemStack itemToSet = _clickCallback.onSlotClick(this, getStack().copy(),/* Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)*/false);
+    	ItemStack itemToSet = _clickCallback.onSlotClick(this, getStack().copy(), player.isSneaking());
     	
     	if(itemToSet == null)
     	{

@@ -1,146 +1,22 @@
 package net.multiplemonomials.eer.tileentity;
 
-import net.multiplemonomials.eer.network.PacketHandler;
-import net.multiplemonomials.eer.network.message.MessageTileEntityGlassBell;
-import net.multiplemonomials.eer.reference.Names;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.Packet;
+import net.multiplemonomials.eer.network.PacketHandler;
+import net.multiplemonomials.eer.network.message.MessageTileEntityGlassBell;
 
-public class TileEntityGlassBell extends TileEntityEE implements IInventory
+public class TileEntityGlassBell extends TileEntityEE
 {
     public static final int INVENTORY_SIZE = 1;
     public static final int DISPLAY_SLOT_INVENTORY_INDEX = 0;
     public ItemStack outputItemStack;
 
-    /**
-     * The ItemStacks that hold the items currently being used in the Glass Bell
-     */
-    private ItemStack[] inventory;
 
     public TileEntityGlassBell()
     {
-        inventory = new ItemStack[INVENTORY_SIZE];
-    }
-
-    @Override
-    public int getSizeInventory()
-    {
-        return inventory.length;
-    }
-
-    @Override
-    public ItemStack getStackInSlot(int slotIndex)
-    {
-        return inventory[slotIndex];
-    }
-
-    @Override
-    public ItemStack decrStackSize(int slotIndex, int decrementAmount)
-    {
-        ItemStack itemStack = getStackInSlot(slotIndex);
-        if (itemStack != null)
-        {
-            if (itemStack.stackSize <= decrementAmount)
-            {
-                setInventorySlotContents(slotIndex, null);
-            }
-            else
-            {
-                itemStack = itemStack.splitStack(decrementAmount);
-                if (itemStack.stackSize == 0)
-                {
-                    setInventorySlotContents(slotIndex, null);
-                }
-            }
-        }
-
-        return itemStack;
-    }
-
-    @Override
-    public ItemStack getStackInSlotOnClosing(int slotIndex)
-    {
-        ItemStack itemStack = getStackInSlot(slotIndex);
-        if (itemStack != null)
-        {
-            setInventorySlotContents(slotIndex, null);
-        }
-        return itemStack;
-    }
-
-    @Override
-    public void setInventorySlotContents(int slotIndex, ItemStack itemStack)
-    {
-        inventory[slotIndex] = itemStack;
-
-        if (itemStack != null && itemStack.stackSize > getInventoryStackLimit())
-        {
-            itemStack.stackSize = getInventoryStackLimit();
-        }
-
-        if (!this.worldObj.isRemote)
-        {
-            ItemStack displayStack = this.inventory[DISPLAY_SLOT_INVENTORY_INDEX];
-
-            if (displayStack != null)
-            {
-                this.state = (byte) Block.getBlockFromItem(displayStack.getItem()).getLightValue();
-            }
-            else
-            {
-                this.state = 0;
-            }
-
-            PacketHandler.INSTANCE.sendToAllAround(new MessageTileEntityGlassBell(this, displayStack), new NetworkRegistry.TargetPoint(this.worldObj.provider.dimensionId, this.xCoord, this.yCoord, this.zCoord, 128d));
-        }
-
-        this.markDirty();
-    }
-
-    @Override
-    public String getInventoryName()
-    {
-        return this.hasCustomName() ? this.getCustomName() : Names.Containers.GLASS_BELL;
-    }
-
-    @Override
-    public boolean hasCustomInventoryName()
-    {
-        return false;
-    }
-
-    @Override
-    public int getInventoryStackLimit()
-    {
-        return 64;
-    }
-
-    @Override
-    public boolean isUseableByPlayer(EntityPlayer entityPlayer)
-    {
-        return true;
-    }
-
-    @Override
-    public void openInventory()
-    {
-    }
-
-    @Override
-    public void closeInventory()
-    {
-    }
-
-    @Override
-    public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack)
-    {
-        return true;
+        super(INVENTORY_SIZE);
     }
 
     @Override

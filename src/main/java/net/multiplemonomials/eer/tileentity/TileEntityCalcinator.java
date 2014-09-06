@@ -1,6 +1,5 @@
 package net.multiplemonomials.eer.tileentity;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -16,7 +15,6 @@ import net.multiplemonomials.eer.init.ModItems;
 import net.multiplemonomials.eer.item.ItemAlchemicalFuel;
 import net.multiplemonomials.eer.network.PacketHandler;
 import net.multiplemonomials.eer.network.message.MessageTileCalcinator;
-import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.util.EMCHelper;
 import net.multiplemonomials.eer.util.ItemHelper;
 
@@ -42,10 +40,6 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
 	final private int bits13To31Bitmask = 0x7FFFE000;//0b1111111111111111110000000000000
 	
     public int itemSuckCoolDown = 0;
-    /**
-     * The ItemStacks that hold the items currently being used in the Calcinator
-     */
-    private ItemStack[] inventory;
     
     /**
      * The items that will be outputted when the current stuff finshes burning
@@ -54,7 +48,7 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
 
     public TileEntityCalcinator()
     {
-        inventory = new ItemStack[INVENTORY_SIZE];
+        super(INVENTORY_SIZE);
     }
 
     @Override
@@ -76,62 +70,10 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
     }
 
     @Override
-    public int getSizeInventory()
-    {
-        return inventory.length;
-    }
-
-    @Override
     public ItemStack getStackInSlot(int slotIndex)
     {
         // FIXME sendDustPileData();
         return inventory[slotIndex];
-    }
-
-    @Override
-    public ItemStack decrStackSize(int slotIndex, int decrementAmount)
-    {
-        ItemStack itemStack = getStackInSlot(slotIndex);
-        if (itemStack != null)
-        {
-            if (itemStack.stackSize <= decrementAmount)
-            {
-                setInventorySlotContents(slotIndex, null);
-            }
-            else
-            {
-                itemStack = itemStack.splitStack(decrementAmount);
-                if (itemStack.stackSize == 0)
-                {
-                    setInventorySlotContents(slotIndex, null);
-                }
-            }
-        }
-
-        return itemStack;
-    }
-
-    @Override
-    public ItemStack getStackInSlotOnClosing(int slotIndex)
-    {
-        ItemStack itemStack = getStackInSlot(slotIndex);
-        if (itemStack != null)
-        {
-            setInventorySlotContents(slotIndex, null);
-        }
-        return itemStack;
-    }
-
-    @Override
-    public void setInventorySlotContents(int slotIndex, ItemStack itemStack)
-    {
-        inventory[slotIndex] = itemStack;
-        if (itemStack != null && itemStack.stackSize > getInventoryStackLimit())
-        {
-            itemStack.stackSize = getInventoryStackLimit();
-        }
-        
-        markDirty();
     }
     
     @Override
@@ -172,42 +114,6 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
                 inventory[slotIndex] = ItemStack.loadItemStackFromNBT(tagCompound);
             }
         }
-    }
-
-    @Override
-    public String getInventoryName()
-    {
-        return this.hasCustomName() ? this.getCustomName() : Names.Containers.CALCINATOR_NAME;
-    }
-
-    @Override
-    public boolean hasCustomInventoryName()
-    {
-        return false;
-    }
-
-    @Override
-    public int getInventoryStackLimit()
-    {
-        return 64;
-    }
-
-    @Override
-    public boolean isUseableByPlayer(EntityPlayer entityplayer)
-    {
-        return true;
-    }
-
-    @Override
-    public void openInventory()
-    {
-        // NOOP
-    }
-
-    @Override
-    public void closeInventory()
-    {
-        // NOOP
     }
 
     @Override

@@ -83,6 +83,6 @@ public class MessageTileCondenser implements IMessage, IMessageHandler<MessageTi
     @Override
     public String toString()
     {
-        return String.format("MessageTileEntityAlchemicalChest - x:%s, y:%s, z:%s, orientation:%s, state:%s, customName:%s, owner:%s", x, y, z, orientation, state, customName, owner);
+        return String.format("MessageTileEntityEnergyCollector - x:%s, y:%s, z:%s, orientation:%s, state:%s, customName:%s, owner:%s", x, y, z, orientation, state, customName, owner);
     }
 }

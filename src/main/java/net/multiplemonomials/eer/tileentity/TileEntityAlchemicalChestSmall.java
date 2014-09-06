@@ -1,14 +1,12 @@
 package net.multiplemonomials.eer.tileentity;
 
-import net.minecraft.item.ItemStack;
 import net.multiplemonomials.eer.inventory.ContainerAlchemicalChest;
 
 public class TileEntityAlchemicalChestSmall extends TileEntityAlchemicalChest
 {
     public TileEntityAlchemicalChestSmall()
     {
-    	super(0);
-    	inventory = new ItemStack[ContainerAlchemicalChest.SMALL_INVENTORY_SIZE];
+    	super(ContainerAlchemicalChest.SMALL_INVENTORY_SIZE, 0);
     }
     
     @Override

@@ -3,7 +3,6 @@ package net.multiplemonomials.eer.tileentity;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -16,14 +15,10 @@ import net.multiplemonomials.eer.init.ModItems;
 import net.multiplemonomials.eer.item.ItemKleinStar;
 import net.multiplemonomials.eer.network.PacketHandler;
 import net.multiplemonomials.eer.network.message.MessageTileEntityEE;
-import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.util.ItemHelper;
 
 public class TileEntityTransmutationTablet extends TileEntityEE implements IInventory
-{
-
-    protected ItemStack[] inventory;
-    
+{    
     public static final int INVENTORY_SIZE = 10;
     
     public static final int INPUT_SLOT_INDEX = 0;
@@ -56,119 +51,16 @@ public class TileEntityTransmutationTablet extends TileEntityEE implements IInve
     
     public TileEntityTransmutationTablet()
     {
-    	super();
-    	
-    	inventory = new ItemStack[INVENTORY_SIZE];
+    	super(INVENTORY_SIZE);
     	
     	if(transmutableItems == null)
 		{
 			transmutableItems = new ArrayList<ItemStack>();
 		}
     }
-
-    @Override
-    public ItemStack getStackInSlot(int slotIndex)
-    {
-        return inventory[slotIndex];
-    }
-
-    @Override
-    public ItemStack decrStackSize(int slotIndex, int decrementAmount)
-    {
-        ItemStack itemStack = getStackInSlot(slotIndex);
-        if (itemStack != null)
-        {
-            if (itemStack.stackSize <= decrementAmount)
-            {
-                setInventorySlotContents(slotIndex, null);
-            }
-            else
-            {
-                itemStack = itemStack.splitStack(decrementAmount);
-                if (itemStack.stackSize == 0)
-                {
-                    setInventorySlotContents(slotIndex, null);
-                }
-            }
-        }
-
-        return itemStack;
-    }
-
-
-    @Override
-    public ItemStack getStackInSlotOnClosing(int slotIndex)
-    {
-        if (inventory[slotIndex] != null)
-        {
-            ItemStack itemStack = inventory[slotIndex];
-            inventory[slotIndex] = null;
-            return itemStack;
-        }
-        else
-        {
-            return null;
-        }
-    }
-
-    @Override
-    public void setInventorySlotContents(int slotIndex, ItemStack itemStack)
-    {
-        inventory[slotIndex] = itemStack;
-
-        if (itemStack != null && itemStack.stackSize > this.getInventoryStackLimit())
-        {
-            itemStack.stackSize = this.getInventoryStackLimit();
-        }
-
-
-        this.markDirty();
-    }
-
-    @Override
-    public String getInventoryName()
-    {
-        return this.hasCustomName() ? this.getCustomName() : Names.Containers.TRANSMUTATION_TABLET;
-    }
-
-    @Override
-    public boolean hasCustomInventoryName()
-    {
-        return false;
-    }
-
-    @Override
-    public int getInventoryStackLimit()
-    {
-        return 64;
-    }
-
-    @Override
-    public boolean isUseableByPlayer(EntityPlayer entityplayer)
-    {
-        return true;
-    }
-
-
-	@Override
-	public void openInventory() 
-	{
-		
-	}
-
-	@Override
-	public void closeInventory() 
-	{
-
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack) 
-	{
-		return true;
-	}
 	
-	//it's all done using containers (!)
+	//it's all done using containers and GUI code (!)
+    @Override
     public boolean canUpdate()
     {
         return false;
@@ -241,9 +133,9 @@ public class TileEntityTransmutationTablet extends TileEntityEE implements IInve
     }
     
     /**
-     * Attempts to transmute as many of the provided ItemStack as possible.
+     * Attempts to transmute the provided ItemStack.
      * 
-     * Subtracts from the tablet's EMC value.
+     * Subtracts from the tablet's EMC storage.
      * 
      * @param itemStack
      * @param itemLimit how many of the item to try to transmute

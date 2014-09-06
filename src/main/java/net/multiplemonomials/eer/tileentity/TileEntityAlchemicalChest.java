@@ -1,20 +1,16 @@
 package net.multiplemonomials.eer.tileentity;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.Packet;
-
 import net.multiplemonomials.eer.init.ModBlocks;
 import net.multiplemonomials.eer.interfaces.IWantsUpdatesInAlchemicalStorage;
 import net.multiplemonomials.eer.network.PacketHandler;
 import net.multiplemonomials.eer.network.message.MessageTileAlchemicalChest;
-import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.reference.Sounds;
 
-public class TileEntityAlchemicalChest extends TileEntityEE implements IInventory
+public class TileEntityAlchemicalChest extends TileEntityEE
 {
     /**
      * The current angle of the chest lid (between 0 and 1)
@@ -36,114 +32,15 @@ public class TileEntityAlchemicalChest extends TileEntityEE implements IInventor
      */
     private int ticksSinceSync;
 
-    /**
-     * The ItemStacks that hold the items currently being used in the Alchemical Chest
-     */
-    protected ItemStack[] inventory;
-
-    public TileEntityAlchemicalChest(int metaData)
+    public TileEntityAlchemicalChest(int inventorySize, int metaData)
     {
-        super();
+        super(inventorySize);
         this.state = (byte) metaData;
-    }
-
-    @Override
-    public int getSizeInventory()
-    {
-        return inventory.length;
-    }
-
-    @Override
-    public ItemStack getStackInSlot(int slotIndex)
-    {
-        return inventory[slotIndex];
-    }
-
-    @Override
-    public ItemStack decrStackSize(int slotIndex, int decrementAmount)
-    {
-        ItemStack itemStack = getStackInSlot(slotIndex);
-        if (itemStack != null)
-        {
-            if (itemStack.stackSize <= decrementAmount)
-            {
-                setInventorySlotContents(slotIndex, null);
-            }
-            else
-            {
-                itemStack = itemStack.splitStack(decrementAmount);
-                if (itemStack.stackSize == 0)
-                {
-                    setInventorySlotContents(slotIndex, null);
-                }
-            }
-        }
-
-        return itemStack;
-    }
-
-    @Override
-    public ItemStack getStackInSlotOnClosing(int slotIndex)
-    {
-        if (inventory[slotIndex] != null)
-        {
-            ItemStack itemStack = inventory[slotIndex];
-            inventory[slotIndex] = null;
-            return itemStack;
-        }
-        else
-        {
-            return null;
-        }
     }
     
     public boolean upgradeToNextLevel()
     {
     	return false;
-    }
-
-    @Override
-    public void setInventorySlotContents(int slotIndex, ItemStack itemStack)
-    {
-        inventory[slotIndex] = itemStack;
-
-        if (itemStack != null && itemStack.stackSize > this.getInventoryStackLimit())
-        {
-            itemStack.stackSize = this.getInventoryStackLimit();
-        }
-
-
-        this.markDirty();
-    }
-
-    @Override
-    public String getInventoryName()
-    {
-        return this.hasCustomName() ? this.getCustomName() : Names.Containers.ALCHEMICAL_CHEST;
-    }
-
-    @Override
-    public boolean hasCustomInventoryName()
-    {
-        return false;
-    }
-
-    @Override
-    public int getInventoryStackLimit()
-    {
-        return 64;
-    }
-
-    /**
-     * Do not make give this method the name canInteractWith because it clashes with Container
-     *
-     * @param entityplayer
-     *         The player we are checking to see if they can use this chest
-     */
-    @Override
-    public boolean isUseableByPlayer(EntityPlayer entityplayer)
-    {
-        return true;
     }
 
     /**
@@ -161,12 +58,6 @@ public class TileEntityAlchemicalChest extends TileEntityEE implements IInventor
         {
             return super.receiveClientEvent(eventID, numUsingPlayers);
         }
-    }
-
-    @Override
-    public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack)
-    {
-        return true;
     }
 
     @Override
