@@ -14,6 +14,7 @@ import net.multiplemonomials.eer.exchange.EnergyRegistry;
 import net.multiplemonomials.eer.inventory.ContainerCondenser;
 import net.multiplemonomials.eer.network.PacketHandler;
 import net.multiplemonomials.eer.network.message.MessageTileCondenser;
+import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.util.ItemHelper;
 import net.multiplemonomials.eer.util.LogHelper;
 
@@ -53,11 +54,17 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest
     }
     
     @Override
+    public String getInventoryName()
+    {
+        return this.hasCustomName() ? this.getCustomName() : Names.Containers.CONDENSER;
+    }
+    
+    @Override
     public void readFromNBT(NBTTagCompound nbtTagCompound)
     {
        super.readFromNBT(nbtTagCompound);
 
-       leftoverEMC = nbtTagCompound.getLong("leftoverEMC");
+       leftoverEMC = nbtTagCompound.getDouble("leftoverEMC");
        _targetItemEMC = nbtTagCompound.getInteger("targetItemEMC");
     }
     

@@ -46,6 +46,11 @@ public class CommonConfiguration
 		//show death messages for bats burning to death
 		public static boolean SHOW_BATS_TO_BURN_TO_DEATH = false;
 		
+		//emc/tick of the energy collector levels at light level 16
+		public static double [] ENERGY_COLLECTOR_EMC_PER_TICK = new double[3];
+		
+		public static double[] ENERGY_COLLECTOR_EMC_STORAGE = new double[3];
+		
     public static void init(File configPath)
     {
     	Configuration configuration = new Configuration(configPath);
@@ -78,6 +83,16 @@ public class CommonConfiguration
 			SHOW_ALL_DEATH_MESSAGES = configuration.get(Configuration.CATEGORY_GENERAL, "showAllDeathMessages", false, "show death messages for all mobs and animals").getBoolean(false);
 			
 			SHOW_BATS_TO_BURN_TO_DEATH = configuration.get(Configuration.CATEGORY_GENERAL, "showBatFireDeathMessages", false, "show death messages for bats burning to death").getBoolean(false);
+			
+			ENERGY_COLLECTOR_EMC_PER_TICK[0] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorEmcPerSecLvlOne", 1.0, "emc/s of the energy collector level 1 at light level 16").getDouble(1.0))/20.0;
+			
+			ENERGY_COLLECTOR_EMC_PER_TICK[1] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorEmcPerSecLvlTwo", 2.5, "emc/s of the energy collector level 2 at light level 16").getDouble(2.5))/20.0;
+			
+			ENERGY_COLLECTOR_EMC_PER_TICK[2] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorEmcPerSecLvlThree", 5, "emc/s of the energy collector level 2 at light level 16").getDouble(5.0))/20.0;
+			
+			ENERGY_COLLECTOR_EMC_STORAGE[0] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorEmcStorage", 32768.0, "emc storage of a level 1 energy collector.  Each subsequent level has four times this.").getDouble(32768.0));
+			ENERGY_COLLECTOR_EMC_STORAGE[1] = 4 * ENERGY_COLLECTOR_EMC_STORAGE[0];
+			ENERGY_COLLECTOR_EMC_STORAGE[2] = 4 * ENERGY_COLLECTOR_EMC_STORAGE[1];
 
     	}
     	catch(Exception e)

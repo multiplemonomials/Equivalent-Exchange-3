@@ -10,6 +10,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.Packet;
 import net.multiplemonomials.eer.network.PacketHandler;
 import net.multiplemonomials.eer.network.message.MessageTileEntityAludel;
+import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.registry.AludelRecipeRegistry;
 
 public class TileEntityAludel extends TileEntityEE implements ISidedInventory
@@ -128,5 +129,10 @@ public class TileEntityAludel extends TileEntityEE implements ISidedInventory
     	}
     }
     
+    @Override
+    public String getInventoryName()
+    {
+        return this.hasCustomName() ? this.getCustomName() : Names.Containers.ALUDEL_NAME;
+    }
     
 }

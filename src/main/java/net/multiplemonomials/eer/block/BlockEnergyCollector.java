@@ -1,31 +1,33 @@
 package net.multiplemonomials.eer.block;
 
-import net.multiplemonomials.eer.EquivalentExchangeReborn;
-import net.multiplemonomials.eer.init.ModItems;
-import net.multiplemonomials.eer.reference.GuiIds;
-import net.multiplemonomials.eer.reference.Names;
-import net.multiplemonomials.eer.tileentity.TileEntityAlchemicalChest;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
+import java.util.Random;
+
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.multiplemonomials.eer.EquivalentExchangeReborn;
+import net.multiplemonomials.eer.init.ModItems;
+import net.multiplemonomials.eer.reference.GuiIds;
+import net.multiplemonomials.eer.reference.Names;
+import net.multiplemonomials.eer.tileentity.TileEntityEnergyCollector;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
-import java.util.List;
-import java.util.Random;
-
-public class BlockEnergyCollector extends BlockEE
+public class BlockEnergyCollector extends BlockEE implements ITileEntityProvider
 {
     @SideOnly(Side.CLIENT)
     private IIcon[] blockTop;
     @SideOnly(Side.CLIENT)
-    private IIcon blockFront, blockSide;
+    private IIcon blockFront, blockSide, blockBottom;
 
     public BlockEnergyCollector()
     {
@@ -33,6 +35,7 @@ public class BlockEnergyCollector extends BlockEE
         this.setBlockName(Names.Blocks.ENERGY_COLLECTOR);
         this.setHardness(5.0f);
         this.setResistance(10.0f);
+        this.setLightLevel(.33F);
     }
 
     @Override
@@ -57,6 +60,18 @@ public class BlockEnergyCollector extends BlockEE
     {
         return metaData;
     }
+    
+    @Override
+    public boolean renderAsNormalBlock()
+    {
+        return true;
+    }
+
+    @Override
+    public boolean isOpaqueCube()
+    {
+        return true;
+    }
 
     @Override
     @SideOnly(Side.CLIENT)
@@ -67,8 +82,11 @@ public class BlockEnergyCollector extends BlockEE
         for (int i = 0; i < Names.Blocks.ENERGY_COLLECTOR_SUBTYPES.length; i++)
         {
             blockTop[i] = iconRegister.registerIcon(String.format("%s.%s_top", getUnwrappedUnlocalizedName(this.getUnlocalizedName()), Names.Blocks.ENERGY_COLLECTOR_SUBTYPES[i]));
-            blockSide = iconRegister.registerIcon(String.format("%s.%s_side", getUnwrappedUnlocalizedName(this.getUnlocalizedName()), Names.Blocks.ENERGY_COLLECTOR_SUBTYPES[i]));
         }
+        blockSide = iconRegister.registerIcon(String.format("%s_side", getUnwrappedUnlocalizedName(this.getUnlocalizedName())));
+        blockBottom = iconRegister.registerIcon(String.format("%s_bottom", getUnwrappedUnlocalizedName(this.getUnlocalizedName())));
+        blockFront = iconRegister.registerIcon(String.format("%s_front", getUnwrappedUnlocalizedName(this.getUnlocalizedName())));
+
     }
 
     @Override
@@ -77,13 +95,18 @@ public class BlockEnergyCollector extends BlockEE
     {
         metaData = MathHelper.clamp_int(metaData, 0, Names.Blocks.ENERGY_COLLECTOR_SUBTYPES.length - 1);
 
-        if (ForgeDirection.getOrientation(side) == ForgeDirection.UP)
+        ForgeDirection orientation = ForgeDirection.getOrientation(side);
+        if (orientation == ForgeDirection.UP)
         {
             return blockTop[metaData];
         }
-        else if(ForgeDirection.getOrientation(side) == ForgeDirection.SOUTH)
+        else if(orientation == ForgeDirection.SOUTH)
         {
         	return blockFront;
+        }
+        else if(orientation == ForgeDirection.DOWN)
+        {
+        	return blockBottom;
         }
         else
         {
@@ -102,8 +125,8 @@ public class BlockEnergyCollector extends BlockEE
         {
         	if(world.getBlockMetadata(x, y, z) == player.getHeldItem().getItemDamage() - 1)
         	{
-        		TileEntityAlchemicalChest alchemicalChest = (TileEntityAlchemicalChest)(world.getTileEntity(x, y, z));
-        		alchemicalChest.upgradeToNextLevel();
+        		TileEntityEnergyCollector energyCollector = (TileEntityEnergyCollector)(world.getTileEntity(x, y, z));
+        		energyCollector.upgradeLevel();
         		
         		if(!player.capabilities.isCreativeMode)
         		{
@@ -118,12 +141,18 @@ public class BlockEnergyCollector extends BlockEE
         }
         else
         {
-            if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityAlchemicalChest)
+            if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityEnergyCollector)
             {
-                player.openGui(EquivalentExchangeReborn.instance, GuiIds.ALCHEMICAL_CHEST, world, x, y, z);
+                player.openGui(EquivalentExchangeReborn.instance, GuiIds.ENERGY_COLLECTOR, world, x, y, z);
             }
 
             return true;
         }
+    }
+    
+    @Override
+    public TileEntity createNewTileEntity(World world, int metaData)
+    {
+        return new TileEntityEnergyCollector();
     }
 }

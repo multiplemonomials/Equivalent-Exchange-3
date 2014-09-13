@@ -18,9 +18,9 @@ public class ModBlocks
     public static final BlockEE aludel = new BlockAludel();
     public static final BlockEE calcinator = new BlockCalcinator();
     public static final BlockEE glassBell = new BlockGlassBell();
-    public static final BlockEE researchStation = new BlockResearchStation();
 	public static final BlockEE condenser = new BlockCondenser();
 	public static final BlockEE transmutationTablet = new BlockTransmutationTablet();
+	public static final BlockEE energyCollector = new BlockEnergyCollector();
 
     public static void init()
     {
@@ -30,9 +30,8 @@ public class ModBlocks
         GameRegistry.registerBlock(aludel, Names.Blocks.ALUDEL);
         GameRegistry.registerBlock(calcinator, Names.Blocks.CALCINATOR);
         GameRegistry.registerBlock(glassBell, Names.Blocks.GLASS_BELL);
-        GameRegistry.registerBlock(researchStation, Names.Blocks.RESEARCH_STATION);
         GameRegistry.registerBlock(condenser, Names.Blocks.CONDENSER);
         GameRegistry.registerBlock(transmutationTablet, Names.Blocks.TRANSMUTATION_TABLET);
-
+        GameRegistry.registerBlock(energyCollector, Names.Blocks.ENERGY_COLLECTOR);
     }
 }

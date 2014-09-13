@@ -15,6 +15,7 @@ import net.multiplemonomials.eer.init.ModItems;
 import net.multiplemonomials.eer.item.ItemKleinStar;
 import net.multiplemonomials.eer.network.PacketHandler;
 import net.multiplemonomials.eer.network.message.MessageTileEntityEE;
+import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.util.ItemHelper;
 
 public class TileEntityTransmutationTablet extends TileEntityEE implements IInventory
@@ -57,6 +58,12 @@ public class TileEntityTransmutationTablet extends TileEntityEE implements IInve
 		{
 			transmutableItems = new ArrayList<ItemStack>();
 		}
+    }
+    
+    @Override
+    public String getInventoryName()
+    {
+        return this.hasCustomName() ? this.getCustomName() : Names.Containers.TRANSMUTATION_TABLET;
     }
 	
 	//it's all done using containers and GUI code (!)

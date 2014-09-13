@@ -15,6 +15,7 @@ import net.multiplemonomials.eer.init.ModItems;
 import net.multiplemonomials.eer.item.ItemAlchemicalFuel;
 import net.multiplemonomials.eer.network.PacketHandler;
 import net.multiplemonomials.eer.network.message.MessageTileCalcinator;
+import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.util.EMCHelper;
 import net.multiplemonomials.eer.util.ItemHelper;
 
@@ -49,6 +50,12 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
     public TileEntityCalcinator()
     {
         super(INVENTORY_SIZE);
+    }
+    
+    @Override
+    public String getInventoryName()
+    {
+        return this.hasCustomName() ? this.getCustomName() : Names.Containers.CALCINATOR_NAME;
     }
 
     @Override

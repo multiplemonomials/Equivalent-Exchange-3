@@ -21,6 +21,7 @@ import net.multiplemonomials.eer.tileentity.TileEntityAlchemicalChestSmall;
 import net.multiplemonomials.eer.tileentity.TileEntityAludel;
 import net.multiplemonomials.eer.tileentity.TileEntityCalcinator;
 import net.multiplemonomials.eer.tileentity.TileEntityCondenser;
+import net.multiplemonomials.eer.tileentity.TileEntityEnergyCollector;
 import net.multiplemonomials.eer.tileentity.TileEntityGlassBell;
 import net.multiplemonomials.eer.tileentity.TileEntityTransmutationTablet;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -64,6 +65,7 @@ public abstract class CommonProxy implements IProxy
         GameRegistry.registerTileEntity(TileEntityGlassBell.class, "tile." + Names.Blocks.GLASS_BELL);
         GameRegistry.registerTileEntity(TileEntityCondenser.class, "tile." + Names.Blocks.CONDENSER);
         GameRegistry.registerTileEntity(TileEntityTransmutationTablet.class, "tile." + Names.Blocks.TRANSMUTATION_TABLET);
+        GameRegistry.registerTileEntity(TileEntityEnergyCollector.class, "tile." + Names.Blocks.ENERGY_COLLECTOR);
     }
     
     /**

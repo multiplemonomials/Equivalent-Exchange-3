@@ -54,6 +54,7 @@ tile.eer:glassBell.name=Glass Bell
 tile.eer:researchStation.name=Research Station [WIP]
 tile.eer:condenser.name=Energy Condenser
 tile.eer:transmutationTablet.name=Transmutation Tablet
+tile.eer:energyCollector.name=Energy Collector
 
 # GUI localizations
 container.eer:alchemicalBag=Alchemical Bag
@@ -64,6 +65,7 @@ container.eer:glassBell=Glass Bell
 container.eer:researchStation=Research Station [WIP]
 container.eer:condenser=Energy Condenser
 container.eer:transmutationTablet=Transmutation Tablet
+container.eer:energyCollector=Energy Collector
 
 # Command localizations
 command.eer:overlay.turned_on=Target transmutation overlay turned on

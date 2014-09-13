@@ -36,6 +36,8 @@ public class Textures
     public static final ResourceLocation GUI_CONDENSER = ResourceLocationHelper.getResourceLocation(GUI_SHEET_LOCATION + "condenser.png");
     public static final ResourceLocation GUI_GLASS_BELL = ResourceLocationHelper.getResourceLocation(GUI_SHEET_LOCATION + "glassBell.png");
 	public static final ResourceLocation GUI_TRANSMUTATION_TABLET = ResourceLocationHelper.getResourceLocation(GUI_SHEET_LOCATION + "transmutationTablet.png");
+	public static final ResourceLocation GUI_ENERGY_COLLECTOR = ResourceLocationHelper.getResourceLocation(GUI_SHEET_LOCATION + "energyCollector.png");
+
 
     public static final String EFFECTS_LOCATION = "textures/effects/";
     // Effect textures

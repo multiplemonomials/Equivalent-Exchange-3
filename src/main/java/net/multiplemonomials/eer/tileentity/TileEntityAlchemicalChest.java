@@ -8,6 +8,7 @@ import net.multiplemonomials.eer.init.ModBlocks;
 import net.multiplemonomials.eer.interfaces.IWantsUpdatesInAlchemicalStorage;
 import net.multiplemonomials.eer.network.PacketHandler;
 import net.multiplemonomials.eer.network.message.MessageTileAlchemicalChest;
+import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.reference.Sounds;
 
 public class TileEntityAlchemicalChest extends TileEntityEE
@@ -72,6 +73,12 @@ public class TileEntityAlchemicalChest extends TileEntityEE
     {
         --numUsingPlayers;
         worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.alchemicalChest, 1, numUsingPlayers);
+    }
+    
+    @Override
+    public String getInventoryName()
+    {
+        return this.hasCustomName() ? this.getCustomName() : Names.Containers.ALCHEMICAL_CHEST;
     }
 
     @Override

@@ -203,11 +203,11 @@ public class TileEntityEE extends TileEntity implements IInventory
 
         this.markDirty();
     }
-
+    
     @Override
     public String getInventoryName()
     {
-        return this.hasCustomName() ? this.getCustomName() : Names.Containers.ALCHEMICAL_CHEST;
+        return "You forgot to override getInventoryName()!  Hi random user.";
     }
 
     @Override

@@ -6,6 +6,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.Packet;
 import net.multiplemonomials.eer.network.PacketHandler;
 import net.multiplemonomials.eer.network.message.MessageTileEntityGlassBell;
+import net.multiplemonomials.eer.reference.Names;
 
 public class TileEntityGlassBell extends TileEntityEE
 {
@@ -67,5 +68,11 @@ public class TileEntityGlassBell extends TileEntityEE
         }
 
         return PacketHandler.INSTANCE.getPacketFrom(new MessageTileEntityGlassBell(this, null));
+    }
+    
+    @Override
+    public String getInventoryName()
+    {
+        return this.hasCustomName() ? this.getCustomName() : Names.Containers.GLASS_BELL;
     }
 }

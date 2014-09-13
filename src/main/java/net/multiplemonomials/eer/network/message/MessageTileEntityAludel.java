@@ -109,7 +109,7 @@ public class MessageTileEntityAludel implements IMessage, IMessageHandler<Messag
                 }
             }
 
-            ((TileEntityAludel) tileEntity).inventory[TileEntityAludel.TOP_INPUT_INVENTORY_INDEX] = outputItemStack;
+            ((TileEntityAludel) tileEntity).setInventorySlotContents(TileEntityAludel.OUTPUT_INVENTORY_INDEX, outputItemStack);
 
             //NAME UPDATE
             FMLClientHandler.instance().getClient().theWorld.func_147451_t(message.x, message.y, message.z);

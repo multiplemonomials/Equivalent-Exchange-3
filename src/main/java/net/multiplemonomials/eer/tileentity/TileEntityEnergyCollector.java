@@ -3,13 +3,15 @@ package net.multiplemonomials.eer.tileentity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
+import net.multiplemonomials.eer.configuration.CommonConfiguration;
 import net.multiplemonomials.eer.exchange.EnergyRegistry;
 import net.multiplemonomials.eer.network.PacketHandler;
 import net.multiplemonomials.eer.network.message.MessageTileEnergyCollector;
+import net.multiplemonomials.eer.reference.Names;
 
 public class TileEntityEnergyCollector extends TileEntityEE
 {
-	public static final int OUTPUT_SLOT_INVENTORY_INDEX = 0;
+	public static final int ENERGY_SLOT_INVENTORY_INDEX = 0;
 	
 	/**
 	 * 1-indexed upgrade level 
@@ -22,8 +24,17 @@ public class TileEntityEnergyCollector extends TileEntityEE
 	 */
 	private double leftoverEMC = 0;
 	
+	/**
+	 * The current light level of the collector.  Cached so it isn't checked every gui render cycle
+	 */
+	private int lightLevel;
 	
-    public TileEntityEnergyCollector()
+	
+    public int getLightLevel() {
+		return lightLevel;
+	}
+
+	public TileEntityEnergyCollector()
     {
     	super(1);
     }
@@ -33,7 +44,9 @@ public class TileEntityEnergyCollector extends TileEntityEE
     {
        super.readFromNBT(nbtTagCompound);
 
-       leftoverEMC = nbtTagCompound.getLong("leftoverEMC");
+       leftoverEMC = nbtTagCompound.getDouble("leftoverEMC");
+       
+       upgradeLevel = nbtTagCompound.getByte("level");
     }
     
     @Override
@@ -42,13 +55,16 @@ public class TileEntityEnergyCollector extends TileEntityEE
        super.writeToNBT(nbtTagCompound);
 
        nbtTagCompound.setDouble("leftoverEMC", leftoverEMC);
+       
+       nbtTagCompound.setByte("level", upgradeLevel);
     }
-    
     
     @Override
     public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack)
     {
-    	if(slotIndex == OUTPUT_SLOT_INVENTORY_INDEX && (!EnergyRegistry.getInstance().hasEnergyValue(itemStack)))
+
+    	
+    	if(slotIndex == ENERGY_SLOT_INVENTORY_INDEX && (!EnergyRegistry.getInstance().hasEnergyValue(itemStack)))
     	{
     		return false;
     	}
@@ -56,13 +72,21 @@ public class TileEntityEnergyCollector extends TileEntityEE
         return true;
     }
     
-    
+    //used so that we only check the light level once a second
+    int tickCounter = 1;
     @Override
     public void updateEntity()
     {
-    	super.updateEntity();
-    	//TBD
-
+    	if(--tickCounter == 0)
+    	{
+    		lightLevel = worldObj.getBlockLightValue(xCoord, yCoord, zCoord);
+    		tickCounter = 9;
+    	}
+    	
+    	if(leftoverEMC <= getMaxStorableEMC())
+    	{
+    		leftoverEMC += ((CommonConfiguration.ENERGY_COLLECTOR_EMC_PER_TICK[upgradeLevel - 1] * 100) * (lightLevel / 15.0));
+    	}
     }
     
 	public double getLeftoverEMC() 
@@ -74,6 +98,25 @@ public class TileEntityEnergyCollector extends TileEntityEE
 	{
 		this.leftoverEMC = leftoverEMC;
 	}
+	
+	public void upgradeLevel()
+	{
+		if(upgradeLevel < 3)
+		{
+			++upgradeLevel;
+		}
+	}
+	
+	public double getMaxStorableEMC()
+	{
+		return CommonConfiguration.ENERGY_COLLECTOR_EMC_STORAGE[upgradeLevel - 1];
+	}
+	
+    @Override
+    public String getInventoryName()
+    {
+        return this.hasCustomName() ? this.getCustomName() : Names.Containers.ENERGY_COLLECTOR;
+    }
 	
     @Override
     public Packet getDescriptionPacket()
