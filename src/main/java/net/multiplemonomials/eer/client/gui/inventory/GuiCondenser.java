@@ -28,7 +28,7 @@ public class GuiCondenser extends GuiContainer
     {
     	fontRendererObj.drawString(StatCollector.translateToLocal(tileEntityCondenser.getInventoryName()), 70, 9, 0x404040);
     	
-    	String leftoverEMC = String.format("EMC: %.2f", tileEntityCondenser.getLeftoverEMC());
+    	String leftoverEMC = String.format("EMC: %.2f", tileEntityCondenser.getStoredEMC());
     	
     	fontRendererObj.drawString(leftoverEMC, 174, 9, 0x404040);
     }

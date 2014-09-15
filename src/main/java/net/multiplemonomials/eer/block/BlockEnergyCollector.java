@@ -3,6 +3,7 @@ package net.multiplemonomials.eer.block;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -87,6 +88,15 @@ public class BlockEnergyCollector extends BlockEE implements ITileEntityProvider
         blockBottom = iconRegister.registerIcon(String.format("%s_bottom", getUnwrappedUnlocalizedName(this.getUnlocalizedName())));
         blockFront = iconRegister.registerIcon(String.format("%s_front", getUnwrappedUnlocalizedName(this.getUnlocalizedName())));
 
+    }
+    
+    /**
+     * Lets the block know when one of its neighbor changes. Doesn't know which neighbor changed (coordinates passed are
+     * their own) Args: x, y, z, neighbor Block
+     */
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
+    {
+        ((TileEntityEnergyCollector)world.getTileEntity(x, y, z)).scanForAndAddValidEMCReceivers();
     }
 
     @Override

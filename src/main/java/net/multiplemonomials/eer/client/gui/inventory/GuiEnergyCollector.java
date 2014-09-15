@@ -37,10 +37,11 @@ public class GuiEnergyCollector extends GuiContainer
         fontRendererObj.drawString(containerName, xSize / 2 - fontRendererObj.getStringWidth(containerName) / 2, 6, 0x404040);
         fontRendererObj.drawString(StatCollector.translateToLocal(Names.Containers.VANILLA_INVENTORY), 8, ySize - 93, 0x404040);
         
-        fontRendererObj.drawString(String.format("Stored EMC: %.1f", tileEntityCollector.getLeftoverEMC()), 15, 50, 0x404040);
-        fontRendererObj.drawString("Light:", 17, 25, 0x404040);
+        fontRendererObj.drawString("Stored EMC:", 10, 33, 0x404040);
+        fontRendererObj.drawString(String.format("%.1f", tileEntityCollector.getLeftoverEMC()), 32, 47, 0x404040);
+        fontRendererObj.drawString("Light Level:", 92, 24, 0x404040);
         
-        fontRendererObj.drawString(String.format("%-3d", tileEntityCollector.getLightLevel()), 50, 25, 0x404040);
+        fontRendererObj.drawString(String.format("%-3d", tileEntityCollector.getLightLevel()), 154, 24, 0x404040);
     }
 
     @Override
@@ -53,11 +54,8 @@ public class GuiEnergyCollector extends GuiContainer
         int yStart = (height - ySize) / 2;
         this.drawTexturedModalRect(xStart, yStart, 0, 0, xSize, ySize);
         
-        if (tileEntityCollector.state == 1)
-        {
-                int emcStoredScaled = MathHelper.ceiling_double_int((tileEntityCollector.getLeftoverEMC() / tileEntityCollector.getMaxStorableEMC()) * EMC_GAUGE_IMAGE_HEIGHT) ;
-                drawTexturedModalRect(xStart + 120, yStart + 28, 176, 0, 14, emcStoredScaled);
-        }
+        int emcStoredScaled = MathHelper.ceiling_double_int(((tileEntityCollector.getMaxStorableEMC() - tileEntityCollector.getLeftoverEMC()) / tileEntityCollector.getMaxStorableEMC()) * EMC_GAUGE_IMAGE_HEIGHT) ;
+        drawTexturedModalRect(xStart + 74, yStart + 24, 176, 0, 14, emcStoredScaled);
 
     }
 }

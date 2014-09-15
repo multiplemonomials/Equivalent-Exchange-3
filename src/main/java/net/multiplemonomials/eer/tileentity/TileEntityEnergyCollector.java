@@ -1,13 +1,25 @@
 package net.multiplemonomials.eer.tileentity;
 
+import java.util.EnumSet;
+import java.util.Set;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.MathHelper;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.multiplemonomials.eer.configuration.CommonConfiguration;
 import net.multiplemonomials.eer.exchange.EnergyRegistry;
+import net.multiplemonomials.eer.interfaces.IStoresEMC;
+import net.multiplemonomials.eer.interfaces.ITileEntityAcceptsEMC;
 import net.multiplemonomials.eer.network.PacketHandler;
+import net.multiplemonomials.eer.network.message.MessageEnergyCollectorUpdate;
 import net.multiplemonomials.eer.network.message.MessageTileEnergyCollector;
 import net.multiplemonomials.eer.reference.Names;
+import net.multiplemonomials.eer.util.Coordinate;
+import net.multiplemonomials.eer.util.LogHelper;
+import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 
 public class TileEntityEnergyCollector extends TileEntityEE
 {
@@ -29,14 +41,22 @@ public class TileEntityEnergyCollector extends TileEntityEE
 	 */
 	private int lightLevel;
 	
+	Set<ForgeDirection> _sidesToOutputTo;
 	
-    public int getLightLevel() {
+	
+    public void setLightLevel(int lightLevel) {
+		this.lightLevel = lightLevel;
+	}
+
+	public int getLightLevel() {
 		return lightLevel;
 	}
 
 	public TileEntityEnergyCollector()
     {
     	super(1);
+    	
+    	_sidesToOutputTo = EnumSet.noneOf(ForgeDirection.class);
     }
     
     @Override
@@ -62,8 +82,6 @@ public class TileEntityEnergyCollector extends TileEntityEE
     @Override
     public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack)
     {
-
-    	
     	if(slotIndex == ENERGY_SLOT_INVENTORY_INDEX && (!EnergyRegistry.getInstance().hasEnergyValue(itemStack)))
     	{
     		return false;
@@ -72,20 +90,76 @@ public class TileEntityEnergyCollector extends TileEntityEE
         return true;
     }
     
-    //used so that we only check the light level once a second
+    //used so that we only check the light level once every few seconds
     int tickCounter = 1;
     @Override
     public void updateEntity()
     {
-    	if(--tickCounter == 0)
+    	if(!worldObj.isRemote)
     	{
-    		lightLevel = worldObj.getBlockLightValue(xCoord, yCoord, zCoord);
-    		tickCounter = 9;
+	    	if(--tickCounter == 0)
+	    	{
+	    		tickCounter = 14;
+	    		lightLevel = worldObj.getBlockLightValue(xCoord, yCoord, zCoord);	
+	    		
+	    		PacketHandler.INSTANCE.sendToAllAround(new MessageEnergyCollectorUpdate(this), new TargetPoint(this.worldObj.provider.dimensionId, this.xCoord, yCoord, zCoord, 64));
+	    	}
     	}
     	
-    	if(leftoverEMC <= getMaxStorableEMC())
+    	if(leftoverEMC < getMaxStorableEMC())
     	{
-    		leftoverEMC += ((CommonConfiguration.ENERGY_COLLECTOR_EMC_PER_TICK[upgradeLevel - 1] * 100) * (lightLevel / 15.0));
+    		leftoverEMC += (CommonConfiguration.ENERGY_COLLECTOR_EMC_PER_TICK[upgradeLevel - 1] * (lightLevel / 15.0));
+    	}
+    	
+    	drainEMCToKleinStar();
+    	
+    	if(_sidesToOutputTo.isEmpty())
+    	{
+    	       scanForAndAddValidEMCReceivers();
+    	}
+    		
+    	
+    	//output to other machines
+    	//for now, no speed limit
+    	for(ForgeDirection direction : _sidesToOutputTo)
+    	{
+    		Coordinate machineCoordinates = Coordinate.offsetByOne(new Coordinate(xCoord, yCoord, zCoord, worldObj), direction);
+    		TileEntity entity = machineCoordinates.getTileEntity();
+    		if(entity == null)
+    		{
+    			LogHelper.error("Somehow there wasn't an EMC-recieving tile entity at " + machineCoordinates + " where there was supposed to be");
+    			_sidesToOutputTo.remove(direction);
+    			continue;
+    		}
+    		
+    		ITileEntityAcceptsEMC machine;
+    		try
+    		{
+    			machine = ((ITileEntityAcceptsEMC) entity);
+    		}
+    		catch(ClassCastException error)
+    		{
+    			LogHelper.error("Somehow there wasn't an EMC-recieving tile entity at " + machineCoordinates + " where there was supposed to be");
+    			error.printStackTrace();
+    			continue;
+    		}
+    		
+    		leftoverEMC -= machine.tryAddEMC(leftoverEMC / _sidesToOutputTo.size());
+    	}
+    }
+    
+    private void drainEMCToKleinStar()
+    {
+    	if(leftoverEMC != 0 && (inventory[ENERGY_SLOT_INVENTORY_INDEX] != null && inventory[ENERGY_SLOT_INVENTORY_INDEX].getItem() instanceof IStoresEMC))
+    	{
+    		IStoresEMC emcStoringItem = ((IStoresEMC)inventory[ENERGY_SLOT_INVENTORY_INDEX].getItem());
+    		if(emcStoringItem.isEMCBattery())
+    		{
+    			if(leftoverEMC > 0)
+    			{
+    				leftoverEMC -= emcStoringItem.tryAddEMC(inventory[ENERGY_SLOT_INVENTORY_INDEX], MathHelper.clamp_double(leftoverEMC, 0, CommonConfiguration.ENERGY_COLLECTOR_DRAIN_RATE[upgradeLevel - 1]));
+    			}
+    		}
     	}
     }
     
@@ -115,12 +189,35 @@ public class TileEntityEnergyCollector extends TileEntityEE
     @Override
     public String getInventoryName()
     {
-        return this.hasCustomName() ? this.getCustomName() : Names.Containers.ENERGY_COLLECTOR;
+        if(this.hasCustomName())
+        {
+        	return this.getCustomName();
+        }
+        else
+        {
+        	 return Names.Containers.ENERGY_COLLECTOR + Names.Blocks.ENERGY_COLLECTOR_SUBTYPES[upgradeLevel - 1];
+        }
     }
 	
     @Override
     public Packet getDescriptionPacket()
     {
         return PacketHandler.INSTANCE.getPacketFrom(new MessageTileEnergyCollector(this));
+    }
+    
+    /**
+     * Scans the blocks around and looks for ones that 
+     */
+    public void scanForAndAddValidEMCReceivers()
+    {
+    	for(ForgeDirection direction : ForgeDirection.values())
+    	{
+    		Coordinate testingCoordinates = Coordinate.offsetByOne(new Coordinate(xCoord, yCoord, zCoord, worldObj), direction);
+    		TileEntity entity = testingCoordinates.getTileEntity();
+    		if(entity != null && entity instanceof ITileEntityAcceptsEMC)
+    		{
+    			_sidesToOutputTo.add(direction);
+    		}
+    	}
     }
 }

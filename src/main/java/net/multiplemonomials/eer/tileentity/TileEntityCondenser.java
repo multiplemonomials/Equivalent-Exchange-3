@@ -11,6 +11,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.util.MathHelper;
 import net.multiplemonomials.eer.configuration.CommonConfiguration;
 import net.multiplemonomials.eer.exchange.EnergyRegistry;
+import net.multiplemonomials.eer.interfaces.ITileEntityAcceptsEMC;
 import net.multiplemonomials.eer.inventory.ContainerCondenser;
 import net.multiplemonomials.eer.network.PacketHandler;
 import net.multiplemonomials.eer.network.message.MessageTileCondenser;
@@ -18,7 +19,7 @@ import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.util.ItemHelper;
 import net.multiplemonomials.eer.util.LogHelper;
 
-public class TileEntityCondenser extends TileEntityAlchemicalChest
+public class TileEntityCondenser extends TileEntityAlchemicalChest implements ITileEntityAcceptsEMC
 {
 	public static final int INPUT_SLOT_INVENTORY_INDEX = ContainerCondenser.CONDENSER_INVENTORY_SIZE - 1;
 
@@ -154,7 +155,7 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest
     	
     	while(itemsToProduce < itemToProduceLimit)
     	{
-    		if(getLeftoverEMC() < itemToProduceEMCValue)
+    		if(getStoredEMC() < itemToProduceEMCValue)
     		{
     			return itemsToProduce;
     		}
@@ -320,12 +321,12 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest
 		}
 	}
 
-	public double getLeftoverEMC() 
+	public double getStoredEMC() 
 	{
 		return leftoverEMC;
 	}
 
-	public void setLeftoverEMC(double leftoverEMC)
+	public void setStoredEMC(double leftoverEMC)
 	{
 		this.leftoverEMC = leftoverEMC;
 	}
@@ -335,4 +336,19 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest
     {
         return PacketHandler.INSTANCE.getPacketFrom(new MessageTileCondenser(this));
     }
+
+
+	@Override
+	public double getMaxEMC() 
+	{
+		//something tells me that this is a bad idea
+		return Double.MAX_VALUE;
+	}
+
+	@Override
+	public double tryAddEMC(double amountToAdd)
+	{
+		leftoverEMC += amountToAdd;
+		return amountToAdd;
+	}
 }

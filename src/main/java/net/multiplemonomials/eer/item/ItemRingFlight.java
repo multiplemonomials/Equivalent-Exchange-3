@@ -5,7 +5,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
@@ -19,7 +18,7 @@ import net.multiplemonomials.eer.util.EMCHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemRingFlight extends ItemEE implements IKeyBound, IStoresEMC
+public class ItemRingFlight extends ItemStoresEMC implements IKeyBound, IStoresEMC
 {	
 	IIcon [] icons;
 	
@@ -58,10 +57,6 @@ public class ItemRingFlight extends ItemEE implements IKeyBound, IStoresEMC
     			}
     				
     		}
-    	}
-    	else if(key == Key.JUMP)
-    	{
-    		//TODO: play sound
     	}
 		
 	}
@@ -146,28 +141,17 @@ public class ItemRingFlight extends ItemEE implements IKeyBound, IStoresEMC
 			mob.motionZ = (mob.posZ - player.posZ) / 5;
 		}
 	}
-	
-    /**
-     * Returns the available EMC in this RingFlight.
-     * Creates the NBT tag if this ItemStack does not have one.
-     */
-	@Override
-	public double getAvailableEMC(ItemStack itemStack)
-	{
-
-		if(itemStack.stackTagCompound == null)
-		{
-			itemStack.stackTagCompound = new NBTTagCompound();
-			itemStack.stackTagCompound.setFloat("fuelEMCLeft", 0F);
-		}
-		
-		return itemStack.stackTagCompound.getDouble("fuelEMCLeft");
-	}
 
 	@Override
 	public double getMaxStorableEMC(ItemStack itemStack)
 	{
 		return 0;
+	}
+
+	@Override
+	public boolean isEMCBattery()
+	{
+		return false;
 	}
     
     

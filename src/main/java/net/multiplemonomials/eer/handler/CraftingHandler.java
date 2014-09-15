@@ -166,56 +166,38 @@ public class CraftingHandler
     @SubscribeEvent
     public void onItemCraftedEvent(PlayerEvent.ItemCraftedEvent event)
     {
-    	if(!(event.player instanceof FakePlayer))
-    	{
-	    	//take durability damage from minium stone
-	    	for(int counter = event.craftMatrix.getSizeInventory(); counter > 0; --counter)
-	    	{
-	    		ItemStack itemStack = event.craftMatrix.getStackInSlot(counter);
-	    		
-	    		if(itemStack != null && itemStack.getItem() == ModItems.stoneMinium)
-	    		{
-	    			String name = event.crafting.getUnlocalizedName();
-	    			if(name.equals("tile.eer:transmutationTablet"))
-	    			{
-		    			itemStack.damageItem(100, event.player);
-	    			}
-	    			else
-	    			{
-	    				itemStack.damageItem(1, event.player);
-	    			}
-	    			
-	    			//if the stone has broken, return it as shards
-	    			if(itemStack.stackSize == 0)
-	    			{
-	    				itemStack = new ItemStack(ModItems.shardMinium, new Random().nextInt(9), 0);
-	    				if(itemStack.stackSize == 0)
-	    				{
-	    					itemStack = null;
-	    				}
-	    			}
-	    			
-	    			//and then return it
-	    			//first, try to put it back in the slot where it came from
-	    			//JS: I have no idea why this code doesn't work
-	    			//it's supposed to put the stone back in the crafting matrix
-	    			//but it just deletes it
-	    			//if((itemStack != null && event.player.openContainer instanceof ContainerWorkbench)  && (itemStack.getItem() == ((ContainerWorkbench)event.player.openContainer).craftMatrix.getStackInSlot(counter).getItem()))
-	    			//{
-	    			//	((ContainerWorkbench)event.player.openContainer).craftMatrix.setInventorySlotContents(counter, itemStack);
-	    			//}
-	    			//else
-	    			//{
-	    				//then, try to put it into the player's inventory
-		    			if(!event.player.inventory.addItemStackToInventory(itemStack))
-		    			{
-		    				event.player.entityDropItem(itemStack, 0);
-		    			}
-	    			//}
-	    		}
-	    		
-	    	}
-    	}
+    	//take durability damage from minium stone
+    	//TEMPORARILY DISABLED DUE TO AE2 bug
+//    	for(int counter = event.craftMatrix.getSizeInventory(); counter > 0; --counter)
+//    	{
+//    		ItemStack itemStack = event.craftMatrix.getStackInSlot(counter);
+//    		
+//    		if(itemStack != null && itemStack.getItem() == ModItems.stoneMinium)
+//    		{
+//    			String name = event.crafting.getUnlocalizedName();
+//    			if(name.equals("tile.eer:transmutationTablet"))
+//    			{
+//	    			itemStack.damageItem(100, event.player);
+//    			}
+//    			else
+//    			{
+//    				itemStack.damageItem(1, event.player);
+//    			}
+//    			
+//    			//if the stone has broken, return it as shards
+//    			if(itemStack.stackSize == 0)
+//    			{
+//    				itemStack = new ItemStack(ModItems.shardMinium, new Random().nextInt(9), 0);
+//    				if(itemStack.stackSize == 0)
+//    				{
+//    					itemStack = null;
+//    				}
+//    			}
+//    			
+//    			//and then return it
+//    		}
+//    		
+//    	}
     }
     
 }

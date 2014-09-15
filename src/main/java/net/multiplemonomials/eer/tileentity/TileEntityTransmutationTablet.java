@@ -11,8 +11,7 @@ import net.minecraft.util.MathHelper;
 import net.multiplemonomials.eer.data.EERExtendedPlayer;
 import net.multiplemonomials.eer.exchange.EnergyRegistry;
 import net.multiplemonomials.eer.exchange.EnergyValue;
-import net.multiplemonomials.eer.init.ModItems;
-import net.multiplemonomials.eer.item.ItemKleinStar;
+import net.multiplemonomials.eer.interfaces.IStoresEMC;
 import net.multiplemonomials.eer.network.PacketHandler;
 import net.multiplemonomials.eer.network.message.MessageTileEntityEE;
 import net.multiplemonomials.eer.reference.Names;
@@ -199,12 +198,16 @@ public class TileEntityTransmutationTablet extends TileEntityEE implements IInve
 	    	}
 	    	
 	    	//condense from Klein Star
-	    	if((inventory[ENERGY_SLOT_INDEX] != null && inventory[ENERGY_SLOT_INDEX].getItem() == ModItems.kleinStar) && itemsLeftToProduce > 0)
+	    	if((inventory[ENERGY_SLOT_INDEX] != null && inventory[ENERGY_SLOT_INDEX].getItem() instanceof IStoresEMC) && itemsLeftToProduce > 0)
 	    	{
-	    		double availableEMC =  ItemKleinStar.getAvailableEMC(inventory[ENERGY_SLOT_INDEX]);
-	    		int itemsToMakeFromKleinStar = MathHelper.clamp_int(MathHelper.floor_double(availableEMC / itemEMCValue), 0, itemLimit);
-	    		itemsLeftToProduce -= itemsToMakeFromKleinStar;
-	    		ItemKleinStar.takeEMC(inventory[ENERGY_SLOT_INDEX] , itemEMCValue * itemsToMakeFromKleinStar);
+	    		IStoresEMC emcStoringItem = ((IStoresEMC)inventory[ENERGY_SLOT_INDEX].getItem());
+	    		if(emcStoringItem.isEMCBattery())
+	    		{
+	    			double availableEMC =  emcStoringItem.getAvailableEMC(inventory[ENERGY_SLOT_INDEX]);
+	    			int itemsToMakeFromKleinStar = MathHelper.clamp_int(MathHelper.floor_double(availableEMC / itemEMCValue), 0, itemLimit);
+	    			itemsLeftToProduce -= itemsToMakeFromKleinStar;
+	    			emcStoringItem.tryTakeEMC(inventory[ENERGY_SLOT_INDEX] , itemEMCValue * itemsToMakeFromKleinStar);
+	    		}
 	    	}
     	}
     	while(itemsLeftToProduce > 0 && inventory[INPUT_SLOT_INDEX] != null);
@@ -229,9 +232,13 @@ public class TileEntityTransmutationTablet extends TileEntityEE implements IInve
      */
     private void drainLeftoversToKleinStar()
     {
-    	if(leftoverEMC != 0 && (inventory[ENERGY_SLOT_INDEX] != null && inventory[ENERGY_SLOT_INDEX].getItem() == ModItems.kleinStar))
+    	if(leftoverEMC != 0 && (inventory[ENERGY_SLOT_INDEX] != null && inventory[ENERGY_SLOT_INDEX].getItem() instanceof IStoresEMC))
     	{
-    		leftoverEMC = ItemKleinStar.addEMC(inventory[ENERGY_SLOT_INDEX], leftoverEMC);
+    		IStoresEMC emcStoringItem = ((IStoresEMC)inventory[ENERGY_SLOT_INDEX].getItem());
+    		if(emcStoringItem.isEMCBattery())
+    		{
+    			leftoverEMC -= emcStoringItem.tryAddEMC(inventory[ENERGY_SLOT_INDEX], leftoverEMC);
+    		}
     	}
     }
 
@@ -294,9 +301,13 @@ public class TileEntityTransmutationTablet extends TileEntityEE implements IInve
 	{
 		double maxAvailableEMC = leftoverEMC;
 		
-		if(inventory[ENERGY_SLOT_INDEX] != null && inventory[ENERGY_SLOT_INDEX].getItem() == ModItems.kleinStar)
+		if(inventory[ENERGY_SLOT_INDEX] != null && inventory[ENERGY_SLOT_INDEX].getItem() instanceof IStoresEMC)
 		{
-			maxAvailableEMC += ItemKleinStar.getAvailableEMC(inventory[ENERGY_SLOT_INDEX]);
+			IStoresEMC emcStoringItem = ((IStoresEMC)inventory[ENERGY_SLOT_INDEX].getItem());
+    		if(emcStoringItem.isEMCBattery())
+    		{
+    			maxAvailableEMC += emcStoringItem.getAvailableEMC(inventory[ENERGY_SLOT_INDEX]);
+    		}
 		}
 		
 		if(inventory[INPUT_SLOT_INDEX] != null)

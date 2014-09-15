@@ -49,7 +49,12 @@ public class CommonConfiguration
 		//emc/tick of the energy collector levels at light level 16
 		public static double [] ENERGY_COLLECTOR_EMC_PER_TICK = new double[3];
 		
+		//storage of an energy collector
 		public static double[] ENERGY_COLLECTOR_EMC_STORAGE = new double[3];
+		
+		//emc per tick that an energy collector drains to a klein star
+		public static double[] ENERGY_COLLECTOR_DRAIN_RATE = new double[3];
+
 		
     public static void init(File configPath)
     {
@@ -88,11 +93,17 @@ public class CommonConfiguration
 			
 			ENERGY_COLLECTOR_EMC_PER_TICK[1] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorEmcPerSecLvlTwo", 2.5, "emc/s of the energy collector level 2 at light level 16").getDouble(2.5))/20.0;
 			
-			ENERGY_COLLECTOR_EMC_PER_TICK[2] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorEmcPerSecLvlThree", 5, "emc/s of the energy collector level 2 at light level 16").getDouble(5.0))/20.0;
+			ENERGY_COLLECTOR_EMC_PER_TICK[2] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorEmcPerSecLvlThree", 5, "emc/s of the energy collector level 3 at light level 16").getDouble(5.0))/20.0;
 			
 			ENERGY_COLLECTOR_EMC_STORAGE[0] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorEmcStorage", 32768.0, "emc storage of a level 1 energy collector.  Each subsequent level has four times this.").getDouble(32768.0));
 			ENERGY_COLLECTOR_EMC_STORAGE[1] = 4 * ENERGY_COLLECTOR_EMC_STORAGE[0];
 			ENERGY_COLLECTOR_EMC_STORAGE[2] = 4 * ENERGY_COLLECTOR_EMC_STORAGE[1];
+			
+			ENERGY_COLLECTOR_DRAIN_RATE[0] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorDrainRateLvlOne", 4.0, "rate at which a level 1 energy collector drains to an alcemical battery.").getDouble(4.0));
+			
+			ENERGY_COLLECTOR_DRAIN_RATE[1] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorDrainRateLvlTwo", 10.0, "rate at which a level 2 energy collector drains to an alcemical battery.").getDouble(10.0));
+			
+			ENERGY_COLLECTOR_DRAIN_RATE[2] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorDrainRateLvlThree", 20.0, "rate at which a level 3 energy collector drains to an alcemical battery.").getDouble(20.0));
 
     	}
     	catch(Exception e)

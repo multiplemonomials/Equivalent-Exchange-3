@@ -26,33 +26,34 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class ItemTooltipEventHandler
 {
-    private static DecimalFormat emcDecimalFormat = new DecimalFormat("###,###,###,###,###.###");
+    private static DecimalFormat emcDecimalFormat = new DecimalFormat("###,###,###,###,###.##");
 
     @SubscribeEvent
     public void handleItemTooltipEvent(ItemTooltipEvent event)
     {
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT))
         {
+        	boolean hasSpecialReadout = false;
         	if(event.itemStack.getItem() instanceof IStoresEMC)
         	{
+        		hasSpecialReadout = true;
         		IStoresEMC itemWithEMCStorage = (IStoresEMC) event.itemStack.getItem();
         		event.toolTip.add(String.format("Stored EMC: %s", emcDecimalFormat.format(itemWithEMCStorage.getAvailableEMC(event.itemStack))));
         		
-        		double maxStorableEMC = itemWithEMCStorage.getMaxStorableEMC(event.itemStack);
-        		
-        		if(maxStorableEMC > 0)
+        		if(itemWithEMCStorage.isEMCBattery())
         		{
         			event.toolTip.add(String.format("Max EMC: %s", emcDecimalFormat.format(itemWithEMCStorage.getMaxStorableEMC(event.itemStack))));
         		}
         	}
-        	else if(event.itemStack.getItem() instanceof IChargeable)
+        	if(event.itemStack.getItem() instanceof IChargeable)
         	{
+        		hasSpecialReadout = true;
         		//this makes the possibly naive assumption that all chargeable items use their metadata to store their charge
         		// I WANT MULTIPLE INHERITANCEE!!!!!!!!!!!!!!!
         		event.toolTip.add(String.format("Charge Level: %d/%d", (CommonConfiguration.MAX_ITEM_CHARGES - event.itemStack.getItemDamage()) + 1, CommonConfiguration.MAX_ITEM_CHARGES + 1));
         		
         	}
-        	else
+        	if(!hasSpecialReadout)
         	{
 	            WrappedStack stack = new WrappedStack(event.itemStack);
 	

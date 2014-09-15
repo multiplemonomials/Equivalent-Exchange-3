@@ -29,7 +29,7 @@ public class MessageTileCondenser implements IMessage, IMessageHandler<MessageTi
         this.state = (byte) tileEntityCondenser.getState();
         this.customName = tileEntityCondenser.getCustomName();
         this.owner = tileEntityCondenser.getOwner();
-        this.leftoverEMC = tileEntityCondenser.getLeftoverEMC();
+        this.leftoverEMC = tileEntityCondenser.getStoredEMC();
     }
 
     @Override
@@ -74,7 +74,7 @@ public class MessageTileCondenser implements IMessage, IMessageHandler<MessageTi
         	tileCondenser.setState(message.state);
         	tileCondenser.setCustomName(message.customName);
         	tileCondenser.setOwner(message.owner);
-        	tileCondenser.setLeftoverEMC(message.leftoverEMC);
+        	tileCondenser.setStoredEMC(message.leftoverEMC);
         }
 
         return null;

@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.multiplemonomials.eer.exchange.EnergyRegistry;
 import net.multiplemonomials.eer.exchange.EnergyValue;
 import net.multiplemonomials.eer.init.ModItems;
-import net.multiplemonomials.eer.item.ItemKleinStar;
+import net.multiplemonomials.eer.interfaces.IStoresEMC;
 
 public class EMCHelper 
 {
@@ -32,9 +32,13 @@ public class EMCHelper
 		{
 			if(player.inventory.mainInventory[index] != null)
 			{
-				if(player.inventory.mainInventory[index].getItem() == ModItems.kleinStar)
+				if(player.inventory.mainInventory[index].getItem() instanceof IStoresEMC)
 				{
-					builtupEMC += ItemKleinStar.takeEMC(player.inventory.mainInventory[index], idealEMC);
+					IStoresEMC emcItem = ((IStoresEMC)player.inventory.mainInventory[index].getItem());
+					if(emcItem.isEMCBattery())
+					{
+						builtupEMC += emcItem.tryTakeEMC(player.inventory.mainInventory[index], idealEMC);
+					}
 				}
 			}
 			

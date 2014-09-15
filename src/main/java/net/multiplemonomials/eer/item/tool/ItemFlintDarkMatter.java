@@ -90,27 +90,27 @@ public class ItemFlintDarkMatter extends ItemFlintAndSteel implements IChargeabl
             --y;
         }
 
-        if (side == 1)
+        else if (side == 1)
         {
             ++y;
         }
 
-        if (side == 2)
+        else if (side == 2)
         {
             --z;
         }
 
-        if (side == 3)
+        else if (side == 3)
         {
             ++z;
         }
 
-        if (side == 4)
+        else if (side == 4)
         {
             --x;
         }
 
-        if (side == 5)
+        else if (side == 5)
         {
             ++x;
         }
@@ -170,25 +170,92 @@ public class ItemFlintDarkMatter extends ItemFlintAndSteel implements IChargeabl
         return false;
     }
 
-    /**
-     * Returns the available EMC in this FlintDarkMatter.
-     * Creates the NBT tag if this ItemStack does not have one.
-     */
-	@Override
-	public double getAvailableEMC(ItemStack itemStack)
-	{
-    	if(itemStack.stackTagCompound == null)
-    	{
-    		itemStack.stackTagCompound = new NBTTagCompound();
-    	}
-    	
-    	 return itemStack.stackTagCompound.getDouble("emcLeft");
-	}
-
 	@Override
 	public double getMaxStorableEMC(ItemStack itemStack)
 	{
 		return 0;
+	}
+
+	@Override
+	public boolean isEMCBattery()
+	{
+		return false;
+	}
+	
+	@Override
+	public double tryTakeEMC(ItemStack itemStack, double idealEMC)
+	{
+		verifyItemStackHasNBTTag(itemStack);
+		
+		double currentEMC = itemStack.stackTagCompound.getDouble("storedEMC");
+		double newEMC = 0.0;
+		double EMCGotten = 0.0;
+		if(currentEMC < idealEMC)
+		{
+			EMCGotten = currentEMC;
+		}
+		else
+		{
+			newEMC = currentEMC - idealEMC;
+			EMCGotten = idealEMC;
+		}
+		
+		itemStack.stackTagCompound.setDouble("storedEMC", newEMC);
+		
+		return EMCGotten;
+				
+		
+	}
+	
+	/**
+	 * Makes sure the klein star itemstack supplied has its proper NBT tagging
+	 * @param itemStack
+	 */
+	protected static void verifyItemStackHasNBTTag(ItemStack itemStack)
+	{
+		if(itemStack.getTagCompound() == null)
+		{
+			itemStack.stackTagCompound = new NBTTagCompound();
+		}
+		
+	}
+	
+	@Override
+	public double getAvailableEMC(ItemStack itemStack)
+	{
+    	verifyItemStackHasNBTTag(itemStack);
+    	
+    	return itemStack.stackTagCompound.getDouble("storedEMC");
+	}
+	
+	/**
+	 * Tries to add the given EMC to the item
+	 * @param itemStack
+	 * @param EMCToAdd
+	 * 
+	 * @return The EMC it didn't add because it hit the limit
+	 */
+	@Override
+	public double tryAddEMC(ItemStack itemStack, double EMCToAdd)
+	{
+		verifyItemStackHasNBTTag(itemStack);
+		double currentEMC = itemStack.stackTagCompound.getDouble("storedEMC");
+		double maxEMC = getMaxStorableEMC(itemStack);
+		double failedToAddEMC = 0;
+		if(currentEMC + EMCToAdd > maxEMC)
+		{
+			failedToAddEMC = (currentEMC + EMCToAdd) - maxEMC; 
+			currentEMC = maxEMC;
+		}
+		else
+		{
+			currentEMC += EMCToAdd;
+		}
+		
+		itemStack.stackTagCompound.setDouble("storedEMC", currentEMC);
+		
+		return failedToAddEMC;
+
 	}
 
 
