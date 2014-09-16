@@ -1,6 +1,6 @@
 ##Welcome to Equivalent Exchange Reborn!
 
-[Minecraft Forums page](http://www.minecraftforum.net/topic/1540010-equivalent-exchange-3)
+[Minecraft Forums page](http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/wip-mods/2174708-wip-equivalent-exchange-reborn)
 
 [Compiling EER](#compiling-equivalent-exchange-reborn) - For those that want the latest unreleased features.
 
