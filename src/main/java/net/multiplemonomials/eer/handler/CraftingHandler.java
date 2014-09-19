@@ -1,12 +1,9 @@
 package net.multiplemonomials.eer.handler;
 
-import java.util.Random;
-
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
-import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.oredict.OreDictionary;
 import net.multiplemonomials.eer.init.ModBlocks;
 import net.multiplemonomials.eer.init.ModItems;
@@ -160,6 +157,13 @@ public class CraftingHandler
         GameRegistry.addShapelessRecipe(kleinStarGo, kleinStarYon, kleinStarYon, kleinStarYon, kleinStarYon);
 
         GameRegistry.addShapelessRecipe(kleinStarZen, kleinStarIchi, kleinStarNi, kleinStarSan, kleinStarYon, kleinStarGo);
+        
+        GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.energyCollectorVerdant, 1, 0), new Object[] {"GAG", "VDV", "GAG", 'G', new ItemStack(Blocks.glowstone),
+        	'D', ModItems.darkMatter, 'V', new ItemStack(ModItems.alchemicalDust, 1, 1), 'A', new ItemStack(ModItems.alchemicalFuel, 1, 2)});
+        
+        GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.energyCollectorAzure), new ItemStack(ModItems.alchemicalUpgrade, 1, 1), ModBlocks.energyCollectorVerdant);
+
+        GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.energyCollectorMinium), new ItemStack(ModItems.alchemicalUpgrade, 1, 2), ModBlocks.energyCollectorMinium);
 
     }
 

@@ -54,7 +54,10 @@ tile.eer:glassBell.name=Glass Bell
 tile.eer:researchStation.name=Research Station [WIP]
 tile.eer:condenser.name=Energy Condenser
 tile.eer:transmutationTablet.name=Transmutation Tablet
-tile.eer:energyCollector.name=Energy Collector
+tile.eer:energyCollectorVerdant.name=Verdant Energy Collector
+tile.eer:energyCollectorAzure.name=Azure Energy Collector
+tile.eer:energyCollectorMinium.name=Minium Energy Collector
+
 
 # GUI localizations
 container.eer:alchemicalBag=Alchemical Bag
@@ -65,7 +68,10 @@ container.eer:glassBell=Glass Bell
 container.eer:researchStation=Research Station [WIP]
 container.eer:condenser=Energy Condenser
 container.eer:transmutationTablet=Transmutation Tablet
-container.eer:energyCollector=Energy Collector
+container.eer:energyCollectorVerdant=Verdant Energy Collector
+container.eer:energyCollectorAzure=Azure Energy Collector
+container.eer:energyCollectorMinium=Minium Energy Collector
+
 
 # Command localizations
 command.eer:overlay.turned_on=Target transmutation overlay turned on
@@ -85,7 +91,7 @@ command.eer:sounds.set_to_self=Playing Equivalent Exchange 3 sounds from self on
 command.eer:sounds.turned_off=Playing Equivalent Exchange 3 sounds disabled
 
 # Tooltip localizations
-tooltip.eer:upgradesPrefix=Upgrades (Alchemical) Chests
+tooltip.eer:upgradesPrefix=Upgrades Alchemical Things
 tooltip.eer:alchemicalChestPrefix.small=Small
 tooltip.eer:alchemicalChestPrefix.medium=Medium
 tooltip.eer:alchemicalChestPrefix.large=Large
