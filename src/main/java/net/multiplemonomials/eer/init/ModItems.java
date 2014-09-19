@@ -30,7 +30,10 @@ public class ModItems
     public static final ItemEE kleinStar = new ItemKleinStar();
     
     public static final ItemTool axeDarkMatter = new ItemAxeDarkMatter();
-    public static final ItemTool pickaxeDarkMatter = new ItemPickaxeDarkMatter();
+   // public static final ItemTool pickaxeDarkMatter = new ItemPickaxeDarkMatter();
+   //Is this how you do it?
+   public static final ItemTool pickaxeDarkMatter = new ItemMatterPickaxe(PowerItemUtils.MATERIALDARKMATTER, "dark");
+   public static final ItemTool pickaxeRedMatter = new ItemMatterPickaxe(PowerItemUtils.MATERIALREDMATTER, "red");
     public static final ItemTool shovelDarkMatter = new ItemShovelDarkMatter();
     
     public static final ItemHoe hoeDarkMatter = new ItemHoeDarkMatter();
@@ -59,6 +62,7 @@ public class ModItems
         GameRegistry.registerItem(axeDarkMatter, Names.Tools.AXE_DARK_MATTER);
         GameRegistry.registerItem(hoeDarkMatter, Names.Tools.HOE_DARK_MATTER);
         GameRegistry.registerItem(pickaxeDarkMatter, Names.Tools.PICKAXE_DARK_MATTER);
+        GameRegister.registerItem(pickaxeRedMatter, Names.Tools.PICKAXE_RED_MATTER);
         GameRegistry.registerItem(shovelDarkMatter, Names.Tools.SHOVEL_DARK_MATTER);
         GameRegistry.registerItem(swordDarkMatter, Names.Tools.SWORD_DARK_MATTER);
         GameRegistry.registerItem(flintDarkMatter, Names.Tools.FLINT_DARK_MATTER);
