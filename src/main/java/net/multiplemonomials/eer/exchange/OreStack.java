@@ -17,7 +17,7 @@ public class OreStack implements Comparable<OreStack>
     // Gson serializer for serializing to/deserializing from json
     private static final Gson gsonSerializer = new Gson();
 
-    private static final int ORE_DICTIONARY_NOT_FOUND = -1;
+    public static final int[] ORE_DICTIONARY_NOT_FOUND = new int[0];
 
     public String oreName;
     public int stackSize;
@@ -132,7 +132,7 @@ public class OreStack implements Comparable<OreStack>
             {
                 ItemStack stack = (ItemStack) listElement;
 
-                if (OreDictionary.getOreID(stack) != ORE_DICTIONARY_NOT_FOUND)
+                if (OreDictionary.getOreIDs(stack) != ORE_DICTIONARY_NOT_FOUND)
                 {
                     return new OreStack(stack);
                 }
