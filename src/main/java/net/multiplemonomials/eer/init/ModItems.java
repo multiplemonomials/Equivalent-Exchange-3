@@ -27,13 +27,15 @@ public class ModItems
     public static final ItemEE talismanRepair = new ItemTalismanRepair();
     public static final ItemEE bandIron = new ItemBandIron();
     public static final ItemEE ringFlight = new ItemRingFlight();
+    //Black hole band
+    public static final ItemEE ringMagnet = new ItemRingBlackHole();
     public static final ItemEE kleinStar = new ItemKleinStar();
     
     public static final ItemTool axeDarkMatter = new ItemAxeDarkMatter();
    // public static final ItemTool pickaxeDarkMatter = new ItemPickaxeDarkMatter();
    //Is this how you do it?
-   public static final ItemTool pickaxeDarkMatter = new ItemMatterPickaxe(PowerItemUtils.MATERIALDARKMATTER, "dark");
-   public static final ItemTool pickaxeRedMatter = new ItemMatterPickaxe(PowerItemUtils.MATERIALREDMATTER, "red");
+   public static final ItemTool pickaxeDarkMatter = new ItemMatterPickaxe(PowerItemUtils.MATERIALDARKMATTER, "Dark");
+   public static final ItemTool pickaxeRedMatter = new ItemMatterPickaxe(PowerItemUtils.MATERIALREDMATTER, "Red");
     public static final ItemTool shovelDarkMatter = new ItemShovelDarkMatter();
     
     public static final ItemHoe hoeDarkMatter = new ItemHoeDarkMatter();
@@ -56,6 +58,7 @@ public class ModItems
         GameRegistry.registerItem(talismanRepair, Names.Items.TALISMAN_REPAIR);
         GameRegistry.registerItem(bandIron, Names.Items.BAND_IRON);
         GameRegistry.registerItem(ringFlight, Names.Items.RING_FLIGHT);
+        GameRegistry.registerItem(ringMagnet, Names.Items.RING_MAGNET);
         GameRegistry.registerItem(kleinStar, Names.Items.KLEIN_STAR);
         
 
