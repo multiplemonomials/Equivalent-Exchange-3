@@ -288,7 +288,7 @@ public class EnergyRegistry
                         ItemStack wrappedItemStack = (ItemStack) stack.getWrappedStack();
 
                         // If its an OreDictionary item, scan its siblings for values
-                        if (OreDictionary.getOreID(wrappedItemStack) != -1)
+                        if (OreDictionary.getOreIDs(wrappedItemStack) != OreStack.ORE_DICTIONARY_NOT_FOUND)
                         {
 
                             OreStack oreStack = new OreStack(wrappedItemStack);
@@ -299,7 +299,7 @@ public class EnergyRegistry
                             }
                             else
                             {
-                                for(ItemStack itemStack : OreDictionary.getOres(OreDictionary.getOreID(wrappedItemStack)))
+                                for(ItemStack itemStack : OreDictionary.getOres((int)OreDictionary.getOreID(wrappedItemStack)))
                                 {
                                     if (energyRegistry.stackMappings.containsKey(new WrappedStack(itemStack)))
                                     {
@@ -381,7 +381,7 @@ public class EnergyRegistry
                         EnergyValue lowestValue = null;
                         ItemStack wrappedItemStack = (ItemStack) stack.getWrappedStack();
 
-                        if (OreDictionary.getOreID(wrappedItemStack) != -1)
+                        if (OreDictionary.getOreIDs(wrappedItemStack) != OreStack.ORE_DICTIONARY_NOT_FOUND)
                         {
                             OreStack oreStack = new OreStack(wrappedItemStack);
 

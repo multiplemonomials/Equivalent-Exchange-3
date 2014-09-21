@@ -1,12 +1,11 @@
 package net.multiplemonomials.eer.block;
 
-import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -16,9 +15,11 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.multiplemonomials.eer.EquivalentExchangeReborn;
+import net.multiplemonomials.eer.init.ModBlocks;
 import net.multiplemonomials.eer.init.ModItems;
 import net.multiplemonomials.eer.reference.GuiIds;
 import net.multiplemonomials.eer.reference.Names;
+import net.multiplemonomials.eer.tileentity.TileEntityEE;
 import net.multiplemonomials.eer.tileentity.TileEntityEnergyCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -26,17 +27,60 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockEnergyCollector extends BlockEE implements ITileEntityProvider
 {
     @SideOnly(Side.CLIENT)
-    private IIcon[] blockTop;
-    @SideOnly(Side.CLIENT)
-    private IIcon blockFront, blockSide, blockBottom;
+    private IIcon blockTop, blockFront, blockSide, blockBottom;
+    
+    private byte upgradeLevel;
 
-    public BlockEnergyCollector()
+    //this block is constructed and added to the registry three times for the different levels
+    public BlockEnergyCollector(byte upgradeLevel)
     {
         super();
-        this.setBlockName(Names.Blocks.ENERGY_COLLECTOR);
         this.setHardness(5.0f);
         this.setResistance(10.0f);
-        this.setLightLevel(.33F);
+        this.setBlockName(Names.Blocks.ENERGY_COLLECTOR + Names.Blocks.ENERGY_COLLECTOR_SUBTYPES[upgradeLevel - 1]);
+        this.setLightLevel(.33F * upgradeLevel);
+        
+        this.upgradeLevel = upgradeLevel;
+    }
+    
+    @Override
+    public int damageDropped(int metaData)
+    {
+        return ForgeDirection.SOUTH.ordinal();
+    }
+    
+    @Override
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack)
+    {
+        if (world.getTileEntity(x, y, z) instanceof TileEntityEE)
+        {
+            int direction = 0;
+            int facing = MathHelper.floor_double(entityLiving.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
+
+            if (facing == 0)
+            {
+                direction = ForgeDirection.NORTH.ordinal();
+            }
+            else if (facing == 1)
+            {
+                direction = ForgeDirection.EAST.ordinal();
+            }
+            else if (facing == 2)
+            {
+                direction = ForgeDirection.SOUTH.ordinal();
+            }
+            else if (facing == 3)
+            {
+                direction = ForgeDirection.WEST.ordinal();
+            }
+
+            if(itemStack != null && itemStack.hasDisplayName())
+            {
+                ((TileEntityEE) world.getTileEntity(x, y, z)).setCustomName(itemStack.getDisplayName());
+            }
+
+            world.setBlockMetadataWithNotify(x, y, z, direction, 2);
+        }
     }
 
     @Override
@@ -45,22 +89,6 @@ public class BlockEnergyCollector extends BlockEE implements ITileEntityProvider
         return Item.getItemFromBlock(this);
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-	@Override
-    @SideOnly(Side.CLIENT)
-    public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list)
-    {
-        for (int meta = 0; meta < Names.Blocks.ENERGY_COLLECTOR_SUBTYPES.length; meta++)
-        {
-            list.add(new ItemStack(item, 1, meta));
-        }
-    }
-
-    @Override
-    public int damageDropped(int metaData)
-    {
-        return metaData;
-    }
     
     @Override
     public boolean renderAsNormalBlock()
@@ -78,16 +106,10 @@ public class BlockEnergyCollector extends BlockEE implements ITileEntityProvider
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister)
     {
-        this.blockTop = new IIcon[Names.Blocks.ENERGY_COLLECTOR_SUBTYPES.length];
-
-        for (int i = 0; i < Names.Blocks.ENERGY_COLLECTOR_SUBTYPES.length; i++)
-        {
-            blockTop[i] = iconRegister.registerIcon(String.format("%s.%s_top", getUnwrappedUnlocalizedName(this.getUnlocalizedName()), Names.Blocks.ENERGY_COLLECTOR_SUBTYPES[i]));
-        }
         blockSide = iconRegister.registerIcon(String.format("%s_side", getUnwrappedUnlocalizedName(this.getUnlocalizedName())));
         blockBottom = iconRegister.registerIcon(String.format("%s_bottom", getUnwrappedUnlocalizedName(this.getUnlocalizedName())));
         blockFront = iconRegister.registerIcon(String.format("%s_front", getUnwrappedUnlocalizedName(this.getUnlocalizedName())));
-
+        blockTop = iconRegister.registerIcon(String.format("%s_top", getUnwrappedUnlocalizedName(this.getUnlocalizedName())));
     }
     
     /**
@@ -103,14 +125,12 @@ public class BlockEnergyCollector extends BlockEE implements ITileEntityProvider
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int metaData)
     {
-        metaData = MathHelper.clamp_int(metaData, 0, Names.Blocks.ENERGY_COLLECTOR_SUBTYPES.length - 1);
-
         ForgeDirection orientation = ForgeDirection.getOrientation(side);
         if (orientation == ForgeDirection.UP)
         {
-            return blockTop[metaData];
+            return blockTop;
         }
-        else if(orientation == ForgeDirection.SOUTH)
+        else if(orientation == ForgeDirection.values()[metaData])
         {
         	return blockFront;
         }
@@ -131,12 +151,25 @@ public class BlockEnergyCollector extends BlockEE implements ITileEntityProvider
         {
             return false;
         }
-        else if(player.getHeldItem() != null && player.getHeldItem().getItem() == ModItems.alchemicalUpgrade)
+        else if(player.getHeldItem() != null && player.getHeldItem().getItem() == ModItems.alchemicalUpgrade && upgradeLevel < 3)
         {
-        	if(world.getBlockMetadata(x, y, z) == player.getHeldItem().getItemDamage() - 1)
+        	if(upgradeLevel == player.getHeldItem().getItemDamage())
         	{
         		TileEntityEnergyCollector energyCollector = (TileEntityEnergyCollector)(world.getTileEntity(x, y, z));
         		energyCollector.upgradeLevel();
+        		if(upgradeLevel == 1)
+        		{
+        			world.setBlock(x, y, z, ModBlocks.energyCollectorAzure);
+        			
+        			//update rotation
+        			ModBlocks.energyCollectorAzure.onBlockPlacedBy(world, x, y, z, player, null);
+        		}
+        		else
+        		{	
+        			world.setBlock(x, y, z, ModBlocks.energyCollectorMinium);
+        			//update rotation
+        			ModBlocks.energyCollectorMinium.onBlockPlacedBy(world, x, y, z, player, null);
+        		}
         		
         		if(!player.capabilities.isCreativeMode)
         		{
@@ -163,6 +196,6 @@ public class BlockEnergyCollector extends BlockEE implements ITileEntityProvider
     @Override
     public TileEntity createNewTileEntity(World world, int metaData)
     {
-        return new TileEntityEnergyCollector();
+        return new TileEntityEnergyCollector(upgradeLevel);
     }
 }

@@ -52,10 +52,19 @@ public class TileEntityEnergyCollector extends TileEntityEE
 	public int getLightLevel() {
 		return lightLevel;
 	}
-
+	
+	//constructor for loading from NBT
 	public TileEntityEnergyCollector()
     {
     	super(1);
+    	_sidesToOutputTo = EnumSet.noneOf(ForgeDirection.class);
+    }
+
+	//constructor for when first placed in world
+	public TileEntityEnergyCollector(byte upgradeLevel)
+    {
+    	super(1);
+    	this.upgradeLevel = upgradeLevel;
     	
     	_sidesToOutputTo = EnumSet.noneOf(ForgeDirection.class);
     }
@@ -67,7 +76,10 @@ public class TileEntityEnergyCollector extends TileEntityEE
 
        leftoverEMC = nbtTagCompound.getDouble("leftoverEMC");
        
-       upgradeLevel = nbtTagCompound.getByte("level");
+       if(nbtTagCompound.hasKey("level"))
+       {
+    	   upgradeLevel = nbtTagCompound.getByte("level");
+       }
        
        // Read in the ItemStacks in the inventory from NBT
        NBTTagList tagList = nbtTagCompound.getTagList("Items", 10);

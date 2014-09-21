@@ -34,9 +34,7 @@ public class EERExtendedPlayer implements IExtendedEntityProperties
 	}
 
 	public Set<ItemStack> learnedItems;
-	
-	private boolean isUsingFlyingRing;
-    
+	    
     public EERExtendedPlayer(EntityPlayer player)
     {
 	    this.player = player;	    
@@ -172,17 +170,6 @@ public class EERExtendedPlayer implements IExtendedEntityProperties
 	public void init(Entity entity, World world)
 	{
 		
-	}
-
-	public boolean isUsingFlyingRing()
-	{
-		return isUsingFlyingRing;
-	}
-
-	public void setUsingFlyingRing(boolean isUsingFlyingRing)
-	{
-		this.isUsingFlyingRing = isUsingFlyingRing;
-    	syncExtendedPlayer(player, this);
 	}
 
 }

@@ -75,9 +75,9 @@ public class CommonConfiguration
 
 			TALISMAN_OF_REPAIR_TICKS_PER_DURABILITY = configuration.get(Configuration.CATEGORY_GENERAL, "talismanOfRepairTicksPerDurability", 200, "how many ticks it will take the Talisman of Repair to repair 1 durability").getInt(200);
 
-			FLYING_RING_EMC_DRAIN_PER_TICK = configuration.get(Configuration.CATEGORY_GENERAL, "ringOfFlightFlyingEmcPerTick", 0.4, "how much EMC the Ring of Flight will spend per tick flying").getDouble(0.4);
+			FLYING_RING_EMC_DRAIN_PER_TICK = configuration.get(Configuration.CATEGORY_GENERAL, "ringOfFlightFlyingEmcPerTick", 0.04, "how much EMC the Ring of Flight will spend per tick flying").getDouble(0.04);
 
-			FLYING_RING_EMC_DRAIN_PER_TICK_MOB_PUSH = configuration.get(Configuration.CATEGORY_GENERAL, "ringOfFlightPusingEmcPerTick", 1.0, "how much EMC the Ring of Flight will spend per tick pushing mobs away").getDouble(1.0);
+			FLYING_RING_EMC_DRAIN_PER_TICK_MOB_PUSH = configuration.get(Configuration.CATEGORY_GENERAL, "ringOfFlightPusingEmcPerTick", 0.1, "how much EMC the Ring of Flight will spend per tick pushing mobs away").getDouble(0.1);
 
 			HALF_KLEIN_STAR_ICHI_EMC = configuration.get(Configuration.CATEGORY_GENERAL, "kleinStarIchiEMC", 16384, "how many EMC a Klein Star Ichi will store (other klein stars scale from this by the formula  (2^level) * (thisvalue / 2))").getInt(16384)/2;
 

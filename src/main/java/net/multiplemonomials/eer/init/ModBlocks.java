@@ -1,12 +1,10 @@
 package net.multiplemonomials.eer.init;
 
 import net.multiplemonomials.eer.block.*;
-
 import net.multiplemonomials.eer.item.ItemBlockAlchemicalChest;
 import net.multiplemonomials.eer.item.ItemBlockAlchemicalFuel;
 import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.reference.Reference;
-
 import cpw.mods.fml.common.registry.GameRegistry;
 
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
@@ -20,7 +18,9 @@ public class ModBlocks
     public static final BlockEE glassBell = new BlockGlassBell();
 	public static final BlockEE condenser = new BlockCondenser();
 	public static final BlockEE transmutationTablet = new BlockTransmutationTablet();
-	public static final BlockEE energyCollector = new BlockEnergyCollector();
+	public static final BlockEE energyCollectorVerdant = new BlockEnergyCollector((byte) 1);
+	public static final BlockEE energyCollectorAzure = new BlockEnergyCollector((byte) 2);
+	public static final BlockEE energyCollectorMinium = new BlockEnergyCollector((byte) 3);
 
     public static void init()
     {
@@ -32,6 +32,9 @@ public class ModBlocks
         GameRegistry.registerBlock(glassBell, Names.Blocks.GLASS_BELL);
         GameRegistry.registerBlock(condenser, Names.Blocks.CONDENSER);
         GameRegistry.registerBlock(transmutationTablet, Names.Blocks.TRANSMUTATION_TABLET);
-        GameRegistry.registerBlock(energyCollector, Names.Blocks.ENERGY_COLLECTOR);
+        
+        GameRegistry.registerBlock(energyCollectorVerdant, Names.Blocks.ENERGY_COLLECTOR + Names.Blocks.ENERGY_COLLECTOR_SUBTYPES[0]);
+        GameRegistry.registerBlock(energyCollectorAzure, Names.Blocks.ENERGY_COLLECTOR + Names.Blocks.ENERGY_COLLECTOR_SUBTYPES[1]);
+        GameRegistry.registerBlock(energyCollectorMinium, Names.Blocks.ENERGY_COLLECTOR + Names.Blocks.ENERGY_COLLECTOR_SUBTYPES[2]);
     }
 }
