@@ -25,11 +25,11 @@ public class ItemPickaxeMatter extends ItemPickaxe implements IChargeable, IKeyB
 {
 //Either dark or red matter material is passed in the initialization
 //"matter" is either "dark" or "red"
-	public ItemPickaxeMatter(Material material, String matter)
+	public ItemPickaxeMatter(Material material, String matterType)
 	{
 		super(material);
 		
-		setUnlocalizedName(matter + "MatterPickaxe");
+		setUnlocalizedName("pickaxe" + matterType + "Matter");
 		setCreativeTab(CreativeTab.EER_TAB);
 		
 		setNoRepair();
