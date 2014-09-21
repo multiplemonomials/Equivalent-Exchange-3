@@ -21,6 +21,10 @@ public class ModBlocks
 	public static final BlockEE energyCollectorVerdant = new BlockEnergyCollector((byte) 1);
 	public static final BlockEE energyCollectorAzure = new BlockEnergyCollector((byte) 2);
 	public static final BlockEE energyCollectorMinium = new BlockEnergyCollector((byte) 3);
+	
+	public static final BlockEE antiMatterRelayVerdant = new BlockAMRelay((byte) 1);
+	public static final BlockEE antiMatterRelayAzure = new BlockAMRelay((byte) 2);
+	public static final BlockEE antiMatterRelayMinium = new BlockAMRelay((byte) 3);
 
     public static void init()
     {
@@ -36,5 +40,9 @@ public class ModBlocks
         GameRegistry.registerBlock(energyCollectorVerdant, Names.Blocks.ENERGY_COLLECTOR + Names.Blocks.ENERGY_COLLECTOR_SUBTYPES[0]);
         GameRegistry.registerBlock(energyCollectorAzure, Names.Blocks.ENERGY_COLLECTOR + Names.Blocks.ENERGY_COLLECTOR_SUBTYPES[1]);
         GameRegistry.registerBlock(energyCollectorMinium, Names.Blocks.ENERGY_COLLECTOR + Names.Blocks.ENERGY_COLLECTOR_SUBTYPES[2]);
+    
+    	GameRegistry.registerBlock(antiMatterRelayVerdant, "antiMatterRelay" + Names.Blocks.ENERGY_COLLECTOR_SUBTYPES[0]);
+    	GameRegistry.registerBlock(antiMatterRelayAzure, "antiMatterRelay" + Names.Blocks.ENERGY_COLLECTOR_SUBTYPES[1]);
+    	GameRegistry.registerBlock(antiMatterRelayMinium, "antiMatterRelay" + Names.Blocks.ENERGY_COLLECTOR_SUBTYPES[2]);
     }
 }
