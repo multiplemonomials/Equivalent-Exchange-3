@@ -21,11 +21,11 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 
-public class ItemMatterPickaxe extends ItemPickaxe implements IChargeable, IKeyBound
+public class ItemPickaxeMatter extends ItemPickaxe implements IChargeable, IKeyBound
 {
 //Either dark or red matter material is passed in the initialization
 //"matter" is either "dark" or "red"
-	public ItemMatterPickaxe(Material material, String matter)
+	public ItemPickaxeMatter(Material material, String matter)
 	{
 		super(material);
 		
@@ -61,16 +61,15 @@ public class ItemMatterPickaxe extends ItemPickaxe implements IChargeable, IKeyB
 	//dig speed increases with durability
 	@Override
 	public float getDigSpeed(ItemStack itemstack, Block block, int metadata)
-    {
-        if(block.getMaterial() != Material.iron && block.getMaterial() != Material.anvil && block.getMaterial() != Material.rock)
-        {
-      		return super.getDigSpeed(itemstack, block, metadata);
-        }
+    	{
+        	if(block.getMaterial() != Material.iron && block.getMaterial() != Material.anvil && block.getMaterial() != Material.rock)
+        	{
+      			return super.getDigSpeed(itemstack, block, metadata);
+        	}
         
         //for every charge level, efficiency increases by 3
         //added the 1 to give it a slight buff versus the other tools
         return efficiencyOnProperMaterial + PowerItemUtils.computeEfficiencyBonus(itemstack.getItemDamage()) + 3;
-  
     }
 	
     @Override
