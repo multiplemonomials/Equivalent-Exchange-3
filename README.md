@@ -20,9 +20,9 @@ Also make sure you know EXACTLY what you're doing!  It's not any of our faults i
 
 [Setup EER](#setup-eer)
 
-[Setup Eclipse](#setup-eclipse)
-
 [Compile EER](#compile-eer)
+
+[Setup Eclipse](#setup-eclipse)
 
 [Updating Your Repository](#updating-your-repository)
 
@@ -90,7 +90,7 @@ This section assumes that you're using the command-line version of Git.
 2. Execute `gradle build`. If you did everything right, `BUILD SUCCESSFUL` will be displayed after it finishes.  This should be relatively quick.
     * If you see `BUILD FAILED`, check the error output (it should be right around `BUILD FAILED`), fix everything (if possible), and try again.
 	* Getting this error:
-		```org.gradle.api.ProjectConfigurationException: You must set the Minecraft Version!```
+		`org.gradle.api.ProjectConfigurationException: You must set the Minecraft Version!`?
 		You can't use Gradle 1.x (including the version used by gradlew, as of forge #1199) with Java 8.  Upgrade Gradle or downgrade Java.
 		And no, I don't know why it fails in this weird way.
 3. Navigate to `mcdev\Equivalent-Exchange-Reborn\build\libs`.
@@ -115,10 +115,14 @@ This is optional, but if you want to
 	* Point it to the Equivalent-Exchange-Reborn folder and select the project that comes up.
 
 6. Create a new run configuration for the Equivalent Exchange Reborn project.  In the "Program arguments" box put
-```--version 1.7 --tweakClass cpw.mods.fml.common.launcher.FMLTweaker --accessToken modstest --username ChatterComa
- --userProperties {} --assetIndex 1.7.10 --assetsDir C:/Users/Jamie/.gradle/caches/minecraft/assets```
-	In the "VM arguments" box put
-```-Dfml.ignoreInvalidMinecraftCertificates=true```
+***
+	--version 1.7 --tweakClass cpw.mods.fml.common.launcher.FMLTweaker --accessToken modstest --username ChatterComa
+	--userProperties {} --assetIndex 1.7.10 --assetsDir C:/Users/Jamie/.gradle/caches/minecraft/assets
+***
+In the "VM arguments" box put
+***
+	-Dfml.ignoreInvalidMinecraftCertificates=true
+***
  
 ####Updating Your Repository
 In order to get the most up-to-date builds, you'll have to periodically update your local repository.
@@ -147,7 +151,7 @@ EER crashes every time?  Have a suggestion?  Found a bug?  Create an issue now!
 
 1. Make sure your issue hasn't already been answered or fixed.  Also think about whether your issue is a valid one before submitting it.
 	* Please do not open an issue to ask a question-that is for the forums.
-2. Go to [the issues page](http://github.com/pahimar/Equivalent-Exchange-Reborn/issues).
+2. Go to [the issues page](http://github.com/multiplemonomials/Equivalent-Exchange-Reborn/issues).
 3. Click `New Issue` right below `Star` and `Fork`.
 4. Enter your Issue's title (something that summarizes your issue), and then create a detailed description ("Hey, could you add/change xxx?" or "Hey, found $exploit").
 	* If you are reporting a bug report from an unofficial version, make sure you include the following:
