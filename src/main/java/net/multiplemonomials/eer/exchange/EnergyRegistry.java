@@ -1,15 +1,22 @@
 package net.multiplemonomials.eer.exchange;
 
-import com.google.common.collect.ImmutableSortedMap;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
-import net.multiplemonomials.eer.EquivalentExchangeReborn;
-import net.multiplemonomials.eer.recipe.RecipeRegistry;
-import net.multiplemonomials.eer.util.LogHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import net.multiplemonomials.eer.EquivalentExchangeReborn;
+import net.multiplemonomials.eer.init.ModBlocks;
+import net.multiplemonomials.eer.recipe.RecipeRegistry;
+import net.multiplemonomials.eer.util.LogHelper;
 
-import java.util.*;
+import com.google.common.collect.ImmutableSortedMap;
 
 public class EnergyRegistry
 {
@@ -286,9 +293,11 @@ public class EnergyRegistry
                     if (stack.getWrappedStack() instanceof ItemStack)
                     {
                         ItemStack wrappedItemStack = (ItemStack) stack.getWrappedStack();
+                        
+                        if(wrappedItemStack.getItem().getUnlocalizedName().equals(ModBlocks.alchemicalChest.getUnlocalizedName()))
 
                         // If its an OreDictionary item, scan its siblings for values
-                        if (OreDictionary.getOreIDs(wrappedItemStack) != OreStack.ORE_DICTIONARY_NOT_FOUND)
+                        if (OreDictionary.getOreIDs(wrappedItemStack).length != 0)
                         {
 
                             OreStack oreStack = new OreStack(wrappedItemStack);
@@ -380,8 +389,7 @@ public class EnergyRegistry
                     {
                         EnergyValue lowestValue = null;
                         ItemStack wrappedItemStack = (ItemStack) stack.getWrappedStack();
-
-                        if (OreDictionary.getOreIDs(wrappedItemStack) != OreStack.ORE_DICTIONARY_NOT_FOUND)
+                        if (OreDictionary.getOreIDs(wrappedItemStack).length != 0)
                         {
                             OreStack oreStack = new OreStack(wrappedItemStack);
 

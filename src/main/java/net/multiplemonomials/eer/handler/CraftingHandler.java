@@ -1,5 +1,7 @@
 package net.multiplemonomials.eer.handler;
 
+import java.util.Random;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -171,37 +173,42 @@ public class CraftingHandler
     public void onItemCraftedEvent(PlayerEvent.ItemCraftedEvent event)
     {
     	//take durability damage from minium stone
-    	//TEMPORARILY DISABLED DUE TO AE2 bug
-//    	for(int counter = event.craftMatrix.getSizeInventory(); counter > 0; --counter)
-//    	{
-//    		ItemStack itemStack = event.craftMatrix.getStackInSlot(counter);
-//    		
-//    		if(itemStack != null && itemStack.getItem() == ModItems.stoneMinium)
-//    		{
-//    			String name = event.crafting.getUnlocalizedName();
-//    			if(name.equals("tile.eer:transmutationTablet"))
+    	for(int counter = event.craftMatrix.getSizeInventory() - 1; counter >= 0; --counter)
+    	{
+    		ItemStack itemToReturn = event.craftMatrix.getStackInSlot(counter);
+    		
+    		if(itemToReturn != null && itemToReturn.getItem() == ModItems.stoneMinium)
+    		{
+    			String name = event.crafting.getUnlocalizedName();
+    			if(name.equals("tile.eer:transmutationTablet"))
+    			{
+	    			itemToReturn.damageItem(100, event.player);
+    			}
+    			else
+    			{
+    				itemToReturn.damageItem(1, event.player);
+    			}
+    			
+    			//if the stone has broken, return it as shards
+    			if(itemToReturn.getItemDamage() == itemToReturn.getItem().getMaxDamage())
+    			{
+    				itemToReturn = new ItemStack(ModItems.shardMinium, new Random().nextInt(9), 0);
+    				
+    			}
+    			//and then return it
+        		if(itemToReturn.stackSize != 0 && !event.player.inventory.addItemStackToInventory(itemToReturn))
+        		{
+        			event.player.dropItem(itemToReturn.getItem(), itemToReturn.stackSize);
+        		}
+//I really have NO IDEA why this doesn't work
+//    			else //put it back in the crafting grid
 //    			{
-//	    			itemStack.damageItem(100, event.player);
+//    				event.craftMatrix.setInventorySlotContents(counter, itemToReturn);
 //    			}
-//    			else
-//    			{
-//    				itemStack.damageItem(1, event.player);
-//    			}
-//    			
-//    			//if the stone has broken, return it as shards
-//    			if(itemStack.stackSize == 0)
-//    			{
-//    				itemStack = new ItemStack(ModItems.shardMinium, new Random().nextInt(9), 0);
-//    				if(itemStack.stackSize == 0)
-//    				{
-//    					itemStack = null;
-//    				}
-//    			}
-//    			
-//    			//and then return it
-//    		}
-//    		
-//    	}
+    			
+    		}
+    		
+    	}
     }
     
 }

@@ -17,8 +17,6 @@ public class OreStack implements Comparable<OreStack>
     // Gson serializer for serializing to/deserializing from json
     private static final Gson gsonSerializer = new Gson();
 
-    public static final int[] ORE_DICTIONARY_NOT_FOUND = new int[0];
-
     public String oreName;
     public int stackSize;
     public static Comparator<OreStack> comparator = new Comparator<OreStack>()
@@ -27,36 +25,44 @@ public class OreStack implements Comparable<OreStack>
         @Override
         public int compare(OreStack oreStack1, OreStack oreStack2)
         {
-
-            if (oreStack1 != null)
-            {
-                if (oreStack2 != null)
-                {
-                    if (oreStack1.oreName.equalsIgnoreCase(oreStack2.oreName))
-                    {
-                        return oreStack1.stackSize - oreStack2.stackSize;
-                    }
-                    else
-                    {
-                        return oreStack1.oreName.compareToIgnoreCase(oreStack2.oreName);
-                    }
-                }
-                else
-                {
-                    return Compare.LESSER_THAN;
-                }
-            }
-            else
-            {
-                if (oreStack2 != null)
-                {
-                    return Compare.GREATER_THAN;
-                }
-                else
-                {
-                    return Compare.EQUALS;
-                }
-            }
+        	try
+        	{
+        		 if (oreStack1 != null)
+                 {
+                     if (oreStack2 != null)
+                     {
+                         if (oreStack1.oreName.equalsIgnoreCase(oreStack2.oreName))
+                         {
+                             return oreStack1.stackSize - oreStack2.stackSize;
+                         }
+                         else
+                         {
+                             return oreStack1.oreName.compareToIgnoreCase(oreStack2.oreName);
+                         }
+                     }
+                     else
+                     {
+                         return Compare.LESSER_THAN;
+                     }
+                 }
+                 else
+                 {
+                     if (oreStack2 != null)
+                     {
+                         return Compare.GREATER_THAN;
+                     }
+                     else
+                     {
+                         return Compare.EQUALS;
+                     }
+                 }
+        	}
+        	catch(NullPointerException error)
+        	{
+        		LogHelper.error("Null OreStack.oreName!");
+        		return Compare.GREATER_THAN;
+        	}
+           
         }
     };
 
@@ -76,6 +82,12 @@ public class OreStack implements Comparable<OreStack>
         if (itemStack != null && OreDictionary.getOreIDs(itemStack).length > 0)
         {
             this.oreName = OreDictionary.getOreName(OreDictionary.getOreIDs(itemStack)[0]); // TODO Likely not ideal, revisit
+            
+            if(oreName == null)
+            {
+            	LogHelper.error("Error finding ore name for ore with IDs " + Arrays.toString(OreDictionary.getOreIDs(itemStack)) + " and unlocalized name \"" + itemStack.getUnlocalizedName() + "\"");
+            }
+            
             this.stackSize = itemStack.stackSize;
         }
     }
@@ -132,7 +144,7 @@ public class OreStack implements Comparable<OreStack>
             {
                 ItemStack stack = (ItemStack) listElement;
 
-                if (OreDictionary.getOreIDs(stack) != ORE_DICTIONARY_NOT_FOUND)
+                if (OreDictionary.getOreIDs(stack).length != 0)
                 {
                     return new OreStack(stack);
                 }

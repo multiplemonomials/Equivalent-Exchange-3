@@ -115,10 +115,7 @@ public class ItemRingFlight extends ItemStoresEMC implements IKeyBound, IBauble
 
 	@Override
 	public void onWornTick(ItemStack itemStack, EntityLivingBase entity)
-	{
-		
-		//Baubles ticks REALLY fast compared to inventory ticks
-		
+	{		
 		//really have no idea why the argument is not given as an entityplayer
     	if(entity instanceof EntityPlayer)
     	{
@@ -156,7 +153,7 @@ public class ItemRingFlight extends ItemStoresEMC implements IKeyBound, IBauble
     			player.capabilities.allowFlying = true;
     		}
     		
-    		itemStack.stackTagCompound.setDouble("fuelEMCLeft", fuelEMCLeft); 		
+    		itemStack.stackTagCompound.setDouble("storedEMC", fuelEMCLeft); 		
     		
     	}
 		
