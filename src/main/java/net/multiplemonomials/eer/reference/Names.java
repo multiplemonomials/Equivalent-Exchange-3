@@ -42,10 +42,15 @@ public class Names
         public static final String[] ALCHEMICAL_UPGRADE_SUBTYPES = {"verdant", "azure", "minium"};
         public static final String DIVINING_ROD = "diviningRod";
         public static final String DARK_MATTER = "darkMatter";
+        
+        //Red Matter
+        public static final String RED_MATTER = "redMatter";
 		public static final String TALISMAN_REPAIR = "talismanRepair";
 		public static final String BAND_IRON = "bandIron";
 		public static final String[] IRON_BAND_SUBTYPES = {"Mundane", "Imbued"};		
 		public static final String RING_FLIGHT = "ringFlight";
+		//Black hole band
+		public static final String RING_MAGNET = "ringMagnet";
 		public static final String KLEIN_STAR = "kleinStar";
 		public static final String[] KLEIN_STAR_SUBTYPES = {"Ichi", "Ni", "San", "Yon", "Go", "Zen"};
 
@@ -59,6 +64,9 @@ public class Names
     	public static final String SHOVEL_DARK_MATTER = "shovelDarkMatter";
     	public static final String SWORD_DARK_MATTER = "swordDarkMatter";
     	public static final String FLINT_DARK_MATTER = "flintDarkMatter";
+    	
+    	// Red matter pickaxe
+    	public static final String PICKAXE_RED_MATTER = "pickaxeRedMatter";
     }
 
     public static class NBT

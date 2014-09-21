@@ -27,10 +27,15 @@ public class ModItems
     public static final ItemEE talismanRepair = new ItemTalismanRepair();
     public static final ItemEE bandIron = new ItemBandIron();
     public static final ItemEE ringFlight = new ItemRingFlight();
+    //Black hole band
+    public static final ItemEE ringMagnet = new ItemRingBlackHole();
     public static final ItemEE kleinStar = new ItemKleinStar();
     
     public static final ItemTool axeDarkMatter = new ItemAxeDarkMatter();
-    public static final ItemTool pickaxeDarkMatter = new ItemPickaxeDarkMatter();
+   // public static final ItemTool pickaxeDarkMatter = new ItemPickaxeDarkMatter();
+   //Is this how you do it?
+   public static final ItemTool pickaxeDarkMatter = new ItemMatterPickaxe(PowerItemUtils.MATERIALDARKMATTER, "Dark");
+   public static final ItemTool pickaxeRedMatter = new ItemMatterPickaxe(PowerItemUtils.MATERIALREDMATTER, "Red");
     public static final ItemTool shovelDarkMatter = new ItemShovelDarkMatter();
     
     public static final ItemHoe hoeDarkMatter = new ItemHoeDarkMatter();
@@ -53,12 +58,14 @@ public class ModItems
         GameRegistry.registerItem(talismanRepair, Names.Items.TALISMAN_REPAIR);
         GameRegistry.registerItem(bandIron, Names.Items.BAND_IRON);
         GameRegistry.registerItem(ringFlight, Names.Items.RING_FLIGHT);
+        GameRegistry.registerItem(ringMagnet, Names.Items.RING_MAGNET);
         GameRegistry.registerItem(kleinStar, Names.Items.KLEIN_STAR);
         
 
         GameRegistry.registerItem(axeDarkMatter, Names.Tools.AXE_DARK_MATTER);
         GameRegistry.registerItem(hoeDarkMatter, Names.Tools.HOE_DARK_MATTER);
         GameRegistry.registerItem(pickaxeDarkMatter, Names.Tools.PICKAXE_DARK_MATTER);
+        GameRegister.registerItem(pickaxeRedMatter, Names.Tools.PICKAXE_RED_MATTER);
         GameRegistry.registerItem(shovelDarkMatter, Names.Tools.SHOVEL_DARK_MATTER);
         GameRegistry.registerItem(swordDarkMatter, Names.Tools.SWORD_DARK_MATTER);
         GameRegistry.registerItem(flintDarkMatter, Names.Tools.FLINT_DARK_MATTER);
