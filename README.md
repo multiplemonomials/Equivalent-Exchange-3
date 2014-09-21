@@ -89,13 +89,18 @@ This section assumes that you're using the command-line version of Git.
 	* You will generally only have to do this once until the Forge version in `build.properties` changes.
 2. Execute `gradle build`. If you did everything right, `BUILD SUCCESSFUL` will be displayed after it finishes.  This should be relatively quick.
     * If you see `BUILD FAILED`, check the error output (it should be right around `BUILD FAILED`), fix everything (if possible), and try again.
+	* Getting this error:
+		```org.gradle.api.ProjectConfigurationException: You must set the Minecraft Version!```
+		You can't use Gradle 1.x (including the version used by gradlew, as of forge #1199) with Java 8.  Upgrade Gradle or downgrade Java.
+		And no, I don't know why it fails in this weird way.
 3. Navigate to `mcdev\Equivalent-Exchange-Reborn\build\libs`.
-    *  You should see a `.jar` file named `EquivalentExchange3-1.6.4-0.1.#.jar`, where # is the `build_number` value in `build.properties`.
+    *  You should see a `.jar` file named `EquivalentExchangeReborn-1.7.10-0.1.#.jar`, where # is the `build_number` value in `build.properties`.
 		* NOTE: `null` means that you are missing a `build_number` value in `build.properties` or that your decomp environment is set up incorrectly.
 4. Copy the jar into your Minecraft mods folder, and you are done!
 
 ####Setup Eclipse
-This is optional, but if you want to (a) have an easier time digging into the Minecraft source code, and
+This is optional, but if you want to 
+(a) have an easier time digging into the Minecraft source code, and
 (b) use a code-completion-enabled java editor, get it! It will make your life easier, especially since often the Minecraft/Forge source is the only documentation available
 
 1. Download Eclipse Standard from https://www.eclipse.org/
@@ -109,6 +114,12 @@ This is optional, but if you want to (a) have an easier time digging into the Mi
 5. After it's finished starting, go to `file->import...->General->Existing Projects` into Workspace.
 	* Point it to the Equivalent-Exchange-Reborn folder and select the project that comes up.
 
+6. Create a new run configuration for the Equivalent Exchange Reborn project.  In the "Program arguments" box put
+```--version 1.7 --tweakClass cpw.mods.fml.common.launcher.FMLTweaker --accessToken modstest --username ChatterComa
+ --userProperties {} --assetIndex 1.7.10 --assetsDir C:/Users/Jamie/.gradle/caches/minecraft/assets```
+	In the "VM arguments" box put
+```-Dfml.ignoreInvalidMinecraftCertificates=true```
+ 
 ####Updating Your Repository
 In order to get the most up-to-date builds, you'll have to periodically update your local repository.
 
