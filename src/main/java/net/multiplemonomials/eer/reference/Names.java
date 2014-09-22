@@ -20,6 +20,7 @@ public class Names
         public static final String RESEARCH_STATION = "researchStation";
 		public static final String CONDENSER = "condenser";        
 		public static final String TRANSMUTATION_TABLET = "transmutationTablet";
+		public static final String ANTIMATTER_RELAY = "antiMatterRelay";
 
     }
 

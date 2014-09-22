@@ -1,14 +1,15 @@
 package net.multiplemonomials.eer.item;
 
+import java.util.Iterator;
+import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
-import net.multiplemonomials.eer.configuration.CommonConfiguration;
 import net.multiplemonomials.eer.interfaces.IKeyBound;
 import net.multiplemonomials.eer.reference.Key;
 import net.multiplemonomials.eer.reference.Names;
@@ -43,7 +44,7 @@ public class ItemRingBlackHole extends ItemStoresEMC implements IKeyBound, IBaub
     	if(key == Key.TOGGLE)
     	{    		
 
-    		if(itemStack != null && itemStack.getItem() instanceof ItemRingFlight)
+    		if(itemStack != null && itemStack.getItem() instanceof ItemRingBlackHole)
     		{
     			if(itemStack.getItemDamage() == 0)
     			{
@@ -86,19 +87,85 @@ public class ItemRingBlackHole extends ItemStoresEMC implements IKeyBound, IBaub
      * Returns true if item(S) are collected, false if there's nothing to collect
      * 		use so EMC isn't used up for nothing
      */
-	private boolean collectItems(EntityPlayer player) 
+	@SuppressWarnings("unchecked")
+	private int collectItems(EntityPlayer player) 
 	{
 		//TODO: range of ring
-		AxisAlignedBB pushBox = AxisAlignedBB.getBoundingBox(player.posX - 5, player.posY - 2, player.posZ - 5, player.posX + 5, player.posY + 1, player.posZ + 5);
-		for(Object object : player.worldObj.getEntitiesWithinAABB(EntityItem.class, pushBox))
+		
+		int itemsPushed = 0;
+		
+		//this code credit ChickenBones' NEI
+		
+		float distancexz = 16;
+		double maxspeedxz = 0.5;
+		double maxspeedy = 0.5;
+		double speedxz = 0.05;
+		double speedy = 0.07;
+		List<EntityItem> items;
+		if (player.worldObj.isRemote) 
 		{
-			assert(object instanceof EntityItem);
-			EntityItem item = (EntityItem)object;
-			
-			item.onCollideWithPlayer(player);
+			return 0;
+		} 
+		else
+		{
+			items = player.worldObj.getEntitiesWithinAABB(EntityItem.class, player.boundingBox.expand(30, 30, 10));
 		}
-		if(item != null) return true;
-		return false;
+		for (Iterator<EntityItem> iterator = items.iterator(); iterator.hasNext(); )
+		{
+			EntityItem item = iterator.next();
+			if (item.delayBeforeCanPickup > 0) 
+			{
+				continue;
+			}
+			
+			if (item.isDead && player.worldObj.isRemote) 
+			{
+				iterator.remove();
+			}
+			
+			itemsPushed += 1;
+			
+			double dx = player.posX - item.posX;
+			double dy = player.posY + player.getEyeHeight() - item.posY;
+			double dz = player.posZ - item.posZ;
+			double absxz = Math.sqrt(dx * dx + dz * dz);
+			double absy = Math.abs(dy);
+			if (absxz > distancexz) 
+			{
+				continue;
+			}
+			if (absxz > 1)
+			{
+				dx /= absxz;
+				dz /= absxz;
+			}
+			if (absy > 1)
+			{
+				dy /= absy;
+			}
+			double vx = item.motionX + speedxz * dx;
+			double vy = item.motionY + speedy * dy;
+			double vz = item.motionZ + speedxz * dz;
+			double absvxz = Math.sqrt(vx * vx + vz * vz);
+			double absvy = Math.abs(vy);
+			double rationspeedxz = absvxz / maxspeedxz;
+			if (rationspeedxz > 1)
+			{
+				vx /= rationspeedxz;
+				vz /= rationspeedxz;
+			}
+			double rationspeedy = absvy / maxspeedy;
+			if (rationspeedy > 1)
+			{
+				vy /= rationspeedy;
+			}
+			if (absvxz < 0.2 && absxz < 0.2 && player.worldObj.isRemote)
+			{
+				item.setDead();
+			}
+			item.setVelocity(vx, vy, vz);
+		}
+		return itemsPushed;
 	}
 
 	@Override
@@ -124,29 +191,33 @@ public class ItemRingBlackHole extends ItemStoresEMC implements IKeyBound, IBaub
 
 	@Override
 	public void onWornTick(ItemStack itemStack, EntityLivingBase entity)
-	{
-		
-		//Baubles ticks REALLY fast compared to inventory ticks
-		
+	{		
 		//really have no idea why the argument is not given as an entityplayer
     	if(entity instanceof EntityPlayer)
     	{
+			EntityPlayer player = (EntityPlayer)entity;
     		
-    		if(isCollectingItems(itemStack)) //Only do stuff it it's on
+    		if(isCollectingItems(itemStack)) //Only do stuff when it it's on
     		{
-    			EntityPlayer player = (EntityPlayer)entity;
-    			double fuelEMCLeft = getAvailableEMC(itemStack);
-    		
-    			if((!player.capabilities.isCreativeMode) && collectItems())
+    			if(!player.capabilities.isCreativeMode)
     			{
-    				fuelEMCLeft -= drainPerTick;
+	    			double fuelEMCLeft = getAvailableEMC(itemStack);
+	    		
+	    			if(fuelEMCLeft <= 0)
+	    			{
+	    				fuelEMCLeft += EMCHelper.consumeEMCFromPlayerInventory(player, 10 * drainPerTick);
+	    			}
+	    			if(fuelEMCLeft > 0)
+	    			{
+	        			fuelEMCLeft -= (drainPerTick * collectItems(player));
+	    			}
+	
+	    			itemStack.stackTagCompound.setDouble("storedEMC", fuelEMCLeft);
     			}
-    			
-    			if(fuelEMCLeft < 0)
+    			else
     			{
-    				fuelEMCLeft += EMCHelper.consumeEMCFromPlayerInventory(player, 10 * drainPerTick);
+    				collectItems(player);
     			}
-    			itemStack.stackTagCompound.setDouble("fuelEMCLeft", fuelEMCLeft); 		
     		}
     	}
 		

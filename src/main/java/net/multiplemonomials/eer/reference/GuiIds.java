@@ -11,4 +11,5 @@ public class GuiIds
 	public static final int CONDENSER = 6;
 	public static final int TRANSMUTATION_TABLET = 7;
 	public static final int ENERGY_COLLECTOR = 8;
+	public static final int ANTI_MATTER_RELAY = 9;
 }

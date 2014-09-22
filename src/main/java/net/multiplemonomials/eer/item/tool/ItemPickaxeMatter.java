@@ -9,14 +9,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.multiplemonomials.eer.reference.Key;
-import net.multiplemonomials.eer.reference.Names;
-import net.multiplemonomials.eer.reference.Reference;
-import net.multiplemonomials.eer.util.PowerItemUtils;
 import net.multiplemonomials.eer.creativetab.CreativeTab;
 import net.multiplemonomials.eer.interfaces.IChargeable;
 import net.multiplemonomials.eer.interfaces.IKeyBound;
 import net.multiplemonomials.eer.item.ItemEE;
+import net.multiplemonomials.eer.reference.Key;
+import net.multiplemonomials.eer.reference.Reference;
+import net.multiplemonomials.eer.util.PowerItemUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -25,7 +24,7 @@ public class ItemPickaxeMatter extends ItemPickaxe implements IChargeable, IKeyB
 {
 //Either dark or red matter material is passed in the initialization
 //"matter" is either "dark" or "red"
-	public ItemPickaxeMatter(Material material, String matterType)
+	public ItemPickaxeMatter(ToolMaterial material, String matterType)
 	{
 		super(material);
 		

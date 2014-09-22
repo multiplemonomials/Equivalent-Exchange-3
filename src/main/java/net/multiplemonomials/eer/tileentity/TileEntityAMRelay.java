@@ -15,12 +15,10 @@ import net.multiplemonomials.eer.exchange.EnergyRegistry;
 import net.multiplemonomials.eer.interfaces.IStoresEMC;
 import net.multiplemonomials.eer.interfaces.ITileEntityAcceptsEMC;
 import net.multiplemonomials.eer.network.PacketHandler;
-import net.multiplemonomials.eer.network.message.MessageEnergyCollectorUpdate;
-import net.multiplemonomials.eer.network.message.MessageTileEnergyCollector;
+import net.multiplemonomials.eer.network.message.MessageTileEntityAMRelay;
 import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.util.Coordinate;
 import net.multiplemonomials.eer.util.LogHelper;
-import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 
 public class TileEntityAMRelay extends TileEntityEE implements ITileEntityAcceptsEMC
 {
@@ -137,7 +135,7 @@ public class TileEntityAMRelay extends TileEntityEE implements ITileEntityAccept
     int tickCounter = 1;
     @Override
     public void updateEntity()
-    {sid
+    {
     	drainEMCToKleinStar();
     	
     	if(_sidesToOutputTo.isEmpty())
@@ -230,7 +228,7 @@ public class TileEntityAMRelay extends TileEntityEE implements ITileEntityAccept
     @Override
     public Packet getDescriptionPacket()
     {
-        return PacketHandler.INSTANCE.getPacketFrom(new MessageTileEnergyCollector(this));
+        return PacketHandler.INSTANCE.getPacketFrom(new MessageTileEntityAMRelay(this));
     }
     
     /**
@@ -243,25 +241,9 @@ public class TileEntityAMRelay extends TileEntityEE implements ITileEntityAccept
     		Coordinate testingCoordinates = Coordinate.offsetByOne(new Coordinate(xCoord, yCoord, zCoord, worldObj), direction);
     		TileEntity entity = testingCoordinates.getTileEntity();
     		//Don't output to energy collectors, or else that'd be infinite EMC!
-    		if(entity != null && entity instanceof ITileEntityAcceptsEMC && !entity instanceof TileEntityEnergyCollector)
+    		if(entity != null && entity instanceof ITileEntityAcceptsEMC && !(entity instanceof TileEntityEnergyCollector))
     		{
     			_sidesToOutputTo.add(direction);
-    		}
-    	}
-    }
-    
-    //Returns number of collectors. Used to calculate bonus
-    public byte countValidEMCSenders()
-    {
-      byte count = 0;
-      
-      for(ForgeDirection direction : ForgeDirection.values())
-    	{
-    		Coordinate testingCoordinates = Coordinate.offsetByOne(new Coordinate(xCoord, yCoord, zCoord, worldObj), direction);
-    		TileEntity entity = testingCoordinates.getTileEntity();
-    		if(entity != null && entity instanceof TileEntityEnergyCollector)
-    		{
-    			count++;
     		}
     	}
     }
@@ -278,12 +260,10 @@ public class TileEntityAMRelay extends TileEntityEE implements ITileEntityAccept
     /** Adds EMC from energy-collectors. Bonus based on how many there are
       *
       */
-    public double tryAddEMC(double amountToAdd) {
-      byte amountOfCollectors = countValidEMCSenders();
-      
-      //Takes the "amountToAdd" and adds a bonus. For Mk1: +1/collectors. For Mk2: +3/collectors. For Mk3: +10/collectors
-      amountToAdd += (upgradeLevel = 1 ? amountOfCollectors : upgradeLevel = 2 ? (3 * amountOfCollectors : 10 * amountOfCollectors));
-      leftoverEMC += amountToAdd;
-      return amountToAdd;
-    }
+	@Override
+	public double tryAddEMC(double amountToAdd)
+	{
+		leftoverEMC += amountToAdd;
+		return amountToAdd;
+	}
 }

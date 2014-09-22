@@ -1,6 +1,5 @@
 package net.multiplemonomials.eer.item;
 
-import net.multiplemonomials.eer.reference.Names;
 
 public class ItemRedMatter extends ItemEE 
 {

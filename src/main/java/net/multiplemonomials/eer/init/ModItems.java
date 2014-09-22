@@ -8,6 +8,7 @@ import net.multiplemonomials.eer.item.*;
 import net.multiplemonomials.eer.item.tool.*;
 import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.reference.Reference;
+import net.multiplemonomials.eer.util.PowerItemUtils;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
@@ -32,10 +33,9 @@ public class ModItems
     public static final ItemEE kleinStar = new ItemKleinStar();
     
     public static final ItemTool axeDarkMatter = new ItemAxeDarkMatter();
-   // public static final ItemTool pickaxeDarkMatter = new ItemPickaxeDarkMatter();
-   //Is this how you do it?
-   public static final ItemTool pickaxeDarkMatter = new ItemMatterPickaxe(PowerItemUtils.MATERIALDARKMATTER, "Dark");
-   public static final ItemTool pickaxeRedMatter = new ItemMatterPickaxe(PowerItemUtils.MATERIALREDMATTER, "Red");
+    //Is this how you do it?
+    public static final ItemTool pickaxeDarkMatter = new ItemPickaxeMatter(PowerItemUtils.MATERIALDARKMATTER, "Dark");
+    public static final ItemTool pickaxeRedMatter = new ItemPickaxeMatter(PowerItemUtils.MATERIALREDMATTER, "Red");
     public static final ItemTool shovelDarkMatter = new ItemShovelDarkMatter();
     
     public static final ItemHoe hoeDarkMatter = new ItemHoeDarkMatter();
@@ -65,7 +65,7 @@ public class ModItems
         GameRegistry.registerItem(axeDarkMatter, Names.Tools.AXE_DARK_MATTER);
         GameRegistry.registerItem(hoeDarkMatter, Names.Tools.HOE_DARK_MATTER);
         GameRegistry.registerItem(pickaxeDarkMatter, Names.Tools.PICKAXE_DARK_MATTER);
-        GameRegister.registerItem(pickaxeRedMatter, Names.Tools.PICKAXE_RED_MATTER);
+        GameRegistry.registerItem(pickaxeRedMatter, Names.Tools.PICKAXE_RED_MATTER);
         GameRegistry.registerItem(shovelDarkMatter, Names.Tools.SHOVEL_DARK_MATTER);
         GameRegistry.registerItem(swordDarkMatter, Names.Tools.SWORD_DARK_MATTER);
         GameRegistry.registerItem(flintDarkMatter, Names.Tools.FLINT_DARK_MATTER);
