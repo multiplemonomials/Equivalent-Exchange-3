@@ -16,6 +16,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.multiplemonomials.eer.init.ModBlocks;
 import net.multiplemonomials.eer.init.ModItems;
 import net.multiplemonomials.eer.reference.Names;
+import net.multiplemonomials.eer.reference.Reference;
 import net.multiplemonomials.eer.tileentity.TileEntityAMRelay;
 import net.multiplemonomials.eer.tileentity.TileEntityEE;
 import cpw.mods.fml.relauncher.Side;
@@ -24,7 +25,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockAMRelay extends BlockEE implements ITileEntityProvider
 {
     @SideOnly(Side.CLIENT)
-    private IIcon blockTop, blockFront, blockSide, blockBottom;
+    private IIcon blockFront, blockSide, blockBack;
     
     private byte upgradeLevel;
 
@@ -34,7 +35,7 @@ public class BlockAMRelay extends BlockEE implements ITileEntityProvider
         super();
         this.setHardness(5.0f);
         this.setResistance(10.0f);
-        this.setBlockName(Names.Blocks.ANTIMATTER_RELAY + Names.Blocks.ENERGY_COLLECTOR_SUBTYPES[upgradeLevel - 1]);        
+        this.setBlockName(Names.Blocks.ANTIMATTER_RELAY + Names.Blocks.ANTIMATTER_RELAY_SUBTYPES[upgradeLevel - 1]);        
         this.upgradeLevel = upgradeLevel;
     }
     
@@ -101,10 +102,9 @@ public class BlockAMRelay extends BlockEE implements ITileEntityProvider
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister)
     {
-        blockSide = iconRegister.registerIcon(String.format("%s_side", getUnwrappedUnlocalizedName(this.getUnlocalizedName())));
-        blockBottom = iconRegister.registerIcon(String.format("%s_bottom", getUnwrappedUnlocalizedName(this.getUnlocalizedName())));
+        blockSide = iconRegister.registerIcon(String.format("%s_side", Reference.RESOURCE_PREFIX + Names.Blocks.ANTIMATTER_RELAY));
+        blockBack = iconRegister.registerIcon(String.format("%s_back", Reference.RESOURCE_PREFIX + Names.Blocks.ANTIMATTER_RELAY));
         blockFront = iconRegister.registerIcon(String.format("%s_front", getUnwrappedUnlocalizedName(this.getUnlocalizedName())));
-        blockTop = iconRegister.registerIcon(String.format("%s_top", getUnwrappedUnlocalizedName(this.getUnlocalizedName())));
     }
 
     @Override
@@ -112,17 +112,13 @@ public class BlockAMRelay extends BlockEE implements ITileEntityProvider
     public IIcon getIcon(int side, int metaData)
     {
         ForgeDirection orientation = ForgeDirection.getOrientation(side);
-        if (orientation == ForgeDirection.UP)
-        {
-            return blockTop;
-        }
-        else if(orientation == ForgeDirection.values()[metaData])
+        if(orientation == ForgeDirection.values()[metaData])
         {
         	return blockFront;
         }
         else if(orientation == ForgeDirection.DOWN)
         {
-        	return blockBottom;
+        	return blockBack;
         }
         else
         {

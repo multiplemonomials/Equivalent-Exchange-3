@@ -14,6 +14,7 @@ public class Names
         public static final String ALCHEMICAL_FUEL = "alchemicalFuelBlock";
         public static final String ENERGY_COLLECTOR = "energyCollector";
         public static final String[] ENERGY_COLLECTOR_SUBTYPES = new String[]{"Verdant", "Azure", "Minium"};
+        public static final String[] ANTIMATTER_RELAY_SUBTYPES = new String[]{"Antimatter", "DarkMatter", "RedMatter"};
         public static final String ALUDEL = "aludel";
         public static final String GLASS_BELL = "glassBell";
         public static final String CALCINATOR = "calcinator";
