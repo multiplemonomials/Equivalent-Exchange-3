@@ -53,28 +53,9 @@ public class Coordinate
 	public static Coordinate offsetByOne(Coordinate coordinate, ForgeDirection direction)
 	{
 		Coordinate result = coordinate.clone();
-		switch(direction)
-		{
-			case UP:
-				result.y += 1;
-				break;
-			case DOWN:
-				result.y -= 1;
-				break;
-			case NORTH:
-				result.z -= 1;
-				break;
-			case SOUTH:
-				result.z += 1;
-				break;
-			case WEST:
-				result.x -= 1;
-				break;
-			case EAST:
-				result.x += 1;
-				break;
-			default:
-		}
+		result.x += direction.offsetX;
+		result.y += direction.offsetY;
+		result.z += direction.offsetZ;
 		
 		return result;
 	}

@@ -3,29 +3,19 @@ package net.multiplemonomials.eer.item;
 import java.util.Iterator;
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
-import net.multiplemonomials.eer.interfaces.IKeyBound;
-import net.multiplemonomials.eer.reference.Key;
 import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.util.EMCHelper;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemRingBlackHole extends ItemStoresEMC implements IKeyBound, IBauble
+public class ItemRingBlackHole extends ItemStoresEMC implements IBauble
 {	
-	IIcon [] icons;
-	
-	//metadatas: 
-	//0 - not collecting
-	//1 - is collecting 
+	IIcon icon;
 	
     public ItemRingBlackHole()
     {
@@ -34,52 +24,6 @@ public class ItemRingBlackHole extends ItemStoresEMC implements IKeyBound, IBaub
         
         this.setMaxStackSize(1);
         
-        icons = new IIcon[2];
-    }
-
-    @SideOnly(Side.CLIENT)
-	@Override
-	public void doKeyBindingAction(EntityPlayer entityPlayer, ItemStack itemStack, Key key) 
-	{
-    	if(key == Key.TOGGLE)
-    	{    		
-
-    		if(itemStack != null && itemStack.getItem() instanceof ItemRingBlackHole)
-    		{
-    			if(itemStack.getItemDamage() == 0)
-    			{
-    				itemStack.setItemDamage(1);
-    			}
-    			else if(itemStack.getItemDamage() == 1)
-    			{
-    				itemStack.setItemDamage(0);
-    			}
-    			
-    			return;
-    		}
-    	}
-		
-	}
-	
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister iconRegister)
-    {
-        icons[0] = iconRegister.registerIcon(this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf(".") + 1) + "Inactive");
-        
-        icons[1] = iconRegister.registerIcon(this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf(".") + 1) + "Active");
-
-    }
-    
-    @SideOnly(Side.CLIENT)
-    public IIcon getIconFromDamage(int damageValue)
-    {
-       return icons[MathHelper.clamp_int(damageValue, 0, icons.length - 1)];
-    }
-    
-    public boolean isCollectingItems(ItemStack itemStack)
-    {
-    	return itemStack.getItemDamage() > 0;
     }
     
     /** Gets the items around the player and collects them (like a magnet!)
@@ -88,11 +32,12 @@ public class ItemRingBlackHole extends ItemStoresEMC implements IKeyBound, IBaub
      * 		use so EMC isn't used up for nothing
      */
 	@SuppressWarnings("unchecked")
-	private int collectItems(EntityPlayer player) 
+	private double collectItems(EntityPlayer player) 
 	{
 		//TODO: range of ring
 		
-		int itemsPushed = 0;
+		//use a small amount of EMC even if no items were pushed
+		double itemsPushed = .01;
 		
 		//this code credit ChickenBones' NEI
 		
@@ -196,29 +141,27 @@ public class ItemRingBlackHole extends ItemStoresEMC implements IKeyBound, IBaub
     	if(entity instanceof EntityPlayer)
     	{
 			EntityPlayer player = (EntityPlayer)entity;
+			
+			if(!player.capabilities.isCreativeMode)
+			{
+    			double fuelEMCLeft = getAvailableEMC(itemStack);
     		
-    		if(isCollectingItems(itemStack)) //Only do stuff when it it's on
-    		{
-    			if(!player.capabilities.isCreativeMode)
+    			if(fuelEMCLeft <= 0)
     			{
-	    			double fuelEMCLeft = getAvailableEMC(itemStack);
-	    		
-	    			if(fuelEMCLeft <= 0)
-	    			{
-	    				fuelEMCLeft += EMCHelper.consumeEMCFromPlayerInventory(player, 10 * drainPerTick);
-	    			}
-	    			if(fuelEMCLeft > 0)
-	    			{
-	        			fuelEMCLeft -= (drainPerTick * collectItems(player));
-	    			}
-	
-	    			itemStack.stackTagCompound.setDouble("storedEMC", fuelEMCLeft);
+    				fuelEMCLeft += EMCHelper.consumeEMCFromPlayerInventory(player, 10 * drainPerTick);
     			}
-    			else
+    			if(fuelEMCLeft > 0)
     			{
-    				collectItems(player);
+        			fuelEMCLeft -= (drainPerTick * collectItems(player));
     			}
-    		}
+
+    			itemStack.stackTagCompound.setDouble("storedEMC", fuelEMCLeft);
+			}
+			else
+			{
+				collectItems(player);
+			}
+    		
     	}
 		
 	}

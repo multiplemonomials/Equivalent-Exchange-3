@@ -25,7 +25,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockAMRelay extends BlockEE implements ITileEntityProvider
 {
     @SideOnly(Side.CLIENT)
-    private IIcon blockFront, blockSide, blockBack;
+    private IIcon blockFront, blockSideFacingUp, blockSideFacingLeft, blockSideFacingRight, blockSideFacingDown, blockBack;
     
     private byte upgradeLevel;
 
@@ -39,10 +39,31 @@ public class BlockAMRelay extends BlockEE implements ITileEntityProvider
         this.upgradeLevel = upgradeLevel;
     }
     
+    //NOTE: metadatas in this block are the ID's of ForgeDirections, except up is swapped with down so it shows up properly in NEI
+    /**
+     * Convert block metadata to the side it's facing
+     * @param metadata
+     */
+    public ForgeDirection metadata2Orientation(int metadata)
+    {
+    	ForgeDirection direction = ForgeDirection.values()[metadata];
+    	if(direction == ForgeDirection.UP)
+    	{
+    		direction = ForgeDirection.DOWN;
+    	}
+    	else if(direction == ForgeDirection.DOWN)
+    	{
+    		direction = ForgeDirection.UP;
+    	}
+    	
+    	return direction;
+    }
+    
+    
     @Override
     public int damageDropped(int metaData)
     {
-        return ForgeDirection.SOUTH.ordinal();
+        return ForgeDirection.DOWN.ordinal();
     }
     
     @Override
@@ -53,7 +74,15 @@ public class BlockAMRelay extends BlockEE implements ITileEntityProvider
             int direction = 0;
             int facing = MathHelper.floor_double(entityLiving.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
 
-            if (facing == 0)
+            if(y < MathHelper.floor_double(entityLiving.posY))
+            {
+            	direction = ForgeDirection.UP.ordinal();
+            }
+            else if(y > MathHelper.floor_double(entityLiving.posY + 1))
+            {
+            	direction = ForgeDirection.DOWN.ordinal();
+            }
+            else if (facing == 0)
             {
                 direction = ForgeDirection.NORTH.ordinal();
             }
@@ -72,9 +101,22 @@ public class BlockAMRelay extends BlockEE implements ITileEntityProvider
 
             if(itemStack != null && itemStack.hasDisplayName())
             {
-                ((TileEntityEE) world.getTileEntity(x, y, z)).setCustomName(itemStack.getDisplayName());
+            	TileEntityEE energyCollector = ((TileEntityEE) world.getTileEntity(x, y, z));
+            	energyCollector.setCustomName(itemStack.getDisplayName());
+            	energyCollector.setOrientation(direction);
             }
-
+            
+            //flip up and down for metadata
+            if(direction == 0)
+            {
+            	direction = 1;
+            }
+            else if(direction == 1)
+            {
+            	direction = 0;
+            }
+            
+            
             world.setBlockMetadataWithNotify(x, y, z, direction, 2);
         }
     }
@@ -102,8 +144,13 @@ public class BlockAMRelay extends BlockEE implements ITileEntityProvider
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister)
     {
-        blockSide = iconRegister.registerIcon(String.format("%s_side", Reference.RESOURCE_PREFIX + Names.Blocks.ANTIMATTER_RELAY));
-        blockBack = iconRegister.registerIcon(String.format("%s_back", Reference.RESOURCE_PREFIX + Names.Blocks.ANTIMATTER_RELAY));
+        blockBack = iconRegister.registerIcon(String.format("%s%s_back", Reference.RESOURCE_PREFIX, Names.Blocks.ANTIMATTER_RELAY));
+        
+        blockSideFacingUp = iconRegister.registerIcon(String.format("%s%s_side_up", Reference.RESOURCE_PREFIX, Names.Blocks.ANTIMATTER_RELAY));
+        blockSideFacingRight = iconRegister.registerIcon(String.format("%s%s_side_right", Reference.RESOURCE_PREFIX, Names.Blocks.ANTIMATTER_RELAY));
+        blockSideFacingLeft = iconRegister.registerIcon(String.format("%s%s_side_left", Reference.RESOURCE_PREFIX, Names.Blocks.ANTIMATTER_RELAY));
+        blockSideFacingDown = iconRegister.registerIcon(String.format("%s%s_side_down", Reference.RESOURCE_PREFIX, Names.Blocks.ANTIMATTER_RELAY));
+        
         blockFront = iconRegister.registerIcon(String.format("%s_front", getUnwrappedUnlocalizedName(this.getUnlocalizedName())));
     }
 
@@ -111,18 +158,106 @@ public class BlockAMRelay extends BlockEE implements ITileEntityProvider
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int metaData)
     {
-        ForgeDirection orientation = ForgeDirection.getOrientation(side);
-        if(orientation == ForgeDirection.values()[metaData])
+        ForgeDirection sideOrientation = ForgeDirection.getOrientation(side);
+        ForgeDirection blockOrientation = metadata2Orientation(metaData);
+        if(sideOrientation == blockOrientation)
         {
         	return blockFront;
         }
-        else if(orientation == ForgeDirection.DOWN)
+        else if(sideOrientation == blockOrientation.getOpposite())
         {
         	return blockBack;
         }
         else
         {
-            return blockSide;
+        	//you need a lot of logic to make it so all the side textures are pointing the right direction
+
+        	IIcon iconToUse = blockSideFacingUp;
+        	switch(blockOrientation)
+        	{
+        		case UP:
+        			iconToUse = blockSideFacingUp;
+        			break;
+        		case DOWN:
+        			iconToUse = blockSideFacingDown;
+        			break;
+        		case NORTH:
+        			if(sideOrientation == ForgeDirection.UP)
+        			{
+        				iconToUse = blockSideFacingUp;
+        			}
+        			else if(sideOrientation == ForgeDirection.EAST)
+        			{
+        				iconToUse = blockSideFacingRight;
+        			}
+        			else if(sideOrientation == ForgeDirection.WEST)
+        			{
+        				iconToUse = blockSideFacingLeft;
+        			}
+        			else if(sideOrientation == ForgeDirection.DOWN)
+        			{
+        				iconToUse = blockSideFacingUp;
+        			}
+        			break;
+        		case SOUTH:
+        			if(sideOrientation == ForgeDirection.UP)
+        			{
+        				iconToUse = blockSideFacingDown;
+        			}
+        			else if(sideOrientation == ForgeDirection.EAST)
+        			{
+        				iconToUse = blockSideFacingLeft;
+        			}
+        			else if(sideOrientation == ForgeDirection.WEST)
+        			{
+        				iconToUse = blockSideFacingRight;
+        			}
+        			else if(sideOrientation == ForgeDirection.DOWN)
+        			{
+        				iconToUse = blockSideFacingDown;
+        			}
+        			break;
+        		case EAST:
+        			if(sideOrientation == ForgeDirection.UP)
+        			{
+        				iconToUse = blockSideFacingRight;
+        			}
+        			else if(sideOrientation == ForgeDirection.NORTH)
+        			{
+        				iconToUse = blockSideFacingLeft;
+        			}
+        			else if(sideOrientation == ForgeDirection.SOUTH)
+        			{
+        				iconToUse = blockSideFacingRight;
+        			}
+        			else if(sideOrientation == ForgeDirection.DOWN)
+        			{
+        				iconToUse = blockSideFacingRight;
+        			}
+        			break;
+        		case WEST:
+        			if(sideOrientation == ForgeDirection.UP)
+        			{
+        				iconToUse = blockSideFacingLeft;
+        			}
+        			else if(sideOrientation == ForgeDirection.NORTH)
+        			{
+        				iconToUse = blockSideFacingRight;
+        			}
+        			else if(sideOrientation == ForgeDirection.SOUTH)
+        			{
+        				iconToUse = blockSideFacingLeft;
+        			}
+        			else if(sideOrientation == ForgeDirection.DOWN)
+        			{
+        				iconToUse = blockSideFacingLeft;
+        			}
+        			break;
+        		default:
+        			break;
+        			
+        	}
+        	return iconToUse;
         }
     }
     
@@ -141,16 +276,16 @@ public class BlockAMRelay extends BlockEE implements ITileEntityProvider
         		antiMatterRelay.upgradeLevel();
         		if(upgradeLevel == 1)
         		{
-        			world.setBlock(x, y, z, ModBlocks.antiMatterRelayAzure);
+        			world.setBlock(x, y, z, ModBlocks.antiMatterRelayDarkMatter);
         			
         			//update rotation
-        			ModBlocks.antiMatterRelayAzure.onBlockPlacedBy(world, x, y, z, player, null);
+        			ModBlocks.antiMatterRelayDarkMatter.onBlockPlacedBy(world, x, y, z, player, null);
         		}
         		else
         		{	
-        			world.setBlock(x, y, z, ModBlocks.antiMatterRelayMinium);
+        			world.setBlock(x, y, z, ModBlocks.antiMatterRelayRedMatter);
         			//update rotation
-        			ModBlocks.antiMatterRelayMinium.onBlockPlacedBy(world, x, y, z, player, null);
+        			ModBlocks.antiMatterRelayRedMatter.onBlockPlacedBy(world, x, y, z, player, null);
         		}
         		
         		if(!player.capabilities.isCreativeMode)

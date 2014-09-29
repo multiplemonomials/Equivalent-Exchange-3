@@ -58,7 +58,9 @@ tile.eer:transmutationTablet.name=Transmutation Tablet
 tile.eer:energyCollectorVerdant.name=Verdant Energy Collector
 tile.eer:energyCollectorAzure.name=Azure Energy Collector
 tile.eer:energyCollectorMinium.name=Minium Energy Collector
-
+tile.eer:antiMatterRelayAntimatter.name=Antimatter Relay
+tile.eer:antiMatterRelayDarkMatter.name=Dark Matter Relay
+tile.eer:antiMatterRelayRedMatter.name=Red Matter Relay
 
 # GUI localizations
 container.eer:alchemicalBag=Alchemical Bag

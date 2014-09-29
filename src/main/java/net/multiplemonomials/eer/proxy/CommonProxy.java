@@ -14,6 +14,7 @@ import net.multiplemonomials.eer.handler.ItemEventHandler;
 import net.multiplemonomials.eer.handler.LivingDeathEventHandler;
 import net.multiplemonomials.eer.handler.WorldEventHandler;
 import net.multiplemonomials.eer.reference.Names;
+import net.multiplemonomials.eer.tileentity.TileEntityAMRelay;
 import net.multiplemonomials.eer.tileentity.TileEntityAlchemicalChest;
 import net.multiplemonomials.eer.tileentity.TileEntityAlchemicalChestLarge;
 import net.multiplemonomials.eer.tileentity.TileEntityAlchemicalChestMedium;
@@ -66,6 +67,7 @@ public abstract class CommonProxy implements IProxy
         GameRegistry.registerTileEntity(TileEntityCondenser.class, "tile." + Names.Blocks.CONDENSER);
         GameRegistry.registerTileEntity(TileEntityTransmutationTablet.class, "tile." + Names.Blocks.TRANSMUTATION_TABLET);
         GameRegistry.registerTileEntity(TileEntityEnergyCollector.class, "tile." + Names.Blocks.ENERGY_COLLECTOR);
+        GameRegistry.registerTileEntity(TileEntityAMRelay.class, "tile." + Names.Blocks.ANTIMATTER_RELAY);
     }
     
     /**
