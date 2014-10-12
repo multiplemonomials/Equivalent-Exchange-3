@@ -67,8 +67,8 @@ public class ItemPickaxeMatter extends ItemPickaxe implements IChargeable, IKeyB
         	}
         
         //for every charge level, efficiency increases by 3
-        //added the 1 to give it a slight buff versus the other tools
-        return efficiencyOnProperMaterial + PowerItemUtils.computeEfficiencyBonus(itemstack.getItemDamage()) + 3;
+        //added the 3 to give it a slight buff versus the other tools
+        return efficiencyOnProperMaterial + PowerItemUtils.computeEfficiencyBonus(itemstack.getItemDamage()) + 2;
     }
 	
     @Override
