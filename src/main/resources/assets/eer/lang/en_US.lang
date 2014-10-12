@@ -26,6 +26,7 @@ item.eer:alchemicalUpgrade.minium.name=Minium Upgrade
 item.eer:axeDarkMatter.name=Dark Matter Axe
 item.eer:hoeDarkMatter.name=Dark Matter Hoe
 item.eer:pickaxeDarkMatter.name=Dark Matter Pickaxe
+item.eer:pickaxeRedMatter.name=Red Matter Pickaxe
 item.eer:shovelDarkMatter.name=Dark Matter Shovel
 item.eer:swordDarkMatter.name=Dark Matter Sword
 item.eer:flintDarkMatter.name=Dark Matter and Steel 
@@ -71,30 +72,13 @@ container.eer:glassBell=Glass Bell
 container.eer:researchStation=Research Station [WIP]
 container.eer:condenser=Energy Condenser
 container.eer:transmutationTablet=Transmutation Tablet
-container.eer:energyCollectorVerdant=Verdant Energy Collector
-container.eer:energyCollectorAzure=Azure Energy Collector
-container.eer:energyCollectorMinium=Minium Energy Collector
-
-
-# Command localizations
-command.eer:overlay.turned_on=Target transmutation overlay turned on
-command.eer:overlay.turned_off=Target transmutation overlay turned off
-command.eer:overlay.position.top_left=Target transmutation overlay position set to top left
-command.eer:overlay.position.top_right=Target transmutation overlay position set to top right
-command.eer:overlay.position.bottom_left=Target transmutation overlay position set to bottom left
-command.eer:overlay.position.bottom_right=Target transmutation overlay position set to bottom right
-command.eer:overlay.opacity.usage.additional_text=(where ### is a decimal value between 0.0 and 1.0) 
-command.eer:overlay.opacity.updated=Target transmutation overlay opacity updated successfully
-command.eer:overlay.scale.usage.additional_text=%s (where ### is a decimal value greater than 0.0) 
-command.eer:overlay.scale.updated=Target transmutation overlay scale updated successfully
-command.eer:particles.turned_on=Equivalent Exchange 3 particles turned on
-command.eer:particles.turned_off=Equivalent Exchange 3 particles turned off
-command.eer:sounds.set_to_all=Playing Equivalent Exchange 3 sounds from all players
-command.eer:sounds.set_to_self=Playing Equivalent Exchange 3 sounds from self only
-command.eer:sounds.turned_off=Playing Equivalent Exchange 3 sounds disabled
+container.eer:energyCollectorVerdant=Antimatter Energy Collector
+container.eer:energyCollectorAzure=Dark Matter Energy Collector
+container.eer:energyCollectorMinium=Red Matter Energy Collector
+container.eer:antiMatterRelay=Antimatter Relay
 
 # Tooltip localizations
-tooltip.eer:upgradesPrefix=Upgrades Alchemical Things
+tooltip.eer:upgradesPrefix=Upgrades Alchemical Storage
 tooltip.eer:alchemicalChestPrefix.small=Small
 tooltip.eer:alchemicalChestPrefix.medium=Medium
 tooltip.eer:alchemicalChestPrefix.large=Large

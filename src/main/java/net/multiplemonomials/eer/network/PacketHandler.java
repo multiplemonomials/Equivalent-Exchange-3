@@ -23,6 +23,7 @@ public class PacketHandler
         INSTANCE.registerMessage(MessageTileCondenser.class, MessageTileCondenser.class, 8, Side.CLIENT);
         INSTANCE.registerMessage(MessageTileEnergyCollector.class, MessageTileEnergyCollector.class, 9, Side.CLIENT);
         INSTANCE.registerMessage(MessageEnergyCollectorUpdate.class, MessageEnergyCollectorUpdate.class, 10, Side.CLIENT);
+        INSTANCE.registerMessage(MessageTileEntityAMRelay.class, MessageTileEntityAMRelay.class, 11, Side.CLIENT);
         
     }
 }

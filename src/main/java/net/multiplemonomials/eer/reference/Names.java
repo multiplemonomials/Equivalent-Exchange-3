@@ -101,6 +101,8 @@ public class Names
 		public static final String CONDENSER = "container.eer:" + Blocks.CONDENSER;
 		public static final String TRANSMUTATION_TABLET = "container.eer:" + Blocks.TRANSMUTATION_TABLET;
 		public static final String ENERGY_COLLECTOR= "container.eer:" + Blocks.ENERGY_COLLECTOR;
+		public static final String ANTIMATTER_RELAY= "container.eer:" + Blocks.ANTIMATTER_RELAY;
+
     }
 
     public static class Keys

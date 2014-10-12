@@ -2,6 +2,7 @@ package net.multiplemonomials.eer.block;
 
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -66,6 +67,12 @@ public class BlockAMRelay extends BlockEE implements ITileEntityProvider
         return ForgeDirection.DOWN.ordinal();
     }
     
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
+    {
+        ((TileEntityAMRelay)world.getTileEntity(x, y, z)).onNeighborUpdate();
+    }
+
+    
     @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack)
     {
@@ -99,7 +106,7 @@ public class BlockAMRelay extends BlockEE implements ITileEntityProvider
                 direction = ForgeDirection.WEST.ordinal();
             }
 
-            if(itemStack != null && itemStack.hasDisplayName())
+            if(itemStack != null)
             {
             	TileEntityEE energyCollector = ((TileEntityEE) world.getTileEntity(x, y, z));
             	energyCollector.setCustomName(itemStack.getDisplayName());

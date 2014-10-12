@@ -54,6 +54,15 @@ public class CommonConfiguration
 		
 		//emc per tick that an energy collector drains to a klein star
 		public static double[] ENERGY_COLLECTOR_DRAIN_RATE = new double[3];
+		
+		//emc per tick that an antimatter relay will pass to the next thing
+		public static int[] ANTIMATTER_RELAY_EMC_PER_TICK = new int[3];
+		
+		//decimal amount of emc passed through that an antimatter relay will lose
+		public static double[] ANTIMATTER_RELAY_EMC_LOSS_COEFFICIENT = new double[3];
+		
+		//radius of the cube where the Black Hole Band will pick up items
+		public static int MAGNET_RING_BOUNDING_BOX_RADIUS;
 
 		
     public static void init(File configPath)
@@ -104,6 +113,18 @@ public class CommonConfiguration
 			ENERGY_COLLECTOR_DRAIN_RATE[1] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorDrainRateLvlTwo", 10.0, "rate at which a level 2 energy collector drains to an alcemical battery.").getDouble(10.0));
 			
 			ENERGY_COLLECTOR_DRAIN_RATE[2] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorDrainRateLvlThree", 20.0, "rate at which a level 3 energy collector drains to an alcemical battery.").getDouble(20.0));
+			
+			ANTIMATTER_RELAY_EMC_PER_TICK[0] = (configuration.get(Configuration.CATEGORY_GENERAL, "antimatterRelayEMCTransferance", 4096, "emc per tick that an antimatter relay will pass to the next thing.  Subsequent levels pass 2x more").getInt(4096));
+			ANTIMATTER_RELAY_EMC_PER_TICK[1] = 2 * ANTIMATTER_RELAY_EMC_PER_TICK[0];
+			ANTIMATTER_RELAY_EMC_PER_TICK[2] = 2 * ANTIMATTER_RELAY_EMC_PER_TICK[1];
+			
+			ANTIMATTER_RELAY_EMC_LOSS_COEFFICIENT[0] = 1 - (configuration.get(Configuration.CATEGORY_GENERAL, "antimatterRelayEMCLossPercent", 10.0, "percent of emc passed through that an antimatter relay will lose.  Each subsequent level has a tenth this").getDouble(10.0)) / 100;
+			ANTIMATTER_RELAY_EMC_LOSS_COEFFICIENT[1] = 1 - ((-ANTIMATTER_RELAY_EMC_LOSS_COEFFICIENT[0] + 1) / 10);
+			ANTIMATTER_RELAY_EMC_LOSS_COEFFICIENT[2] = 1 - ((-ANTIMATTER_RELAY_EMC_LOSS_COEFFICIENT[0] + 1) / 10);
+			
+			MAGNET_RING_BOUNDING_BOX_RADIUS = configuration.get(Configuration.CATEGORY_GENERAL, "ringMagnetPickupRadius", 30, "radius of the cube where the Black Hole Band will pick up items").getInt(30);
+
+			
 
     	}
     	catch(Exception e)

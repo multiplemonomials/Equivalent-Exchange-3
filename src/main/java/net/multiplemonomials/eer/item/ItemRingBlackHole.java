@@ -8,6 +8,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.multiplemonomials.eer.configuration.CommonConfiguration;
 import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.util.EMCHelper;
 import baubles.api.BaubleType;
@@ -26,16 +27,12 @@ public class ItemRingBlackHole extends ItemStoresEMC implements IBauble
         
     }
     
-    /** Gets the items around the player and collects them (like a magnet!)
-     * 
-     * Returns true if item(S) are collected, false if there's nothing to collect
-     * 		use so EMC isn't used up for nothing
+    /**
+     *  Gets the items around the player and collects them (like a magnet!)
      */
 	@SuppressWarnings("unchecked")
 	private double collectItems(EntityPlayer player) 
-	{
-		//TODO: range of ring
-		
+	{		
 		//use a small amount of EMC even if no items were pushed
 		double itemsPushed = .01;
 		
@@ -53,7 +50,7 @@ public class ItemRingBlackHole extends ItemStoresEMC implements IBauble
 		} 
 		else
 		{
-			items = player.worldObj.getEntitiesWithinAABB(EntityItem.class, player.boundingBox.expand(30, 30, 10));
+			items = player.worldObj.getEntitiesWithinAABB(EntityItem.class, player.boundingBox.expand(CommonConfiguration.MAGNET_RING_BOUNDING_BOX_RADIUS, CommonConfiguration.MAGNET_RING_BOUNDING_BOX_RADIUS, CommonConfiguration.MAGNET_RING_BOUNDING_BOX_RADIUS));
 		}
 		for (Iterator<EntityItem> iterator = items.iterator(); iterator.hasNext(); )
 		{
