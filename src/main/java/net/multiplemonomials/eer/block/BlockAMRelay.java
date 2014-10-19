@@ -275,9 +275,9 @@ public class BlockAMRelay extends BlockEE implements ITileEntityProvider
         {
             return false;
         }
-        else if(player.getHeldItem() != null && player.getHeldItem().getItem() == ModItems.alchemicalUpgrade && upgradeLevel < 3)
+        else if(player.getHeldItem() != null && player.getHeldItem().getItem() == ModItems.matterUpgrade && upgradeLevel < 3)
         {
-        	if(upgradeLevel == player.getHeldItem().getItemDamage())
+        	if(upgradeLevel == player.getHeldItem().getItemDamage() + 1)
         	{
         		TileEntityAMRelay antiMatterRelay = (TileEntityAMRelay)(world.getTileEntity(x, y, z));
         		antiMatterRelay.upgradeLevel();

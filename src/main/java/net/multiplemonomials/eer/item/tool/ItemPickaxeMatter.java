@@ -22,18 +22,22 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemPickaxeMatter extends ItemPickaxe implements IChargeable, IKeyBound
 {
+	
+	Matter _matterType;
+	
 //Either dark or red matter material is passed in the initialization
-//"matter" is either "dark" or "red"
-	public ItemPickaxeMatter(ToolMaterial material, String matterType)
+	public ItemPickaxeMatter(Matter matterType)
 	{
-		super(material);
+		super(matterType._toolMaterial);
 		
-		setUnlocalizedName("pickaxe" + matterType + "Matter");
+		setUnlocalizedName("pickaxe" + matterType.name());
 		setCreativeTab(CreativeTab.EER_TAB);
 		
 		setNoRepair();
 		
 		maxStackSize = 1;
+		
+		_matterType = matterType;
 	}
 	
 	//not repairable... because it never breaks
@@ -68,7 +72,7 @@ public class ItemPickaxeMatter extends ItemPickaxe implements IChargeable, IKeyB
         
         //for every charge level, efficiency increases by 3
         //added the 3 to give it a slight buff versus the other tools
-        return efficiencyOnProperMaterial + PowerItemUtils.computeEfficiencyBonus(itemstack.getItemDamage()) + 2;
+        return efficiencyOnProperMaterial + PowerItemUtils.computeEfficiencyBonus(itemstack.getItemDamage(), _matterType) + 3;
     }
 	
     @Override
@@ -76,7 +80,7 @@ public class ItemPickaxeMatter extends ItemPickaxe implements IChargeable, IKeyB
     {
     	if(key == Key.CHARGE)
     	{
-    		PowerItemUtils.bumpChargeOnItem(itemStack);
+    		PowerItemUtils.bumpChargeOnItem(itemStack, _matterType);
     	}
     }
     

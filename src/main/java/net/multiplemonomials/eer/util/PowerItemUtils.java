@@ -4,7 +4,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.EnumHelper;
 import net.multiplemonomials.eer.configuration.CommonConfiguration;
-import net.multiplemonomials.eer.interfaces.IChargeable;
+import net.multiplemonomials.eer.item.tool.Matter;
 
 /**
  * Common functions for the Dark Matter tools
@@ -19,8 +19,18 @@ public class PowerItemUtils
 	 */
 	public static void bumpChargeOnItem(ItemStack itemStack) 
 	{
-		//make sure that we're acting on a chargeable item
-		assert(itemStack.getItem() instanceof IChargeable);
+		bumpChargeOnItem(itemStack, Matter.DarkMatter);
+		
+	}
+	
+	/**
+	 * Increases the charge on an eer power item if the provided
+	 * ItemStack is a power item.
+	 * Matter sensitive version
+	 * @param itemStack
+	 */
+	public static void bumpChargeOnItem(ItemStack itemStack, Matter matter) 
+	{
 		
 		if(itemStack.getItemDamage() > 0)
 		{
@@ -29,7 +39,7 @@ public class PowerItemUtils
 		else
 		{
 			//reset charge to default
-			itemStack.setItemDamage(CommonConfiguration.MAX_ITEM_CHARGES);
+			itemStack.setItemDamage(matter._toolMaterial.getMaxUses());
 		}
 		
 	}
@@ -49,7 +59,19 @@ public class PowerItemUtils
 	 */
 	public static int computeEfficiencyBonus(int durability)
 	{
-		return (4 * (CommonConfiguration.MAX_ITEM_CHARGES - durability));
+		return computeEfficiencyBonus(durability, Matter.DarkMatter);
+	}
+	
+	/**
+	 * Computes the efficiency bonus of a DM tool from its durability.
+	 * 
+	 * Matter sensitive version
+	 * @param durability
+	 * @return
+	 */
+	public static int computeEfficiencyBonus(int durability, Matter matter)
+	{
+		return ((int)matter._toolMaterial.getEfficiencyOnProperMaterial()) * (matter._toolMaterial.getMaxUses() - durability);
 	}
 	
 }

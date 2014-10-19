@@ -160,12 +160,12 @@ public class CraftingHandler
 
         GameRegistry.addShapelessRecipe(kleinStarZen, kleinStarIchi, kleinStarNi, kleinStarSan, kleinStarYon, kleinStarGo);
         
-        GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.energyCollectorVerdant, 1, 0), new Object[] {"GAG", "VDV", "GAG", 'G', new ItemStack(Blocks.glowstone),
+        GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.energyCollectorAntimatter, 1, 0), new Object[] {"GAG", "VDV", "GAG", 'G', new ItemStack(Blocks.glowstone),
         	'D', ModItems.darkMatter, 'V', new ItemStack(ModItems.alchemicalDust, 1, 1), 'A', new ItemStack(ModItems.alchemicalFuel, 1, 2)});
         
-        GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.energyCollectorAzure), new ItemStack(ModItems.alchemicalUpgrade, 1, 1), ModBlocks.energyCollectorVerdant);
+        GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.energyCollectorDarkMatter), new ItemStack(ModItems.matterUpgrade, 1, 1), ModBlocks.energyCollectorAntimatter);
 
-        GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.energyCollectorMinium), new ItemStack(ModItems.alchemicalUpgrade, 1, 2), ModBlocks.energyCollectorMinium);
+        GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.energyCollectorRedMatter), new ItemStack(ModItems.matterUpgrade, 1, 2), ModBlocks.energyCollectorDarkMatter);
 
     }
 

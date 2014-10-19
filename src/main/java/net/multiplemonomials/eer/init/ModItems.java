@@ -4,11 +4,33 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
-import net.multiplemonomials.eer.item.*;
-import net.multiplemonomials.eer.item.tool.*;
+import net.multiplemonomials.eer.item.ItemAlchemicalBag;
+import net.multiplemonomials.eer.item.ItemAlchemicalDust;
+import net.multiplemonomials.eer.item.ItemAlchemicalFuel;
+import net.multiplemonomials.eer.item.ItemAlchemicalInventoryUpgrade;
+import net.multiplemonomials.eer.item.ItemBandIron;
+import net.multiplemonomials.eer.item.ItemChalk;
+import net.multiplemonomials.eer.item.ItemDarkMatter;
+import net.multiplemonomials.eer.item.ItemDiviningRod;
+import net.multiplemonomials.eer.item.ItemEE;
+import net.multiplemonomials.eer.item.ItemInertStone;
+import net.multiplemonomials.eer.item.ItemKleinStar;
+import net.multiplemonomials.eer.item.ItemMatterUpgrade;
+import net.multiplemonomials.eer.item.ItemMiniumShard;
+import net.multiplemonomials.eer.item.ItemMiniumStone;
+import net.multiplemonomials.eer.item.ItemPhilosophersStone;
+import net.multiplemonomials.eer.item.ItemRingBlackHole;
+import net.multiplemonomials.eer.item.ItemRingFlight;
+import net.multiplemonomials.eer.item.ItemTalismanRepair;
+import net.multiplemonomials.eer.item.tool.ItemAxeDarkMatter;
+import net.multiplemonomials.eer.item.tool.ItemFlintDarkMatter;
+import net.multiplemonomials.eer.item.tool.ItemHoeDarkMatter;
+import net.multiplemonomials.eer.item.tool.ItemPickaxeMatter;
+import net.multiplemonomials.eer.item.tool.ItemShovelDarkMatter;
+import net.multiplemonomials.eer.item.tool.ItemSwordDarkMatter;
+import net.multiplemonomials.eer.item.tool.Matter;
 import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.reference.Reference;
-import net.multiplemonomials.eer.util.PowerItemUtils;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
@@ -22,6 +44,7 @@ public class ModItems
     public static final ItemEE stoneMinium = new ItemMiniumStone();
     public static final ItemEE stonePhilosophers = new ItemPhilosophersStone();
     public static final ItemEE alchemicalUpgrade = new ItemAlchemicalInventoryUpgrade();
+    public static final ItemEE matterUpgrade = new ItemMatterUpgrade();
     public static final ItemEE chalk = new ItemChalk();
     public static final ItemEE diviningRod = new ItemDiviningRod();
     public static final ItemEE darkMatter = new ItemDarkMatter();
@@ -33,11 +56,9 @@ public class ModItems
     public static final ItemEE kleinStar = new ItemKleinStar();
     
     public static final ItemTool axeDarkMatter = new ItemAxeDarkMatter();
-    //Is this how you do it?
-    public static final ItemTool pickaxeDarkMatter = new ItemPickaxeMatter(PowerItemUtils.MATERIALDARKMATTER, "Dark");
-    public static final ItemTool pickaxeRedMatter = new ItemPickaxeMatter(PowerItemUtils.MATERIALREDMATTER, "Red");
+    public static final ItemTool pickaxeDarkMatter = new ItemPickaxeMatter(Matter.DarkMatter);
+    public static final ItemTool pickaxeRedMatter = new ItemPickaxeMatter(Matter.RedMatter);
     public static final ItemTool shovelDarkMatter = new ItemShovelDarkMatter();
-    
     public static final ItemHoe hoeDarkMatter = new ItemHoeDarkMatter();
     public static final ItemSword swordDarkMatter = new ItemSwordDarkMatter();
     public static final Item flintDarkMatter = new ItemFlintDarkMatter();
@@ -53,6 +74,7 @@ public class ModItems
         GameRegistry.registerItem(stonePhilosophers, Names.Items.PHILOSOPHERS_STONE);
         GameRegistry.registerItem(chalk, Names.Items.CHALK);
         GameRegistry.registerItem(alchemicalUpgrade, Names.Items.ALCHEMICAL_UPGRADE);
+        GameRegistry.registerItem(matterUpgrade, Names.Items.MATTER_UPGRADE);
         GameRegistry.registerItem(diviningRod, Names.Items.DIVINING_ROD);
         GameRegistry.registerItem(darkMatter, Names.Items.DARK_MATTER);
         GameRegistry.registerItem(talismanRepair, Names.Items.TALISMAN_REPAIR);

@@ -151,24 +151,24 @@ public class BlockEnergyCollector extends BlockEE implements ITileEntityProvider
         {
             return false;
         }
-        else if(player.getHeldItem() != null && player.getHeldItem().getItem() == ModItems.alchemicalUpgrade && upgradeLevel < 3)
+        else if(player.getHeldItem() != null && player.getHeldItem().getItem() == ModItems.matterUpgrade && upgradeLevel < 3)
         {
-        	if(upgradeLevel == player.getHeldItem().getItemDamage())
+        	if(upgradeLevel == player.getHeldItem().getItemDamage() + 1)
         	{
         		TileEntityEnergyCollector energyCollector = (TileEntityEnergyCollector)(world.getTileEntity(x, y, z));
         		energyCollector.upgradeLevel();
         		if(upgradeLevel == 1)
         		{
-        			world.setBlock(x, y, z, ModBlocks.energyCollectorAzure);
+        			world.setBlock(x, y, z, ModBlocks.energyCollectorDarkMatter);
         			
         			//update rotation
-        			ModBlocks.energyCollectorAzure.onBlockPlacedBy(world, x, y, z, player, null);
+        			ModBlocks.energyCollectorDarkMatter.onBlockPlacedBy(world, x, y, z, player, null);
         		}
         		else
         		{	
-        			world.setBlock(x, y, z, ModBlocks.energyCollectorMinium);
+        			world.setBlock(x, y, z, ModBlocks.energyCollectorRedMatter);
         			//update rotation
-        			ModBlocks.energyCollectorMinium.onBlockPlacedBy(world, x, y, z, player, null);
+        			ModBlocks.energyCollectorRedMatter.onBlockPlacedBy(world, x, y, z, player, null);
         		}
         		
         		if(!player.capabilities.isCreativeMode)

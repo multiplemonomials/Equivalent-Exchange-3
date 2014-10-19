@@ -13,7 +13,7 @@ public class Names
         public static final String ALCHEMICAL_CHEST = "alchemicalChest";
         public static final String ALCHEMICAL_FUEL = "alchemicalFuelBlock";
         public static final String ENERGY_COLLECTOR = "energyCollector";
-        public static final String[] ENERGY_COLLECTOR_SUBTYPES = new String[]{"Verdant", "Azure", "Minium"};
+        public static final String[] ENERGY_COLLECTOR_SUBTYPES = new String[]{"Antimatter", "DarkMatter", "RedMatter"};
         public static final String[] ANTIMATTER_RELAY_SUBTYPES = new String[]{"Antimatter", "DarkMatter", "RedMatter"};
         public static final String ALUDEL = "aludel";
         public static final String GLASS_BELL = "glassBell";
@@ -42,6 +42,9 @@ public class Names
         public static final String PHILOSOPHERS_STONE = "stonePhilosophers";
         public static final String ALCHEMICAL_UPGRADE = "alchemicalUpgrade";
         public static final String[] ALCHEMICAL_UPGRADE_SUBTYPES = {"verdant", "azure", "minium"};
+        
+        public static final String MATTER_UPGRADE = "matterUpgrade";
+        public static final String[] MATTER_UPGRADE_SUBTYPES = {"darkMatter", "redMatter"};
         public static final String DIVINING_ROD = "diviningRod";
         public static final String DARK_MATTER = "darkMatter";
         

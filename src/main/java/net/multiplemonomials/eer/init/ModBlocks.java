@@ -18,9 +18,9 @@ public class ModBlocks
     public static final BlockEE glassBell = new BlockGlassBell();
 	public static final BlockEE condenser = new BlockCondenser();
 	public static final BlockEE transmutationTablet = new BlockTransmutationTablet();
-	public static final BlockEE energyCollectorVerdant = new BlockEnergyCollector((byte) 1);
-	public static final BlockEE energyCollectorAzure = new BlockEnergyCollector((byte) 2);
-	public static final BlockEE energyCollectorMinium = new BlockEnergyCollector((byte) 3);
+	public static final BlockEE energyCollectorAntimatter = new BlockEnergyCollector((byte) 1);
+	public static final BlockEE energyCollectorDarkMatter = new BlockEnergyCollector((byte) 2);
+	public static final BlockEE energyCollectorRedMatter = new BlockEnergyCollector((byte) 3);
 	
 	public static final BlockEE antiMatterRelayAntimatter = new BlockAMRelay((byte) 1);
 	public static final BlockEE antiMatterRelayDarkMatter = new BlockAMRelay((byte) 2);
@@ -37,9 +37,9 @@ public class ModBlocks
         GameRegistry.registerBlock(condenser, Names.Blocks.CONDENSER);
         GameRegistry.registerBlock(transmutationTablet, Names.Blocks.TRANSMUTATION_TABLET);
         
-        GameRegistry.registerBlock(energyCollectorVerdant, Names.Blocks.ENERGY_COLLECTOR + Names.Blocks.ENERGY_COLLECTOR_SUBTYPES[0]);
-        GameRegistry.registerBlock(energyCollectorAzure, Names.Blocks.ENERGY_COLLECTOR + Names.Blocks.ENERGY_COLLECTOR_SUBTYPES[1]);
-        GameRegistry.registerBlock(energyCollectorMinium, Names.Blocks.ENERGY_COLLECTOR + Names.Blocks.ENERGY_COLLECTOR_SUBTYPES[2]);
+        GameRegistry.registerBlock(energyCollectorAntimatter, Names.Blocks.ENERGY_COLLECTOR + Names.Blocks.ENERGY_COLLECTOR_SUBTYPES[0]);
+        GameRegistry.registerBlock(energyCollectorDarkMatter, Names.Blocks.ENERGY_COLLECTOR + Names.Blocks.ENERGY_COLLECTOR_SUBTYPES[1]);
+        GameRegistry.registerBlock(energyCollectorRedMatter, Names.Blocks.ENERGY_COLLECTOR + Names.Blocks.ENERGY_COLLECTOR_SUBTYPES[2]);
     
     	GameRegistry.registerBlock(antiMatterRelayAntimatter, "antiMatterRelay" + Names.Blocks.ENERGY_COLLECTOR_SUBTYPES[0]);
     	GameRegistry.registerBlock(antiMatterRelayDarkMatter, "antiMatterRelay" + Names.Blocks.ENERGY_COLLECTOR_SUBTYPES[1]);
