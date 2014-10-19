@@ -31,50 +31,53 @@ public class ItemTooltipEventHandler
     @SubscribeEvent
     public void handleItemTooltipEvent(ItemTooltipEvent event)
     {
-        if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT))
-        {
-        	boolean hasSpecialReadout = false;
-        	if(event.itemStack.getItem() instanceof IStoresEMC)
-        	{
-        		hasSpecialReadout = true;
-        		IStoresEMC itemWithEMCStorage = (IStoresEMC) event.itemStack.getItem();
-        		event.toolTip.add(String.format("Stored EMC: %s", emcDecimalFormat.format(itemWithEMCStorage.getAvailableEMC(event.itemStack))));
-        		
-        		if(itemWithEMCStorage.isEMCBattery())
-        		{
-        			event.toolTip.add(String.format("Max EMC: %s", emcDecimalFormat.format(itemWithEMCStorage.getMaxStorableEMC(event.itemStack))));
-        		}
-        	}
-        	if(event.itemStack.getItem() instanceof IChargeable)
-        	{
-        		hasSpecialReadout = true;
-        		//this makes the possibly naive assumption that all chargeable items use their metadata to store their charge
-        		// I WANT MULTIPLE INHERITANCEE!!!!!!!!!!!!!!!
-        		event.toolTip.add(String.format("Charge Level: %d/%d", (CommonConfiguration.MAX_ITEM_CHARGES - event.itemStack.getItemDamage()) + 1, CommonConfiguration.MAX_ITEM_CHARGES + 1));
-        		
-        	}
-        	if(!hasSpecialReadout)
-        	{
-	            WrappedStack stack = new WrappedStack(event.itemStack);
-	
-	            if (EnergyRegistry.getInstance().hasEnergyValue(stack))
-	            {
-	                EnergyValue emcValue = EnergyRegistry.getInstance().getEnergyValue(stack);
-	                if (stack.getStackSize() > 1)
-	                {
-	                    event.toolTip.add(String.format("EMC (Item): %s", emcDecimalFormat.format(emcValue.getValue())));
-	                    event.toolTip.add(String.format("EMC (Stack): %s", emcDecimalFormat.format(stack.getStackSize() * emcValue.getValue())));
-	                }
-	                else
-	                {
-	                    event.toolTip.add(String.format("EMC: %s", emcDecimalFormat.format(stack.getStackSize() * emcValue.getValue())));
-	                }
-	            }
-	            else
-	            {
-	                event.toolTip.add("No EMC value");
-	            }
-        	}
-        }
+    	if(Keyboard.isCreated())
+    	{
+	        if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT))
+	        {
+	        	boolean hasSpecialReadout = false;
+	        	if(event.itemStack.getItem() instanceof IStoresEMC)
+	        	{
+	        		hasSpecialReadout = true;
+	        		IStoresEMC itemWithEMCStorage = (IStoresEMC) event.itemStack.getItem();
+	        		event.toolTip.add(String.format("Stored EMC: %s", emcDecimalFormat.format(itemWithEMCStorage.getAvailableEMC(event.itemStack))));
+	        		
+	        		if(itemWithEMCStorage.isEMCBattery())
+	        		{
+	        			event.toolTip.add(String.format("Max EMC: %s", emcDecimalFormat.format(itemWithEMCStorage.getMaxStorableEMC(event.itemStack))));
+	        		}
+	        	}
+	        	if(event.itemStack.getItem() instanceof IChargeable)
+	        	{
+	        		hasSpecialReadout = true;
+	        		//this makes the possibly naive assumption that all chargeable items use their metadata to store their charge
+	        		// I WANT MULTIPLE INHERITANCEE!!!!!!!!!!!!!!!
+	        		event.toolTip.add(String.format("Charge Level: %d/%d", (CommonConfiguration.MAX_ITEM_CHARGES - event.itemStack.getItemDamage()) + 1, CommonConfiguration.MAX_ITEM_CHARGES + 1));
+	        		
+	        	}
+	        	if(!hasSpecialReadout)
+	        	{
+		            WrappedStack stack = new WrappedStack(event.itemStack);
+		
+		            if (EnergyRegistry.getInstance().hasEnergyValue(stack))
+		            {
+		                EnergyValue emcValue = EnergyRegistry.getInstance().getEnergyValue(stack);
+		                if (stack.getStackSize() > 1)
+		                {
+		                    event.toolTip.add(String.format("EMC (Item): %s", emcDecimalFormat.format(emcValue.getValue())));
+		                    event.toolTip.add(String.format("EMC (Stack): %s", emcDecimalFormat.format(stack.getStackSize() * emcValue.getValue())));
+		                }
+		                else
+		                {
+		                    event.toolTip.add(String.format("EMC: %s", emcDecimalFormat.format(stack.getStackSize() * emcValue.getValue())));
+		                }
+		            }
+		            else
+		            {
+		                event.toolTip.add("No EMC value");
+		            }
+	        	}
+	        }
+    	}
     }
 }
