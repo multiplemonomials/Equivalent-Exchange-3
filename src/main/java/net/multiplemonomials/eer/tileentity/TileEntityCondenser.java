@@ -118,7 +118,7 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest implements IT
     	//{
     		ArrayList<Integer> condensableItems = getCondensableItems();
     		
-    		if(!condensableItems.isEmpty())
+    		if(!condensableItems.isEmpty() || leftoverEMC > _targetItemEMC)
     		{
     		    _freeSpace = getFreeSpace();
 

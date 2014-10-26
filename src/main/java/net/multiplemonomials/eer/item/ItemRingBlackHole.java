@@ -3,20 +3,27 @@ package net.multiplemonomials.eer.item;
 import java.util.Iterator;
 import java.util.List;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
 import net.multiplemonomials.eer.configuration.CommonConfiguration;
 import net.multiplemonomials.eer.reference.Names;
+import net.multiplemonomials.eer.reference.Reference;
 import net.multiplemonomials.eer.util.EMCHelper;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 
 public class ItemRingBlackHole extends ItemStoresEMC implements IBauble
 {	
-	IIcon icon;
+	IIcon activeIcon;
+	
+	IIcon inactiveIcon;
 	
     public ItemRingBlackHole()
     {
@@ -127,6 +134,15 @@ public class ItemRingBlackHole extends ItemStoresEMC implements IBauble
 	{
 		return BaubleType.RING;
 	}
+	
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister iconRegister)
+    {
+        activeIcon = iconRegister.registerIcon(this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf(".") + 1) + "Active");
+        inactiveIcon = iconRegister.registerIcon(this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf(".") + 1) + "Inactive");
+
+    }
 
 	//TODO: config option for EMC-Usage
 	int drainPerTick = 50;
@@ -147,9 +163,19 @@ public class ItemRingBlackHole extends ItemStoresEMC implements IBauble
     			{
     				fuelEMCLeft += EMCHelper.consumeEMCFromPlayerInventory(player, 10 * drainPerTick);
     			}
+    			
+    			//if we have fuel
     			if(fuelEMCLeft > 0)
     			{
         			fuelEMCLeft -= (drainPerTick * collectItems(player));
+        			
+        			//set active texture
+        			itemStack.setItemDamage(1);
+    			}
+    			
+    			else
+    			{
+    				itemStack.setItemDamage(0);
     			}
 
     			itemStack.stackTagCompound.setDouble("storedEMC", fuelEMCLeft);
@@ -162,6 +188,18 @@ public class ItemRingBlackHole extends ItemStoresEMC implements IBauble
     	}
 		
 	}
+	
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IIcon getIconFromDamage(int meta)
+    {
+    	if(meta == 1)
+    	{
+    		return activeIcon;
+    	}
+    	
+    	return inactiveIcon;
+    }
 
 	@Override
 	public void onEquipped(ItemStack itemstack, EntityLivingBase entity)
@@ -171,7 +209,8 @@ public class ItemRingBlackHole extends ItemStoresEMC implements IBauble
 	@Override
 	public void onUnequipped(ItemStack itemstack, EntityLivingBase entity)
 	{
-		
+		//turn off animation
+		itemstack.setItemDamage(0);
 	}
 
 	@Override
