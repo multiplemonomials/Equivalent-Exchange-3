@@ -10,7 +10,7 @@ import net.multiplemonomials.eer.item.ItemAlchemicalFuel;
 import net.multiplemonomials.eer.item.ItemAlchemicalInventoryUpgrade;
 import net.multiplemonomials.eer.item.ItemBandIron;
 import net.multiplemonomials.eer.item.ItemChalk;
-import net.multiplemonomials.eer.item.ItemDarkMatter;
+import net.multiplemonomials.eer.item.ItemMatter;
 import net.multiplemonomials.eer.item.ItemDiviningRod;
 import net.multiplemonomials.eer.item.ItemEE;
 import net.multiplemonomials.eer.item.ItemInertStone;
@@ -47,7 +47,7 @@ public class ModItems
     public static final ItemEE matterUpgrade = new ItemMatterUpgrade();
     public static final ItemEE chalk = new ItemChalk();
     public static final ItemEE diviningRod = new ItemDiviningRod();
-    public static final ItemEE darkMatter = new ItemDarkMatter();
+    public static final ItemEE matter = new ItemMatter();
     public static final ItemEE talismanRepair = new ItemTalismanRepair();
     public static final ItemEE bandIron = new ItemBandIron();
     public static final ItemEE ringFlight = new ItemRingFlight();
@@ -76,7 +76,7 @@ public class ModItems
         GameRegistry.registerItem(alchemicalUpgrade, Names.Items.ALCHEMICAL_UPGRADE);
         GameRegistry.registerItem(matterUpgrade, Names.Items.MATTER_UPGRADE);
         GameRegistry.registerItem(diviningRod, Names.Items.DIVINING_ROD);
-        GameRegistry.registerItem(darkMatter, Names.Items.DARK_MATTER);
+        GameRegistry.registerItem(matter, Names.Items.DARK_MATTER);
         GameRegistry.registerItem(talismanRepair, Names.Items.TALISMAN_REPAIR);
         GameRegistry.registerItem(bandIron, Names.Items.BAND_IRON);
         GameRegistry.registerItem(ringFlight, Names.Items.RING_FLIGHT);

@@ -42,9 +42,10 @@ public class Names
         public static final String PHILOSOPHERS_STONE = "stonePhilosophers";
         public static final String ALCHEMICAL_UPGRADE = "alchemicalUpgrade";
         public static final String[] ALCHEMICAL_UPGRADE_SUBTYPES = {"verdant", "azure", "minium"};
-        
+        public static final String MATTER = "matter";
+        public static final String[] MATTER_SUBTYPES = {"Dark", "Red"};
         public static final String MATTER_UPGRADE = "matterUpgrade";
-        public static final String[] MATTER_UPGRADE_SUBTYPES = {"darkMatter", "redMatter"};
+        public static final String[] MATTER_UPGRADE_SUBTYPES = MATTER_SUBTYPES;
         public static final String DIVINING_ROD = "diviningRod";
         public static final String DARK_MATTER = "darkMatter";
         

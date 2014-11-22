@@ -24,20 +24,20 @@ public class CraftingHandler
         CraftingManager.getInstance().getRecipeList().add(new RecipesAlchemicalBagDyes());
         
         //add Dark Matter crafting recipe
-        GameRegistry.addShapedRecipe(new ItemStack(ModItems.darkMatter), new Object[] {"AAA", "ADA", "AAA", 'A', new ItemStack(ModItems.alchemicalFuel, 1, 2), 'D', Blocks.diamond_block});
+        GameRegistry.addShapedRecipe(new ItemStack(ModItems.matter), new Object[] {"AAA", "ADA", "AAA", 'A', new ItemStack(ModItems.alchemicalFuel, 1, 2), 'D', Blocks.diamond_block});
         
         //add Dark Matter tools' crafting recipies
-        GameRegistry.addShapedRecipe(new ItemStack(ModItems.pickaxeDarkMatter), new Object[] {"AAA", " D ", " D ", 'A', ModItems.darkMatter, 'D', Items.diamond});
+        GameRegistry.addShapedRecipe(new ItemStack(ModItems.pickaxeDarkMatter), new Object[] {"AAA", " D ", " D ", 'A', new ItemStack(ModItems.matter, 1, 0), 'D', Items.diamond});
         
-        GameRegistry.addShapedRecipe(new ItemStack(ModItems.axeDarkMatter), new Object[] {"AA ", "AD ", " D ", 'A', ModItems.darkMatter, 'D', Items.diamond});
+        GameRegistry.addShapedRecipe(new ItemStack(ModItems.axeDarkMatter), new Object[] {"AA ", "AD ", " D ", 'A', new ItemStack(ModItems.matter, 1, 0), 'D', Items.diamond});
         
-        GameRegistry.addShapedRecipe(new ItemStack(ModItems.swordDarkMatter), new Object[] {" A ", " A ", " D ", 'A', ModItems.darkMatter, 'D', Items.diamond});
+        GameRegistry.addShapedRecipe(new ItemStack(ModItems.swordDarkMatter), new Object[] {" A ", " A ", " D ", 'A', new ItemStack(ModItems.matter, 1, 0), 'D', Items.diamond});
         
-        GameRegistry.addShapedRecipe(new ItemStack(ModItems.shovelDarkMatter), new Object[] {" A ", " D ", " D ", 'A', ModItems.darkMatter, 'D', Items.diamond});
+        GameRegistry.addShapedRecipe(new ItemStack(ModItems.shovelDarkMatter), new Object[] {" A ", " D ", " D ", 'A', new ItemStack(ModItems.matter, 1, 0), 'D', Items.diamond});
         
-        GameRegistry.addShapedRecipe(new ItemStack(ModItems.hoeDarkMatter), new Object[] {"AA ", " D ", " D ", 'A', ModItems.darkMatter, 'D', Items.diamond});
+        GameRegistry.addShapedRecipe(new ItemStack(ModItems.hoeDarkMatter), new Object[] {"AA ", " D ", " D ", 'A', new ItemStack(ModItems.matter, 1, 0), 'D', Items.diamond});
         
-        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.flintDarkMatter), Items.iron_ingot, ModItems.darkMatter);
+        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.flintDarkMatter), Items.iron_ingot, new ItemStack(ModItems.matter, 1, 0));
        
         //alchemical fuel
         GameRegistry.addShapedRecipe(new ItemStack(ModItems.alchemicalFuel, 2, 0), new Object[] {"GC ", "CC ", "C  ", 'G', Items.glowstone_dust, 'C', new ItemStack(Items.coal, 1, 0)});
@@ -120,7 +120,7 @@ public class CraftingHandler
         
         //ring of flight
         GameRegistry.addShapedRecipe(new ItemStack(ModItems.ringFlight, 1, 0), new Object[] {" F ", "DBD", " F ", 'F', Items.feather, 
-        	'D', ModItems.darkMatter, 'B', new ItemStack(ModItems.bandIron, 1, 1)});
+        	'D', new ItemStack(ModItems.matter, 1, 0), 'B', new ItemStack(ModItems.bandIron, 1, 1)});
         
         //transmutation tablet
         GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.transmutationTablet, 1, 0), new Object[] {"   ", "OMO", "DGD", 'O', new ItemStack(Blocks.obsidian),
@@ -160,13 +160,36 @@ public class CraftingHandler
 
         GameRegistry.addShapelessRecipe(kleinStarZen, kleinStarIchi, kleinStarNi, kleinStarSan, kleinStarYon, kleinStarGo);
         
+        //energy collectors
         GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.energyCollectorAntimatter, 1, 0), new Object[] {"GAG", "VDV", "GAG", 'G', new ItemStack(Blocks.glowstone),
-        	'D', ModItems.darkMatter, 'V', new ItemStack(ModItems.alchemicalDust, 1, 1), 'A', new ItemStack(ModItems.alchemicalFuel, 1, 2)});
+        	'D', new ItemStack(ModItems.matter, 1, 0), 'V', new ItemStack(ModItems.alchemicalDust, 1, 1), 'A', new ItemStack(ModItems.alchemicalFuel, 1, 2)});
         
         GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.energyCollectorDarkMatter), new ItemStack(ModItems.matterUpgrade, 1, 1), ModBlocks.energyCollectorAntimatter);
 
         GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.energyCollectorRedMatter), new ItemStack(ModItems.matterUpgrade, 1, 2), ModBlocks.energyCollectorDarkMatter);
+        
+        //antimatter relays
+        GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.antiMatterRelayAntimatter, 1, 0), new Object[] {"ODO", "MGM", "ODO", 'O', new ItemStack(Blocks.obsidian),
+        	'D', Items.diamond, 'M', new ItemStack(ModItems.alchemicalDust, 1, 3), 'G', Items.glowstone_dust});
+        
+        GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.antiMatterRelayDarkMatter), new ItemStack(ModItems.matterUpgrade, 1, 1), ModBlocks.antiMatterRelayAntimatter);
 
+        GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.antiMatterRelayRedMatter), new ItemStack(ModItems.matterUpgrade, 1, 2), ModBlocks.antiMatterRelayDarkMatter);
+        
+        //red matter
+        AludelRecipeRegistry.instance().registerRecipe(new ItemStack(ModItems.matter, 1, 1), new String[]{"d", "d", "rb", "d"},
+        		'd', new ItemStack(ModItems.matter, 1, 0), 'r', new ItemStack(Items.redstone), 'b', new ItemStack(Items.blaze_powder));
+        
+        //black hole band
+        GameRegistry.addShapedRecipe(new ItemStack(ModItems.ringMagnet, 1, 0), new Object[] {"DND", "OIO", "DND", 'N', new ItemStack(Items.dye, 1, 0), 
+        	'D', new ItemStack(ModItems.matter, 1, 0), 'I', new ItemStack(ModItems.bandIron, 1, 1), 'O', new ItemStack(Blocks.obsidian)});
+        
+        //matter upgrades
+        GameRegistry.addShapedRecipe(new ItemStack(ModItems.matterUpgrade, 1, 0), new Object[] {" D ", "MUM", " D ", 
+        	'D', Items.diamond, 'U', new ItemStack(ModItems.alchemicalUpgrade, 1, 2), 'M', new ItemStack(ModItems.matter, 1, 0)});
+        
+        GameRegistry.addShapedRecipe(new ItemStack(ModItems.matterUpgrade, 1, 1), new Object[] {" D ", "MUM", " D ", 
+        	'D', Items.diamond, 'U', new ItemStack(ModItems.matterUpgrade, 1, 0), 'M', new ItemStack(ModItems.matter, 1, 1)});
     }
 
     @SubscribeEvent
@@ -201,6 +224,7 @@ public class CraftingHandler
         			event.player.dropItem(itemToReturn.getItem(), itemToReturn.stackSize);
         		}
 //I really have NO IDEA why this doesn't work
+//and so many people are requesting this feature too
 //    			else //put it back in the crafting grid
 //    			{
 //    				event.craftMatrix.setInventorySlotContents(counter, itemToReturn);

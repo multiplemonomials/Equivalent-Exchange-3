@@ -2,11 +2,13 @@ package net.multiplemonomials.eer.item;
 
 import java.util.List;
 
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import net.multiplemonomials.eer.reference.Messages;
@@ -17,6 +19,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemMatterUpgrade extends ItemEE
 {
+	
+    private IIcon[] icons;
+	
     public ItemMatterUpgrade()
     {
         super();
@@ -34,7 +39,7 @@ public class ItemMatterUpgrade extends ItemEE
     @Override
     public String getUnlocalizedName(ItemStack itemStack)
     {
-        return String.format("item.%s%s.%s", Reference.RESOURCE_PREFIX, Names.Items.MATTER_UPGRADE, Names.Items.MATTER_UPGRADE_SUBTYPES[MathHelper.clamp_int(itemStack.getItemDamage(), 0, Names.Items.MATTER_UPGRADE_SUBTYPES.length - 1)]);
+        return String.format("item.%s%s%s", Reference.RESOURCE_PREFIX, Names.Items.MATTER_UPGRADE, Names.Items.MATTER_UPGRADE_SUBTYPES[MathHelper.clamp_int(itemStack.getItemDamage(), 0, Names.Items.MATTER_UPGRADE_SUBTYPES.length - 1)]);
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -63,7 +68,7 @@ public class ItemMatterUpgrade extends ItemEE
         {
             case 0:
             {
-                return EnumChatFormatting.WHITE + super.getItemStackDisplayName(itemStack);
+                return EnumChatFormatting.DARK_GRAY + super.getItemStackDisplayName(itemStack);
             }
             case 1:
             {
@@ -74,5 +79,24 @@ public class ItemMatterUpgrade extends ItemEE
                 return EnumChatFormatting.WHITE + super.getItemStackDisplayName(itemStack);
             }
         }
+    }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister iconRegister)
+    {
+        icons = new IIcon[Names.Items.MATTER_UPGRADE_SUBTYPES.length];
+
+        for (int i = 0; i < Names.Items.MATTER_UPGRADE_SUBTYPES.length; i++)
+        {
+            icons[i] = iconRegister.registerIcon(Reference.RESOURCE_PREFIX + Names.Items.MATTER_UPGRADE + Names.Items.MATTER_UPGRADE_SUBTYPES[i]);
+        }
+    }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IIcon getIconFromDamage(int meta)
+    {
+        return icons[MathHelper.clamp_int(meta, 0, Names.Items.MATTER_UPGRADE_SUBTYPES.length - 1)];
     }
 }

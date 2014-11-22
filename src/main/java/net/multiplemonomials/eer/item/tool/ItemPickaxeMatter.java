@@ -6,15 +6,20 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.multiplemonomials.eer.configuration.CommonConfiguration;
 import net.multiplemonomials.eer.creativetab.CreativeTab;
 import net.multiplemonomials.eer.interfaces.IChargeable;
 import net.multiplemonomials.eer.interfaces.IKeyBound;
 import net.multiplemonomials.eer.item.ItemEE;
 import net.multiplemonomials.eer.reference.Key;
 import net.multiplemonomials.eer.reference.Reference;
+import net.multiplemonomials.eer.util.BlockHelper;
+import net.multiplemonomials.eer.util.EMCHelper;
 import net.multiplemonomials.eer.util.PowerItemUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -107,4 +112,86 @@ public class ItemPickaxeMatter extends ItemPickaxe implements IChargeable, IKeyB
     {
         return false;
     }
+    
+    @Override
+    public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float x2, float y2, float z2)
+    {	
+        if (side == 0)
+        {
+            --y;
+        }
+
+        else if (side == 1)
+        {
+            ++y;
+        }
+
+        else if (side == 2)
+        {
+            --z;
+        }
+
+        else if (side == 3)
+        {
+            ++z;
+        }
+
+        else if (side == 4)
+        {
+            --x;
+        }
+
+        else if (side == 5)
+        {
+            ++x;
+        }
+
+        if (!player.canPlayerEdit(x, y, z, side, itemStack))
+        {
+            return false;
+        }
+        else
+        {
+            if (world.isAirBlock(x, y, z))
+            {
+                world.playSoundEffect((double)x + 0.5D, (double)y + 0.5D, (double)z + 0.5D, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
+                
+
+
+            	
+            	//TODO: don't take EMC for blocks that are skipped because they are not air
+                
+            	//take some EMC
+            	double emcLeft = getAvailableEMC(itemStack);
+            	int blocksToSet = getDamage(itemStack) == CommonConfiguration.MAX_ITEM_CHARGES ? 1 : MathHelper.floor_double(Math.pow((CommonConfiguration.MAX_ITEM_CHARGES - getDamage(itemStack)) + 1, 2));
+            	double neededEMC = CommonConfiguration.DM_FLINT_REQUIRED_EMC_PER_BLOCK * blocksToSet;
+            	
+            	
+            	if(emcLeft < neededEMC)
+            	{
+            		emcLeft += EMCHelper.consumeEMCFromPlayerInventory(player, neededEMC - emcLeft);
+            	}
+            	if(emcLeft >= neededEMC)
+            	{
+            		 emcLeft -= neededEMC;
+            		 itemStack.stackTagCompound.setDouble("emcLeft", emcLeft);
+            		 
+            		 if(getDamage(itemStack) == CommonConfiguration.MAX_ITEM_CHARGES)
+                     {
+                     	world.setBlock(x, y, z, Blocks.fire, 0, 2);
+                     }
+                     else
+                     {
+                     	BlockHelper.setAirBlocksAround(x, y, z, Blocks.fire, 0, CommonConfiguration.MAX_ITEM_CHARGES - getDamage(itemStack), world);
+                     }
+            	}
+            	else
+            	{
+            		itemStack.stackTagCompound.setDouble("emcLeft", emcLeft);
+            		return false;
+            	}
+                
+            }
+            return true;
+        }
 }

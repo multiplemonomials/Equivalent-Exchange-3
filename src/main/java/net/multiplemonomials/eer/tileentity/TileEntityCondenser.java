@@ -5,6 +5,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
+
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
+import cpw.mods.fml.relauncher.Side;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
@@ -14,6 +19,8 @@ import net.multiplemonomials.eer.exchange.EnergyRegistry;
 import net.multiplemonomials.eer.interfaces.ITileEntityAcceptsEMC;
 import net.multiplemonomials.eer.inventory.ContainerCondenser;
 import net.multiplemonomials.eer.network.PacketHandler;
+import net.multiplemonomials.eer.network.message.MessageCondenserEMCUpdateToClient;
+import net.multiplemonomials.eer.network.message.MessageCondenserEMCUpdateToServer;
 import net.multiplemonomials.eer.network.message.MessageTileCondenser;
 import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.util.ItemHelper;
@@ -89,63 +96,71 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest implements IT
         return true;
     }
     
-    /**
-     * Compares the previous inventory with the current one and returns if it has changed.
-     * @return
-     */
-	public boolean getHasChanged()
-    {
-    	return !Objects.deepEquals(inventory, previousInventory);
-    }
-    
-    /**
-     * Updates the "previous" inventory to the current inventory
-     * @return
-     */
-    public void updateHasChanged()
-    {
-    	System.arraycopy(inventory, 0, previousInventory, 0, inventory.length);
-    }
-    
     
     @Override
     public void updateEntity()
     {
     	super.updateEntity();
     	
-    	
-    	//if(getHasChanged())
-    	//{
+    	//only do things serverside
+    	if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
+    	{
+    		boolean changedLeftoverEMC = false;
+        	
     		ArrayList<Integer> condensableItems = getCondensableItems();
     		
     		if(!condensableItems.isEmpty() || leftoverEMC > _targetItemEMC)
     		{
+    			changedLeftoverEMC = true;
+    			
     		    _freeSpace = getFreeSpace();
 
-    			//commit the last update method's changes and them make our own
-    			//so that the getHasChanged will return true next update
-    			
-    			//updateHasChanged();
     			
     		    if(_freeSpace != 0)
     		    {
     		    	condenseSomeItems(condensableItems);
     		    }
+    		    
+    		    
     			
     		}
-    	//}
-    	
-    	if(inventory[INPUT_SLOT_INVENTORY_INDEX] != null && (_targetItemEMC != 0 && leftoverEMC > _targetItemEMC))
-    	{
-    		
-    	    _freeSpace = getFreeSpace();
+        	
+        	if(inventory[INPUT_SLOT_INVENTORY_INDEX] != null && (_targetItemEMC != 0 && leftoverEMC > _targetItemEMC))
+        	{
+    			changedLeftoverEMC = true;
 
-    		ItemStack itemsToAdd = inventory[INPUT_SLOT_INVENTORY_INDEX].copy();
-    		itemsToAdd.stackSize = drainLeftoverEMC(_targetItemEMC);
-    		ItemHelper.addItemsToInventory(itemsToAdd, this, _invalidSlots);
-    		
+        	    _freeSpace = getFreeSpace();
+
+        		ItemStack itemsToAdd = inventory[INPUT_SLOT_INVENTORY_INDEX].copy();
+        		itemsToAdd.stackSize = drainLeftoverEMC(_targetItemEMC);
+        		ItemHelper.addItemsToInventory(itemsToAdd, this, _invalidSlots);
+        		
+        	}
+        	
+        	//while the inventory syncing is handled automatically, syncing leftoverEMC is not.
+        	if(changedLeftoverEMC)
+        	{
+        		syncEMC();
+        	}
     	}
 
+    }
+    
+    /**
+     * sends the proper packet to update the EMC on the other side
+     */
+    private void syncEMC()
+    {
+    	//if(FMLCommonHandler.instance().getEffectiveSide().equals(Side.CLIENT))
+    	//{
+	    //	MessageCondenserEMCUpdateToServer message = new MessageCondenserEMCUpdateToServer(this);
+	    //	PacketHandler.INSTANCE.sendToServer(message);
+    	//}
+    	//else
+    	//{
+    		MessageCondenserEMCUpdateToClient message = new MessageCondenserEMCUpdateToClient(this);
+    		PacketHandler.INSTANCE.sendToAllAround(message, new TargetPoint(worldObj.provider.dimensionId, xCoord, yCoord, zCoord, 128));
+    	//}
     }
     
     private int drainLeftoverEMC(double itemToProduceEMCValue)
@@ -349,6 +364,9 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest implements IT
 	public double tryAddEMC(double amountToAdd)
 	{
 		leftoverEMC += amountToAdd;
+		
+		syncEMC();
+		
 		return amountToAdd;
 	}
 }

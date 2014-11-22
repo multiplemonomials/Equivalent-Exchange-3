@@ -46,6 +46,40 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
      * The items that will be outputted when the current stuff finshes burning
      */
     private Pair<ItemStack, ItemStack> itemsToOutput;
+    
+    /*
+     * Modifiers for ItemsToOutput
+     */
+    
+    /**
+     * Get a NBT tag containing the items that will be output by this cycle
+     * @return
+     */
+    public NBTTagCompound getItemsToOutputNBTTag()
+    {
+    	NBTTagCompound pairTag = new NBTTagCompound();
+    	NBTTagCompound leftItemTag = new NBTTagCompound();
+    	NBTTagCompound rightItemTag = new NBTTagCompound();
+    	
+    	itemsToOutput.getLeft().writeToNBT(leftItemTag);
+    	itemsToOutput.getRight().writeToNBT(rightItemTag);
+    	
+    	pairTag.setTag("leftItem", leftItemTag);
+    	pairTag.setTag("rightItem", rightItemTag);
+    	
+    	return pairTag;
+
+    }
+    
+    /**
+     * Load the items to output from a NBT tag made by the above method
+     *
+     */
+    public void setItemsToOutputFromNBT(NBTTagCompound pairTag)
+    {
+    	itemsToOutput = Pair.of(ItemStack.loadItemStackFromNBT(pairTag.getCompoundTag("leftItem")),
+    			ItemStack.loadItemStackFromNBT(pairTag.getCompoundTag("rightItem")));
+    }
 
     public TileEntityCalcinator()
     {
@@ -101,6 +135,13 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
             }
         }
         
+        nbtTagCompound.setInteger("burnTimeLeftInTicks", burnTimeLeftInTicks);
+        nbtTagCompound.setInteger("totalBurnTimeInTicks", totalBurnTimeInTicks);
+        nbtTagCompound.setInteger("itemTimeLeftInTicks", itemTimeLeftInTicks);
+        nbtTagCompound.setInteger("itemTimeTotalInTicks", itemTimeTotalInTicks);
+        
+        nbtTagCompound.setTag("itemsToOutput", getItemsToOutputNBTTag());
+        
         nbtTagCompound.setTag("Items", tagList);
     }
     
@@ -121,6 +162,13 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
                 inventory[slotIndex] = ItemStack.loadItemStackFromNBT(tagCompound);
             }
         }
+        
+        burnTimeLeftInTicks = nbtTagCompound.getInteger("burnTimeLeftInTicks");
+        totalBurnTimeInTicks = nbtTagCompound.getInteger("totalBurnTimeInTicks");
+        itemTimeLeftInTicks = nbtTagCompound.getInteger("itemTimeLeftInTicks");
+        itemTimeTotalInTicks = nbtTagCompound.getInteger("itemTimeTotalInTicks");
+        
+        setItemsToOutputFromNBT(nbtTagCompound.getCompoundTag("itemsToOutput"));
     }
 
     @Override

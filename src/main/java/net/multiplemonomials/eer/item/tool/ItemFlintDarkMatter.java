@@ -83,6 +83,7 @@ public class ItemFlintDarkMatter extends ItemFlintAndSteel implements IChargeabl
         itemIcon = iconRegister.registerIcon(ItemEE.getUnwrappedUnlocalizedName(this.getUnlocalizedName()));
     }
     
+    @Override
     public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float x2, float y2, float z2)
     {	
         if (side == 0)

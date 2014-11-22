@@ -1,20 +1,28 @@
 package net.multiplemonomials.eer.network.message;
 
+import io.netty.buffer.ByteBuf;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.multiplemonomials.eer.tileentity.TileEntityCalcinator;
-import net.multiplemonomials.eer.tileentity.TileEntityEE;
 import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
-import io.netty.buffer.ByteBuf;
-import net.minecraft.tileentity.TileEntity;
 
 public class MessageTileCalcinator implements IMessage, IMessageHandler<MessageTileCalcinator, IMessage>
 {
     public int x, y, z;
+    
+    public int burnTimeLeftInTicks;              
+    public int totalBurnTimeInTicks; 
+    public int itemTimeLeftInTicks;
+	public int itemTimeTotalInTicks;
+    
     public byte orientation, state;
     public String customName, owner;
-    public byte leftStackSize, leftStackMeta, rightStackSize, rightStackMeta;
+    
+    public NBTTagCompound itemsToOutputTag;
 
     public MessageTileCalcinator()
     {
@@ -25,6 +33,14 @@ public class MessageTileCalcinator implements IMessage, IMessageHandler<MessageT
         this.x = tileEntityCalcinator.xCoord;
         this.y = tileEntityCalcinator.yCoord;
         this.z = tileEntityCalcinator.zCoord;
+        
+        this.burnTimeLeftInTicks = tileEntityCalcinator.burnTimeLeftInTicks;
+        this.totalBurnTimeInTicks = tileEntityCalcinator.totalBurnTimeInTicks;
+        this.itemTimeLeftInTicks = tileEntityCalcinator.itemTimeLeftInTicks;
+        this.itemTimeTotalInTicks = tileEntityCalcinator.itemTimeTotalInTicks;
+        
+        this.itemsToOutputTag = tileEntityCalcinator.getItemsToOutputNBTTag();
+        
         this.orientation = (byte) tileEntityCalcinator.getOrientation().ordinal();
         this.state = (byte) tileEntityCalcinator.getState();
         this.customName = tileEntityCalcinator.getCustomName();
@@ -37,16 +53,18 @@ public class MessageTileCalcinator implements IMessage, IMessageHandler<MessageT
         this.x = buf.readInt();
         this.y = buf.readInt();
         this.z = buf.readInt();
+        
+        this.burnTimeLeftInTicks = buf.readInt();
+        this.totalBurnTimeInTicks = buf.readInt();
+        this.itemTimeLeftInTicks = buf.readInt();
+        this.itemTimeTotalInTicks = buf.readInt();
+        
         this.orientation = buf.readByte();
         this.state = buf.readByte();
-        int customNameLength = buf.readInt();
-        this.customName = new String(buf.readBytes(customNameLength).array());
-        int ownerLength = buf.readInt();
-        this.owner = new String(buf.readBytes(ownerLength).array());
-        this.leftStackSize = buf.readByte();
-        this.leftStackMeta = buf.readByte();
-        this.rightStackSize = buf.readByte();
-        this.rightStackMeta = buf.readByte();
+        this.customName = ByteBufUtils.readUTF8String(buf);
+        this.owner = ByteBufUtils.readUTF8String(buf);
+        
+        itemsToOutputTag = ByteBufUtils.readTag(buf);
     }
 
     @Override
@@ -55,16 +73,20 @@ public class MessageTileCalcinator implements IMessage, IMessageHandler<MessageT
         buf.writeInt(x);
         buf.writeInt(y);
         buf.writeInt(z);
+        
+        buf.writeInt(burnTimeLeftInTicks);
+        buf.writeInt(totalBurnTimeInTicks);
+        buf.writeInt(itemTimeLeftInTicks);
+        buf.writeInt(itemTimeTotalInTicks);
+        
         buf.writeByte(orientation);
         buf.writeByte(state);
-        buf.writeInt(customName.length());
-        buf.writeBytes(customName.getBytes());
-        buf.writeInt(owner.length());
-        buf.writeBytes(owner.getBytes());
-        buf.writeByte(leftStackSize);
-        buf.writeByte(leftStackMeta);
-        buf.writeByte(rightStackSize);
-        buf.writeByte(rightStackMeta);
+        
+        ByteBufUtils.writeUTF8String(buf, customName);
+        
+        ByteBufUtils.writeUTF8String(buf, owner);
+        
+        ByteBufUtils.writeTag(buf, itemsToOutputTag);
     }
 
     @Override
@@ -74,10 +96,18 @@ public class MessageTileCalcinator implements IMessage, IMessageHandler<MessageT
 
         if (tileEntity instanceof TileEntityCalcinator)
         {
-            ((TileEntityEE) tileEntity).setOrientation(message.orientation);
-            ((TileEntityEE) tileEntity).setState(message.state);
-            ((TileEntityEE) tileEntity).setCustomName(message.customName);
-            ((TileEntityEE) tileEntity).setOwner(message.owner);
+        	TileEntityCalcinator calcinator = ((TileEntityCalcinator) tileEntity);
+        	
+        	calcinator.setOrientation(message.orientation);
+        	calcinator.setState(message.state);
+        	calcinator.setCustomName(message.customName);
+        	calcinator.setOwner(message.owner);
+        	
+        	calcinator.burnTimeLeftInTicks = burnTimeLeftInTicks;
+        	calcinator.totalBurnTimeInTicks = totalBurnTimeInTicks;
+        	calcinator.itemTimeLeftInTicks = itemTimeLeftInTicks;
+        	calcinator.itemTimeTotalInTicks = itemTimeTotalInTicks;
+
         }
 
         return null;
@@ -86,6 +116,6 @@ public class MessageTileCalcinator implements IMessage, IMessageHandler<MessageT
     @Override
     public String toString()
     {
-        return String.format("MessageTileEntityCalcinator - x:%s, y:%s, z:%s, orientation:%s, state:%s, customName:%s, owner:%s, leftStackSize: %s, leftStackMeta: %s, rightStackSize: %s, rightStackMeta: %s", x, y, z, orientation, state, customName, owner, leftStackSize, leftStackMeta, rightStackSize, rightStackMeta);
+        return String.format("MessageTileEntityCalcinator - x:%s, y:%s, z:%s, orientation:%s, state:%s, customName:%s, owner:%s", x, y, z, orientation, state, customName, owner);
     }
 }

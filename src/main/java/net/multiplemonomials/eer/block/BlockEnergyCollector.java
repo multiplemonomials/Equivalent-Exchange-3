@@ -19,6 +19,7 @@ import net.multiplemonomials.eer.init.ModBlocks;
 import net.multiplemonomials.eer.init.ModItems;
 import net.multiplemonomials.eer.reference.GuiIds;
 import net.multiplemonomials.eer.reference.Names;
+import net.multiplemonomials.eer.reference.Reference;
 import net.multiplemonomials.eer.tileentity.TileEntityEE;
 import net.multiplemonomials.eer.tileentity.TileEntityEnergyCollector;
 import cpw.mods.fml.relauncher.Side;
@@ -27,7 +28,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockEnergyCollector extends BlockEE implements ITileEntityProvider
 {
     @SideOnly(Side.CLIENT)
-    private IIcon blockTop, blockFront, blockSide, blockBottom;
+    private IIcon blockTop, blockSide, blockBottom;
     
     private byte upgradeLevel;
 
@@ -106,9 +107,8 @@ public class BlockEnergyCollector extends BlockEE implements ITileEntityProvider
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister)
     {
-        blockSide = iconRegister.registerIcon(String.format("%s_side", getUnwrappedUnlocalizedName(this.getUnlocalizedName())));
-        blockBottom = iconRegister.registerIcon(String.format("%s_bottom", getUnwrappedUnlocalizedName(this.getUnlocalizedName())));
-        blockFront = iconRegister.registerIcon(String.format("%s_front", getUnwrappedUnlocalizedName(this.getUnlocalizedName())));
+        blockSide = iconRegister.registerIcon(String.format("%s%s_side", Reference.RESOURCE_PREFIX, Names.Blocks.ENERGY_COLLECTOR));
+        blockBottom = iconRegister.registerIcon(String.format("%s%s_bottom", Reference.RESOURCE_PREFIX, Names.Blocks.ENERGY_COLLECTOR));
         blockTop = iconRegister.registerIcon(String.format("%s_top", getUnwrappedUnlocalizedName(this.getUnlocalizedName())));
     }
     
@@ -130,10 +130,11 @@ public class BlockEnergyCollector extends BlockEE implements ITileEntityProvider
         {
             return blockTop;
         }
-        else if(orientation == ForgeDirection.values()[metaData])
-        {
-        	return blockFront;
-        }
+        //front texture temporarily disabled
+        //else if(orientation == ForgeDirection.values()[metaData])
+        //{
+        //	return blockFront;
+        //}
         else if(orientation == ForgeDirection.DOWN)
         {
         	return blockBottom;
