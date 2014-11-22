@@ -9,12 +9,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.multiplemonomials.eer.configuration.CommonConfiguration;
 import net.multiplemonomials.eer.creativetab.CreativeTab;
 import net.multiplemonomials.eer.interfaces.IChargeable;
 import net.multiplemonomials.eer.interfaces.IKeyBound;
+import net.multiplemonomials.eer.interfaces.IStoresEMC;
 import net.multiplemonomials.eer.item.ItemEE;
 import net.multiplemonomials.eer.reference.Key;
 import net.multiplemonomials.eer.reference.Reference;
@@ -25,7 +27,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 
-public class ItemPickaxeMatter extends ItemPickaxe implements IChargeable, IKeyBound
+public class ItemPickaxeMatter extends ItemPickaxe implements IChargeable, IKeyBound, IStoresEMC
 {
 	
 	Matter _matterType;
@@ -116,35 +118,6 @@ public class ItemPickaxeMatter extends ItemPickaxe implements IChargeable, IKeyB
     @Override
     public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float x2, float y2, float z2)
     {	
-        if (side == 0)
-        {
-            --y;
-        }
-
-        else if (side == 1)
-        {
-            ++y;
-        }
-
-        else if (side == 2)
-        {
-            --z;
-        }
-
-        else if (side == 3)
-        {
-            ++z;
-        }
-
-        else if (side == 4)
-        {
-            --x;
-        }
-
-        else if (side == 5)
-        {
-            ++x;
-        }
 
         if (!player.canPlayerEdit(x, y, z, side, itemStack))
         {
@@ -152,18 +125,13 @@ public class ItemPickaxeMatter extends ItemPickaxe implements IChargeable, IKeyB
         }
         else
         {
-            if (world.isAirBlock(x, y, z))
-            {
-                world.playSoundEffect((double)x + 0.5D, (double)y + 0.5D, (double)z + 0.5D, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
-                
-
-
+            if (!world.isAirBlock(x, y, z))
+            {                
+            	//TODO: fun, magical sound!!!!!! wheeeeeeee!!!!!!!
             	
-            	//TODO: don't take EMC for blocks that are skipped because they are not air
-                
             	//take some EMC
             	double emcLeft = getAvailableEMC(itemStack);
-            	int blocksToSet = getDamage(itemStack) == CommonConfiguration.MAX_ITEM_CHARGES ? 1 : MathHelper.floor_double(Math.pow((CommonConfiguration.MAX_ITEM_CHARGES - getDamage(itemStack)) + 1, 2));
+            	int blocksToSet = getDamage(itemStack) == CommonConfiguration.MAX_ITEM_CHARGES ? 1 : MathHelper.floor_double(Math.pow((CommonConfiguration.MAX_ITEM_CHARGES - getDamage(itemStack)) + 1, 3));
             	double neededEMC = CommonConfiguration.DM_FLINT_REQUIRED_EMC_PER_BLOCK * blocksToSet;
             	
             	
@@ -194,4 +162,92 @@ public class ItemPickaxeMatter extends ItemPickaxe implements IChargeable, IKeyB
             }
             return true;
         }
+}
+
+	@Override
+	public double getAvailableEMC(ItemStack itemStack)
+	{
+    	verifyItemStackHasNBTTag(itemStack);
+    	
+    	return itemStack.stackTagCompound.getDouble("storedEMC");
+	}
+	
+	/**
+	 * Makes sure the itemstack supplied has its proper NBT tagging
+	 * @param itemStack
+	 */
+	protected static void verifyItemStackHasNBTTag(ItemStack itemStack)
+	{
+		if(itemStack.getTagCompound() == null)
+		{
+			itemStack.stackTagCompound = new NBTTagCompound();
+		}
+		
+	}
+
+	@Override
+	public double tryTakeEMC(ItemStack itemStack, double idealEMC)
+	{
+		verifyItemStackHasNBTTag(itemStack);
+		
+		double currentEMC = itemStack.stackTagCompound.getDouble("storedEMC");
+		double newEMC = 0.0;
+		double EMCGotten = 0.0;
+		if(currentEMC < idealEMC)
+		{
+			EMCGotten = currentEMC;
+		}
+		else
+		{
+			newEMC = currentEMC - idealEMC;
+			EMCGotten = idealEMC;
+		}
+		
+		itemStack.stackTagCompound.setDouble("storedEMC", newEMC);
+		
+		return EMCGotten;
+	}
+
+	/**
+	 * Tries to add the given EMC to the item
+	 * @param itemStack
+	 * @param EMCToAdd
+	 * 
+	 * @return The EMC it didn't add because it hit the limit
+	 */
+	@Override
+	public double tryAddEMC(ItemStack itemStack, double EMCToAdd)
+	{
+		verifyItemStackHasNBTTag(itemStack);
+		double currentEMC = itemStack.stackTagCompound.getDouble("storedEMC");
+		double maxEMC = getMaxStorableEMC(itemStack);
+		double failedToAddEMC = 0;
+		if(currentEMC + EMCToAdd > maxEMC)
+		{
+			failedToAddEMC = (currentEMC + EMCToAdd) - maxEMC; 
+			currentEMC = maxEMC;
+		}
+		else
+		{
+			currentEMC += EMCToAdd;
+		}
+		
+		itemStack.stackTagCompound.setDouble("storedEMC", currentEMC);
+		
+		return failedToAddEMC;
+
+	}
+
+	@Override
+	public double getMaxStorableEMC(ItemStack itemStack)
+	{
+		return 0;
+	}
+
+	@Override
+	public boolean isEMCBattery() 
+	{
+		return false;
+	}
+	
 }

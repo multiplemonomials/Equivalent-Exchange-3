@@ -209,7 +209,7 @@ public class ItemFlintDarkMatter extends ItemFlintAndSteel implements IChargeabl
 	}
 	
 	/**
-	 * Makes sure the klein star itemstack supplied has its proper NBT tagging
+	 * Makes sure the itemstack supplied has its proper NBT tagging
 	 * @param itemStack
 	 */
 	protected static void verifyItemStackHasNBTTag(ItemStack itemStack)

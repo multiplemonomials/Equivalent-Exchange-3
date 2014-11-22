@@ -16,13 +16,13 @@ public interface IStoresEMC
 	public double getAvailableEMC(ItemStack itemStack);
 	
 	/**
-	 * Attempts to take the provided amount of EMC, and returns what it took (could be 0) 
+	 * Attempts to take the provided amount of EMC from the item, and returns what was taken (could be 0) 
 	 * @return
 	 */
 	public double tryTakeEMC(ItemStack itemStack, double wantedAmount);
 	
 	/**
-	 * Attempts to add the provided EMC.  Returns how much was added
+	 * Attempts to add the provided EMC to the item.  Returns how much was added
 	 */
 	public double tryAddEMC(ItemStack itemStack, double toAdd);
 	
@@ -36,7 +36,7 @@ public interface IStoresEMC
 	
 	/**
 	 * 
-	 * @return If the item's EMC is OK to be taken by other power items, i.e. it's only purpose is to store EMC
+	 * @return True if the item's EMC is OK to be taken by other power items, i.e. it's only purpose is to store EMC
 	 */
 	public boolean isEMCBattery();
 }
