@@ -57,16 +57,26 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
      */
     public NBTTagCompound getItemsToOutputNBTTag()
     {
+    	
     	NBTTagCompound pairTag = new NBTTagCompound();
-    	NBTTagCompound leftItemTag = new NBTTagCompound();
-    	NBTTagCompound rightItemTag = new NBTTagCompound();
     	
-    	itemsToOutput.getLeft().writeToNBT(leftItemTag);
-    	itemsToOutput.getRight().writeToNBT(rightItemTag);
-    	
-    	pairTag.setTag("leftItem", leftItemTag);
-    	pairTag.setTag("rightItem", rightItemTag);
-    	
+    	if(itemsToOutput != null)
+    	{
+    		if(itemsToOutput.getLeft() != null)
+    		{
+    			NBTTagCompound leftItemTag = new NBTTagCompound();
+    	    	itemsToOutput.getLeft().writeToNBT(leftItemTag);
+    	    	pairTag.setTag("leftItem", leftItemTag);
+    		}
+    		
+    		if(itemsToOutput.getRight() != null)
+    		{
+    	    	NBTTagCompound rightItemTag = new NBTTagCompound();
+    	    	itemsToOutput.getRight().writeToNBT(rightItemTag); 
+    	    	pairTag.setTag("rightItem", rightItemTag);
+
+    		}
+    	}    	
     	return pairTag;
 
     }

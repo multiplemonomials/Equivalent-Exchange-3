@@ -11,6 +11,7 @@ import net.multiplemonomials.eer.init.ModItems;
 import net.multiplemonomials.eer.network.PacketHandler;
 import net.multiplemonomials.eer.proxy.IProxy;
 import net.multiplemonomials.eer.reference.Reference;
+import net.multiplemonomials.eer.util.LogHelper;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -51,40 +52,54 @@ public class EquivalentExchangeReborn
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
+        LogHelper.info("Phase 1 Loading Started");
+
         proxy.initConfiguration(event.getModConfigurationDirectory().getAbsolutePath() + File.separator + Reference.MOD_ID.toLowerCase() + File.separator);
 
+    	LogHelper.info("Setting up network stuff...");
         PacketHandler.init();
-
+        
+    	LogHelper.info("Setting up keybinds...");
         proxy.registerKeybindings();
 
-        ModItems.init();
+    	LogHelper.info("Loading items...");
+    	ModItems.init();
 
-        ModBlocks.init();
+    	LogHelper.info("Loading blocks...");
+    	ModBlocks.init();
+    	
+        LogHelper.info("Phase 1 Loading Complete!");
+
     }
 
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
+        LogHelper.info("Phase 2 Loading Started");
+    	
         // Register the GUI Handler
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
 
-        // Initialize mod tile entities
+        LogHelper.info("Loading tile entities...");
         proxy.registerTileEntities();
 
         // Initialize custom rendering and pre-load textures (Client only)
         proxy.initRenderingAndTextures();
 
-        // Register the Items Event Handler
+        LogHelper.info("Registering event handlers...");
         proxy.registerEventHandlers();
 
+        LogHelper.info("Registering crafting recipies...");
         CraftingHandler.init();
 
-    // Register our fuels
+        LogHelper.info("Registering fuels...");
         GameRegistry.registerFuelHandler(new FuelHandler());
         
+        LogHelper.info("Assigining EMC Values ...");
         emcDefaultValues = new EnergyValuesDefault();
         emcDefaultValues.init();
         
+        LogHelper.info("Done loading!");
     }
 
     @EventHandler

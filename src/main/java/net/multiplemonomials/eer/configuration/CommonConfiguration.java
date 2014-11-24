@@ -63,7 +63,12 @@ public class CommonConfiguration
 		
 		//radius of the cube where the Black Hole Band will pick up items
 		public static int MAGNET_RING_BOUNDING_BOX_RADIUS;
+		
+		//required EMC for the Red Matter Pickaxe to mine one block
+		public static double RM_PICK_REQUIRED_EMC_PER_BLOCK;
 
+		//Red Matter Pickaxe right-click ability enabled
+		public static boolean RM_PICK_ABILITY_ENABLED;
 		
     public static void init(File configPath)
     {
@@ -108,11 +113,11 @@ public class CommonConfiguration
 			ENERGY_COLLECTOR_EMC_STORAGE[1] = 4 * ENERGY_COLLECTOR_EMC_STORAGE[0];
 			ENERGY_COLLECTOR_EMC_STORAGE[2] = 4 * ENERGY_COLLECTOR_EMC_STORAGE[1];
 			
-			ENERGY_COLLECTOR_DRAIN_RATE[0] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorDrainRateLvlOne", 4.0, "rate at which a level 1 energy collector drains to an alcemical battery.").getDouble(4.0));
+			ENERGY_COLLECTOR_DRAIN_RATE[0] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorDrainRateLvlOne", 10.0, "rate at which a level 1 energy collector drains to an alcemical battery.").getDouble(10.0));
 			
-			ENERGY_COLLECTOR_DRAIN_RATE[1] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorDrainRateLvlTwo", 10.0, "rate at which a level 2 energy collector drains to an alcemical battery.").getDouble(10.0));
+			ENERGY_COLLECTOR_DRAIN_RATE[1] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorDrainRateLvlTwo", 30.0, "rate at which a level 2 energy collector drains to an alcemical battery.").getDouble(20.0));
 			
-			ENERGY_COLLECTOR_DRAIN_RATE[2] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorDrainRateLvlThree", 20.0, "rate at which a level 3 energy collector drains to an alcemical battery.").getDouble(20.0));
+			ENERGY_COLLECTOR_DRAIN_RATE[2] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorDrainRateLvlThree", 100.0, "rate at which a level 3 energy collector drains to an alcemical battery.").getDouble(100.0));
 			
 			ANTIMATTER_RELAY_EMC_PER_TICK[0] = (configuration.get(Configuration.CATEGORY_GENERAL, "antimatterRelayEMCTransferance", 4096, "emc per tick that an antimatter relay will pass to the next thing.  Subsequent levels pass 2x more").getInt(4096));
 			ANTIMATTER_RELAY_EMC_PER_TICK[1] = 2 * ANTIMATTER_RELAY_EMC_PER_TICK[0];
@@ -123,8 +128,10 @@ public class CommonConfiguration
 			ANTIMATTER_RELAY_EMC_LOSS_COEFFICIENT[2] = 1 - ((-ANTIMATTER_RELAY_EMC_LOSS_COEFFICIENT[0] + 1) / 10);
 			
 			MAGNET_RING_BOUNDING_BOX_RADIUS = configuration.get(Configuration.CATEGORY_GENERAL, "ringMagnetPickupRadius", 30, "radius of the cube where the Black Hole Band will pick up items").getInt(30);
-
 			
+			RM_PICK_REQUIRED_EMC_PER_BLOCK = configuration.get(Configuration.CATEGORY_GENERAL, "rmPickRequiredEMCPerBlock", 64.0, "required EMC for the Red Matter Pickaxe to mine one block").getDouble(64.0);	
+			
+			RM_PICK_ABILITY_ENABLED = configuration.get(Configuration.CATEGORY_GENERAL, "rmPickAbilityEnabled", true, "Red Matter Pickaxe right-click ability enable").getBoolean(true);
 
     	}
     	catch(Exception e)

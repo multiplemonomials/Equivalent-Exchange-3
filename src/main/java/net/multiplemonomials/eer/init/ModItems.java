@@ -25,7 +25,8 @@ import net.multiplemonomials.eer.item.ItemTalismanRepair;
 import net.multiplemonomials.eer.item.tool.ItemAxeDarkMatter;
 import net.multiplemonomials.eer.item.tool.ItemFlintDarkMatter;
 import net.multiplemonomials.eer.item.tool.ItemHoeDarkMatter;
-import net.multiplemonomials.eer.item.tool.ItemPickaxeMatter;
+import net.multiplemonomials.eer.item.tool.ItemPickaxeDarkMatter;
+import net.multiplemonomials.eer.item.tool.ItemPickaxeRedMatter;
 import net.multiplemonomials.eer.item.tool.ItemShovelDarkMatter;
 import net.multiplemonomials.eer.item.tool.ItemSwordDarkMatter;
 import net.multiplemonomials.eer.item.tool.Matter;
@@ -56,8 +57,8 @@ public class ModItems
     public static final ItemEE kleinStar = new ItemKleinStar();
     
     public static final ItemTool axeDarkMatter = new ItemAxeDarkMatter();
-    public static final ItemTool pickaxeDarkMatter = new ItemPickaxeMatter(Matter.DarkMatter);
-    public static final ItemTool pickaxeRedMatter = new ItemPickaxeMatter(Matter.RedMatter);
+    public static final ItemTool pickaxeDarkMatter = new ItemPickaxeDarkMatter(Matter.DarkMatter);
+    public static final ItemTool pickaxeRedMatter = new ItemPickaxeRedMatter(Matter.RedMatter);
     public static final ItemTool shovelDarkMatter = new ItemShovelDarkMatter();
     public static final ItemHoe hoeDarkMatter = new ItemHoeDarkMatter();
     public static final ItemSword swordDarkMatter = new ItemSwordDarkMatter();

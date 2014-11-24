@@ -151,16 +151,16 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest implements IT
      */
     private void syncEMC()
     {
-    	//if(FMLCommonHandler.instance().getEffectiveSide().equals(Side.CLIENT))
-    	//{
+    	if(FMLCommonHandler.instance().getEffectiveSide().equals(Side.CLIENT))
+    	{
 	    //	MessageCondenserEMCUpdateToServer message = new MessageCondenserEMCUpdateToServer(this);
 	    //	PacketHandler.INSTANCE.sendToServer(message);
-    	//}
-    	//else
-    	//{
+    	}
+    	else
+    	{
     		MessageCondenserEMCUpdateToClient message = new MessageCondenserEMCUpdateToClient(this);
     		PacketHandler.INSTANCE.sendToAllAround(message, new TargetPoint(worldObj.provider.dimensionId, xCoord, yCoord, zCoord, 128));
-    	//}
+    	}
     }
     
     private int drainLeftoverEMC(double itemToProduceEMCValue)

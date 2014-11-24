@@ -81,12 +81,12 @@ public class ContainerCondenser extends Container
 
             if (slotIndex < CONDENSER_INVENTORY_SIZE)
             {
-                if (!this.mergeItemStack(itemStack, CONDENSER_INVENTORY_ROWS * CONDENSER_INVENTORY_COLUMNS, inventorySlots.size(), false))
+                if (!this.mergeItemStack(itemStack, CONDENSER_INVENTORY_SIZE, inventorySlots.size(), false))
                 {
                     return null;
                 }
             }
-            else if (!this.mergeItemStack(itemStack, 0, CONDENSER_INVENTORY_ROWS * CONDENSER_INVENTORY_COLUMNS, false))
+            else if (!this.mergeItemStack(itemStack, 0, CONDENSER_INVENTORY_SIZE + 1, false))
             {
                 return null;
             }

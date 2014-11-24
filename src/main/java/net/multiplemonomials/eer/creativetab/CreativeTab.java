@@ -15,7 +15,7 @@ public class CreativeTab
         @Override
         public Item getTabIconItem()
         {
-            return ModItems.stonePhilosophers;
+            return ModItems.matter;
         }
 
         @Override

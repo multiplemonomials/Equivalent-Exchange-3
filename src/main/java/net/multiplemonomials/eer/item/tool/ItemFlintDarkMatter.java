@@ -37,7 +37,9 @@ public class ItemFlintDarkMatter extends ItemFlintAndSteel implements IChargeabl
 		
 		maxStackSize = 1;
 		
-        this.setMaxDamage(PowerItemUtils.MATERIALDARKMATTER.getMaxUses());
+        this.setMaxDamage(CommonConfiguration.MAX_ITEM_CHARGES);
+        
+        this.setHasSubtypes(false);
 	}
 
 	@Override

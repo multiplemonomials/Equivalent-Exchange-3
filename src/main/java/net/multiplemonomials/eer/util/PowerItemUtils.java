@@ -12,6 +12,7 @@ import net.multiplemonomials.eer.item.tool.Matter;
  */
 public class PowerItemUtils 
 {
+	
 	/**
 	 * Increases the charge on an eer power item if the provided
 	 * ItemStack is a power item
@@ -19,19 +20,6 @@ public class PowerItemUtils
 	 */
 	public static void bumpChargeOnItem(ItemStack itemStack) 
 	{
-		bumpChargeOnItem(itemStack, Matter.DarkMatter);
-		
-	}
-	
-	/**
-	 * Increases the charge on an eer power item if the provided
-	 * ItemStack is a power item.
-	 * Matter sensitive version
-	 * @param itemStack
-	 */
-	public static void bumpChargeOnItem(ItemStack itemStack, Matter matter) 
-	{
-		
 		if(itemStack.getItemDamage() > 0)
 		{
 			itemStack.setItemDamage(itemStack.getItemDamage() - 1);
@@ -39,9 +27,8 @@ public class PowerItemUtils
 		else
 		{
 			//reset charge to default
-			itemStack.setItemDamage(matter._toolMaterial.getMaxUses());
-		}
-		
+			itemStack.setItemDamage(CommonConfiguration.MAX_ITEM_CHARGES);
+		}		
 	}
 	
 	/**
@@ -50,7 +37,7 @@ public class PowerItemUtils
 	 */
 	public static final Item.ToolMaterial MATERIALDARKMATTER = EnumHelper.addToolMaterial("DARKMATTER", 3, CommonConfiguration.MAX_ITEM_CHARGES, 4.0F, 4.0F, 0);
 	//TODO: Config option for red-matter max-charges
-	public static final Item.ToolMaterial MATERIALREDMATTER = EnumHelper.addToolMaterial("REDMATTER", 3, 5, 6.0F, 6.0F, 0);
+	public static final Item.ToolMaterial MATERIALREDMATTER = EnumHelper.addToolMaterial("REDMATTER", 3, CommonConfiguration.MAX_ITEM_CHARGES, 8.0F, 8.0F, 0);
 	
 	/**
 	 * Computes the efficiency bonus of a DM tool from its durability
@@ -71,7 +58,7 @@ public class PowerItemUtils
 	 */
 	public static int computeEfficiencyBonus(int durability, Matter matter)
 	{
-		return ((int)matter._toolMaterial.getEfficiencyOnProperMaterial()) * (matter._toolMaterial.getMaxUses() - durability);
+		return ((int)matter._toolMaterial.getEfficiencyOnProperMaterial()) * (CommonConfiguration.MAX_ITEM_CHARGES - durability);
 	}
 	
 }

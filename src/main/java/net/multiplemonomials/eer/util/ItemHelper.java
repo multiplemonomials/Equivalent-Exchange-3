@@ -2,13 +2,13 @@ package net.multiplemonomials.eer.util;
 
 import net.multiplemonomials.eer.inventory.slot.ShowcaseSlot;
 import net.multiplemonomials.eer.reference.Compare;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
@@ -131,7 +131,7 @@ public class ItemHelper
     }
     
     /**
-     * returns whether two ItemStacks are similar.  Like equals(), but ignores stack size and NBT.
+     * returns whether two ItemStacks are similar.  Like equals(), but ignores stack size.
      * 
      * Two null stacks count as similar.
      * @return
@@ -218,7 +218,7 @@ public class ItemHelper
 		return itemsToProduce.stackSize;
 	}
     
-    final static HashSet<Integer> emptyHashSet = new HashSet<Integer>();
+    final private static HashSet<Integer> emptyHashSet = new HashSet<Integer>();
     
     /**
      * Same as addItemsToInventory(itemsToProduce, inventory, new HashSet&ltInteger&gt())
@@ -329,6 +329,38 @@ public class ItemHelper
     public static int maxStackSize(ItemStack itemStack)
     {
     	return itemStack.getItem().getItemStackLimit(itemStack);
+    }
+    
+    /**
+     * No takebacks on this one.  This method is used when a bunch of items are given to a player by some kind
+     * of resource-harvesting thingy. The items are tried to be put in the player's inventory, and if they don't
+     * fit, they're dropped on the ground.  Eventually, when the code for these comes along, they will also be put in 
+     * Pocket Singularities and stuffed inside Alchemical Bags.
+     * 
+     */
+    public static void depositItemsToPlayer(EntityPlayer player, ArrayList<ItemStack> items)
+    {
+    	//add items directly to the player's inventory
+    	//go in reverse so we can remove elements with impunity
+    	for(int index = items.size() - 1; index >= 0; --index)
+    	{
+    		ItemStack stack = items.get(index);
+    		int leftoverItems = addItemsToInventory(stack, player.inventory);
+    		if(leftoverItems == 0)
+    		{
+    			items.remove(index);
+    		}
+    		else //player's inventory full
+    		{
+    			stack.stackSize = leftoverItems;
+    			break;
+    		}
+    	}
+    	
+    	for(ItemStack stack : items)
+    	{
+    		player.entityDropItem(stack, 0.1F);
+    	}
     }
     
 }

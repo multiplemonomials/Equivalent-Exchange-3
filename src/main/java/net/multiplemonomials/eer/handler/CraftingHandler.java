@@ -190,6 +190,11 @@ public class CraftingHandler
         
         GameRegistry.addShapedRecipe(new ItemStack(ModItems.matterUpgrade, 1, 1), new Object[] {" D ", "MUM", " D ", 
         	'D', Items.diamond, 'U', new ItemStack(ModItems.matterUpgrade, 1, 0), 'M', new ItemStack(ModItems.matter, 1, 1)});
+        
+        //red matter tools
+        GameRegistry.addShapedRecipe(new ItemStack(ModItems.pickaxeRedMatter), new Object[] {"RRR", " P ", " D ", 'D', new ItemStack(ModItems.matter, 1, 0), 'R',
+        	new ItemStack(ModItems.matter, 1, 1), 'P', ModItems.pickaxeRedMatter});
+
     }
 
     @SubscribeEvent
@@ -223,6 +228,7 @@ public class CraftingHandler
         		{
         			event.player.dropItem(itemToReturn.getItem(), itemToReturn.stackSize);
         		}
+        		
 //I really have NO IDEA why this doesn't work
 //and so many people are requesting this feature too
 //    			else //put it back in the crafting grid

@@ -71,7 +71,6 @@ public class BlockHelper
 	
 	/**
 	 * Breaks the blocks within the bounding box and returns the items dropped.
-	 * Affected by the gamerule "doTileDrops".
 	 * If the durability of the tool is 0 after this function call, then the tool broke partway through.
 	 * Breaks blocks as the provided player.
 	 * Should be compatible with all Forge-based server protection tools.
@@ -98,9 +97,9 @@ public class BlockHelper
 
 		ArrayList<ItemStack> itemsDropped = new ArrayList<ItemStack>();
 		
-		for(int currentX = xStart; currentX < xEnd; ++currentX)
-		for(int currentY = yStart; currentY < yEnd; ++currentY)
-		for(int currentZ = zStart; currentZ < zEnd; ++currentZ)
+		for(int currentX = xStart; currentX <= xEnd; ++currentX)
+		for(int currentY = yStart; currentY <= yEnd; ++currentY)
+		for(int currentZ = zStart; currentZ <= zEnd; ++currentZ)
 		{
 			Block targetBlock = world.getBlock(currentX, currentY, currentZ);
 			int targetMetadata = world.getBlockMetadata(currentX, currentY, currentZ);
