@@ -164,17 +164,17 @@ public class CraftingHandler
         GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.energyCollectorAntimatter, 1, 0), new Object[] {"GAG", "VDV", "GAG", 'G', new ItemStack(Blocks.glowstone),
         	'D', new ItemStack(ModItems.matter, 1, 0), 'V', new ItemStack(ModItems.alchemicalDust, 1, 1), 'A', new ItemStack(ModItems.alchemicalFuel, 1, 2)});
         
-        GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.energyCollectorDarkMatter), new ItemStack(ModItems.matterUpgrade, 1, 1), ModBlocks.energyCollectorAntimatter);
+        GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.energyCollectorDarkMatter), new ItemStack(ModItems.matterUpgrade, 1, 0), ModBlocks.energyCollectorAntimatter);
 
-        GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.energyCollectorRedMatter), new ItemStack(ModItems.matterUpgrade, 1, 2), ModBlocks.energyCollectorDarkMatter);
+        GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.energyCollectorRedMatter), new ItemStack(ModItems.matterUpgrade, 1, 1), ModBlocks.energyCollectorDarkMatter);
         
         //antimatter relays
         GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.antiMatterRelayAntimatter, 1, 0), new Object[] {"ODO", "MGM", "ODO", 'O', new ItemStack(Blocks.obsidian),
         	'D', Items.diamond, 'M', new ItemStack(ModItems.alchemicalDust, 1, 3), 'G', Items.glowstone_dust});
         
-        GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.antiMatterRelayDarkMatter), new ItemStack(ModItems.matterUpgrade, 1, 1), ModBlocks.antiMatterRelayAntimatter);
+        GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.antiMatterRelayDarkMatter), new ItemStack(ModItems.matterUpgrade, 1, 0), ModBlocks.antiMatterRelayAntimatter);
 
-        GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.antiMatterRelayRedMatter), new ItemStack(ModItems.matterUpgrade, 1, 2), ModBlocks.antiMatterRelayDarkMatter);
+        GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.antiMatterRelayRedMatter), new ItemStack(ModItems.matterUpgrade, 1, 1), ModBlocks.antiMatterRelayDarkMatter);
         
         //red matter
         AludelRecipeRegistry.instance().registerRecipe(new ItemStack(ModItems.matter, 1, 1), new String[]{"d", "d", "rb", "d"},

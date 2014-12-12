@@ -35,9 +35,20 @@ public class PowerItemUtils
 	 * material for Dark Matter
 	 * //asianJose: And for Red Matter
 	 */
-	public static final Item.ToolMaterial MATERIALDARKMATTER = EnumHelper.addToolMaterial("DARKMATTER", 3, CommonConfiguration.MAX_ITEM_CHARGES, 4.0F, 4.0F, 0);
-	//TODO: Config option for red-matter max-charges
-	public static final Item.ToolMaterial MATERIALREDMATTER = EnumHelper.addToolMaterial("REDMATTER", 3, CommonConfiguration.MAX_ITEM_CHARGES, 8.0F, 8.0F, 0);
+	public static Item.ToolMaterial MATERIALDARKMATTER;
+	public static Item.ToolMaterial MATERIALREDMATTER;
+	
+	
+	/**
+	 * Create tool materials.  This requires the configuration to be loaded.
+	 */
+	public static void initMaterials()
+	{
+		MATERIALDARKMATTER = EnumHelper.addToolMaterial("DARKMATTER", 3, CommonConfiguration.MAX_ITEM_CHARGES, 4.0F, 4.0F, 0);
+		
+		//TODO: Config option for red-matter max-charges
+		MATERIALREDMATTER = EnumHelper.addToolMaterial("REDMATTER", 3, CommonConfiguration.MAX_ITEM_CHARGES, 8.0F, 8.0F, 0);
+	}
 	
 	/**
 	 * Computes the efficiency bonus of a DM tool from its durability

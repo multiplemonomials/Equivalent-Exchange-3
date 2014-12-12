@@ -12,6 +12,7 @@ import net.multiplemonomials.eer.network.PacketHandler;
 import net.multiplemonomials.eer.proxy.IProxy;
 import net.multiplemonomials.eer.reference.Reference;
 import net.multiplemonomials.eer.util.LogHelper;
+import net.multiplemonomials.eer.util.PowerItemUtils;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -63,6 +64,7 @@ public class EquivalentExchangeReborn
         proxy.registerKeybindings();
 
     	LogHelper.info("Loading items...");
+    	PowerItemUtils.initMaterials();
     	ModItems.init();
 
     	LogHelper.info("Loading blocks...");

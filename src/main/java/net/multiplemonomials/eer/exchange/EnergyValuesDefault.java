@@ -1,14 +1,14 @@
 package net.multiplemonomials.eer.exchange;
 
-import net.multiplemonomials.eer.init.ModItems;
+import java.util.HashMap;
+import java.util.Map;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.HashMap;
-import java.util.Map;
+import net.multiplemonomials.eer.init.ModItems;
 
 public class EnergyValuesDefault
 {
@@ -43,6 +43,8 @@ public class EnergyValuesDefault
         valueMap.put(new WrappedStack(new ItemStack(ModItems.alchemicalFuel, 1, 2)), new EnergyValue(4096));
         
         valueMap.put(new WrappedStack(new ItemStack(ModItems.bandIron, 1, 1)), new EnergyValue(2624));
+        
+        valueMap.put(new WrappedStack(new ItemStack(ModItems.matter, 1, 1)), new EnergyValue(213792));
         
         // OreDictionary assignment
         valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.cobblestone))), new EnergyValue(1));

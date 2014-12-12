@@ -1,15 +1,17 @@
 package net.multiplemonomials.eer.client.gui.inventory;
 
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.StatCollector;
 import net.multiplemonomials.eer.inventory.ContainerCalcinator;
 import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.reference.Textures;
 import net.multiplemonomials.eer.tileentity.TileEntityCalcinator;
+
+import org.lwjgl.opengl.GL11;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.util.StatCollector;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class GuiCalcinator extends GuiContainer
@@ -45,7 +47,7 @@ public class GuiCalcinator extends GuiContainer
         if (tileEntityCalcinator.state == 1)
         {
                 int burn = tileEntityCalcinator.getBurnTimeRemainingScaled(14);
-                drawTexturedModalRect(xStart + 57, yStart + 46, 176, 0, 14, burn);
+                drawTexturedModalRect(xStart + 57, yStart + 46 + burn, 176, 14 - burn, 14, burn);
                 
                 int cookProgress = tileEntityCalcinator.getCookTimeRemainingScaled(22);
                 drawTexturedModalRect(xStart + 84, yStart + 35, 177, 14, cookProgress, 16);

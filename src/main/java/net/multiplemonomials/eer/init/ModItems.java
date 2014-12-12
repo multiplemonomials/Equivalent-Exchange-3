@@ -10,11 +10,11 @@ import net.multiplemonomials.eer.item.ItemAlchemicalFuel;
 import net.multiplemonomials.eer.item.ItemAlchemicalInventoryUpgrade;
 import net.multiplemonomials.eer.item.ItemBandIron;
 import net.multiplemonomials.eer.item.ItemChalk;
-import net.multiplemonomials.eer.item.ItemMatter;
 import net.multiplemonomials.eer.item.ItemDiviningRod;
 import net.multiplemonomials.eer.item.ItemEE;
 import net.multiplemonomials.eer.item.ItemInertStone;
 import net.multiplemonomials.eer.item.ItemKleinStar;
+import net.multiplemonomials.eer.item.ItemMatter;
 import net.multiplemonomials.eer.item.ItemMatterUpgrade;
 import net.multiplemonomials.eer.item.ItemMiniumShard;
 import net.multiplemonomials.eer.item.ItemMiniumStone;
@@ -37,35 +37,64 @@ import cpw.mods.fml.common.registry.GameRegistry;
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
 public class ModItems
 {
-    public static final ItemEE alchemicalBag = new ItemAlchemicalBag();
-    public static final ItemEE alchemicalDust = new ItemAlchemicalDust();
-    public static final ItemEE alchemicalFuel = new ItemAlchemicalFuel();
-    public static final ItemEE stoneInert = new ItemInertStone();
-    public static final ItemEE shardMinium = new ItemMiniumShard();
-    public static final ItemEE stoneMinium = new ItemMiniumStone();
-    public static final ItemEE stonePhilosophers = new ItemPhilosophersStone();
-    public static final ItemEE alchemicalUpgrade = new ItemAlchemicalInventoryUpgrade();
-    public static final ItemEE matterUpgrade = new ItemMatterUpgrade();
-    public static final ItemEE chalk = new ItemChalk();
-    public static final ItemEE diviningRod = new ItemDiviningRod();
-    public static final ItemEE matter = new ItemMatter();
-    public static final ItemEE talismanRepair = new ItemTalismanRepair();
-    public static final ItemEE bandIron = new ItemBandIron();
-    public static final ItemEE ringFlight = new ItemRingFlight();
+    public static ItemEE alchemicalBag;
+    public static ItemEE alchemicalDust;
+    public static ItemEE alchemicalFuel;
+    public static ItemEE stoneInert;
+    public static ItemEE shardMinium;
+    public static ItemEE stoneMinium;
+    public static ItemEE stonePhilosophers;
+    public static ItemEE alchemicalUpgrade;
+    public static ItemEE matterUpgrade;
+    public static ItemEE chalk;
+    public static ItemEE diviningRod;
+    public static ItemEE matter;
+    public static ItemEE talismanRepair;
+    public static ItemEE bandIron;
+    public static ItemEE ringFlight;
     //Black hole band
-    public static final ItemEE ringMagnet = new ItemRingBlackHole();
-    public static final ItemEE kleinStar = new ItemKleinStar();
+    public static ItemEE ringMagnet;
+    public static ItemEE kleinStar;
     
-    public static final ItemTool axeDarkMatter = new ItemAxeDarkMatter();
-    public static final ItemTool pickaxeDarkMatter = new ItemPickaxeDarkMatter(Matter.DarkMatter);
-    public static final ItemTool pickaxeRedMatter = new ItemPickaxeRedMatter(Matter.RedMatter);
-    public static final ItemTool shovelDarkMatter = new ItemShovelDarkMatter();
-    public static final ItemHoe hoeDarkMatter = new ItemHoeDarkMatter();
-    public static final ItemSword swordDarkMatter = new ItemSwordDarkMatter();
-    public static final Item flintDarkMatter = new ItemFlintDarkMatter();
+    public static ItemTool axeDarkMatter;
+    public static ItemTool pickaxeDarkMatter;
+    public static ItemTool pickaxeRedMatter;
+    public static ItemTool shovelDarkMatter;
+    public static ItemHoe hoeDarkMatter;
+    public static ItemSword swordDarkMatter;
+    public static Item flintDarkMatter;
     
     public static void init()
     {
+    	
+        alchemicalBag = new ItemAlchemicalBag();
+        alchemicalDust = new ItemAlchemicalDust();
+        alchemicalFuel = new ItemAlchemicalFuel();
+        stoneInert = new ItemInertStone();
+        shardMinium = new ItemMiniumShard();
+        stoneMinium = new ItemMiniumStone();
+        stonePhilosophers = new ItemPhilosophersStone();
+        alchemicalUpgrade = new ItemAlchemicalInventoryUpgrade();
+        matterUpgrade = new ItemMatterUpgrade();
+        chalk = new ItemChalk();
+        diviningRod = new ItemDiviningRod();
+        matter = new ItemMatter();
+        talismanRepair = new ItemTalismanRepair();
+        bandIron = new ItemBandIron();
+        ringFlight = new ItemRingFlight();
+        ringMagnet = new ItemRingBlackHole();
+        kleinStar = new ItemKleinStar();
+        
+        axeDarkMatter = new ItemAxeDarkMatter();
+        pickaxeDarkMatter = new ItemPickaxeDarkMatter(Matter.DarkMatter);
+        pickaxeRedMatter = new ItemPickaxeRedMatter(Matter.RedMatter);
+        shovelDarkMatter = new ItemShovelDarkMatter();
+        hoeDarkMatter = new ItemHoeDarkMatter();
+        swordDarkMatter = new ItemSwordDarkMatter();
+        flintDarkMatter = new ItemFlintDarkMatter();
+    	
+    	
+    	
         GameRegistry.registerItem(alchemicalBag, Names.Items.ALCHEMICAL_BAG);
         GameRegistry.registerItem(alchemicalDust, Names.Items.ALCHEMICAL_DUST);
         GameRegistry.registerItem(alchemicalFuel, Names.Items.ALCHEMICAL_FUEL);

@@ -203,32 +203,11 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
             this.worldObj.func_147451_t(this.xCoord, this.yCoord, this.zCoord);
             return true;
         }
-        else if (eventId == 2)
-        {
-            inventory[OUTPUT_LEFT_INVENTORY_INDEX].stackSize = (byte) eventData;
-            return true;
-        }
-        else if (eventId == 3)
-        {
-        	inventory[OUTPUT_LEFT_INVENTORY_INDEX].setItemDamage(eventData);
-            return true;
-        }
-        else if (eventId == 4)
-        {
-        	inventory[OUTPUT_RIGHT_INVENTORY_INDEX].stackSize = (byte) eventData;
-            return true;
-        }
-        else if (eventId == 5)
-        {
-        	inventory[OUTPUT_RIGHT_INVENTORY_INDEX].setItemDamage(eventData);
-        	return true;
-        }
         else
         {
             return super.receiveClientEvent(eventId, eventData);
         }
     }
-
     @Override
     public Packet getDescriptionPacket()
     {
@@ -420,10 +399,6 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
 	    	{
 	    		inventory[OUTPUT_LEFT_INVENTORY_INDEX].stackSize += itemsToOutput.getLeft().stackSize;
 	    	}
-	    	
-	    	worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.calcinator, 2, itemsToOutput.getLeft().stackSize);
-	    	
-	    	worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.calcinator, 3, itemsToOutput.getLeft().getItemDamage());
 
 	    	
 	    	
@@ -440,9 +415,6 @@ public class TileEntityCalcinator extends TileEntityEE implements ISidedInventor
 	    		inventory[OUTPUT_RIGHT_INVENTORY_INDEX].stackSize += itemsToOutput.getRight().stackSize;
 	    	}
 	    	
-	    	worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.calcinator, 4, itemsToOutput.getRight().stackSize);
-	    	
-	    	worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.calcinator, 5, itemsToOutput.getRight().getItemDamage());
 
     	}
     	
