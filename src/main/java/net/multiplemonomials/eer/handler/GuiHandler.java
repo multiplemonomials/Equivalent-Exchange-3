@@ -1,10 +1,13 @@
 package net.multiplemonomials.eer.handler;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
 import net.multiplemonomials.eer.client.gui.inventory.GuiAlchemicalBag;
 import net.multiplemonomials.eer.client.gui.inventory.GuiAlchemicalChest;
 import net.multiplemonomials.eer.client.gui.inventory.GuiAludel;
 import net.multiplemonomials.eer.client.gui.inventory.GuiCalcinator;
 import net.multiplemonomials.eer.client.gui.inventory.GuiCondenser;
+import net.multiplemonomials.eer.client.gui.inventory.GuiEmcAssignment;
 import net.multiplemonomials.eer.client.gui.inventory.GuiEnergyCollector;
 import net.multiplemonomials.eer.client.gui.inventory.GuiGlassBell;
 import net.multiplemonomials.eer.client.gui.inventory.GuiTransmutationTablet;
@@ -26,8 +29,6 @@ import net.multiplemonomials.eer.tileentity.TileEntityEnergyCollector;
 import net.multiplemonomials.eer.tileentity.TileEntityGlassBell;
 import net.multiplemonomials.eer.tileentity.TileEntityTransmutationTablet;
 import cpw.mods.fml.common.network.IGuiHandler;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
 
 public class GuiHandler implements IGuiHandler
 {
@@ -73,6 +74,10 @@ public class GuiHandler implements IGuiHandler
         	TileEntityEnergyCollector tileEntityEnergyCollector = (TileEntityEnergyCollector) world.getTileEntity(x, y, z);
         	return new ContainerEnergyCollector(player.inventory, tileEntityEnergyCollector);
         }
+        else if (id == GuiIds.EMC_ASSIGNMENT)
+    	{
+        	return null;
+    	}
 
         return null;
     }
@@ -119,6 +124,10 @@ public class GuiHandler implements IGuiHandler
         	TileEntityEnergyCollector tileEntityEnergyCollector = (TileEntityEnergyCollector) world.getTileEntity(x, y, z);
         	return new GuiEnergyCollector(player.inventory, tileEntityEnergyCollector);
         }
+        else if (id == GuiIds.EMC_ASSIGNMENT)
+    	{
+        	return new GuiEmcAssignment();
+    	}
 
         return null;
     }

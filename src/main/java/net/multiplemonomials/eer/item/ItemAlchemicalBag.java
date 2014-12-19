@@ -1,15 +1,7 @@
 package net.multiplemonomials.eer.item;
 
-import net.multiplemonomials.eer.interfaces.IDyeable;
-import net.multiplemonomials.eer.reference.Colors;
-import net.multiplemonomials.eer.reference.GuiIds;
-import net.multiplemonomials.eer.reference.Names;
-import net.multiplemonomials.eer.reference.Reference;
-import net.multiplemonomials.eer.util.ColorHelper;
-import net.multiplemonomials.eer.util.NBTHelper;
+import java.util.List;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,8 +12,15 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.multiplemonomials.eer.EquivalentExchangeReborn;
-
-import java.util.List;
+import net.multiplemonomials.eer.interfaces.IDyeable;
+import net.multiplemonomials.eer.reference.Colors;
+import net.multiplemonomials.eer.reference.GuiIds;
+import net.multiplemonomials.eer.reference.Names;
+import net.multiplemonomials.eer.reference.Reference;
+import net.multiplemonomials.eer.util.ColorHelper;
+import net.multiplemonomials.eer.util.NBTHelper;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemAlchemicalBag extends ItemEE implements IDyeable
 {
@@ -96,12 +95,12 @@ public class ItemAlchemicalBag extends ItemEE implements IDyeable
     @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer entityPlayer)
     {
-        if (!world.isRemote)
+        if (world.isRemote)
         {
             // Set a UUID on the Alchemical Bag, if one doesn't exist already
             NBTHelper.setUUID(itemStack);
             NBTHelper.setBoolean(itemStack, Names.NBT.ALCHEMICAL_BAG_GUI_OPEN, true);
-            entityPlayer.openGui(EquivalentExchangeReborn.instance, GuiIds.ALCHEMICAL_BAG, entityPlayer.worldObj, (int) entityPlayer.posX, (int) entityPlayer.posY, (int) entityPlayer.posZ);
+            entityPlayer.openGui(EquivalentExchangeReborn.instance, GuiIds.EMC_ASSIGNMENT, entityPlayer.worldObj, (int) entityPlayer.posX, (int) entityPlayer.posY, (int) entityPlayer.posZ);
         }
 
         return itemStack;

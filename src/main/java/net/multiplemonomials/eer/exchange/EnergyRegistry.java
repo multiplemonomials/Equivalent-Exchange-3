@@ -12,8 +12,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.multiplemonomials.eer.EquivalentExchangeReborn;
+import net.multiplemonomials.eer.handler.ValueFilesHandler;
 import net.multiplemonomials.eer.init.ModBlocks;
 import net.multiplemonomials.eer.recipe.RecipeRegistry;
+import net.multiplemonomials.eer.reference.Compare;
 import net.multiplemonomials.eer.util.LogHelper;
 
 import com.google.common.collect.ImmutableSortedMap;
@@ -83,39 +85,40 @@ public class EnergyRegistry
             }
         }
 
-//        /*
-//         *  IMC Pre-assigned values
-//         */
-//        Map<WrappedStack, EnergyValue> preAssignedValuesMap = EnergyValuesIMC.getPreAssignedValues();
-//        for (WrappedStack keyStack : preAssignedValuesMap.keySet())
-//        {
-//            EnergyValue factoredEnergyValue = null;
-//            WrappedStack factoredKeyStack = null;
-//
-//            if (keyStack != null && keyStack.getWrappedStack() != null && keyStack.getStackSize() > 0)
-//            {
-//                if (preAssignedValuesMap.get(keyStack) != null && Float.compare(preAssignedValuesMap.get(keyStack).getValue(), 0f) > 0)
-//                {
-//                    factoredEnergyValue = EmcHelper.factorEnergyValue(preAssignedValuesMap.get(keyStack), keyStack.getStackSize());
-//                    factoredKeyStack = new WrappedStack(keyStack, 1);
-//                }
-//            }
-//
-//            if (factoredEnergyValue != null)
-//            {
-//                if (stackValueMap.containsKey(factoredKeyStack))
-//                {
-//                    if (factoredEnergyValue.compareTo(stackValueMap.get(factoredKeyStack)) == -1)
-//                    {
-//                        stackValueMap.put(factoredKeyStack, factoredEnergyValue);
-//                    }
-//                }
-//                else
-//                {
-//                    stackValueMap.put(factoredKeyStack, factoredEnergyValue);
-//                }
-//            }
-//        }
+
+        /*
+         *  File values
+         */
+        Map<WrappedStack, EnergyValue> fileValuesMap = ValueFilesHandler.getFileValues();
+        for (WrappedStack keyStack : fileValuesMap.keySet())
+        {
+        	EnergyValue factoredEmcValue = null;
+            WrappedStack factoredKeyStack = null;
+
+            if (keyStack != null && keyStack.getWrappedStack() != null && keyStack.getStackSize() > 0)
+            {
+                if (fileValuesMap.get(keyStack) != null && Float.compare(fileValuesMap.get(keyStack).getValue(), 0f) > Compare.EQUALS)
+                {
+                    factoredEmcValue = EnergyHelper.factorEnergyValue(fileValuesMap.get(keyStack), keyStack.getStackSize());
+                    factoredKeyStack = new WrappedStack(keyStack, 1);
+                }
+            }
+
+            if (factoredEmcValue != null)
+            {
+                if (stackValueMap.containsKey(factoredKeyStack))
+                {
+                    if (factoredEmcValue.compareTo(stackValueMap.get(factoredKeyStack)) == Compare.LESSER_THAN)
+                    {
+                        stackValueMap.put(factoredKeyStack, factoredEmcValue);
+                    }
+                }
+                else
+                {
+                    stackValueMap.put(factoredKeyStack, factoredEmcValue);
+                }
+            }
+        }
         
         /*
          *  Auto-assignment
