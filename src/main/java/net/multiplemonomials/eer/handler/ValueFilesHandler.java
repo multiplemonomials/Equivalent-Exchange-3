@@ -13,6 +13,7 @@ import net.multiplemonomials.eer.exchange.EnergyValue;
 import net.multiplemonomials.eer.exchange.WrappedStack;
 import net.multiplemonomials.eer.util.LogHelper;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.GameRegistry.UniqueIdentifier;
 
 public class ValueFilesHandler
 {
@@ -46,7 +47,9 @@ public class ValueFilesHandler
         {
             emcConfiguration.load();
 
-            emcConfiguration.get(CATEGORY_EMC_VALUES, GameRegistry.findUniqueIdentifierFor(itemStack.getItem()).modId + "|" + itemStack.getUnlocalizedName() + "|" + itemStack.getItemDamage(), emcValue.getValue()).set(emcValue.getValue());
+            UniqueIdentifier itemID = GameRegistry.findUniqueIdentifierFor(itemStack.getItem());
+            
+            emcConfiguration.get(CATEGORY_EMC_VALUES, itemID.modId + "|" + itemID.name + "|" + itemStack.getItemDamage(), emcValue.getValue()).set(emcValue.getValue());
         }
         catch (Exception e)
         {
@@ -68,8 +71,10 @@ public class ValueFilesHandler
         try
         {
             emcConfiguration.load();
+            
+            UniqueIdentifier itemID = GameRegistry.findUniqueIdentifierFor(itemStack.getItem());
 
-            Float value = (float)emcConfiguration.get(CATEGORY_EMC_VALUES, GameRegistry.findUniqueIdentifierFor(itemStack.getItem()).modId + "|" + itemStack.getUnlocalizedName() + "|" + itemStack.getItemDamage(), 0.0F).getDouble(0.0F);
+            Float value = (float)emcConfiguration.get(CATEGORY_EMC_VALUES, itemID.modId + "|" + itemID.name + "|" + itemStack.getItemDamage(), 0.0F).getDouble(0.0F);
             emcValue = new EnergyValue(value);
         }
         catch (Exception e)
