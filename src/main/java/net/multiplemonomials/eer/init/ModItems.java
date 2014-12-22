@@ -25,6 +25,7 @@ import net.multiplemonomials.eer.item.ItemTalismanRepair;
 import net.multiplemonomials.eer.item.tool.ItemAxeDarkMatter;
 import net.multiplemonomials.eer.item.tool.ItemFlintDarkMatter;
 import net.multiplemonomials.eer.item.tool.ItemHoeDarkMatter;
+import net.multiplemonomials.eer.item.tool.ItemHoeRedMatter;
 import net.multiplemonomials.eer.item.tool.ItemPickaxeDarkMatter;
 import net.multiplemonomials.eer.item.tool.ItemPickaxeRedMatter;
 import net.multiplemonomials.eer.item.tool.ItemShovelDarkMatter;
@@ -61,6 +62,7 @@ public class ModItems
     public static ItemTool pickaxeRedMatter;
     public static ItemTool shovelDarkMatter;
     public static ItemHoe hoeDarkMatter;
+    public static ItemHoe hoeRedMatter;
     public static ItemSword swordDarkMatter;
     public static Item flintDarkMatter;
     
@@ -89,7 +91,8 @@ public class ModItems
         pickaxeDarkMatter = new ItemPickaxeDarkMatter(Matter.DarkMatter);
         pickaxeRedMatter = new ItemPickaxeRedMatter(Matter.RedMatter);
         shovelDarkMatter = new ItemShovelDarkMatter();
-        hoeDarkMatter = new ItemHoeDarkMatter();
+        hoeDarkMatter = new ItemHoeDarkMatter(Matter.DarkMatter);
+        hoeRedMatter = new ItemHoeRedMatter(Matter.RedMatter);
         swordDarkMatter = new ItemSwordDarkMatter();
         flintDarkMatter = new ItemFlintDarkMatter();
     	
@@ -116,6 +119,7 @@ public class ModItems
 
         GameRegistry.registerItem(axeDarkMatter, Names.Tools.AXE_DARK_MATTER);
         GameRegistry.registerItem(hoeDarkMatter, Names.Tools.HOE_DARK_MATTER);
+        GameRegistry.registerItem(hoeRedMatter, Names.Tools.HOE_RED_MATTER);
         GameRegistry.registerItem(pickaxeDarkMatter, Names.Tools.PICKAXE_DARK_MATTER);
         GameRegistry.registerItem(pickaxeRedMatter, Names.Tools.PICKAXE_RED_MATTER);
         GameRegistry.registerItem(shovelDarkMatter, Names.Tools.SHOVEL_DARK_MATTER);

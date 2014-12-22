@@ -27,6 +27,7 @@ public class ItemPickaxeDarkMatter extends ItemPickaxe implements IChargeable, I
 	Matter _matterType;
 	
 	//Either dark or red matter material is passed in the initialization, so that we can have a different material in subclasses
+	//without overriding anything
 	public ItemPickaxeDarkMatter(Matter matterType)
 	{
 		super(matterType._toolMaterial);

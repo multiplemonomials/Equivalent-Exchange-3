@@ -22,6 +22,7 @@ public class Names
 		public static final String CONDENSER = "condenser";        
 		public static final String TRANSMUTATION_TABLET = "transmutationTablet";
 		public static final String ANTIMATTER_RELAY = "antiMatterRelay";
+		public static final String IRRIGATED_FARMLAND = "irrigatedFarmland";
 
     }
 
@@ -71,8 +72,9 @@ public class Names
     	public static final String SWORD_DARK_MATTER = "swordDarkMatter";
     	public static final String FLINT_DARK_MATTER = "flintDarkMatter";
     	
-    	// Red matter pickaxe
+    	// Red matter tools
     	public static final String PICKAXE_RED_MATTER = "pickaxeRedMatter";
+    	public static final String HOE_RED_MATTER = "hoeRedMatter";
     }
 
     public static class NBT

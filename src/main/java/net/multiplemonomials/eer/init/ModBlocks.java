@@ -1,5 +1,6 @@
 package net.multiplemonomials.eer.init;
 
+import net.minecraft.block.Block;
 import net.multiplemonomials.eer.block.*;
 import net.multiplemonomials.eer.item.ItemBlockAlchemicalChest;
 import net.multiplemonomials.eer.item.ItemBlockAlchemicalFuel;
@@ -18,6 +19,7 @@ public class ModBlocks
     public static final BlockEE glassBell = new BlockGlassBell();
 	public static final BlockEE condenser = new BlockCondenser();
 	public static final BlockEE transmutationTablet = new BlockTransmutationTablet();
+	public static final Block   irrigatedFarmland = new BlockIrrigatedFarmland();
 	public static final BlockEE energyCollectorAntimatter = new BlockEnergyCollector((byte) 1);
 	public static final BlockEE energyCollectorDarkMatter = new BlockEnergyCollector((byte) 2);
 	public static final BlockEE energyCollectorRedMatter = new BlockEnergyCollector((byte) 3);

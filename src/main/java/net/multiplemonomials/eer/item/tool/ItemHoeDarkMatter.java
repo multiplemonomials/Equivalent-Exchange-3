@@ -1,8 +1,5 @@
 package net.multiplemonomials.eer.item.tool;
 
-import cpw.mods.fml.common.eventhandler.Event.Result;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -13,24 +10,30 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
-import net.multiplemonomials.eer.reference.Key;
-import net.multiplemonomials.eer.reference.Names;
-import net.multiplemonomials.eer.reference.Reference;
-import net.multiplemonomials.eer.util.PowerItemUtils;
 import net.multiplemonomials.eer.creativetab.CreativeTab;
 import net.multiplemonomials.eer.interfaces.IChargeable;
 import net.multiplemonomials.eer.interfaces.IKeyBound;
 import net.multiplemonomials.eer.item.ItemEE;
+import net.multiplemonomials.eer.reference.Key;
+import net.multiplemonomials.eer.reference.Reference;
+import net.multiplemonomials.eer.util.PowerItemUtils;
+import cpw.mods.fml.common.eventhandler.Event.Result;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 
 public class ItemHoeDarkMatter extends ItemHoe implements IChargeable, IKeyBound
 {
-	public ItemHoeDarkMatter()
+	
+	Matter _matterType;
+	
+	public ItemHoeDarkMatter(Matter matterType)
 	{
-		super(PowerItemUtils.MATERIALDARKMATTER);
+		super(matterType._toolMaterial);
 		
-		setUnlocalizedName(Names.Tools.HOE_DARK_MATTER);
+		setUnlocalizedName("pickaxe" + matterType.name());
 		setCreativeTab(CreativeTab.EER_TAB);
+		
 		
 		setNoRepair();
 		
@@ -44,7 +47,7 @@ public class ItemHoeDarkMatter extends ItemHoe implements IChargeable, IKeyBound
         return false;
     }
 	
-	//This is largely a copy of the Forge code, it just needs to be repeated to stop durability use
+	//This is largely a copy of the Minecraft/Forge code, it just needs to be repeated to stop durability use
     public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10)
     {
         if (!par2EntityPlayer.canPlayerEdit(par4, par5, par6, par7, par1ItemStack))

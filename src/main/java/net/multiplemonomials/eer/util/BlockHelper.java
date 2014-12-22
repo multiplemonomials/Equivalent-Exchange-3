@@ -47,12 +47,13 @@ public class BlockHelper
 	 * @param x
 	 * @param y
 	 * @param z
-	 * @param blockToSetTo
+	 * @param blockToReplace the block to replace 
+	 * @param blockToSetTo the block to add
 	 * @param metadata
 	 * @param radius
 	 * @param world
 	 */
-	public static void setAirBlocksAround(int x, int y, int z, Block blockToSetTo, int metadata, int radius, World world)
+	public static void setBlocksOfTypeAround(int x, int y, int z, Block blockToReplace, Block blockToSetTo, int metadata, int radius, World world)
 	{
 		
 		
@@ -60,7 +61,7 @@ public class BlockHelper
 		for(int currentX = -radius + x; currentX < radius + x; ++currentX)
 		for(int currentZ = -radius + z; currentZ < radius + z; ++currentZ)
 		{
-			if(world.getBlock(currentX,  y,  currentZ) == Blocks.air)
+			if(world.getBlock(currentX,  y,  currentZ) == blockToReplace)
 			{
 			    world.setBlock(currentX, y, currentZ, blockToSetTo, metadata, 2);				
 			}

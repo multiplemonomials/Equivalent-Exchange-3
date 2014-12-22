@@ -46,7 +46,7 @@ public class BlockEE extends Block
         blockIcon = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName())));
     }
 
-    protected String getUnwrappedUnlocalizedName(String unlocalizedName)
+    protected static String getUnwrappedUnlocalizedName(String unlocalizedName)
     {
         return unlocalizedName.substring(unlocalizedName.indexOf(".") + 1);
     }

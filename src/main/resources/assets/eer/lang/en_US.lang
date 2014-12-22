@@ -27,6 +27,7 @@ item.eer:matterUpgradeDark.name=Dark Matter Upgrade
 item.eer:matterUpgradeRed.name=Red Matter Upgrade
 item.eer:axeDarkMatter.name=Dark Matter Axe
 item.eer:hoeDarkMatter.name=Dark Matter Hoe
+item.eer:hoeRedMatter.name=Red Matter Hoe
 item.eer:pickaxeDarkMatter.name=Dark Matter Pickaxe
 item.eer:pickaxeRedMatter.name=Red Matter Pickaxe
 item.eer:shovelDarkMatter.name=Dark Matter Shovel
@@ -65,6 +66,7 @@ tile.eer:energyCollectorRedMatter.name=Red Matter Energy Collector
 tile.eer:antiMatterRelayAntimatter.name=Antimatter Relay
 tile.eer:antiMatterRelayDarkMatter.name=Dark Matter Relay
 tile.eer:antiMatterRelayRedMatter.name=Red Matter Relay
+tile.eer:irrigatedFarmland.name=Irrigated Farmland
 
 # GUI localizations
 container.eer:alchemicalBag=Alchemical Bag
