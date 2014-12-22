@@ -2,8 +2,10 @@ package net.multiplemonomials.eer.client.gui.inventory;
 
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.multiplemonomials.eer.exchange.EnergyRegistry;
 import net.multiplemonomials.eer.exchange.EnergyValue;
+import net.multiplemonomials.eer.reference.Names;
 import cpw.mods.fml.client.GuiScrollingList;
 
 public class GuiItemList extends GuiScrollingList
@@ -56,7 +58,7 @@ public class GuiItemList extends GuiScrollingList
             boolean hasValue = emcValue != null;
 
             this.parent.getFontRenderer().drawString(this.parent.getFontRenderer().trimStringToWidth(itemStack.getDisplayName(), listWidth - 10), this.left + 3 , var3 + 2, 0xFFFFFF);
-            this.parent.getFontRenderer().drawString(this.parent.getFontRenderer().trimStringToWidth(hasValue? "Has EMC value": "Has no EMC value", listWidth - 10), this.left + 3 , var3 + 12, hasValue? 0x00FF00: 0xFF0000);
+            this.parent.getFontRenderer().drawString(this.parent.getFontRenderer().trimStringToWidth(hasValue? StatCollector.translateToLocal(Names.GUI.HAS_ENERGY_VALUE): StatCollector.translateToLocal(Names.GUI.HAS_NO_ENERGY_VALUE), listWidth - 10), this.left + 3 , var3 + 12, hasValue? 0x00FF00: 0xFF0000);
             if (hasValue)
             {
                 this.parent.getFontRenderer().drawString(this.parent.getFontRenderer().trimStringToWidth(String.valueOf(emcValue.getValue()), listWidth - 10), this.left + 3 , var3 + 22, 0xFFFFF);

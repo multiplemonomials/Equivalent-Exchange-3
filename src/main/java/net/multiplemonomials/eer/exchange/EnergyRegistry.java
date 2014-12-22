@@ -108,10 +108,7 @@ public class EnergyRegistry
             {
                 if (stackValueMap.containsKey(factoredKeyStack))
                 {
-                    if (factoredEmcValue.compareTo(stackValueMap.get(factoredKeyStack)) == Compare.LESSER_THAN)
-                    {
-                        stackValueMap.put(factoredKeyStack, factoredEmcValue);
-                    }
+                	stackValueMap.put(factoredKeyStack, factoredEmcValue);
                 }
                 else
                 {

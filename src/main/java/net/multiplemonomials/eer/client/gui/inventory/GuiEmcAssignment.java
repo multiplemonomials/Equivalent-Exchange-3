@@ -13,6 +13,7 @@ import net.minecraft.util.StatCollector;
 import net.multiplemonomials.eer.exchange.EnergyRegistry;
 import net.multiplemonomials.eer.exchange.EnergyValue;
 import net.multiplemonomials.eer.handler.ValueFilesHandler;
+import net.multiplemonomials.eer.reference.Names;
 import cpw.mods.fml.common.registry.GameRegistry;
 public class GuiEmcAssignment extends GuiScreen
 {
@@ -62,6 +63,7 @@ public class GuiEmcAssignment extends GuiScreen
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initGui()
 	{
@@ -70,15 +72,10 @@ public class GuiEmcAssignment extends GuiScreen
 		filterField = new GuiTextField(fontRendererObj, 10, getHeight() - 30, 150, 20);
 		filterField.setFocused(true);
 		valueField = new GuiTextField(fontRendererObj, getWidth()/2 + 25, 140, 150, 20);
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public void updateScreen()
-	{
-		 this.buttonList.add(new GuiButton(0, getWidth() / 2, getHeight() - 30, StatCollector.translateToLocal("gui.done")));
-		 this.buttonList.add(new GuiButton(1, getWidth() / 2, getHeight() - 60, StatCollector.translateToLocal("gui.set")));
-		 this.buttonList.add(buttonFilterType = new GuiButton(2, 10, 10, 150, 20, StatCollector.translateToLocal("gui.show_all")));
+		
+		this.buttonList.add(new GuiButton(0, getWidth() / 2, getHeight() - 30, StatCollector.translateToLocal("gui.done")));
+		this.buttonList.add(new GuiButton(1, getWidth() / 2, getHeight() - 60, StatCollector.translateToLocal(Names.GUI.SET)));
+		this.buttonList.add(buttonFilterType = new GuiButton(2, 10, 10, 150, 20, StatCollector.translateToLocal(Names.GUI.SHOW_ALL)));
 	}
 	
 	@Override
@@ -93,7 +90,7 @@ public class GuiEmcAssignment extends GuiScreen
 			this.getFontRenderer().drawString(selectedItemStack.getDisplayName(), getWidth()/2 + 100 - (this.getFontRenderer().getStringWidth(selectedItemStack.getDisplayName())/2), 30, 0xFFFFFF);
 			String itemStackInfo = StatCollector.translateToLocalFormatted("item.information", selectedItemStack.getUnlocalizedName(), selectedItemStack.getItemDamage());
 			this.getFontRenderer().drawString(itemStackInfo, getWidth()/2 + 100 - (this.getFontRenderer().getStringWidth(itemStackInfo)/2), 60, 0xFFFFFF);
-			String valueString = hasValue? StatCollector.translateToLocal("hasEnergyValue"): StatCollector.translateToLocal("hasNoEnergyValue");
+			String valueString = hasValue? StatCollector.translateToLocal(Names.GUI.HAS_ENERGY_VALUE): StatCollector.translateToLocal(Names.GUI.HAS_NO_ENERGY_VALUE);
 			this.getFontRenderer().drawString(valueString, getWidth()/2 + + 100 - (this.getFontRenderer().getStringWidth(valueString)/2), 90, hasValue? 0x00FF00: 0xFF0000);
 			if (hasValue)
 			{
@@ -104,11 +101,18 @@ public class GuiEmcAssignment extends GuiScreen
 	
 	}
 	
+	//variables to detect weird button presses
+	int lastPressedButtonID = Integer.MAX_VALUE;
+	
+	
+	long timeSinceFirstPress = 0;
+	
 	@Override
 	protected void actionPerformed(GuiButton button)
 	{
 		if (button.enabled)
 		{
+			
 			switch (button.id)
 			{
 				case 0:
@@ -116,17 +120,20 @@ public class GuiEmcAssignment extends GuiScreen
 					this.mc.setIngameFocus();
 				break;
 				case 1:
-					GameRegistry.UniqueIdentifier identifier = GameRegistry.findUniqueIdentifierFor(selectedItemStack.getItem());
-					String modid = identifier != null? identifier.modId: "minecraft";
-					
-					if (!valueField.getText().isEmpty() && (selectedItemStackValue == null || selectedItemStackValue.getValue() != Float.parseFloat(valueField.getText())))
+					if(selectedItemStack != null)
 					{
-						ValueFilesHandler.addFileValue(modid, selectedItemStack, new EnergyValue(Float.parseFloat(valueField.getText())));
+						GameRegistry.UniqueIdentifier identifier = GameRegistry.findUniqueIdentifierFor(selectedItemStack.getItem());
+						String modid = identifier != null? identifier.modId: "minecraft";
+						
+						if (!valueField.getText().isEmpty() && (selectedItemStackValue == null || selectedItemStackValue.getValue() != Float.parseFloat(valueField.getText())))
+						{
+							ValueFilesHandler.addFileValue(modid, selectedItemStack, new EnergyValue(Float.parseFloat(valueField.getText())));
+						}
 					}
 					break;
 				case 2:
 					showOnlyNoValue = !showOnlyNoValue;
-					buttonFilterType.displayString = showOnlyNoValue? StatCollector.translateToLocal("show_only_no_value"): StatCollector.translateToLocal("show_all");
+					buttonFilterType.displayString = showOnlyNoValue? StatCollector.translateToLocal(Names.GUI.SHOW_ONLY_NO_VALUE): StatCollector.translateToLocal(Names.GUI.SHOW_ALL);
 					onFilterChanged();
 				break;
 			}

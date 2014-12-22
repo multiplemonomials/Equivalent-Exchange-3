@@ -79,8 +79,12 @@ container.eer:energyCollectorAntimatter=Antimatter Energy Collector
 container.eer:energyCollectorDarkMatter=Dark Matter Energy Collector
 container.eer:energyCollectorRedMatter=Red Matter Energy Collector
 container.eer:antiMatterRelay=Antimatter Relay
-gui.set=Set
-gui.show_all=Show All
+
+gui.eer.set=Set
+gui.eer.showAll=All
+gui.eer.showOnlyNoValue=Only Items Without EMC
+gui.eer.hasEnergyValue=Has Energy Value
+gui.eer.hasNoEnergyValue=No Energy Value
 
 # Tooltip localizations
 tooltip.eer:upgradesChestsPrefix=Upgrades Alchemical Storage

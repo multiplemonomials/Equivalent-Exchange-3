@@ -117,4 +117,13 @@ public class Names
         public static final String RELEASE = "key.release";
         public static final String TOGGLE = "key.toggle";
     }
+    
+    public static class GUI
+    {
+    	public static final String SHOW_ALL = "gui.eer.showAll";
+    	public static final String SET = "gui.eer.set";
+    	public static final String SHOW_ONLY_NO_VALUE = "gui.eer.showOnlyNoValue";
+    	public static final String HAS_ENERGY_VALUE = "gui.eer.hasEnergyValue";
+    	public static final String HAS_NO_ENERGY_VALUE = "gui.eer.hasNoEnergyValue";
+    }
 }

@@ -4,7 +4,9 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
@@ -100,27 +102,39 @@ public class ValueFilesHandler
 
             for(Map.Entry<String, Property> entry : category.entrySet())
             {
-                ItemStack stack = null;
+                WrappedStack wrappedStack = null;
                 String[] stackStrings = entry.getKey().split("\\|");
                 if (stackStrings.length >= 3)
                 {
                     Item item = GameRegistry.findItem(stackStrings[0], stackStrings[1]);
                     int metadata = Integer.parseInt(stackStrings[2]);
                     
-                    if(item == null)
+                    if(item == null) //item was removed, or some other parsing issue
                     {
+                    	
                     	LogHelper.error("Unable to load item with mod ID " + stackStrings[0] + " and unlocalized name " + stackStrings[1]);
+                    	continue;
+                    
                     }
-
-                    stack = new ItemStack(item, 1, metadata);
+                    else if(item instanceof ItemBlock) //item is a block
+                    {
+                    	Block block = ((ItemBlock) item).field_150939_a;
+                    	
+                    	wrappedStack = new WrappedStack(block);
+                    	
+                    }
+                    else //an actual item
+                    {
+                        wrappedStack = new WrappedStack(new ItemStack(item, 1, metadata));
+                    }
                 }
 
                 float value = (float)entry.getValue().getDouble(0.0F);
                 EnergyValue emcValue = new EnergyValue(value);
 
-                if (stack != null && emcValue.getValue() != 0.0F)
+                if (wrappedStack != null && emcValue.getValue() != 0.0F)
                 {
-                    valueMap.put(new WrappedStack(stack), emcValue);
+                    valueMap.put(wrappedStack, emcValue);
                 }
             }
         }
@@ -134,7 +148,7 @@ public class ValueFilesHandler
     public static Map<WrappedStack, EnergyValue> getFileValues(String modid)
     {
         File emcFile = getValueFile(modid);
-        return getFileValues(getValueFile(modid));
+        return getFileValues(emcFile);
     }
 
     public static Map<WrappedStack, EnergyValue> getFileValues()
