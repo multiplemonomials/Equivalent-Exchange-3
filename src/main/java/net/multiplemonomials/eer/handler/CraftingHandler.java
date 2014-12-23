@@ -177,8 +177,11 @@ public class CraftingHandler
         GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.antiMatterRelayRedMatter), new ItemStack(ModItems.matterUpgrade, 1, 1), ModBlocks.antiMatterRelayDarkMatter);
         
         //red matter
-        AludelRecipeRegistry.instance().registerRecipe(new ItemStack(ModItems.matter, 1, 1), new String[]{"d", "d", "rb", "d"},
-        		'd', new ItemStack(ModItems.matter, 1, 0), 'r', new ItemStack(Items.redstone), 'b', new ItemStack(Items.blaze_powder));
+        AludelRecipeRegistry.instance().registerRecipe(new ItemStack(ModItems.matter, 1, 1), new String[]{"b", "d", "dd", "r"},
+        		'd', new ItemStack(ModItems.matter, 1, 0), 'r', new ItemStack(Items.redstone), 'b', new ItemStack(Blocks.diamond_block));
+        
+        GameRegistry.addShapedRecipe(new ItemStack(ModItems.matter, 1, 1), new Object[]{"DRD ", "DLD", "DBD",
+        		'D', new ItemStack(ModItems.matter, 1, 0), 'R', new ItemStack(Items.redstone), 'B', new ItemStack(Items.blaze_powder), 'D', new ItemStack(Blocks.diamond_block)});
         
         //black hole band
         GameRegistry.addShapedRecipe(new ItemStack(ModItems.ringMagnet, 1, 0), new Object[] {"DND", "OIO", "DND", 'N', new ItemStack(Items.dye, 1, 0), 
@@ -193,7 +196,10 @@ public class CraftingHandler
         
         //red matter tools
         GameRegistry.addShapedRecipe(new ItemStack(ModItems.pickaxeRedMatter), new Object[] {"RRR", " P ", " D ", 'D', new ItemStack(ModItems.matter, 1, 0), 'R',
-        	new ItemStack(ModItems.matter, 1, 1), 'P', ModItems.pickaxeRedMatter});
+        	new ItemStack(ModItems.matter, 1, 1), 'P', ModItems.pickaxeDarkMatter});
+        
+        GameRegistry.addShapedRecipe(new ItemStack(ModItems.hoeRedMatter), new Object[] {"RR ", " H ", " D ", 'D', new ItemStack(ModItems.matter, 1, 0), 'R',
+        	new ItemStack(ModItems.matter, 1, 1), 'H', ModItems.hoeDarkMatter});
 
     }
 

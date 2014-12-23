@@ -121,7 +121,7 @@ public class ItemHoeRedMatter extends ItemHoeDarkMatter implements IStoresEMC {
         	//take some EMC
         	double emcLeft = getAvailableEMC(itemStack);
         	int blocksToSet = getDamage(itemStack) == CommonConfiguration.MAX_ITEM_CHARGES ? 1 : MathHelper.floor_double(Math.pow((CommonConfiguration.MAX_ITEM_CHARGES - getDamage(itemStack)) + 1, 2));
-        	double neededEMC = CommonConfiguration.RM_PICK_REQUIRED_EMC_PER_BLOCK * blocksToSet;
+        	double neededEMC = CommonConfiguration.RM_HOE_REQUIRED_EMC_PER_BLOCK * blocksToSet;
         	
         	
         	if(emcLeft < neededEMC)

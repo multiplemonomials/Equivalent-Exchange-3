@@ -3,21 +3,19 @@ package net.multiplemonomials.eer.item;
 import java.util.Iterator;
 import java.util.List;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
 import net.multiplemonomials.eer.configuration.CommonConfiguration;
 import net.multiplemonomials.eer.reference.Names;
-import net.multiplemonomials.eer.reference.Reference;
 import net.multiplemonomials.eer.util.EMCHelper;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemRingBlackHole extends ItemStoresEMC implements IBauble
 {	
@@ -51,14 +49,8 @@ public class ItemRingBlackHole extends ItemStoresEMC implements IBauble
 		double speedxz = 0.05;
 		double speedy = 0.07;
 		List<EntityItem> items;
-		if (player.worldObj.isRemote) 
-		{
-			return 0;
-		} 
-		else
-		{
-			items = player.worldObj.getEntitiesWithinAABB(EntityItem.class, player.boundingBox.expand(CommonConfiguration.MAGNET_RING_BOUNDING_BOX_RADIUS, CommonConfiguration.MAGNET_RING_BOUNDING_BOX_RADIUS, CommonConfiguration.MAGNET_RING_BOUNDING_BOX_RADIUS));
-		}
+		items = player.worldObj.getEntitiesWithinAABB(EntityItem.class, player.boundingBox.expand(CommonConfiguration.MAGNET_RING_BOUNDING_BOX_RADIUS, CommonConfiguration.MAGNET_RING_BOUNDING_BOX_RADIUS, CommonConfiguration.MAGNET_RING_BOUNDING_BOX_RADIUS));
+
 		for (Iterator<EntityItem> iterator = items.iterator(); iterator.hasNext(); )
 		{
 			EntityItem item = iterator.next();

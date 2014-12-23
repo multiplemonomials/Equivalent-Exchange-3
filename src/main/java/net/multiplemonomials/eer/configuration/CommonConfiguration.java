@@ -70,6 +70,9 @@ public class CommonConfiguration
 		//Red Matter Pickaxe right-click ability enabled
 		public static boolean RM_PICK_ABILITY_ENABLED;
 		
+		//required EMC for the Red Matter Hoe to hoe one block
+		public static double RM_HOE_REQUIRED_EMC_PER_BLOCK;
+		
     public static void init(File configPath)
     {
     	Configuration configuration = new Configuration(configPath);
@@ -132,6 +135,8 @@ public class CommonConfiguration
 			RM_PICK_REQUIRED_EMC_PER_BLOCK = configuration.get(Configuration.CATEGORY_GENERAL, "rmPickRequiredEMCPerBlock", 64.0, "required EMC for the Red Matter Pickaxe to mine one block").getDouble(64.0);	
 			
 			RM_PICK_ABILITY_ENABLED = configuration.get(Configuration.CATEGORY_GENERAL, "rmPickAbilityEnabled", true, "Red Matter Pickaxe right-click ability enable").getBoolean(true);
+			
+			RM_PICK_REQUIRED_EMC_PER_BLOCK = configuration.get(Configuration.CATEGORY_GENERAL, "rmHoeRequiredEMCPerBlock", 32.0, "Red Matter Pickaxe right-click ability enable").getDouble(32.0);
 
     	}
     	catch(Exception e)
