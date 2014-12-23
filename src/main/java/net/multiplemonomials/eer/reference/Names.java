@@ -60,6 +60,8 @@ public class Names
 		public static final String RING_MAGNET = "ringMagnet";
 		public static final String KLEIN_STAR = "kleinStar";
 		public static final String[] KLEIN_STAR_SUBTYPES = {"Ichi", "Ni", "San", "Yon", "Go", "Zen"};
+		public static final String ASSIGNMENT_GUI_ACTIVATOR = "assignmentGUIActivator";
+	
 
     }
     

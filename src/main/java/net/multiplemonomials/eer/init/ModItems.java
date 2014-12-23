@@ -8,6 +8,7 @@ import net.multiplemonomials.eer.item.ItemAlchemicalBag;
 import net.multiplemonomials.eer.item.ItemAlchemicalDust;
 import net.multiplemonomials.eer.item.ItemAlchemicalFuel;
 import net.multiplemonomials.eer.item.ItemAlchemicalInventoryUpgrade;
+import net.multiplemonomials.eer.item.ItemAssignmentGUIActivator;
 import net.multiplemonomials.eer.item.ItemBandIron;
 import net.multiplemonomials.eer.item.ItemChalk;
 import net.multiplemonomials.eer.item.ItemDiviningRod;
@@ -56,6 +57,7 @@ public class ModItems
     //Black hole band
     public static ItemEE ringMagnet;
     public static ItemEE kleinStar;
+    public static ItemEE assignmentGUIActivator;
     
     public static ItemTool axeDarkMatter;
     public static ItemTool pickaxeDarkMatter;
@@ -86,6 +88,7 @@ public class ModItems
         ringFlight = new ItemRingFlight();
         ringMagnet = new ItemRingBlackHole();
         kleinStar = new ItemKleinStar();
+        assignmentGUIActivator = new ItemAssignmentGUIActivator();
         
         axeDarkMatter = new ItemAxeDarkMatter();
         pickaxeDarkMatter = new ItemPickaxeDarkMatter(Matter.DarkMatter);
@@ -115,7 +118,7 @@ public class ModItems
         GameRegistry.registerItem(ringFlight, Names.Items.RING_FLIGHT);
         GameRegistry.registerItem(ringMagnet, Names.Items.RING_MAGNET);
         GameRegistry.registerItem(kleinStar, Names.Items.KLEIN_STAR);
-        
+        GameRegistry.registerItem(assignmentGUIActivator, Names.Items.ASSIGNMENT_GUI_ACTIVATOR);        
 
         GameRegistry.registerItem(axeDarkMatter, Names.Tools.AXE_DARK_MATTER);
         GameRegistry.registerItem(hoeDarkMatter, Names.Tools.HOE_DARK_MATTER);
