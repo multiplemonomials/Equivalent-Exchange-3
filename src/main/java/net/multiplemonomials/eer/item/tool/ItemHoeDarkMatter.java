@@ -31,7 +31,7 @@ public class ItemHoeDarkMatter extends ItemHoe implements IChargeable, IKeyBound
 	{
 		super(matterType._toolMaterial);
 		
-		setUnlocalizedName("pickaxe" + matterType.name());
+		setUnlocalizedName("hoe" + matterType.name());
 		setCreativeTab(CreativeTab.EER_TAB);
 		
 		

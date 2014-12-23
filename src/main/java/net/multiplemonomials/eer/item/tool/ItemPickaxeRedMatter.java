@@ -10,6 +10,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.multiplemonomials.eer.configuration.CommonConfiguration;
 import net.multiplemonomials.eer.interfaces.IStoresEMC;
+import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.util.BlockHelper;
 import net.multiplemonomials.eer.util.EMCHelper;
 import net.multiplemonomials.eer.util.ItemHelper;
@@ -25,7 +26,7 @@ public class ItemPickaxeRedMatter extends ItemPickaxeDarkMatter implements IStor
 	{
     	verifyItemStackHasNBTTag(itemStack);
     	
-    	return itemStack.stackTagCompound.getDouble("storedEMC");
+    	return itemStack.stackTagCompound.getDouble(Names.NBT.EMC_STORED);
 	}
 	
 	/**
@@ -46,7 +47,7 @@ public class ItemPickaxeRedMatter extends ItemPickaxeDarkMatter implements IStor
 	{
 		verifyItemStackHasNBTTag(itemStack);
 		
-		double currentEMC = itemStack.stackTagCompound.getDouble("storedEMC");
+		double currentEMC = itemStack.stackTagCompound.getDouble(Names.NBT.EMC_STORED);
 		double newEMC = 0.0;
 		double EMCGotten = 0.0;
 		if(currentEMC < idealEMC)
@@ -59,7 +60,7 @@ public class ItemPickaxeRedMatter extends ItemPickaxeDarkMatter implements IStor
 			EMCGotten = idealEMC;
 		}
 		
-		itemStack.stackTagCompound.setDouble("storedEMC", newEMC);
+		itemStack.stackTagCompound.setDouble(Names.NBT.EMC_STORED, newEMC);
 		
 		return EMCGotten;
 	}
@@ -75,7 +76,7 @@ public class ItemPickaxeRedMatter extends ItemPickaxeDarkMatter implements IStor
 	public double tryAddEMC(ItemStack itemStack, double EMCToAdd)
 	{
 		verifyItemStackHasNBTTag(itemStack);
-		double currentEMC = itemStack.stackTagCompound.getDouble("storedEMC");
+		double currentEMC = itemStack.stackTagCompound.getDouble(Names.NBT.EMC_STORED);
 		double maxEMC = getMaxStorableEMC(itemStack);
 		double failedToAddEMC = 0;
 		if(currentEMC + EMCToAdd > maxEMC)
@@ -88,7 +89,7 @@ public class ItemPickaxeRedMatter extends ItemPickaxeDarkMatter implements IStor
 			currentEMC += EMCToAdd;
 		}
 		
-		itemStack.stackTagCompound.setDouble("storedEMC", currentEMC);
+		itemStack.stackTagCompound.setDouble(Names.NBT.EMC_STORED, currentEMC);
 		
 		return failedToAddEMC;
 
@@ -129,7 +130,7 @@ public class ItemPickaxeRedMatter extends ItemPickaxeDarkMatter implements IStor
             	if(emcLeft >= neededEMC)
             	{
             		 emcLeft -= neededEMC;
-            		 itemStack.stackTagCompound.setDouble("emcLeft", emcLeft);
+            		 itemStack.stackTagCompound.setDouble(Names.NBT.EMC_STORED, emcLeft);
             		 
             		 //construct a cube AABB with the clicked block as its center
             		 int halfHeight = (CommonConfiguration.MAX_ITEM_CHARGES - getDamage(itemStack));
@@ -141,7 +142,7 @@ public class ItemPickaxeRedMatter extends ItemPickaxeDarkMatter implements IStor
             	}
             	else //oops, we took all the EMC you had and it wasn't enough
             	{
-            		itemStack.stackTagCompound.setDouble("emcLeft", emcLeft);
+            		itemStack.stackTagCompound.setDouble(Names.NBT.EMC_STORED, emcLeft);
             		return false;
             	}
             	

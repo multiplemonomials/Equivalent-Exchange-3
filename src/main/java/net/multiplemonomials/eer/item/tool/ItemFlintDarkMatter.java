@@ -146,7 +146,7 @@ public class ItemFlintDarkMatter extends ItemFlintAndSteel implements IChargeabl
             	if(emcLeft >= neededEMC)
             	{
             		 emcLeft -= neededEMC;
-            		 itemStack.stackTagCompound.setDouble("emcLeft", emcLeft);
+            		 itemStack.stackTagCompound.setDouble(Names.NBT.EMC_STORED, emcLeft);
             		 
             		 if(getDamage(itemStack) == CommonConfiguration.MAX_ITEM_CHARGES)
                      {
@@ -159,7 +159,7 @@ public class ItemFlintDarkMatter extends ItemFlintAndSteel implements IChargeabl
             	}
             	else
             	{
-            		itemStack.stackTagCompound.setDouble("emcLeft", emcLeft);
+            		itemStack.stackTagCompound.setDouble(Names.NBT.EMC_STORED, emcLeft);
             		return false;
             	}
                 
@@ -190,7 +190,7 @@ public class ItemFlintDarkMatter extends ItemFlintAndSteel implements IChargeabl
 	{
 		verifyItemStackHasNBTTag(itemStack);
 		
-		double currentEMC = itemStack.stackTagCompound.getDouble("storedEMC");
+		double currentEMC = itemStack.stackTagCompound.getDouble(Names.NBT.EMC_STORED);
 		double newEMC = 0.0;
 		double EMCGotten = 0.0;
 		if(currentEMC < idealEMC)
@@ -203,7 +203,7 @@ public class ItemFlintDarkMatter extends ItemFlintAndSteel implements IChargeabl
 			EMCGotten = idealEMC;
 		}
 		
-		itemStack.stackTagCompound.setDouble("storedEMC", newEMC);
+		itemStack.stackTagCompound.setDouble(Names.NBT.EMC_STORED, newEMC);
 		
 		return EMCGotten;
 				
@@ -228,7 +228,7 @@ public class ItemFlintDarkMatter extends ItemFlintAndSteel implements IChargeabl
 	{
     	verifyItemStackHasNBTTag(itemStack);
     	
-    	return itemStack.stackTagCompound.getDouble("storedEMC");
+    	return itemStack.stackTagCompound.getDouble(Names.NBT.EMC_STORED);
 	}
 	
 	/**
@@ -242,7 +242,7 @@ public class ItemFlintDarkMatter extends ItemFlintAndSteel implements IChargeabl
 	public double tryAddEMC(ItemStack itemStack, double EMCToAdd)
 	{
 		verifyItemStackHasNBTTag(itemStack);
-		double currentEMC = itemStack.stackTagCompound.getDouble("storedEMC");
+		double currentEMC = itemStack.stackTagCompound.getDouble(Names.NBT.EMC_STORED);
 		double maxEMC = getMaxStorableEMC(itemStack);
 		double failedToAddEMC = 0;
 		if(currentEMC + EMCToAdd > maxEMC)
@@ -255,7 +255,7 @@ public class ItemFlintDarkMatter extends ItemFlintAndSteel implements IChargeabl
 			currentEMC += EMCToAdd;
 		}
 		
-		itemStack.stackTagCompound.setDouble("storedEMC", currentEMC);
+		itemStack.stackTagCompound.setDouble(Names.NBT.EMC_STORED, currentEMC);
 		
 		return failedToAddEMC;
 

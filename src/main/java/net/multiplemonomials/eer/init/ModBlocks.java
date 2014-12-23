@@ -38,6 +38,7 @@ public class ModBlocks
         GameRegistry.registerBlock(glassBell, Names.Blocks.GLASS_BELL);
         GameRegistry.registerBlock(condenser, Names.Blocks.CONDENSER);
         GameRegistry.registerBlock(transmutationTablet, Names.Blocks.TRANSMUTATION_TABLET);
+        GameRegistry.registerBlock(irrigatedFarmland, Names.Blocks.IRRIGATED_FARMLAND);
         
         GameRegistry.registerBlock(energyCollectorAntimatter, Names.Blocks.ENERGY_COLLECTOR + Names.Blocks.ENERGY_COLLECTOR_SUBTYPES[0]);
         GameRegistry.registerBlock(energyCollectorDarkMatter, Names.Blocks.ENERGY_COLLECTOR + Names.Blocks.ENERGY_COLLECTOR_SUBTYPES[1]);

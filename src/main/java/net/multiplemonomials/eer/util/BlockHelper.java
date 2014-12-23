@@ -7,7 +7,6 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
@@ -33,17 +32,23 @@ public class BlockHelper
 	public static void setBlocksAround(int x, int y, int z, Block blockToSetTo, int metadata, int radius, World world)
 	{
 		
-		
-		//thanks http://stackoverflow.com/questions/14285358/find-all-integer-coordinates-in-a-given-radius
-		for(int currentX = -radius + x; currentX < radius + x; ++currentX)
-		for(int currentZ = -radius + z; currentZ < radius + z; ++currentZ)
+		if(radius == 0)
 		{
-		    world.setBlock(currentX, y, currentZ, blockToSetTo, metadata, 2);
+			world.setBlock(x, y, z, blockToSetTo, metadata, 2);
+		}
+		else
+		{
+			//thanks http://stackoverflow.com/questions/14285358/find-all-integer-coordinates-in-a-given-radius
+			for(int currentX = -radius + x; currentX < radius + x; ++currentX)
+				for(int currentZ = -radius + z; currentZ < radius + z; ++currentZ)
+				{
+				    world.setBlock(currentX, y, currentZ, blockToSetTo, metadata, 2);
+				}
 		}
 	}
 	
 	/**
-	 * Sets only air blocks around the given point in a square from the given radius
+	 * Sets only the provided block around the given point in a square from the given radius
 	 * @param x
 	 * @param y
 	 * @param z
@@ -56,15 +61,24 @@ public class BlockHelper
 	public static void setBlocksOfTypeAround(int x, int y, int z, Block blockToReplace, Block blockToSetTo, int metadata, int radius, World world)
 	{
 		
-		
-		//thanks http://stackoverflow.com/questions/14285358/find-all-integer-coordinates-in-a-given-radius
-		for(int currentX = -radius + x; currentX < radius + x; ++currentX)
-		for(int currentZ = -radius + z; currentZ < radius + z; ++currentZ)
+		if(radius == 0)
 		{
-			if(world.getBlock(currentX,  y,  currentZ) == blockToReplace)
+			if(world.getBlock(x,  y,  z) == blockToReplace)
 			{
-			    world.setBlock(currentX, y, currentZ, blockToSetTo, metadata, 2);				
+			    world.setBlock(x, y, z, blockToSetTo, metadata, 2);				
 			}
+		}
+		else
+		{
+			//thanks http://stackoverflow.com/questions/14285358/find-all-integer-coordinates-in-a-given-radius
+			for(int currentX = -radius + x; currentX < radius + x; ++currentX)
+				for(int currentZ = -radius + z; currentZ < radius + z; ++currentZ)
+				{
+					if(world.getBlock(currentX,  y,  currentZ) == blockToReplace)
+					{
+					    world.setBlock(currentX, y, currentZ, blockToSetTo, metadata, 2);				
+					}
+				}
 		}
 	}
 	
@@ -74,6 +88,7 @@ public class BlockHelper
 	 * If the durability of the tool is 0 after this function call, then the tool broke partway through.
 	 * Breaks blocks as the provided player.
 	 * Should be compatible with all Forge-based server protection tools.
+	 * Respects Fortune enchantment.
 	 * @param x
 	 * @param y
 	 * @param z

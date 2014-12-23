@@ -3,6 +3,7 @@ package net.multiplemonomials.eer.item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.multiplemonomials.eer.interfaces.IStoresEMC;
+import net.multiplemonomials.eer.reference.Names;
 
 public abstract class ItemStoresEMC extends ItemEE implements IStoresEMC
 {
@@ -11,7 +12,7 @@ public abstract class ItemStoresEMC extends ItemEE implements IStoresEMC
 	{
     	verifyItemStackHasNBTTag(itemStack);
     	
-    	return itemStack.stackTagCompound.getDouble("storedEMC");
+    	return itemStack.stackTagCompound.getDouble(Names.NBT.EMC_STORED);
 	}
 	
 	@Override
@@ -19,7 +20,7 @@ public abstract class ItemStoresEMC extends ItemEE implements IStoresEMC
 	{
 		verifyItemStackHasNBTTag(itemStack);
 		
-		double currentEMC = itemStack.stackTagCompound.getDouble("storedEMC");
+		double currentEMC = itemStack.stackTagCompound.getDouble(Names.NBT.EMC_STORED);
 		double newEMC = 0.0;
 		double EMCGotten = 0.0;
 		if(currentEMC < idealEMC)
@@ -32,7 +33,7 @@ public abstract class ItemStoresEMC extends ItemEE implements IStoresEMC
 			EMCGotten = idealEMC;
 		}
 		
-		itemStack.stackTagCompound.setDouble("storedEMC", newEMC);
+		itemStack.stackTagCompound.setDouble(Names.NBT.EMC_STORED, newEMC);
 		
 		return EMCGotten;
 				
@@ -63,7 +64,7 @@ public abstract class ItemStoresEMC extends ItemEE implements IStoresEMC
 	public double tryAddEMC(ItemStack itemStack, double EMCToAdd)
 	{
 		verifyItemStackHasNBTTag(itemStack);
-		double currentEMC = itemStack.stackTagCompound.getDouble("storedEMC");
+		double currentEMC = itemStack.stackTagCompound.getDouble(Names.NBT.EMC_STORED);
 		double maxEMC = getMaxStorableEMC(itemStack);
 		double failedToAddEMC = 0;
 		if(currentEMC + EMCToAdd > maxEMC)
@@ -76,7 +77,7 @@ public abstract class ItemStoresEMC extends ItemEE implements IStoresEMC
 			currentEMC += EMCToAdd;
 		}
 		
-		itemStack.stackTagCompound.setDouble("storedEMC", currentEMC);
+		itemStack.stackTagCompound.setDouble(Names.NBT.EMC_STORED, currentEMC);
 		
 		return EMCToAdd - failedToAddEMC;
 
