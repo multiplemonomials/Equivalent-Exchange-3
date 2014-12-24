@@ -1,23 +1,23 @@
 package net.multiplemonomials.eer.configuration;
 
+import java.io.File;
+
+import net.minecraft.client.settings.KeyBinding;
 import net.multiplemonomials.eer.client.settings.Keybindings;
 import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.reference.Reference;
 import net.multiplemonomials.eer.util.LogHelper;
-import net.minecraft.client.settings.KeyBinding;
-import net.minecraftforge.common.config.Configuration;
-import org.lwjgl.input.Keyboard;
 
-import java.io.File;
+import org.lwjgl.input.Keyboard;
 
 public class ClientConfiguration
 {
     private static final String CATEGORY_KEYBIND = "keybindings";
-    private static Configuration configuration;
+    private static SerializableConfiguration configuration;
 
     public static void init(File configFile)
     {
-        configuration = new Configuration(configFile);
+        configuration = new SerializableConfiguration(configFile);
         
     	LogHelper.info("Loading client configuration...");
 

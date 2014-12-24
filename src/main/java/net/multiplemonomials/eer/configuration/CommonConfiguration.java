@@ -1,7 +1,5 @@
 package net.multiplemonomials.eer.configuration;
 
-import java.io.File;
-
 import net.minecraftforge.common.config.Configuration;
 import net.multiplemonomials.eer.reference.Reference;
 import net.multiplemonomials.eer.util.LogHelper;
@@ -73,9 +71,8 @@ public class CommonConfiguration
 		//required EMC for the Red Matter Hoe to hoe one block
 		public static double RM_HOE_REQUIRED_EMC_PER_BLOCK;
 		
-    public static void init(File configPath)
+    public static void init(Configuration configuration)
     {
-    	Configuration configuration = new Configuration(configPath);
     	LogHelper.info("Loading common configuration...");
     	
     	try

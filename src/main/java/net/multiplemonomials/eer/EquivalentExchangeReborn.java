@@ -55,7 +55,9 @@ public class EquivalentExchangeReborn
     {
         LogHelper.info("Phase 1 Loading Started");
 
-        proxy.initConfiguration(event.getModConfigurationDirectory().getAbsolutePath() + File.separator + Reference.MOD_ID.toLowerCase() + File.separator);
+        Reference.BASE_CONFIGURATION_FILE_PATH = event.getModConfigurationDirectory().getAbsolutePath() + File.separator + Reference.MOD_ID.toLowerCase() + File.separator;
+        
+        proxy.initConfiguration(Reference.BASE_CONFIGURATION_FILE_PATH);
 
     	LogHelper.info("Setting up network stuff...");
         PacketHandler.init();

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Configuration;
 import net.multiplemonomials.eer.configuration.CommonConfiguration;
 import net.multiplemonomials.eer.handler.CraftingHandler;
 import net.multiplemonomials.eer.handler.EntityConstructedEventHandler;
@@ -52,7 +53,7 @@ public abstract class CommonProxy implements IProxy
     
     public void initConfiguration(String configPath)
     {
-    	CommonConfiguration.init(new File(configPath + "common.properties"));
+    	CommonConfiguration.init(new Configuration(new File(configPath + "common.properties")));
     }
 
     public void registerTileEntities()

@@ -11,4 +11,7 @@ public class Reference
     
     //This can't be in Textures.java because that class can't be loaded on a server
     public static final String RESOURCE_PREFIX = Reference.MOD_ID.toLowerCase() + ":";
+    
+    //gets initialized in preInit
+    public static String BASE_CONFIGURATION_FILE_PATH;
 }

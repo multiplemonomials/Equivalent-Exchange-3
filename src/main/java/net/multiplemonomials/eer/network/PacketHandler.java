@@ -26,6 +26,10 @@ public class PacketHandler
         INSTANCE.registerMessage(MessageTileEntityAMRelay.class, MessageTileEntityAMRelay.class, 11, Side.CLIENT);
         INSTANCE.registerMessage(MessageCondenserEMCUpdateToClient.class, MessageCondenserEMCUpdateToClient.class, 12, Side.CLIENT);
         INSTANCE.registerMessage(MessageCondenserEMCUpdateToServer.class, MessageCondenserEMCUpdateToServer.class, 13, Side.SERVER);
+        INSTANCE.registerMessage(MessageConfigFileUpdateToServer.class, MessageConfigFileUpdateToServer.class, 14, Side.SERVER);
+        INSTANCE.registerMessage(MessageConfigFileUpdateToClient.class, MessageConfigFileUpdateToClient.class, 15, Side.CLIENT);
+        INSTANCE.registerMessage(MessageRequestConfiguration.class, MessageRequestConfiguration.class, 16, Side.SERVER);
+
 
     }
 }
