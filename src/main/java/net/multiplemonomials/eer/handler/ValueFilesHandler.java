@@ -150,11 +150,11 @@ public class ValueFilesHandler
         File emcFile = getValueFile(modid);
         return getFileValues(emcFile);
     }
+    
+    static Map<WrappedStack, EnergyValue> valueMap = new HashMap<WrappedStack, EnergyValue>();
 
     public static Map<WrappedStack, EnergyValue> getFileValues()
     {
-        Map<WrappedStack, EnergyValue> valueMap = new HashMap<WrappedStack, EnergyValue>();
-
         for (File file : getValueFileFolder().listFiles())
         {
             if (file.getName().endsWith(".emc"))
