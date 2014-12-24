@@ -24,13 +24,16 @@ import net.multiplemonomials.eer.item.ItemRingBlackHole;
 import net.multiplemonomials.eer.item.ItemRingFlight;
 import net.multiplemonomials.eer.item.ItemTalismanRepair;
 import net.multiplemonomials.eer.item.tool.ItemAxeDarkMatter;
+import net.multiplemonomials.eer.item.tool.ItemAxeRedMatter;
 import net.multiplemonomials.eer.item.tool.ItemFlintDarkMatter;
 import net.multiplemonomials.eer.item.tool.ItemHoeDarkMatter;
 import net.multiplemonomials.eer.item.tool.ItemHoeRedMatter;
 import net.multiplemonomials.eer.item.tool.ItemPickaxeDarkMatter;
 import net.multiplemonomials.eer.item.tool.ItemPickaxeRedMatter;
 import net.multiplemonomials.eer.item.tool.ItemShovelDarkMatter;
+import net.multiplemonomials.eer.item.tool.ItemShovelRedMatter;
 import net.multiplemonomials.eer.item.tool.ItemSwordDarkMatter;
+import net.multiplemonomials.eer.item.tool.ItemSwordRedMatter;
 import net.multiplemonomials.eer.item.tool.Matter;
 import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.reference.Reference;
@@ -60,12 +63,15 @@ public class ModItems
     public static ItemEE assignmentGUIActivator;
     
     public static ItemTool axeDarkMatter;
+    public static ItemTool axeRedMatter;
     public static ItemTool pickaxeDarkMatter;
     public static ItemTool pickaxeRedMatter;
     public static ItemTool shovelDarkMatter;
+    public static ItemTool shovelRedMatter;
     public static ItemHoe hoeDarkMatter;
     public static ItemHoe hoeRedMatter;
     public static ItemSword swordDarkMatter;
+    public static ItemSword swordRedMatter;
     public static Item flintDarkMatter;
     
     public static void init()
@@ -90,13 +96,16 @@ public class ModItems
         kleinStar = new ItemKleinStar();
         assignmentGUIActivator = new ItemAssignmentGUIActivator();
         
-        axeDarkMatter = new ItemAxeDarkMatter();
+        axeDarkMatter = new ItemAxeDarkMatter(Matter.DarkMatter);
+        axeRedMatter = new ItemAxeRedMatter(Matter.RedMatter);
         pickaxeDarkMatter = new ItemPickaxeDarkMatter(Matter.DarkMatter);
         pickaxeRedMatter = new ItemPickaxeRedMatter(Matter.RedMatter);
-        shovelDarkMatter = new ItemShovelDarkMatter();
+        shovelDarkMatter = new ItemShovelDarkMatter(Matter.DarkMatter);
+        shovelRedMatter = new ItemShovelRedMatter(Matter.RedMatter);
         hoeDarkMatter = new ItemHoeDarkMatter(Matter.DarkMatter);
         hoeRedMatter = new ItemHoeRedMatter(Matter.RedMatter);
-        swordDarkMatter = new ItemSwordDarkMatter();
+        swordDarkMatter = new ItemSwordDarkMatter(Matter.DarkMatter);
+        swordRedMatter = new ItemSwordRedMatter(Matter.RedMatter);
         flintDarkMatter = new ItemFlintDarkMatter();
     	
     	
@@ -121,12 +130,15 @@ public class ModItems
         GameRegistry.registerItem(assignmentGUIActivator, Names.Items.ASSIGNMENT_GUI_ACTIVATOR);        
 
         GameRegistry.registerItem(axeDarkMatter, Names.Tools.AXE_DARK_MATTER);
+        GameRegistry.registerItem(axeRedMatter, Names.Tools.AXE_RED_MATTER);
         GameRegistry.registerItem(hoeDarkMatter, Names.Tools.HOE_DARK_MATTER);
         GameRegistry.registerItem(hoeRedMatter, Names.Tools.HOE_RED_MATTER);
         GameRegistry.registerItem(pickaxeDarkMatter, Names.Tools.PICKAXE_DARK_MATTER);
         GameRegistry.registerItem(pickaxeRedMatter, Names.Tools.PICKAXE_RED_MATTER);
         GameRegistry.registerItem(shovelDarkMatter, Names.Tools.SHOVEL_DARK_MATTER);
+        GameRegistry.registerItem(shovelRedMatter, Names.Tools.SHOVEL_RED_MATTER);
         GameRegistry.registerItem(swordDarkMatter, Names.Tools.SWORD_DARK_MATTER);
+        GameRegistry.registerItem(swordRedMatter, Names.Tools.SWORD_RED_MATTER);
         GameRegistry.registerItem(flintDarkMatter, Names.Tools.FLINT_DARK_MATTER);
 
         

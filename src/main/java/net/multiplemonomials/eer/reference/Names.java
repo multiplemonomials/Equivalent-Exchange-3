@@ -75,8 +75,11 @@ public class Names
     	public static final String FLINT_DARK_MATTER = "flintDarkMatter";
     	
     	// Red matter tools
-    	public static final String PICKAXE_RED_MATTER = "pickaxeRedMatter";
+    	public static final String AXE_RED_MATTER = "axeRedMatter";
     	public static final String HOE_RED_MATTER = "hoeRedMatter";
+    	public static final String PICKAXE_RED_MATTER = "pickaxeRedMatter";
+    	public static final String SHOVEL_RED_MATTER = "shovelRedMatter";
+    	public static final String SWORD_RED_MATTER = "swordRedMatter";
     }
 
     public static class NBT

@@ -5,7 +5,6 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.util.DamageSource;
@@ -16,7 +15,6 @@ import net.multiplemonomials.eer.interfaces.IChargeable;
 import net.multiplemonomials.eer.interfaces.IKeyBound;
 import net.multiplemonomials.eer.item.ItemEE;
 import net.multiplemonomials.eer.reference.Key;
-import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.reference.Reference;
 import net.multiplemonomials.eer.util.PowerItemUtils;
 import cpw.mods.fml.relauncher.Side;
@@ -25,18 +23,23 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemSwordDarkMatter extends ItemSword implements IChargeable, IKeyBound
 {
-	public ItemSwordDarkMatter()
+	
+	Matter _matterType;
+
+	public ItemSwordDarkMatter(Matter matterType)
 	{
-		super(PowerItemUtils.MATERIALDARKMATTER);
+		super(matterType._toolMaterial);
 		
-		setUnlocalizedName(Names.Tools.SWORD_DARK_MATTER);
+		setUnlocalizedName("sword" + matterType.name());
 		setCreativeTab(CreativeTab.EER_TAB);
 		
 		setNoRepair();
 		
 		maxStackSize = 1;
 		
-		setMaxDamage(CommonConfiguration.MAX_ITEM_CHARGES);
+		_matterType = matterType;
+		
+        setMaxDamage(CommonConfiguration.MAX_ITEM_CHARGES);
 	}
 	
 	//not repairable... because it never breaks
@@ -58,7 +61,7 @@ public class ItemSwordDarkMatter extends ItemSword implements IChargeable, IKeyB
 	 public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase)
     {
     	
-		float damageToDo = (float) (CommonConfiguration.DM_SWORD_BASE_DAMAGE + PowerItemUtils.computeEfficiencyBonus(par1ItemStack.getItemDamage()));
+		float damageToDo = (float) (CommonConfiguration.DM_SWORD_BASE_DAMAGE + PowerItemUtils.computeEfficiencyBonus(par1ItemStack.getItemDamage(), _matterType));
 		 
     	DamageSource damagesource = DamageSource.causePlayerDamage((EntityPlayer)par3EntityLivingBase);
     	
@@ -92,11 +95,6 @@ public class ItemSwordDarkMatter extends ItemSword implements IChargeable, IKeyB
     public void registerIcons(IIconRegister iconRegister)
     {
         itemIcon = iconRegister.registerIcon(ItemEE.getUnwrappedUnlocalizedName(this.getUnlocalizedName()));
-    }
-    
-    public EnumAction getItemUseAction(ItemStack itemStack)
-    {
-        return EnumAction.bow;
     }
     
     public boolean isDamageable()

@@ -9,12 +9,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.multiplemonomials.eer.configuration.CommonConfiguration;
 import net.multiplemonomials.eer.creativetab.CreativeTab;
 import net.multiplemonomials.eer.interfaces.IChargeable;
 import net.multiplemonomials.eer.interfaces.IKeyBound;
 import net.multiplemonomials.eer.item.ItemEE;
 import net.multiplemonomials.eer.reference.Key;
-import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.reference.Reference;
 import net.multiplemonomials.eer.util.PowerItemUtils;
 import cpw.mods.fml.relauncher.Side;
@@ -23,16 +23,22 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemShovelDarkMatter extends ItemSpade implements IChargeable, IKeyBound
 {
-	public ItemShovelDarkMatter()
+	
+	Matter _matterType;
+	public ItemShovelDarkMatter(Matter matterType)
 	{
-		super(PowerItemUtils.MATERIALDARKMATTER);
+		super(matterType._toolMaterial);
 		
-		setUnlocalizedName(Names.Tools.SHOVEL_DARK_MATTER);
+		setUnlocalizedName("shovel" + matterType.name());
 		setCreativeTab(CreativeTab.EER_TAB);
 		
 		setNoRepair();
 		
 		maxStackSize = 1;
+		
+		_matterType = matterType;
+		
+        setMaxDamage(CommonConfiguration.MAX_ITEM_CHARGES);
 	}
 	
 	//not repairable... because it never breaks
@@ -61,7 +67,7 @@ public class ItemShovelDarkMatter extends ItemSpade implements IChargeable, IKey
         }
         
         //for every charge level, efficiency increases by 4
-        return efficiencyOnProperMaterial + PowerItemUtils.computeEfficiencyBonus(itemstack.getItemDamage());
+        return efficiencyOnProperMaterial + PowerItemUtils.computeEfficiencyBonus(itemstack.getItemDamage(), _matterType);
   
     }
 	
