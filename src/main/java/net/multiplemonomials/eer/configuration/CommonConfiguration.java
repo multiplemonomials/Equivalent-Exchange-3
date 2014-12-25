@@ -75,6 +75,12 @@ public class CommonConfiguration
 		//required EMC for the Red Matter Hoe to hoe one block
 		public static double RM_HOE_REQUIRED_EMC_PER_BLOCK;
 		
+		//required EMC for the Red Matter shovel to dig one block
+		public static double RM_SHOVEL_REQUIRED_EMC_PER_BLOCK;
+		
+		//required EMC for the Red Matter sword to deal one damage point in an area
+		public static double RM_SWORD_REQUIRED_EMC_PER_DAMAGE_POINT;
+		
     public static void init(Configuration configuration)
     {
     	LogHelper.info("Loading common configuration...");
@@ -137,7 +143,11 @@ public class CommonConfiguration
 			
 			RM_PICK_ABILITY_ENABLED = configuration.get(Configuration.CATEGORY_GENERAL, "rmPickAbilityEnabled", true, "Red Matter Pickaxe right-click ability enable").getBoolean(true);
 			
-			RM_PICK_REQUIRED_EMC_PER_BLOCK = configuration.get(Configuration.CATEGORY_GENERAL, "rmHoeRequiredEMCPerBlock", 32.0, "required EMC for the Red Matter Hoe to hoe one block").getDouble(32.0);
+			RM_HOE_REQUIRED_EMC_PER_BLOCK = configuration.get(Configuration.CATEGORY_GENERAL, "rmHoeRequiredEMCPerBlock", 32.0, "required EMC for the Red Matter Hoe to hoe one block").getDouble(32.0);
+			
+			RM_SHOVEL_REQUIRED_EMC_PER_BLOCK = configuration.get(Configuration.CATEGORY_GENERAL, "rmShovelRequiredEMCPerBlock", 64.0, "required EMC for the Red Matter shovel to dig one block").getDouble(64.0);
+			
+			RM_SWORD_REQUIRED_EMC_PER_DAMAGE_POINT = configuration.get(Configuration.CATEGORY_GENERAL, "rmSwordRequiredEMCPerDamagePoint", 32.0, "required EMC for the Red Matter sword to deal one damage point in an area").getDouble(32.0);
 
     	}
     	catch(Exception e)

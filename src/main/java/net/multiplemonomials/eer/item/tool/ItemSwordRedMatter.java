@@ -160,7 +160,7 @@ public class ItemSwordRedMatter extends ItemSwordDarkMatter implements IStoresEM
         if(count > 4500)
         {
         	int damageToDo = itemStack.stackTagCompound.getInteger("damageToDo");
-	    	double neededEMC = CommonConfiguration.RM_HOE_REQUIRED_EMC_PER_BLOCK * damageToDo;
+	    	double neededEMC = CommonConfiguration.RM_SWORD_REQUIRED_EMC_PER_DAMAGE_POINT * damageToDo;
 	    	
 	    	tryTakeEMC(itemStack, neededEMC); //we checked this earlier, so there should be EMC
 	    	
