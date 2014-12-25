@@ -20,6 +20,7 @@ import net.multiplemonomials.eer.client.renderer.tileentity.TileEntityGlassBellR
 import net.multiplemonomials.eer.client.settings.Keybindings;
 import net.multiplemonomials.eer.configuration.ClientConfiguration;
 import net.multiplemonomials.eer.handler.ButtonHandler;
+import net.multiplemonomials.eer.handler.ServerConnectionHandler;
 import net.multiplemonomials.eer.init.ModBlocks;
 import net.multiplemonomials.eer.reference.RenderIds;
 import net.multiplemonomials.eer.tileentity.TileEntityAlchemicalChest;
@@ -38,6 +39,7 @@ public class ClientProxy extends CommonProxy
     {
         super.registerEventHandlers();
         FMLCommonHandler.instance().bus().register(new KeyInputEventHandler());
+    	FMLCommonHandler.instance().bus().register(new ServerConnectionHandler());
         MinecraftForge.EVENT_BUS.register(new ItemTooltipEventHandler());
     }
 

@@ -6,6 +6,10 @@ import net.multiplemonomials.eer.util.LogHelper;
 
 public class CommonConfiguration
 {
+		//name of common config file
+		public static final String FILENAME = "common.properties";
+	
+	
 		//damage of Dark Matter sword on lowest charge level
 		public static double DM_SWORD_BASE_DAMAGE;
 		
@@ -133,16 +137,19 @@ public class CommonConfiguration
 			
 			RM_PICK_ABILITY_ENABLED = configuration.get(Configuration.CATEGORY_GENERAL, "rmPickAbilityEnabled", true, "Red Matter Pickaxe right-click ability enable").getBoolean(true);
 			
-			RM_PICK_REQUIRED_EMC_PER_BLOCK = configuration.get(Configuration.CATEGORY_GENERAL, "rmHoeRequiredEMCPerBlock", 32.0, "Red Matter Pickaxe right-click ability enable").getDouble(32.0);
+			RM_PICK_REQUIRED_EMC_PER_BLOCK = configuration.get(Configuration.CATEGORY_GENERAL, "rmHoeRequiredEMCPerBlock", 32.0, "required EMC for the Red Matter Hoe to hoe one block").getDouble(32.0);
 
     	}
     	catch(Exception e)
     	{
             LogHelper.error(Reference.MOD_NAME + " has had a problem loading its common configuration");
         }
-        finally
-        {
-            configuration.save();
-        }
+    }
+    
+    public static void initAndSave(Configuration configuration)
+    {
+    	init(configuration);
+        configuration.save();
+
     }
 }

@@ -53,7 +53,7 @@ public abstract class CommonProxy implements IProxy
     
     public void initConfiguration(String configPath)
     {
-    	CommonConfiguration.init(new Configuration(new File(configPath + "common.properties")));
+    	CommonConfiguration.initAndSave(new Configuration(new File(configPath + CommonConfiguration.FILENAME)));
     }
 
     public void registerTileEntities()

@@ -104,13 +104,14 @@ public class MessageConfigFileUpdateToServer implements IMessage, IMessageHandle
     	//func_152607_e = isPlayerOpped()
     	if(player.mcServer.getConfigurationManager().func_152607_e(player.getGameProfile()))
     	{
-	    	switch(configuration._configType)
-	    	{
-	    	case LOAD_AS_COMMON_CONFIG:
-	    		CommonConfiguration.init(configuration);
-	    	case SAVE:
-	    		configuration.save();
-	    	}
+    		switch(message.configuration._configType)
+        	{
+        	case LOAD_AS_COMMON_CONFIG:
+        		CommonConfiguration.initAndSave(message.configuration);
+        	case SAVE:
+        		message.configuration.save();
+        	}
+            return null;
     	}
     	else
     	{

@@ -14,6 +14,23 @@ public class ServerConnectionHandler
 	{
 		LogHelper.info("Requesting server config file...");
 		//send common configuration file
-		PacketHandler.INSTANCE.sendToServer(new MessageRequestConfiguration("common.properties", ReceivedConfigAction.LOAD_AS_COMMON_CONFIG));
+		
+		
+		new Thread(new Runnable(){
+
+			@Override
+			public void run()
+			{
+				try
+				{
+					Thread.sleep(1000);
+				}
+				catch (InterruptedException e)
+				{
+					e.printStackTrace();
+				}
+				PacketHandler.INSTANCE.sendToServer(new MessageRequestConfiguration("common.properties", ReceivedConfigAction.LOAD_AS_COMMON_CONFIG));
+			}
+		}).start();
 	}
 }
