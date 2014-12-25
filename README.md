@@ -6,8 +6,6 @@
 
 [Contributing](#contributing) - For those that want to help out.
 
-[FAQ](https://github.com/pahimar/Equivalent-Exchange-Reborn/wiki/Frequently-Asked-Questions) - For those that have questions.
-
 ###Compiling Equivalent Exchange Reborn
 IMPORTANT: Please report any issues you have, there might be some problems with the documentation!
 Also make sure you know EXACTLY what you're doing!  It's not any of our faults if your OS crashes, becomes corrupted, etc.
@@ -23,6 +21,8 @@ Also make sure you know EXACTLY what you're doing!  It's not any of our faults i
 [Compile EER](#compile-eer)
 
 [Setup Eclipse](#setup-eclipse)
+
+[Running the Server](#running-the-server)
 
 [Updating Your Repository](#updating-your-repository)
 
@@ -75,7 +75,7 @@ This section assumes that you're using the command-line version of Git.
 
 1. Open up your command line.
 2. Navigate to a place where you want to download EER's source (eg `C:\Github\Equivalent-Exchange-Reborn\`) by executing `cd [folder location]`.  This location is known as `mcdev` from now on.
-3. Execute `git clone https://github.com/pahimar/Equivalent-Exchange-Reborn.git`.  This will download EER's source into `mcdev`.
+3. Execute `https://github.com/multiplemonomials/Equivalent-Exchange-Reborn.git`.  This will download EER's source into `mcdev`.
 4. Right now, you should have a directory that looks something like:
 
 ***
@@ -111,18 +111,24 @@ This is optional, but if you want to
 
 4. It will ask for a workspace folder.  Again, this is your decision.
 
-5. After it's finished starting, go to `file->import...->General->Existing Projects` into Workspace.
+5. After it's finished starting, go to `file->import...->General->Existing Projects into Workspace`.
 	* Point it to the Equivalent-Exchange-Reborn folder and select the project that comes up.
 
 6. Create a new run configuration for the Equivalent Exchange Reborn project.  In the "Program arguments" box put
 ***
-	--version 1.7 --tweakClass cpw.mods.fml.common.launcher.FMLTweaker --accessToken modstest --username ChatterComa
-	--userProperties {} --assetIndex 1.7.10 --assetsDir C:/Users/Jamie/.gradle/caches/minecraft/assets
+	--version 1.7 --tweakClass cpw.mods.fml.common.launcher.FMLTweaker --accessToken modstest --username <username>
+	--userProperties {} --assetIndex 1.7.10 --assetsDir <path_to_gradle_home>/caches/minecraft/assets
 ***
+Replace '<username>` with your username and `<path_to_gradle_home>` with the full path to your .gradle folder (mine was `C:/Users/Jamie/.gradle`).
 In the "VM arguments" box put
 ***
 	-Dfml.ignoreInvalidMinecraftCertificates=true
 ***
+
+####Running the Server
+If you feel the need to test your changes in a client/server setup (please do, it helps prevent bugs that would otherwise escape to users),
+run the command `gradle runServer` in the source directory.  It will have you accept the EULA, and while you're at it go into server.properties
+and change online-mode to false.  Then, run the command again, and you should be good to go.
  
 ####Updating Your Repository
 In order to get the most up-to-date builds, you'll have to periodically update your local repository.
