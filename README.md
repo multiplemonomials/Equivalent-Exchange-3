@@ -119,7 +119,7 @@ This is optional, but if you want to
 	--version 1.7 --tweakClass cpw.mods.fml.common.launcher.FMLTweaker --accessToken modstest --username {username}
 	--userProperties {} --assetIndex 1.7.10 --assetsDir {path_to_gradle_home}/caches/minecraft/assets
 ***
-Replace '{username}` with your username and `{path_to_gradle_home}` with the full path to your .gradle folder (mine was `C:/Users/Jamie/.gradle`).
+Replace `{username}` with your username and `{path_to_gradle_home}` with the full path to your .gradle folder (mine was `C:/Users/Jamie/.gradle`).
 In the "VM arguments" box put
 ***
 	-Dfml.ignoreInvalidMinecraftCertificates=true
