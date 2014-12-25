@@ -1,0 +1,43 @@
+## gradle
+/.gradle
+/build
+/gradle
+/gradlew
+/gradlew.bat
+
+## ForgeGradle
+/run
+!/run/server.properties
+
+## eclipse
+/eclipse
+/.settings
+/.metadata
+/.classpath
+/.project
+/bin
+/run.txt
+
+## intellij
+/out
+/.idea
+/*.iml
+/*.ipr
+/*.iws
+/atlassian-ide-plugin.xml
+
+## minecraft
+/config
+/crash-reports
+/logs
+/mods
+/resourcepacks
+/saves
+/options.txt
+/assets
+/screenshots
+
+## ???
+/asm
+/servers.dat
+/gradle-app.setting

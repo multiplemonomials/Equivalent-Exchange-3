@@ -1,0 +1,86 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+    }
+}
+
+apply plugin: 'forge'
+
+ext.configFile = file "build.properties"
+
+configFile.withReader {
+    def prop = new Properties()
+    prop.load(it)
+    project.ext.config = new ConfigSlurper().parse prop
+}
+
+version = config.mod_version
+group = "net.multiplemonomials.eer" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "EquivalentExchangeReborn"
+
+minecraft {
+    version = config.minecraft_version + "-" + config.forge_version
+
+    replaceIn "reference/Reference.java"
+    replace "@VERSION@", "${config.mod_version}.${System.getenv("BUILD_NUMBER") ?: 0}"
+    if (project.hasProperty("ee3_signature")) {
+        replace "@FINGERPRINT@", project.ee3_signature
+    }
+}
+
+version = "${config.minecraft_version}-${config.mod_version}.${System.getenv("BUILD_NUMBER") ?: 0}"
+
+processResources {
+    // exclude xcf and pdn files, as they are for development only
+    exclude '**/*.xcf'
+    exclude '**/*.pdn'
+
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include '*.info'
+
+        // replace version and mcversion
+        expand 'mod_version': project.version, 'minecraft_version': project.config.minecraft_version
+    }
+
+    // copy everything else, thats not the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude '**/*.info'
+    }
+}
+
+
+import net.minecraftforge.gradle.delayed.*
+import net.minecraftforge.gradle.tasks.dev.ChangelogTask
+
+task createChangelog(type: ChangelogTask) {
+
+    if (("${System.getenv().JOB_NAME}" != null) && project.hasProperty("jenkins_server") && project.hasProperty("jenkins_password")) {
+        def jobName = "${System.getenv().JOB_NAME}"
+        def buildNumber = "${System.getenv().BUILD_NUMBER}"
+
+        setServerRoot(new DelayedString(project, project.jenkins_server))
+        setJobName(new DelayedString(project, jobName.toString()))
+        setAuthName(new DelayedString(project, project.jenkins_user))
+        setAuthPassword(new DelayedString(project, project.jenkins_password))
+        setTargetBuild({ buildNumber.toString() });
+        setOutput(new DelayedFile(project, 'build/libs/' + project.getName() + '-' + project.version + '-changelog.txt'));
+    }
+
+    onlyIf {
+        return (("${System.getenv().JOB_NAME}" != null) && project.hasProperty("jenkins_server") && project.hasProperty("jenkins_password"))
+    }
+}
+
+tasks.build.dependsOn('createChangelog')
