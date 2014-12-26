@@ -25,11 +25,10 @@ public class MessageCommonConfigUpdate implements IMessage, IMessageHandler<Mess
     @Override
     public void fromBytes(ByteBuf buf)
     {
-    	String[] filenameParts = CommonConfiguration.FILENAME.split(".");
     	int fileLen = buf.readInt();
     	try
 		{
-			tempFile = File.createTempFile(filenameParts[0], filenameParts[1]);
+			tempFile = File.createTempFile("common", "properties");
 	    	tempFile.deleteOnExit();
 	    	byte[] configBytes = new byte[fileLen];
 	    	buf.readBytes(configBytes);
@@ -60,7 +59,7 @@ public class MessageCommonConfigUpdate implements IMessage, IMessageHandler<Mess
     @Override
     public IMessage onMessage(MessageCommonConfigUpdate message, MessageContext ctx)
     {
-    	CommonConfiguration.init(new Configuration(tempFile));
+    	CommonConfiguration.init(new Configuration(message.tempFile));
 
         return null;
     }
