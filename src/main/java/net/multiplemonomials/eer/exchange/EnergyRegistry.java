@@ -89,7 +89,7 @@ public class EnergyRegistry
         /*
          *  File values
          */
-        Map<WrappedStack, EnergyValue> fileValuesMap = ValueFilesHandler.getFileValues();
+        Map<WrappedStack, EnergyValue> fileValuesMap = ValueFilesHandler.getAllFileValues();
         for (WrappedStack keyStack : fileValuesMap.keySet())
         {
         	EnergyValue factoredEmcValue = null;
@@ -172,31 +172,6 @@ public class EnergyRegistry
             }
         }
 
-//        /*
-//         *  IMC Post-assigned values
-//         */
-//        Map<WrappedStack, EnergyValue> postAssignedValuesMap = EnergyValuesIMC.getPostAssignedValues();
-//        for (WrappedStack keyStack : postAssignedValuesMap.keySet())
-//        {
-//            EnergyValue factoredEnergyValue = null;
-//            WrappedStack factoredKeyStack = null;
-//
-//            if (keyStack != null && keyStack.getWrappedStack() != null && keyStack.getStackSize() > 0)
-//            {
-//                if (postAssignedValuesMap.get(keyStack) != null && Float.compare(postAssignedValuesMap.get(keyStack).getValue(), 0f) > 0)
-//                {
-//                    factoredEnergyValue = EnergyHelper.factorEnergyValue(postAssignedValuesMap.get(keyStack), keyStack.getStackSize());
-//                    factoredKeyStack = new WrappedStack(keyStack, 1);
-//                }
-//            }
-//
-//            // Post auto assignment values are meant to override all over values, so we just take the value given
-//            if (factoredEnergyValue != null)
-//            {
-//                stackValueMap.put(factoredKeyStack, factoredEnergyValue);
-//            }
-//        }
-
         /**
          * Finalize the stack to value map
          */
@@ -276,7 +251,8 @@ public class EnergyRegistry
      * @param strict Controls whether the ore dictionary will be considered
      * @return
      */
-    public boolean hasEnergyValue(Object object, boolean strict)
+    @SuppressWarnings("deprecation")
+	public boolean hasEnergyValue(Object object, boolean strict)
     {
         if (WrappedStack.canBeWrapped(object))
         {
@@ -308,9 +284,9 @@ public class EnergyRegistry
                             }
                             else
                             {
-                                for(ItemStack itemStack : OreDictionary.getOres((int)OreDictionary.getOreID(wrappedItemStack)))
+                                for(int id : OreDictionary.getOreIDs(wrappedItemStack))
                                 {
-                                    if (energyRegistry.stackMappings.containsKey(new WrappedStack(itemStack)))
+                                    if (energyRegistry.stackMappings.containsKey(new WrappedStack(OreDictionary.getOres(id))))
                                     {
                                         return true;
                                     }
@@ -371,7 +347,8 @@ public class EnergyRegistry
         return hasEnergyValue(object, false);
     }
 
-    public EnergyValue getEnergyValue(Object object, boolean strict)
+    @SuppressWarnings("deprecation")
+	public EnergyValue getEnergyValue(Object object, boolean strict)
     {
         if (WrappedStack.canBeWrapped(object))
         {
@@ -399,17 +376,18 @@ public class EnergyRegistry
                             }
                             else
                             {
-                                for (ItemStack itemStack : OreDictionary.getOres(OreDictionary.getOreID(wrappedItemStack)))
+                                for(int id : OreDictionary.getOreIDs(wrappedItemStack))
                                 {
-                                    if (energyRegistry.stackMappings.containsKey(new WrappedStack(itemStack)))
+                                	WrappedStack ore = new WrappedStack(OreDictionary.getOres(id));
+                                    if (energyRegistry.stackMappings.containsKey(ore))
                                     {
                                         if (lowestValue == null)
                                         {
-                                            lowestValue = energyRegistry.stackMappings.get(new WrappedStack(itemStack));
+                                            lowestValue = energyRegistry.stackMappings.get(ore);
                                         }
                                         else
                                         {
-                                            EnergyValue itemValue = energyRegistry.stackMappings.get(new WrappedStack(itemStack));
+                                            EnergyValue itemValue = energyRegistry.stackMappings.get(ore);
 
                                             if (itemValue.compareTo(lowestValue) < 0)
                                             {

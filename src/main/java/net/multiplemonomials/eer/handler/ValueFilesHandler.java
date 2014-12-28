@@ -13,6 +13,7 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.multiplemonomials.eer.exchange.EnergyValue;
 import net.multiplemonomials.eer.exchange.WrappedStack;
+import net.multiplemonomials.eer.reference.Reference;
 import net.multiplemonomials.eer.util.LogHelper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.GameRegistry.UniqueIdentifier;
@@ -21,12 +22,15 @@ public class ValueFilesHandler
 {
     public static final String CATEGORY_EMC_VALUES = "emcvalues";
     private static File valueFileFolder;
+    
+    //stores EMC values loaded from the server
+    private static Map<WrappedStack, EnergyValue> serverValueMap;
 
     private static File getValueFileFolder()
     {
         if (valueFileFolder == null)
         {
-            valueFileFolder = new File("config" + File.separator + "eer" + File.separator + "emc");
+            valueFileFolder = new File(Reference.BASE_CONFIGURATION_FILE_PATH + "emc");
             if (!valueFileFolder.exists())
             {
                 valueFileFolder.mkdirs();
@@ -151,10 +155,11 @@ public class ValueFilesHandler
         return getFileValues(emcFile);
     }
     
-    static Map<WrappedStack, EnergyValue> valueMap = new HashMap<WrappedStack, EnergyValue>();
-
-    public static Map<WrappedStack, EnergyValue> getFileValues()
+    static Map<WrappedStack, EnergyValue> getAllLocalFileValues()
     {
+    	Map<WrappedStack, EnergyValue> valueMap = new HashMap<WrappedStack, EnergyValue>();
+
+
         for (File file : getValueFileFolder().listFiles())
         {
             if (file.getName().endsWith(".emc"))
@@ -163,5 +168,27 @@ public class ValueFilesHandler
             }
         }
         return valueMap;
+    }
+    
+    public static void addValueFileFromServer(File valueFile)
+    {
+    	if(serverValueMap == null)
+    	{
+    		serverValueMap = new HashMap<WrappedStack, EnergyValue>();
+    	}
+    	serverValueMap.putAll(getFileValues(valueFile));
+    	
+    }
+    
+    public static Map<WrappedStack, EnergyValue> getAllFileValues()
+    {
+    	//if values have been added from the server, get them.
+    	//else, use the local ones
+    	if(serverValueMap != null)
+    	{
+    		return serverValueMap;
+    	}
+    	
+    	return getAllLocalFileValues();
     }
 }

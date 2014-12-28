@@ -2,14 +2,8 @@ package net.multiplemonomials.eer.tileentity;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
-import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
-
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
-import cpw.mods.fml.relauncher.Side;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
@@ -20,17 +14,17 @@ import net.multiplemonomials.eer.interfaces.ITileEntityAcceptsEMC;
 import net.multiplemonomials.eer.inventory.ContainerCondenser;
 import net.multiplemonomials.eer.network.PacketHandler;
 import net.multiplemonomials.eer.network.message.MessageCondenserEMCUpdateToClient;
-import net.multiplemonomials.eer.network.message.MessageCondenserEMCUpdateToServer;
 import net.multiplemonomials.eer.network.message.MessageTileCondenser;
 import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.util.ItemHelper;
 import net.multiplemonomials.eer.util.LogHelper;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
+import cpw.mods.fml.relauncher.Side;
 
 public class TileEntityCondenser extends TileEntityAlchemicalChest implements ITileEntityAcceptsEMC
 {
 	public static final int INPUT_SLOT_INVENTORY_INDEX = ContainerCondenser.CONDENSER_INVENTORY_SIZE - 1;
-
-	private ItemStack[] previousInventory;
 	
 	//slots which it is not OK to put condensed items into
 	static Set<Integer> _invalidSlots;
@@ -56,9 +50,6 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest implements IT
         	_invalidSlots = new HashSet<Integer>();
         	_invalidSlots.add(INPUT_SLOT_INVENTORY_INDEX);
         }
-
-        previousInventory = new ItemStack[ContainerCondenser.CONDENSER_INVENTORY_SIZE];
-
     }
     
     @Override

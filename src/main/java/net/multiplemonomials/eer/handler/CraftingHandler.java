@@ -200,6 +200,9 @@ public class CraftingHandler
         
         GameRegistry.addShapedRecipe(new ItemStack(ModItems.hoeRedMatter), new Object[] {"RR ", " H ", " D ", 'D', new ItemStack(ModItems.matter, 1, 0), 'R',
         	new ItemStack(ModItems.matter, 1, 1), 'H', ModItems.hoeDarkMatter});
+        
+        GameRegistry.addShapedRecipe(new ItemStack(ModItems.swordRedMatter), new Object[] {" R ", " R ", " S ", 'R',
+        	new ItemStack(ModItems.matter, 1, 1), 'S', ModItems.swordDarkMatter});
 
     }
 

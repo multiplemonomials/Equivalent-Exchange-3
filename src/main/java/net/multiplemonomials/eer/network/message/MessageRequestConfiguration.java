@@ -1,8 +1,11 @@
 package net.multiplemonomials.eer.network.message;
 
 import io.netty.buffer.ByteBuf;
-import net.multiplemonomials.eer.configuration.ReceivedConfigAction;
+
+import java.io.File;
+
 import net.multiplemonomials.eer.network.PacketHandler;
+import net.multiplemonomials.eer.reference.Reference;
 import net.multiplemonomials.eer.util.LogHelper;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
@@ -15,15 +18,6 @@ public class MessageRequestConfiguration implements IMessage, IMessageHandler<Me
 {
 
     public MessageRequestConfiguration()
-    {
-    }
-
-    /**
-     * Request a config file from the server.
-     * @param fileName the name of the file/its relative path from the config folder
-     * @param actionToPerform what to do with the file once it is back at the client
-     */
-    public MessageRequestConfiguration(String fileName, ReceivedConfigAction actionToPerform)
     {
     }
 
@@ -42,6 +36,12 @@ public class MessageRequestConfiguration implements IMessage, IMessageHandler<Me
     {
     	LogHelper.info("Sending common configuration to player " + ctx.getServerHandler().playerEntity.getCommandSenderName());
     	PacketHandler.INSTANCE.sendTo(new MessageCommonConfigUpdate(), ctx.getServerHandler().playerEntity);
+    	
+    	LogHelper.info("Sending custom EMC configuration to player " + ctx.getServerHandler().playerEntity.getCommandSenderName());
+    	for(File valueFile : new File(Reference.BASE_CONFIGURATION_FILE_PATH + "emc").listFiles())
+    	{
+        	PacketHandler.INSTANCE.sendTo(new MessageEMCConfigUpdate(valueFile), ctx.getServerHandler().playerEntity);
+    	}
     	
     	return null;
     }

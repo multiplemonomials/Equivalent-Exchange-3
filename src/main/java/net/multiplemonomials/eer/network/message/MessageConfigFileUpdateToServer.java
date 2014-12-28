@@ -110,6 +110,8 @@ public class MessageConfigFileUpdateToServer implements IMessage, IMessageHandle
         		CommonConfiguration.initAndSave(message.configuration);
         	case SAVE:
         		message.configuration.save();
+			default:
+				break;
         	}
             return null;
     	}

@@ -8,5 +8,6 @@ package net.multiplemonomials.eer.configuration;
 public enum ReceivedConfigAction
 {
 	LOAD_AS_COMMON_CONFIG,
+	LOAD_AS_EMC_CONFIG,
 	SAVE;
 }
