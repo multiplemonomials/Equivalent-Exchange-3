@@ -43,6 +43,9 @@ public class MessageRequestConfiguration implements IMessage, IMessageHandler<Me
         	PacketHandler.INSTANCE.sendTo(new MessageEMCConfigUpdate(valueFile), ctx.getServerHandler().playerEntity);
     	}
     	
+    	//tell client to reload its EMC registry
+    	PacketHandler.INSTANCE.sendTo(new MessageReloadEnergyRegistry(), ctx.getServerHandler().playerEntity);
+
     	return null;
     }
 }
