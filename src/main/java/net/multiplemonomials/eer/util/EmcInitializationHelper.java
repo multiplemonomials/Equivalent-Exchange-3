@@ -18,7 +18,14 @@ public class EmcInitializationHelper implements Runnable
     	try
     	{
 	        long startTime = System.currentTimeMillis();
-	        EnergyRegistry.getInstance();
+	        if(EnergyRegistry.hasBeenInit())
+	        {
+		        EnergyRegistry.getInstance().init();
+	        }
+	        else
+	        {
+	        	EnergyRegistry.getInstance();
+	        }
 	        long duration = System.currentTimeMillis() - startTime;
 	        if (duration > 10)
 	        {

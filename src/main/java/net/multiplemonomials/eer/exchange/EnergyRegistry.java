@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.concurrent.locks.ReentrantLock;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -26,6 +27,20 @@ public class EnergyRegistry
 
     private ImmutableSortedMap<WrappedStack, EnergyValue> stackMappings;
     private ImmutableSortedMap<EnergyValue, List<WrappedStack>> valueMappings;
+    
+    private static boolean hasBeenInit = false;
+    
+    /**
+     * 
+     * @return whether the EMC registry has been initialized.  If this is false, calls to getInstance() will
+     * block until it has been init.  Otherwise, getInstance() may or may not block.
+     */
+    public static boolean hasBeenInit()
+    {
+    	return hasBeenInit;
+    }
+    
+    private static ReentrantLock _energyRegistryInitLock = new ReentrantLock();
 
     private EnergyRegistry()
     {
@@ -33,16 +48,20 @@ public class EnergyRegistry
 
     public static EnergyRegistry getInstance()
     {
+    	//block other threads from accessing the energy registry until the init thread is finished
+    	_energyRegistryInitLock.lock();
         if (energyRegistry == null)
         {
             energyRegistry = new EnergyRegistry();
             energyRegistry.init();
+            hasBeenInit = true;
         }
+    	_energyRegistryInitLock.unlock();
 
         return energyRegistry;
     }
 
-    private void init()
+    public void init()
     {
         HashMap<WrappedStack, EnergyValue> stackValueMap = new HashMap<WrappedStack, EnergyValue>();
         
