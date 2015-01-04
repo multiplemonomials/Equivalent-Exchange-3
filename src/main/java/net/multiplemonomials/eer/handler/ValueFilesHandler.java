@@ -13,38 +13,69 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.multiplemonomials.eer.exchange.EnergyValue;
 import net.multiplemonomials.eer.exchange.WrappedStack;
-import net.multiplemonomials.eer.reference.Reference;
 import net.multiplemonomials.eer.util.LogHelper;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.GameRegistry.UniqueIdentifier;
+import cpw.mods.fml.relauncher.Side;
 
-public class ValueFilesHandler
+public abstract class ValueFilesHandler
 {
     public static final String CATEGORY_EMC_VALUES = "emcvalues";
-    private static File valueFileFolder;
+
+    public abstract File getValueFile(String modid);
     
-    //stores EMC values loaded from the server
-    private static Map<WrappedStack, EnergyValue> serverValueMap;
-
-    private static File getValueFileFolder()
+    private static boolean useServerHandler = FMLCommonHandler.instance().getSide() == Side.SERVER;
+    
+    private static ValueFilesHandlerClient clientInstance;
+    private static ValueFilesHandlerServer serverInstance;
+    
+    /**
+     * 
+     *
+     */
+    public static ValueFilesHandler instance()
     {
-        if (valueFileFolder == null)
-        {
-            valueFileFolder = new File(Reference.BASE_CONFIGURATION_FILE_PATH + "emc");
-            if (!valueFileFolder.exists())
-            {
-                valueFileFolder.mkdirs();
-            }
-        }
-        return valueFileFolder;
+    	if(useServerHandler)
+    	{
+        	if(serverInstance == null)
+        	{
+        		serverInstance = new ValueFilesHandlerServer();
+        	}
+        	
+    		return serverInstance;
+    	}
+    	
+    	if(clientInstance == null)
+    	{
+    		clientInstance = new ValueFilesHandlerClient();
+    	}
+    	
+    	return clientInstance;
     }
-
-    private static File getValueFile(String modid)
+    
+    public static ValueFilesHandlerClient getClientHandler()
     {
-        return new File(getValueFileFolder().getPath() + File.separator + modid + ".emc");
+    	if(clientInstance == null)
+    	{
+    		clientInstance = new ValueFilesHandlerClient();
+    	}
+    	
+    	return clientInstance;
     }
+    
+    public static ValueFilesHandlerServer getServerHandler()
+    {
+    	if(serverInstance == null)
+    	{
+    		serverInstance = new ValueFilesHandlerServer();
+    	}
 
-    public static void addFileValue(String modid, ItemStack itemStack, EnergyValue emcValue)
+    	return serverInstance;
+    }
+    
+
+    public void addFileValue(String modid, ItemStack itemStack, EnergyValue emcValue)
     {
         File emcFile = getValueFile(modid);
         Configuration emcConfiguration = new Configuration(emcFile);
@@ -67,7 +98,7 @@ public class ValueFilesHandler
         }
     }
 
-    public static EnergyValue getFileValue(String modid, ItemStack itemStack)
+    public EnergyValue getFileValue(String modid, ItemStack itemStack)
     {
         File emcFile = getValueFile(modid);
         Configuration emcConfiguration = new Configuration(emcFile);
@@ -148,47 +179,12 @@ public class ValueFilesHandler
         }
         return valueMap;
     }
-
-    public static Map<WrappedStack, EnergyValue> getFileValues(String modid)
+    
+    public Map<WrappedStack, EnergyValue> getFileValues(String modid)
     {
         File emcFile = getValueFile(modid);
         return getFileValues(emcFile);
     }
     
-    static Map<WrappedStack, EnergyValue> getAllLocalFileValues()
-    {
-    	Map<WrappedStack, EnergyValue> valueMap = new HashMap<WrappedStack, EnergyValue>();
-
-
-        for (File file : getValueFileFolder().listFiles())
-        {
-            if (file.getName().endsWith(".emc"))
-            {
-                valueMap.putAll(getFileValues(file));
-            }
-        }
-        return valueMap;
-    }
-    
-    public static void addValueFileFromServer(File valueFile)
-    {
-    	if(serverValueMap == null)
-    	{
-    		serverValueMap = new HashMap<WrappedStack, EnergyValue>();
-    	}
-    	serverValueMap.putAll(getFileValues(valueFile));
-    	
-    }
-    
-    public static Map<WrappedStack, EnergyValue> getAllFileValues()
-    {
-    	//if values have been added from the server, get them.
-    	//else, use the local ones
-    	if(serverValueMap != null)
-    	{
-    		return serverValueMap;
-    	}
-    	
-    	return getAllLocalFileValues();
-    }
+    public abstract Map<WrappedStack, EnergyValue> getAllFileValues();
 }
