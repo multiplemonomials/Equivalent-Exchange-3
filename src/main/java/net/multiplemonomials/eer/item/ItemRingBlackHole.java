@@ -170,7 +170,7 @@ public class ItemRingBlackHole extends ItemStoresEMC implements IBauble
     				itemStack.setItemDamage(0);
     			}
 
-    			itemStack.stackTagCompound.setDouble("storedEMC", fuelEMCLeft);
+    			itemStack.stackTagCompound.setDouble(Names.NBT.EMC_STORED, fuelEMCLeft);
 			}
 			else
 			{

@@ -38,13 +38,13 @@ public class MessageRequestConfiguration implements IMessage, IMessageHandler<Me
     	PacketHandler.INSTANCE.sendTo(new MessageCommonConfigUpdate(), ctx.getServerHandler().playerEntity);
     	
     	LogHelper.info("Sending custom EMC configuration to player " + ctx.getServerHandler().playerEntity.getCommandSenderName());
-    	for(File valueFile : new File(Reference.BASE_CONFIGURATION_FILE_PATH + "emc").listFiles())
-    	{
-        	PacketHandler.INSTANCE.sendTo(new MessageEMCConfigUpdate(valueFile), ctx.getServerHandler().playerEntity);
-    	}
     	
-    	//tell client to reload its EMC registry
-    	PacketHandler.INSTANCE.sendTo(new MessageReloadEnergyRegistry(), ctx.getServerHandler().playerEntity);
+    	File[] emcConfigFiles = new File(Reference.BASE_CONFIGURATION_FILE_PATH + "emc").listFiles();
+    	
+    	for(int index = emcConfigFiles.length - 1; index >= 0; --index)
+    	{
+        	PacketHandler.INSTANCE.sendTo(new MessageEMCConfigUpdateToClient(emcConfigFiles[index], index == 0), ctx.getServerHandler().playerEntity);
+    	}
 
     	return null;
     }

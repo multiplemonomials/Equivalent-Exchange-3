@@ -31,7 +31,9 @@ public abstract class ValueFilesHandler
     private static ValueFilesHandlerServer serverInstance;
     
     /**
-     * 
+     * Returns the client handler on the client, and the server handler on the server.
+     * Be aware that this will still return the client handler when called from the *server thread* of the client,
+     * so always use the more specific functions below if you can. 
      *
      */
     public static ValueFilesHandler instance()

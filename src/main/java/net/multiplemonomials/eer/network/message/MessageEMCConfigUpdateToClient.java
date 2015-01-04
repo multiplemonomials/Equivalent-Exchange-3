@@ -8,33 +8,44 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import net.multiplemonomials.eer.handler.ValueFilesHandler;
+import net.multiplemonomials.eer.util.EmcInitializationHelper;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
-public class MessageEMCConfigUpdate implements IMessage, IMessageHandler<MessageEMCConfigUpdate, IMessage>
+public class MessageEMCConfigUpdateToClient implements IMessage, IMessageHandler<MessageEMCConfigUpdateToClient, IMessage>
 {
 	File tempFile;
 	
 	File _fileToSend;
 	
-	String filename;
+	String modid;
 	
-    public MessageEMCConfigUpdate(File fileToSend)
+	//if set, reloads the EMC registry when the packet arrives
+	boolean _isFinal;
+	
+    public MessageEMCConfigUpdateToClient(File fileToSend, boolean isFinal)
     {
     	_fileToSend = fileToSend;
-    	filename = _fileToSend.getName();
+    	String filename = _fileToSend.getName();
+    	modid = filename.substring(0, filename.length() - 5);
+    	_isFinal = isFinal;
+    }
+    
+    public MessageEMCConfigUpdateToClient()
+    {
     }
 
     @Override
     public void fromBytes(ByteBuf buf)
     {
-    	filename = ByteBufUtils.readUTF8String(buf);
+    	_isFinal = buf.readBoolean();
+    	modid = ByteBufUtils.readUTF8String(buf);
     	int fileLen = buf.readInt();
     	try
 		{
-			tempFile = File.createTempFile(filename.substring(0, filename.length() - 5), "emc");
+			tempFile = File.createTempFile(modid, "emc");
 	    	tempFile.deleteOnExit();
 	    	byte[] configBytes = new byte[fileLen];
 	    	buf.readBytes(configBytes);
@@ -50,8 +61,8 @@ public class MessageEMCConfigUpdate implements IMessage, IMessageHandler<Message
     @Override
     public void toBytes(ByteBuf out)
     {
-    	String filename = _fileToSend.getName();
-    	ByteBufUtils.writeUTF8String(out, filename);
+    	out.writeBoolean(_isFinal);
+    	ByteBufUtils.writeUTF8String(out, modid);
         try
 		{
         	byte[] configBytes = Files.readAllBytes(Paths.get(_fileToSend.getPath()));
@@ -65,10 +76,15 @@ public class MessageEMCConfigUpdate implements IMessage, IMessageHandler<Message
     }
 
     @Override
-    public IMessage onMessage(MessageEMCConfigUpdate message, MessageContext ctx)
+    public IMessage onMessage(MessageEMCConfigUpdateToClient message, MessageContext ctx)
     {
-    	ValueFilesHandler.addValueFileFromServer(message.tempFile);
+    	ValueFilesHandler.getClientHandler().addValueFileFromServer(message.modid, message.tempFile);
 
+    	if(message._isFinal)
+    	{
+        	EmcInitializationHelper.initEmcRegistry();
+    	}
+    	
         return null;
     }
 }

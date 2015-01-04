@@ -108,7 +108,7 @@ public class EnergyRegistry
         /*
          *  File values
          */
-        Map<WrappedStack, EnergyValue> fileValuesMap = ValueFilesHandler.getAllFileValues();
+        Map<WrappedStack, EnergyValue> fileValuesMap = ValueFilesHandler.instance().getAllFileValues();
         for (WrappedStack keyStack : fileValuesMap.keySet())
         {
         	EnergyValue factoredEmcValue = null;

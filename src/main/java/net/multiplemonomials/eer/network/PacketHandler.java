@@ -3,10 +3,10 @@ package net.multiplemonomials.eer.network;
 import net.multiplemonomials.eer.network.message.MessageCommonConfigUpdate;
 import net.multiplemonomials.eer.network.message.MessageCondenserEMCUpdateToClient;
 import net.multiplemonomials.eer.network.message.MessageCondenserEMCUpdateToServer;
-import net.multiplemonomials.eer.network.message.MessageConfigFileUpdateToServer;
+import net.multiplemonomials.eer.network.message.MessageEMCConfigUpdateToServer;
 import net.multiplemonomials.eer.network.message.MessageEERExtendedPlayerUpdateClient;
 import net.multiplemonomials.eer.network.message.MessageEERExtendedPlayerUpdateServer;
-import net.multiplemonomials.eer.network.message.MessageEMCConfigUpdate;
+import net.multiplemonomials.eer.network.message.MessageEMCConfigUpdateToClient;
 import net.multiplemonomials.eer.network.message.MessageEnergyCollectorUpdate;
 import net.multiplemonomials.eer.network.message.MessageKeyPressed;
 import net.multiplemonomials.eer.network.message.MessageReloadEnergyRegistry;
@@ -44,9 +44,9 @@ public class PacketHandler
         INSTANCE.registerMessage(MessageTileEntityAMRelay.class, MessageTileEntityAMRelay.class, 11, Side.CLIENT);
         INSTANCE.registerMessage(MessageCondenserEMCUpdateToClient.class, MessageCondenserEMCUpdateToClient.class, 12, Side.CLIENT);
         INSTANCE.registerMessage(MessageCondenserEMCUpdateToServer.class, MessageCondenserEMCUpdateToServer.class, 13, Side.SERVER);
-        INSTANCE.registerMessage(MessageConfigFileUpdateToServer.class, MessageConfigFileUpdateToServer.class, 14, Side.SERVER);
+        INSTANCE.registerMessage(MessageEMCConfigUpdateToServer.class, MessageEMCConfigUpdateToServer.class, 14, Side.SERVER);
         INSTANCE.registerMessage(MessageCommonConfigUpdate.class, MessageCommonConfigUpdate.class, 15, Side.CLIENT);
-        INSTANCE.registerMessage(MessageEMCConfigUpdate.class, MessageEMCConfigUpdate.class, 16, Side.CLIENT);
+        INSTANCE.registerMessage(MessageEMCConfigUpdateToClient.class, MessageEMCConfigUpdateToClient.class, 16, Side.CLIENT);
         INSTANCE.registerMessage(MessageRequestConfiguration.class, MessageRequestConfiguration.class, 17, Side.SERVER);
         INSTANCE.registerMessage(MessageReloadEnergyRegistry.class, MessageReloadEnergyRegistry.class, 18, Side.CLIENT);
 

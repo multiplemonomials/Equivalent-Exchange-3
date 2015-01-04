@@ -153,7 +153,7 @@ public class ItemRingFlight extends ItemStoresEMC implements IKeyBound, IBauble
     			player.capabilities.allowFlying = true;
     		}
     		
-    		itemStack.stackTagCompound.setDouble("storedEMC", fuelEMCLeft); 		
+    		itemStack.stackTagCompound.setDouble(Names.NBT.EMC_STORED, fuelEMCLeft); 		
     		
     	}
 		

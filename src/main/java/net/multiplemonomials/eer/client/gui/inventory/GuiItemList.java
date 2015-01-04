@@ -7,6 +7,7 @@ import net.multiplemonomials.eer.exchange.EnergyRegistry;
 import net.multiplemonomials.eer.exchange.EnergyValue;
 import net.multiplemonomials.eer.reference.Names;
 import cpw.mods.fml.client.GuiScrollingList;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class GuiItemList extends GuiScrollingList
 {
@@ -54,7 +55,19 @@ public class GuiItemList extends GuiScrollingList
         ItemStack itemStack = parent.getItemStackList().get(listIndex);
         if (itemStack != null)
         {
-            EnergyValue emcValue = EnergyRegistry.getInstance().getEnergyValue(itemStack);
+        	GameRegistry.UniqueIdentifier identifier = GameRegistry.findUniqueIdentifierFor(itemStack.getItem());
+        	EnergyValue emcValue;
+        	
+        	//load it from the list of changed values if we can
+        	if(parent.changedItemValues.containsKey(identifier))
+        	{
+        		emcValue = parent.changedItemValues.get(identifier);
+        	}
+        	else
+        	{
+        		emcValue = EnergyRegistry.getInstance().getEnergyValue(itemStack);
+        	}
+            
             boolean hasValue = emcValue != null;
 
             this.parent.getFontRenderer().drawString(this.parent.getFontRenderer().trimStringToWidth(itemStack.getDisplayName(), listWidth - 10), this.left + 3 , var3 + 2, 0xFFFFFF);
