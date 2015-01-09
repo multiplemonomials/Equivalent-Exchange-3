@@ -319,15 +319,7 @@ public class WrappedStack implements Comparable<WrappedStack>
         {
         	//unfortunately, it seems that post-1.7, item ID's are prone to being changed around while the game is loading
         	//as of Thermal Expansion 4.0.0B3, ItemBlockRockwool.getUnlocalizedName() crashes
-        	String itemName = ((ItemStack)wrappedStack).getItem().getClass().getCanonicalName();
-        	if(itemName != null && itemName == "thermalexpansion.block.simple.ItemBlockRockwool")
-        	{
-        		hashCode = (37 * hashCode) + "blockRockwool".hashCode();
-        	}
-        	else	
-            {
-        		hashCode = (37 * hashCode) + ((ItemStack) wrappedStack).getUnlocalizedName().hashCode();
-            }
+        	hashCode = (37 * hashCode) + ((ItemStack) wrappedStack).getUnlocalizedName().hashCode();
             hashCode = (37 * hashCode) + ((ItemStack) wrappedStack).getItemDamage();
 
             if (((ItemStack) wrappedStack).getTagCompound() != null)
