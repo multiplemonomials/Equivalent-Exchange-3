@@ -9,6 +9,10 @@ public class WorldEventHandler
     @SubscribeEvent
     public void onWorldLoadEvent(WorldEvent.Load event)
     {
-        EmcInitializationHelper.initEmcRegistry();
+    	//only fire for overworld load
+    	if(event.world.provider.dimensionId == 0)
+    	{
+    		EmcInitializationHelper.initEmcRegistry();
+    	}
     }
 }

@@ -29,7 +29,7 @@ public class MessageEMCConfigUpdateToClient implements IMessage, IMessageHandler
     {
     	_fileToSend = fileToSend;
     	String filename = _fileToSend.getName();
-    	modid = filename.substring(0, filename.length() - 5);
+    	modid = filename.substring(0, filename.length() - 4);
     	_isFinal = isFinal;
     }
     
