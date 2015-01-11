@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import cpw.mods.fml.common.Loader;
 import net.multiplemonomials.eer.exchange.EnergyValue;
 import net.multiplemonomials.eer.exchange.WrappedStack;
 import net.multiplemonomials.eer.reference.Reference;
@@ -42,9 +43,13 @@ public class ValueFilesHandlerServer extends ValueFilesHandler
 
         for (File file : getValueFileFolder().listFiles())
         {
-            if (file.getName().endsWith(".emc"))
+        	String filename = file.getName();
+            if(filename.endsWith(".emc"))
             {
-                valueMap.putAll(getFileValues(file));
+            	if(Loader.isModLoaded(filename.substring(0, filename.length() - 4)))
+            	{
+            		valueMap.putAll(getFileValues(file));
+            	}
             }
         }
     	

@@ -104,7 +104,7 @@ public class GuiEmcAssignment extends GuiScreen
 			valueField.drawTextBox();
 			boolean hasValue = selectedItemStackValue != null;
 			this.getFontRenderer().drawString(selectedItemStack.getDisplayName(), getWidth()/2 + 100 - (this.getFontRenderer().getStringWidth(selectedItemStack.getDisplayName())/2), 30, 0xFFFFFF);
-			String itemStackInfo = StatCollector.translateToLocalFormatted("item.information", selectedItemStack.getUnlocalizedName(), selectedItemStack.getItemDamage());
+			String itemStackInfo = StatCollector.translateToLocalFormatted("gui.eer.item.information", selectedItemStack.getUnlocalizedName(), selectedItemStack.getItemDamage());
 			this.getFontRenderer().drawString(itemStackInfo, getWidth()/2 + 100 - (this.getFontRenderer().getStringWidth(itemStackInfo)/2), 60, 0xFFFFFF);
 			String valueString = hasValue? StatCollector.translateToLocal(Names.GUI.HAS_ENERGY_VALUE): StatCollector.translateToLocal(Names.GUI.HAS_NO_ENERGY_VALUE);
 			this.getFontRenderer().drawString(valueString, getWidth()/2 + + 100 - (this.getFontRenderer().getStringWidth(valueString)/2), 90, hasValue? 0x00FF00: 0xFF0000);
