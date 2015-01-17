@@ -17,6 +17,9 @@ import net.multiplemonomials.eer.item.ItemEE;
 import net.multiplemonomials.eer.reference.Key;
 import net.multiplemonomials.eer.reference.Reference;
 import net.multiplemonomials.eer.util.PowerItemUtils;
+
+import org.lwjgl.input.Keyboard;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -84,7 +87,14 @@ public class ItemPickaxeDarkMatter extends ItemPickaxe implements IChargeable, I
     {
     	if(key == Key.CHARGE)
     	{
-    		PowerItemUtils.bumpChargeOnItem(itemStack);
+    		if(Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
+    		{
+    			PowerItemUtils.lowerChargeOnItem(itemStack, entityPlayer);
+    		}
+    		else
+    		{
+    			PowerItemUtils.bumpChargeOnItem(itemStack, entityPlayer);
+    		}
     	}
     }
     

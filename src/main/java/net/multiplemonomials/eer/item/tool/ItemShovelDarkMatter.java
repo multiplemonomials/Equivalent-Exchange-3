@@ -1,6 +1,8 @@
 package net.multiplemonomials.eer.item.tool;
 
 
+import org.lwjgl.input.Keyboard;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -82,7 +84,14 @@ public class ItemShovelDarkMatter extends ItemSpade implements IChargeable, IKey
     {
     	if(key == Key.CHARGE)
     	{
-    		PowerItemUtils.bumpChargeOnItem(itemStack);
+    		if(Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
+    		{
+    			PowerItemUtils.lowerChargeOnItem(itemStack, entityPlayer);
+    		}
+    		else
+    		{
+    			PowerItemUtils.bumpChargeOnItem(itemStack, entityPlayer);
+    		}
     	}
     }
     

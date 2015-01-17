@@ -1,6 +1,8 @@
 package net.multiplemonomials.eer.item.tool;
 
 
+import org.lwjgl.input.Keyboard;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -74,7 +76,14 @@ public class ItemSwordDarkMatter extends ItemSword implements IChargeable, IKeyB
     {
     	if(key == Key.CHARGE)
     	{
-    		PowerItemUtils.bumpChargeOnItem(itemStack);
+    		if(Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
+    		{
+    			PowerItemUtils.lowerChargeOnItem(itemStack, entityPlayer);
+    		}
+    		else
+    		{
+    			PowerItemUtils.bumpChargeOnItem(itemStack, entityPlayer);
+    		}
     	}
     }
     

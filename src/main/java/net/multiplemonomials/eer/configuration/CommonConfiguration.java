@@ -81,6 +81,9 @@ public class CommonConfiguration
 		//required EMC for the Red Matter sword to deal one damage point in an area
 		public static double RM_SWORD_REQUIRED_EMC_PER_DAMAGE_POINT;
 		
+		//if true, do not send sounds to other players
+		public static boolean SOUNDS_SELF_ONLY;
+		
     public static void init(Configuration configuration)
     {
     	LogHelper.info("Loading common configuration...");

@@ -1,0 +1,4 @@
+{
+   "chargeUp": {"category": "master","sounds": [{"name": "chargeUp","stream": false}]},
+   "chargeDown": {"category": "master","sounds": [{"name": "chargeDown","stream": false}]}
+}

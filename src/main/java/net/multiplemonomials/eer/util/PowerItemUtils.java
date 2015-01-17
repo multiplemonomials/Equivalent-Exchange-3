@@ -1,10 +1,12 @@
 package net.multiplemonomials.eer.util;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.EnumHelper;
 import net.multiplemonomials.eer.configuration.CommonConfiguration;
 import net.multiplemonomials.eer.item.tool.Matter;
+import net.multiplemonomials.eer.reference.Sounds;
 
 /**
  * Common functions for the Dark Matter tools
@@ -14,21 +16,33 @@ public class PowerItemUtils
 {
 	
 	/**
-	 * Increases the charge on an eer power item if the provided
-	 * ItemStack is a power item
+	 * Increases the charge on an eer power item and plays a sound
 	 * @param itemStack
 	 */
-	public static void bumpChargeOnItem(ItemStack itemStack) 
+	public static void bumpChargeOnItem(ItemStack itemStack, EntityPlayer player) 
 	{
 		if(itemStack.getItemDamage() > 0)
 		{
 			itemStack.setItemDamage(itemStack.getItemDamage() - 1);
-		}
-		else
+		}	
+		
+		player.worldObj.playSoundAtEntity(player, Sounds.CHARGE_UP, 1, 1);
+	}
+	
+	/**
+	 * Decreases the charge on an eer power item and plays a sound
+	 * @param itemStack
+	 */
+	public static void lowerChargeOnItem(ItemStack itemStack, EntityPlayer player) 
+	{
+		if(itemStack.getItemDamage() < CommonConfiguration.MAX_ITEM_CHARGES)
 		{
 			//reset charge to default
-			itemStack.setItemDamage(CommonConfiguration.MAX_ITEM_CHARGES);
+			itemStack.setItemDamage(itemStack.getItemDamage() + 1);
 		}		
+		
+		player.worldObj.playSoundAtEntity(player, Sounds.CHARGE_DOWN, 1, 1);
+
 	}
 	
 	/**

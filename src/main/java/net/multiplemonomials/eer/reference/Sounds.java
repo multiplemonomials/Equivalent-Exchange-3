@@ -5,6 +5,8 @@ public class Sounds
     public static final String CHEST_OPEN = "random.chestopen";
     public static final String CHEST_CLOSE = "random.chestclosed";
     private static final String SOUND_PREFIX = Reference.MOD_ID.toLowerCase() + ":";
+    
+    //all of these sounds are registered in SoundHandler
     public static final String CHARGE_DOWN = SOUND_PREFIX + "chargeDown";
     public static final String CHARGE_UP = SOUND_PREFIX + "chargeUp";
     public static final String DESTRUCTION = SOUND_PREFIX + "destruct";
