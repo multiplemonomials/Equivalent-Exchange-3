@@ -10,6 +10,8 @@ import java.nio.file.StandardCopyOption;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.multiplemonomials.eer.handler.ValueFilesHandler;
+import net.multiplemonomials.eer.network.PacketHandler;
+import net.multiplemonomials.eer.reference.Reference;
 import net.multiplemonomials.eer.util.EmcInitializationHelper;
 import net.multiplemonomials.eer.util.LogHelper;
 import cpw.mods.fml.common.network.ByteBufUtils;
@@ -118,7 +120,13 @@ public class MessageEMCConfigUpdateToServer implements IMessage, IMessageHandler
     		if(message._reloadRegistry)
     		{
     			EmcInitializationHelper.initEmcRegistry();
-    			// TODO send config file to alll connected clients ad have them reload their registries also.
+    			
+    			File[] emcConfigFiles = new File(Reference.BASE_CONFIGURATION_FILE_PATH + "emc").listFiles();
+    			
+    	    	for(int index = emcConfigFiles.length - 1; index >= 0; --index)
+    	    	{
+    	        	PacketHandler.INSTANCE.sendToAll(new MessageEMCConfigUpdateToClient(emcConfigFiles[index], index == 0));
+    	    	}
     		}
     	}
     	else
