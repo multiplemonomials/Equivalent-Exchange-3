@@ -1,4 +1,4 @@
-package net.multiplemonomials.eer.client.gui.inventory;
+package net.multiplemonomials.eer.client.gui;
 
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
@@ -6,8 +6,8 @@ import net.minecraft.util.StatCollector;
 import net.multiplemonomials.eer.exchange.EnergyRegistry;
 import net.multiplemonomials.eer.exchange.EnergyValue;
 import net.multiplemonomials.eer.reference.Names;
+import net.multiplemonomials.eer.util.ItemHelper;
 import cpw.mods.fml.client.GuiScrollingList;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public class GuiItemList extends GuiScrollingList
 {
@@ -55,13 +55,13 @@ public class GuiItemList extends GuiScrollingList
         ItemStack itemStack = parent.getItemStackList().get(listIndex);
         if (itemStack != null)
         {
-        	GameRegistry.UniqueIdentifier identifier = GameRegistry.findUniqueIdentifierFor(itemStack.getItem());
+        	String lookupString = ItemHelper.itemToString(itemStack);
         	EnergyValue emcValue;
         	
         	//load it from the list of changed values if we can
-        	if(parent.changedItemValues.containsKey(identifier))
+        	if(parent.changedItemValues.containsKey(lookupString))
         	{
-        		emcValue = parent.changedItemValues.get(identifier);
+        		emcValue = parent.changedItemValues.get(lookupString);
         	}
         	else
         	{

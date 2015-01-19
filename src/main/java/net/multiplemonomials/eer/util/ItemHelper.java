@@ -1,17 +1,18 @@
 package net.multiplemonomials.eer.util;
 
-import net.multiplemonomials.eer.inventory.slot.ShowcaseSlot;
-import net.multiplemonomials.eer.reference.Compare;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Set;
+import net.multiplemonomials.eer.inventory.slot.ShowcaseSlot;
+import net.multiplemonomials.eer.reference.Compare;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ItemHelper
 {
@@ -361,6 +362,19 @@ public class ItemHelper
     	{
     		player.entityDropItem(stack, 0.1F);
     	}
+    }
+    
+    /**
+     * Get a string unique to the passed item, mod, and metadata
+     * @param itemStack
+     * @return
+     */
+    public static String itemToString(ItemStack itemStack)
+    {
+		GameRegistry.UniqueIdentifier identifier = GameRegistry.findUniqueIdentifierFor(itemStack.getItem());
+		String modid = identifier != null? identifier.modId: "minecraft";
+		
+		return modid + '|' + identifier.name + '|' + itemStack.getItemDamage();
     }
     
 }

@@ -1,4 +1,4 @@
-package net.multiplemonomials.eer.client.gui.inventory;
+package net.multiplemonomials.eer.client.gui;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -19,6 +19,7 @@ import net.multiplemonomials.eer.network.PacketHandler;
 import net.multiplemonomials.eer.network.message.MessageEMCConfigUpdateToServer;
 import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.util.EmcInitializationHelper;
+import net.multiplemonomials.eer.util.ItemHelper;
 import cpw.mods.fml.common.registry.GameRegistry;
 public class GuiEmcAssignment extends GuiScreen
 {
@@ -44,7 +45,7 @@ public class GuiEmcAssignment extends GuiScreen
 	/**
 	 * Hashmap of the values the user has set in the GUI so that they can see feedback without having to restart the game.
 	 */
-	public HashMap<GameRegistry.UniqueIdentifier, EnergyValue> changedItemValues;
+	public HashMap<String, EnergyValue> changedItemValues;
 	
 	private int selected = -1;
 	
@@ -56,7 +57,7 @@ public class GuiEmcAssignment extends GuiScreen
 		}
 		filteredItemStackList = new ArrayList<ItemStack>(itemStackList);
 		
-		changedItemValues = new HashMap<GameRegistry.UniqueIdentifier, EnergyValue>();
+		changedItemValues = new HashMap<String, EnergyValue>();
 		
 		valueFilesChanged = new ArrayList<String>();
 	}
@@ -141,15 +142,18 @@ public class GuiEmcAssignment extends GuiScreen
 				case 1:
 					if(selectedItemStack != null)
 					{
-						GameRegistry.UniqueIdentifier identifier = GameRegistry.findUniqueIdentifierFor(selectedItemStack.getItem());
-						String modid = identifier != null? identifier.modId: "minecraft";
+						String modid = GameRegistry.findUniqueIdentifierFor(selectedItemStack.getItem()).modId;
+						if(modid == null)
+						{
+							modid = "minecraft";
+						}
 						
 						if (!valueField.getText().isEmpty() && (selectedItemStackValue == null || selectedItemStackValue.getValue() != Float.parseFloat(valueField.getText())))
 						{
 							valueFilesChanged.add(modid);
 							EnergyValue newValue = new EnergyValue(Float.parseFloat(valueField.getText()));
 							ValueFilesHandler.getClientHandler().addFileValue(modid, selectedItemStack, newValue);
-							changedItemValues.put(identifier, newValue);
+							changedItemValues.put(ItemHelper.itemToString(selectedItemStack), newValue);
 						}
 					}
 					break;
