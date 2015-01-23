@@ -44,7 +44,7 @@ public class EnergyValuesDefault
         
         valueMap.put(new WrappedStack(new ItemStack(ModItems.bandIron, 1, 1)), new EnergyValue(2624));
         
-        valueMap.put(new WrappedStack(new ItemStack(ModItems.matter, 1, 1)), new EnergyValue(213792));
+        //valueMap.put(new WrappedStack(new ItemStack(ModItems.matter, 1, 1)), new EnergyValue(213792));
         
         // OreDictionary assignment
         valueMap.put(new WrappedStack(new OreStack(new ItemStack(Blocks.cobblestone))), new EnergyValue(1));

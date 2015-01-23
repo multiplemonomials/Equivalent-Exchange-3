@@ -1,14 +1,17 @@
 package net.multiplemonomials.eer.recipe;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
-import net.multiplemonomials.eer.exchange.WrappedStack;
-import net.multiplemonomials.eer.util.LogHelper;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
+
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
+import net.multiplemonomials.eer.exchange.WrappedStack;
+import net.multiplemonomials.eer.util.LogHelper;
+
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 
 public class RecipeRegistry
 {
@@ -41,7 +44,23 @@ public class RecipeRegistry
         {
             for (List<WrappedStack> inputStacks : RecipesVanilla.getVanillaRecipes().get(outputStack))
             {
-                if (!recipeMap.get(outputStack).contains(inputStacks))
+            	boolean foundWildcard = false;
+            	//search for and wildcard items
+            	for(WrappedStack inputStack : inputStacks)
+            	{
+	            	if(inputStack.getWrappedStack() instanceof ItemStack && ((ItemStack)inputStack.getWrappedStack()).getItemDamage() == OreDictionary.WILDCARD_VALUE)
+	            	{
+	            		LogHelper.debug("Didn't add wildcard recipe with product " + ((ItemStack)outputStack.getWrappedStack()).getDisplayName());
+	            		
+	            		//TODO: I'm not really sure how best to handle this.
+	            		//for now, I can just get rid of it.
+	            		foundWildcard = true;
+	            		break;
+	            	}
+            	}
+
+            	
+                if (!foundWildcard && !recipeMap.get(outputStack).contains(inputStacks))
                 {
                     recipeMap.put(outputStack, inputStacks);
                 }
