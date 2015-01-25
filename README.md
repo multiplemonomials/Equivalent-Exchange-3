@@ -126,7 +126,7 @@ In the "VM arguments" box put
 ***
 
 7. Run it and make sure it works.  
-	*Getting `java.lang.reflect.InvocationTargetException` `Caused by: java.lang.UnsatisfiedLinkError: no lwjgl in java.library.path`?
+	* Getting `java.lang.reflect.InvocationTargetException` `Caused by: java.lang.UnsatisfiedLinkError: no lwjgl in java.library.path`?
 	In Eclipse, open the "Equivalent Exchange Reborn" folder and look for the "lwjgl-2.9.1.jar" library (your version may be different).
 	Right click on it and hit Properties, and go to the Native Library menu.  Next to the "Location path" box hit the "Workspace..." button
 	and select `Equivalent Exchange Reborn > build > natives`. Hit OK on the two dialogs, and see if it works now.
