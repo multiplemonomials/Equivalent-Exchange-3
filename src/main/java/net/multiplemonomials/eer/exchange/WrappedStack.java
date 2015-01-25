@@ -12,6 +12,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.multiplemonomials.eer.reference.Compare;
 import net.multiplemonomials.eer.util.FluidHelper;
 import net.multiplemonomials.eer.util.ItemHelper;
+import net.multiplemonomials.eer.util.LogHelper;
 
 public class WrappedStack implements Comparable<WrappedStack>
 {
@@ -319,7 +320,15 @@ public class WrappedStack implements Comparable<WrappedStack>
         {
         	//unfortunately, it seems that post-1.7, item ID's are prone to being changed around while the game is loading
         	//as of Thermal Expansion 4.0.0B3, ItemBlockRockwool.getUnlocalizedName() crashes
-        	hashCode = (37 * hashCode) + ((ItemStack) wrappedStack).getUnlocalizedName().hashCode();
+        	try
+        	{
+        		hashCode = (37 * hashCode) + ((ItemStack) wrappedStack).getUnlocalizedName().hashCode();
+        	}
+        	catch(ArrayIndexOutOfBoundsException error)
+        	{
+        		LogHelper.info("Bad item metadata: " +  ((ItemStack) wrappedStack).getItemDamage());
+        		error.printStackTrace();
+        	}
             hashCode = (37 * hashCode) + ((ItemStack) wrappedStack).getItemDamage();
 
             if (((ItemStack) wrappedStack).getTagCompound() != null)

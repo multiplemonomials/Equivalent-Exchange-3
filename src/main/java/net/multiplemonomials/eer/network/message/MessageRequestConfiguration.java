@@ -41,9 +41,12 @@ public class MessageRequestConfiguration implements IMessage, IMessageHandler<Me
     	
     	File[] emcConfigFiles = new File(Reference.BASE_CONFIGURATION_FILE_PATH + "emc").listFiles();
     	
-    	for(int index = emcConfigFiles.length - 1; index >= 0; --index)
+    	if(emcConfigFiles != null)
     	{
-        	PacketHandler.INSTANCE.sendTo(new MessageEMCConfigUpdateToClient(emcConfigFiles[index], index == 0), ctx.getServerHandler().playerEntity);
+	    	for(int index = emcConfigFiles.length - 1; index >= 0; --index)
+	    	{
+	        	PacketHandler.INSTANCE.sendTo(new MessageEMCConfigUpdateToClient(emcConfigFiles[index], index == 0), ctx.getServerHandler().playerEntity);
+	    	}
     	}
 
     	return null;

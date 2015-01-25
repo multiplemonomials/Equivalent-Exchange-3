@@ -122,10 +122,12 @@ public class MessageEMCConfigUpdateToServer implements IMessage, IMessageHandler
     			EmcInitializationHelper.initEmcRegistry();
     			
     			File[] emcConfigFiles = new File(Reference.BASE_CONFIGURATION_FILE_PATH + "emc").listFiles();
-    			
-    	    	for(int index = emcConfigFiles.length - 1; index >= 0; --index)
+    	    	if(emcConfigFiles != null)
     	    	{
-    	        	PacketHandler.INSTANCE.sendToAll(new MessageEMCConfigUpdateToClient(emcConfigFiles[index], index == 0));
+	    	    	for(int index = emcConfigFiles.length - 1; index >= 0; --index)
+	    	    	{
+	    	        	PacketHandler.INSTANCE.sendToAll(new MessageEMCConfigUpdateToClient(emcConfigFiles[index], index == 0));
+	    	    	}
     	    	}
     		}
     	}
