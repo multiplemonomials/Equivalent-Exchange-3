@@ -102,10 +102,13 @@ public class GuiEmcAssignment extends GuiScreen
 		filterField.drawTextBox();
 		if (selectedItemStack != null)
 		{
+			String itemStackInfo = String.format("%s:%d", selectedItemStack.getUnlocalizedName(), selectedItemStack.getItemDamage());
+			
+			
 			valueField.drawTextBox();
 			boolean hasValue = selectedItemStackValue != null;
 			this.getFontRenderer().drawString(selectedItemStack.getDisplayName(), getWidth()/2 + 100 - (this.getFontRenderer().getStringWidth(selectedItemStack.getDisplayName())/2), 30, 0xFFFFFF);
-			String itemStackInfo = StatCollector.translateToLocalFormatted("gui.eer.item.information", selectedItemStack.getUnlocalizedName(), selectedItemStack.getItemDamage());
+			
 			this.getFontRenderer().drawString(itemStackInfo, getWidth()/2 + 100 - (this.getFontRenderer().getStringWidth(itemStackInfo)/2), 60, 0xFFFFFF);
 			String valueString = hasValue? StatCollector.translateToLocal(Names.GUI.HAS_ENERGY_VALUE): StatCollector.translateToLocal(Names.GUI.HAS_NO_ENERGY_VALUE);
 			this.getFontRenderer().drawString(valueString, getWidth()/2 + + 100 - (this.getFontRenderer().getStringWidth(valueString)/2), 90, hasValue? 0x00FF00: 0xFF0000);
@@ -201,8 +204,13 @@ public class GuiEmcAssignment extends GuiScreen
 	        {
 	            if (filterField.getText().isEmpty() || itemStack.getDisplayName().toLowerCase().contains(filterField.getText().toLowerCase()))
 	            {
-	                if (!showOnlyNoValue || !EnergyRegistry.getInstance().hasEnergyValue(itemStack))
+	            	EnergyValue value = EnergyRegistry.getInstance().getEnergyValue(itemStack);
+	                if (!showOnlyNoValue || value == null)
 	                {
+	                	if(itemStack.getUnlocalizedName().contains("sapling"))
+	                	{
+	                		System.out.print("???");
+	                	}
 	                    filteredItemStackList.add(itemStack);
 	                }
 	            }

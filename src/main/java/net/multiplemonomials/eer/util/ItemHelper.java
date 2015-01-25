@@ -371,9 +371,28 @@ public class ItemHelper
      */
     public static String itemToString(ItemStack itemStack)
     {
+    	if(itemStack == null)
+    	{
+    		return "null";
+    	}
+    	
+    	if(itemStack.getUnlocalizedName() == "thermalfoundation.tome")
+    	{
+    		//another Thermal Expansion (Foundation actually) bug
+    		//findUniqueIdentifierFor() fails on the "Lexicon" item
+    		return "thermalfoundation|tome|0";
+    		
+    	}
+    	
 		GameRegistry.UniqueIdentifier identifier = GameRegistry.findUniqueIdentifierFor(itemStack.getItem());
-		String modid = identifier != null? identifier.modId: "minecraft";
 		
+		if(identifier == null || identifier.name == null)
+		{
+			return "null";
+		}
+		
+		String modid = (identifier != null && identifier.modId != null) ? identifier.modId: "minecraft";
+	
 		return modid + '|' + identifier.name + '|' + itemStack.getItemDamage();
     }
     

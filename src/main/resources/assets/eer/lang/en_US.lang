@@ -91,7 +91,7 @@ gui.eer.showAll=All
 gui.eer.showOnlyNoValue=Only Items Without EMC
 gui.eer.hasEnergyValue=Has Energy Value
 gui.eer.hasNoEnergyValue=No Energy Value
-gui.eer.item.information=Unlocalized name: %s,\n Metadata: %d
+gui.eer.item.information=Name: %s,NEWLINEMetadata: %d
 
 # Tooltip localizations
 tooltip.eer:upgradesChestsPrefix=Upgrades Alchemical Storage
