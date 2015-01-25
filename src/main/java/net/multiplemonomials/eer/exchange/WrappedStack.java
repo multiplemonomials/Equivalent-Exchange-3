@@ -327,7 +327,6 @@ public class WrappedStack implements Comparable<WrappedStack>
         	catch(ArrayIndexOutOfBoundsException error)
         	{
         		LogHelper.info("Bad item metadata: " +  ((ItemStack) wrappedStack).getItemDamage());
-        		error.printStackTrace();
         	}
             hashCode = (37 * hashCode) + ((ItemStack) wrappedStack).getItemDamage();
 

@@ -1,19 +1,22 @@
 package net.multiplemonomials.eer.recipe;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
-import net.multiplemonomials.eer.exchange.WrappedStack;
-import net.multiplemonomials.eer.util.RecipeHelper;
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+import net.multiplemonomials.eer.exchange.WrappedStack;
+import net.multiplemonomials.eer.util.LogHelper;
+import net.multiplemonomials.eer.util.RecipeHelper;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 
 public class RecipesVanilla
 {
@@ -47,7 +50,30 @@ public class RecipesVanilla
                 {
                     ArrayList<WrappedStack> recipeInputs = RecipeHelper.getRecipeInputs(recipe);
 
-                    if (!recipeInputs.isEmpty())
+                    boolean foundWildcard = false;
+                	//search for and wildcard items
+                	for(WrappedStack inputStack : recipeInputs)
+                	{
+    	            	if(inputStack.getWrappedStack() instanceof ItemStack && ((ItemStack)inputStack.getWrappedStack()).getItemDamage() == OreDictionary.WILDCARD_VALUE)
+    	            	{
+    	            		LogHelper.debug("Didn't add wildcard recipe with product " + recipeOutput.getDisplayName());
+    	            		
+    	            		//TODO: I'm not really sure how best to handle this.
+    	            		//for now, I can just get rid of it.
+    	            		foundWildcard = true;
+    	            		break;
+    	            	}
+                	}
+                	
+                	if(recipeOutput.getItemDamage() == OreDictionary.WILDCARD_VALUE)
+                	{
+                		LogHelper.debug("Didn't add wildcard recipe with product " + recipeOutput.getDisplayName());
+                		
+                		foundWildcard = true;
+                		break;
+                	}
+
+                    if (!foundWildcard && !recipeInputs.isEmpty())
                     {
                         vanillaRecipes.put(new WrappedStack(recipeOutput), recipeInputs);
                     }
