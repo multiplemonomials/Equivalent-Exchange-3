@@ -38,10 +38,6 @@ public class CommonConfiguration
 		
 		public static double DM_FLINT_REQUIRED_EMC_PER_BLOCK;
 		
-		//control the use of a more complicated tick handler for the flying ring
-		//that is more laggy but doesn't break other mods' creative-flight systems
-		public static boolean USE_FLYING_RING_COMPATIBILITY_FIX = true;
-		
 		//show player-like chat messages for all living things (except bats who burn to death)
 		public static boolean SHOW_ALL_DEATH_MESSAGES = false;
 		
@@ -81,8 +77,8 @@ public class CommonConfiguration
 		//required EMC for the Red Matter sword to deal one damage point in an area
 		public static double RM_SWORD_REQUIRED_EMC_PER_DAMAGE_POINT;
 		
-		//if true, do not send sounds to other players
-		public static boolean SOUNDS_SELF_ONLY;
+		//enable sometimes-verbose debug logging
+		public static boolean DEBUG_LOGGING_ENABLED = true;
 		
     public static void init(Configuration configuration)
     {
@@ -109,8 +105,6 @@ public class CommonConfiguration
 			HALF_KLEIN_STAR_ICHI_EMC = configuration.get(Configuration.CATEGORY_GENERAL, "kleinStarIchiEMC", 16384, "how many EMC a Klein Star Ichi will store (other klein stars scale from this by the formula  (2^level) * (thisvalue / 2))").getInt(16384)/2;
 
 			DM_FLINT_REQUIRED_EMC_PER_BLOCK = configuration.get(Configuration.CATEGORY_GENERAL, "dmFlintRequiredEMCPerBlock", 32.0, "How much EMC the Dark Matter and Steel uses per block it sets to fire").getDouble(32.0);
-
-			USE_FLYING_RING_COMPATIBILITY_FIX = configuration.get(Configuration.CATEGORY_GENERAL, "useRingOfFlightCompatibility", true, "use a more complicated tick handler for the flying ring that is more laggy but doesn't break other mods' creative-flight systems").getBoolean(true);
 			
 			SHOW_ALL_DEATH_MESSAGES = configuration.get(Configuration.CATEGORY_GENERAL, "showAllDeathMessages", false, "show death messages for all mobs and animals").getBoolean(false);
 			
@@ -126,11 +120,11 @@ public class CommonConfiguration
 			ENERGY_COLLECTOR_EMC_STORAGE[1] = 4 * ENERGY_COLLECTOR_EMC_STORAGE[0];
 			ENERGY_COLLECTOR_EMC_STORAGE[2] = 4 * ENERGY_COLLECTOR_EMC_STORAGE[1];
 			
-			ENERGY_COLLECTOR_DRAIN_RATE[0] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorDrainRateLvlOne", 10.0, "rate at which a level 1 energy collector drains to an alcemical battery.").getDouble(10.0));
+			ENERGY_COLLECTOR_DRAIN_RATE[0] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorDrainRateLvlOne", 10.0, "rate at which a level 1 energy collector drains to an alchemical battery.").getDouble(10.0));
 			
-			ENERGY_COLLECTOR_DRAIN_RATE[1] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorDrainRateLvlTwo", 30.0, "rate at which a level 2 energy collector drains to an alcemical battery.").getDouble(20.0));
+			ENERGY_COLLECTOR_DRAIN_RATE[1] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorDrainRateLvlTwo", 30.0, "rate at which a level 2 energy collector drains to an alchemical battery.").getDouble(20.0));
 			
-			ENERGY_COLLECTOR_DRAIN_RATE[2] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorDrainRateLvlThree", 100.0, "rate at which a level 3 energy collector drains to an alcemical battery.").getDouble(100.0));
+			ENERGY_COLLECTOR_DRAIN_RATE[2] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorDrainRateLvlThree", 100.0, "rate at which a level 3 energy collector drains to an alchemical battery.").getDouble(100.0));
 			
 			ANTIMATTER_RELAY_EMC_PER_TICK[0] = (configuration.get(Configuration.CATEGORY_GENERAL, "antimatterRelayEMCTransferance", 4096, "emc per tick that an antimatter relay will pass to the next thing.  Subsequent levels pass 2x more").getInt(4096));
 			ANTIMATTER_RELAY_EMC_PER_TICK[1] = 2 * ANTIMATTER_RELAY_EMC_PER_TICK[0];
@@ -151,6 +145,8 @@ public class CommonConfiguration
 			RM_SHOVEL_REQUIRED_EMC_PER_BLOCK = configuration.get(Configuration.CATEGORY_GENERAL, "rmShovelRequiredEMCPerBlock", 64.0, "required EMC for the Red Matter shovel to dig one block").getDouble(64.0);
 			
 			RM_SWORD_REQUIRED_EMC_PER_DAMAGE_POINT = configuration.get(Configuration.CATEGORY_GENERAL, "rmSwordRequiredEMCPerDamagePoint", 32.0, "required EMC for the Red Matter sword to deal one damage point in an area").getDouble(32.0);
+			
+			DEBUG_LOGGING_ENABLED = configuration.get(Configuration.CATEGORY_GENERAL, "debugLoggingEnabled", false, "enable sometimes verbose debug logging").getBoolean(false);
 
     	}
     	catch(Exception e)

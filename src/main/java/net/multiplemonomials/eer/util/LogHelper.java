@@ -1,8 +1,11 @@
 package net.multiplemonomials.eer.util;
 
+import net.multiplemonomials.eer.configuration.CommonConfiguration;
 import net.multiplemonomials.eer.reference.Reference;
-import cpw.mods.fml.common.FMLLog;
+
 import org.apache.logging.log4j.Level;
+
+import cpw.mods.fml.common.FMLLog;
 
 public class LogHelper
 {
@@ -18,7 +21,10 @@ public class LogHelper
 
     public static void debug(Object object)
     {
-        log(Level.DEBUG, object);
+    	if(CommonConfiguration.DEBUG_LOGGING_ENABLED)
+    	{
+    		log(Level.DEBUG, object);
+    	}
     }
 
     public static void error(Object object)
