@@ -10,6 +10,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.util.MathHelper;
 import net.multiplemonomials.eer.configuration.CommonConfiguration;
 import net.multiplemonomials.eer.exchange.EnergyRegistry;
+import net.multiplemonomials.eer.exchange.EnergyValue;
 import net.multiplemonomials.eer.interfaces.ITileEntityAcceptsEMC;
 import net.multiplemonomials.eer.inventory.ContainerCondenser;
 import net.multiplemonomials.eer.network.PacketHandler;
@@ -31,6 +32,24 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest implements IT
 	
 	double _targetItemEMC;
 	
+	public double getTargetItemEMC()
+	{
+		//the actual value cannot be trusted on the client, at least for now
+		if(inventory[INPUT_SLOT_INVENTORY_INDEX] == null)
+		{
+			return 0;
+		}
+		
+		EnergyValue value = EnergyRegistry.getInstance().getEnergyValue(inventory[INPUT_SLOT_INVENTORY_INDEX]);
+		
+		if(value == null)
+		{
+			return 0;
+		}
+		
+		return value.getValue();
+	}
+
 	int _freeSpace;
 	
 	/**
@@ -64,7 +83,7 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest implements IT
        super.readFromNBT(nbtTagCompound);
 
        leftoverEMC = nbtTagCompound.getDouble("leftoverEMC");
-       _targetItemEMC = nbtTagCompound.getInteger("targetItemEMC");
+       _targetItemEMC = nbtTagCompound.getDouble("targetItemEMC");
     }
     
     @Override
@@ -98,6 +117,7 @@ public class TileEntityCondenser extends TileEntityAlchemicalChest implements IT
     	{
     		boolean changedLeftoverEMC = false;
         	
+    		//check for things to condense
     		ArrayList<Integer> condensableItems = getCondensableItems();
     		
     		if(!condensableItems.isEmpty() || leftoverEMC > _targetItemEMC)

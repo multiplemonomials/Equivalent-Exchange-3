@@ -1,12 +1,11 @@
 package net.multiplemonomials.eer.item;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.multiplemonomials.eer.interfaces.IKeyBound;
 import net.multiplemonomials.eer.reference.Key;
 import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.util.LogHelper;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 
 public class ItemPhilosophersStone extends ItemEE implements IKeyBound
 {
@@ -28,7 +27,7 @@ public class ItemPhilosophersStone extends ItemEE implements IKeyBound
     {
         return true;
     }
-
+    
     @Override
     public ItemStack getContainerItem(ItemStack itemStack)
     {

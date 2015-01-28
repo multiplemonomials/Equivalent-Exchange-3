@@ -1,10 +1,10 @@
 package net.multiplemonomials.eer.reference;
 
-import cpw.mods.fml.relauncher.SideOnly;
-import cpw.mods.fml.relauncher.Side;
-import net.multiplemonomials.eer.util.ResourceLocationHelper;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.ResourceLocation;
+import net.multiplemonomials.eer.util.ResourceLocationHelper;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class Textures
@@ -34,6 +34,7 @@ public class Textures
     public static final ResourceLocation GUI_ALCHEMICAL_CHEST_MEDIUM = ResourceLocationHelper.getResourceLocation(GUI_SHEET_LOCATION + "alchemicalChest_medium.png");
     public static final ResourceLocation GUI_ALCHEMICAL_CHEST_LARGE = ResourceLocationHelper.getResourceLocation(GUI_SHEET_LOCATION + "alchemicalChest_large.png");
     public static final ResourceLocation GUI_CONDENSER = ResourceLocationHelper.getResourceLocation(GUI_SHEET_LOCATION + "condenser.png");
+    public static final ResourceLocation GUI_CONDENSER_BAR = ResourceLocationHelper.getResourceLocation(GUI_SHEET_LOCATION + "condenserBar.png");
     public static final ResourceLocation GUI_GLASS_BELL = ResourceLocationHelper.getResourceLocation(GUI_SHEET_LOCATION + "glassBell.png");
 	public static final ResourceLocation GUI_TRANSMUTATION_TABLET = ResourceLocationHelper.getResourceLocation(GUI_SHEET_LOCATION + "transmutationTablet.png");
 	public static final ResourceLocation GUI_ENERGY_COLLECTOR = ResourceLocationHelper.getResourceLocation(GUI_SHEET_LOCATION + "energyCollector.png");
