@@ -120,11 +120,11 @@ public class CommonConfiguration
 			ENERGY_COLLECTOR_EMC_STORAGE[1] = 4 * ENERGY_COLLECTOR_EMC_STORAGE[0];
 			ENERGY_COLLECTOR_EMC_STORAGE[2] = 4 * ENERGY_COLLECTOR_EMC_STORAGE[1];
 			
-			ENERGY_COLLECTOR_DRAIN_RATE[0] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorDrainRateLvlOne", 10.0, "rate at which a level 1 energy collector drains to an alchemical battery.").getDouble(10.0));
+			ENERGY_COLLECTOR_DRAIN_RATE[0] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorDrainRateLvlOne", 100.0, "rate at which a level 1 energy collector drains to an alchemical battery.").getDouble(10.0));
 			
-			ENERGY_COLLECTOR_DRAIN_RATE[1] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorDrainRateLvlTwo", 30.0, "rate at which a level 2 energy collector drains to an alchemical battery.").getDouble(20.0));
+			ENERGY_COLLECTOR_DRAIN_RATE[1] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorDrainRateLvlTwo", 300.0, "rate at which a level 2 energy collector drains to an alchemical battery.").getDouble(20.0));
 			
-			ENERGY_COLLECTOR_DRAIN_RATE[2] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorDrainRateLvlThree", 100.0, "rate at which a level 3 energy collector drains to an alchemical battery.").getDouble(100.0));
+			ENERGY_COLLECTOR_DRAIN_RATE[2] = (configuration.get(Configuration.CATEGORY_GENERAL, "energyCollectorDrainRateLvlThree", 1000.0, "rate at which a level 3 energy collector drains to an alchemical battery.").getDouble(100.0));
 			
 			ANTIMATTER_RELAY_EMC_PER_TICK[0] = (configuration.get(Configuration.CATEGORY_GENERAL, "antimatterRelayEMCTransferance", 4096, "emc per tick that an antimatter relay will pass to the next thing.  Subsequent levels pass 2x more").getInt(4096));
 			ANTIMATTER_RELAY_EMC_PER_TICK[1] = 2 * ANTIMATTER_RELAY_EMC_PER_TICK[0];

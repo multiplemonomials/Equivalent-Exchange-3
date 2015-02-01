@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cpw.mods.fml.common.Loader;
+import net.multiplemonomials.eer.api.stack.WrappedStack;
 import net.multiplemonomials.eer.exchange.EnergyValue;
-import net.multiplemonomials.eer.exchange.WrappedStack;
 import net.multiplemonomials.eer.reference.Reference;
 
 /**

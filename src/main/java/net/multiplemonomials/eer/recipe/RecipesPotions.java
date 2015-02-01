@@ -2,7 +2,8 @@ package net.multiplemonomials.eer.recipe;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import net.multiplemonomials.eer.exchange.WrappedStack;
+
+import net.multiplemonomials.eer.api.stack.WrappedStack;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;

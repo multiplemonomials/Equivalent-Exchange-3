@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import net.multiplemonomials.eer.exchange.WrappedStack;
+import net.multiplemonomials.eer.api.stack.WrappedStack;
 import net.multiplemonomials.eer.util.LogHelper;
 
 import com.google.common.collect.HashMultimap;

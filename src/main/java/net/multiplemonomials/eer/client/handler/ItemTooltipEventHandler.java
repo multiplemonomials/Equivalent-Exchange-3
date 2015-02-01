@@ -3,10 +3,10 @@ package net.multiplemonomials.eer.client.handler;
 import java.text.DecimalFormat;
 
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.multiplemonomials.eer.api.stack.WrappedStack;
 import net.multiplemonomials.eer.configuration.CommonConfiguration;
 import net.multiplemonomials.eer.exchange.EnergyRegistry;
 import net.multiplemonomials.eer.exchange.EnergyValue;
-import net.multiplemonomials.eer.exchange.WrappedStack;
 import net.multiplemonomials.eer.interfaces.IChargeable;
 import net.multiplemonomials.eer.interfaces.IStoresEMC;
 

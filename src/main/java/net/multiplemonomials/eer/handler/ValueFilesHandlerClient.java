@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.multiplemonomials.eer.api.stack.WrappedStack;
 import net.multiplemonomials.eer.exchange.EnergyValue;
-import net.multiplemonomials.eer.exchange.WrappedStack;
 
 /**
  * ValueFilesHandler that operates on temp files fed in by the server

@@ -1,7 +1,7 @@
 package net.multiplemonomials.eer.util;
 
-import net.multiplemonomials.eer.exchange.OreStack;
-import net.multiplemonomials.eer.exchange.WrappedStack;
+import net.multiplemonomials.eer.api.stack.OreStack;
+import net.multiplemonomials.eer.api.stack.WrappedStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;

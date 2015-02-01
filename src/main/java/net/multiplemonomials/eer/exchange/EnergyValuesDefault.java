@@ -8,6 +8,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import net.multiplemonomials.eer.api.stack.OreStack;
+import net.multiplemonomials.eer.api.stack.WrappedStack;
 import net.multiplemonomials.eer.init.ModItems;
 
 public class EnergyValuesDefault

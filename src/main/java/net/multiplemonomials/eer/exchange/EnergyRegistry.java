@@ -13,6 +13,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.multiplemonomials.eer.EquivalentExchangeReborn;
+import net.multiplemonomials.eer.api.stack.OreStack;
+import net.multiplemonomials.eer.api.stack.WrappedStack;
 import net.multiplemonomials.eer.handler.ValueFilesHandler;
 import net.multiplemonomials.eer.init.ModBlocks;
 import net.multiplemonomials.eer.recipe.RecipeRegistry;
@@ -103,6 +105,7 @@ public class EnergyRegistry
                 }
             }
         }
+
 
 
         /*
@@ -539,10 +542,5 @@ public class EnergyRegistry
         {
             LogHelper.info(String.format("%s = %s", wrappedStack, getStackToEnergyValueMap().get(wrappedStack)));
         }
-    }
-
-    public void dumpValueMappings()
-    {
-
     }
 }

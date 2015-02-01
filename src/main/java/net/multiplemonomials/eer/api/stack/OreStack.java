@@ -1,4 +1,4 @@
-package net.multiplemonomials.eer.exchange;
+package net.multiplemonomials.eer.api.stack;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;

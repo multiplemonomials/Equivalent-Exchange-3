@@ -3,6 +3,7 @@ package net.multiplemonomials.eer.configuration;
 import java.io.File;
 
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraftforge.common.config.Configuration;
 import net.multiplemonomials.eer.client.settings.Keybindings;
 import net.multiplemonomials.eer.reference.Names;
 import net.multiplemonomials.eer.reference.Reference;
@@ -13,11 +14,11 @@ import org.lwjgl.input.Keyboard;
 public class ClientConfiguration
 {
     private static final String CATEGORY_KEYBIND = "keybindings";
-    private static SerializableConfiguration configuration;
+    private static Configuration configuration;
 
     public static void init(File configFile)
     {
-        configuration = new SerializableConfiguration(configFile);
+        configuration = new Configuration(configFile);
         
     	LogHelper.info("Loading client configuration...");
 

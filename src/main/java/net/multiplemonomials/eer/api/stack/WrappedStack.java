@@ -1,4 +1,4 @@
-package net.multiplemonomials.eer.exchange;
+package net.multiplemonomials.eer.api.stack;
 
 import java.util.ArrayList;
 import java.util.Comparator;

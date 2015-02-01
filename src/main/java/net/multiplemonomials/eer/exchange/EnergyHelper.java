@@ -2,6 +2,7 @@ package net.multiplemonomials.eer.exchange;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.multiplemonomials.eer.api.stack.WrappedStack;
 
 import java.util.ArrayList;
 import java.util.List;

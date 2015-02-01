@@ -11,7 +11,7 @@ import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
-import net.multiplemonomials.eer.exchange.WrappedStack;
+import net.multiplemonomials.eer.api.stack.WrappedStack;
 import net.multiplemonomials.eer.util.LogHelper;
 import net.multiplemonomials.eer.util.RecipeHelper;
 
